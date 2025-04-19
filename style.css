@@ -311,6 +311,47 @@ body {
     visibility: hidden; /* Hide the text */
 }
 
+/* Re-apply the widths to show the progress */
+.skill-category:nth-child(1) .progress-bar:nth-child(1) .progress-inner {
+    width: 90%; /* Python */
+    visibility: visible; /* Make the bar visible */
+}
+
+.skill-category:nth-child(1) .progress-bar:nth-child(2) .progress-inner {
+    width: 75%; /* C++ */
+    visibility: visible;
+}
+
+.skill-category:nth-child(1) .progress-bar:nth-child(3) .progress-inner {
+    width: 60%; /* Java */
+    visibility: visible;
+}
+
+.skill-category:nth-child(2) .progress-bar:nth-child(1) .progress-inner {
+    width: 85%; /* TensorFlow */
+    visibility: visible;
+}
+
+.skill-category:nth-child(2) .progress-bar:nth-child(2) .progress-inner {
+    width: 80%; /* PyTorch */
+    visibility: visible;
+}
+
+.skill-category:nth-child(2) .progress-bar:nth-child(3) .progress-inner {
+    width: 70%; /* NLP */
+    visibility: visible;
+}
+
+.skill-category:nth-child(3) .progress-bar:nth-child(1) .progress-inner {
+    width: 80%; /* ROS */
+    visibility: visible;
+}
+
+.skill-category:nth-child(3) .progress-bar:nth-child(2) .progress-inner {
+    width: 85%; /* Embedded Systems */
+    visibility: visible;
+}
+
 /* Resume Section */
 .resume-container {
     text-align: center;
