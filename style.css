@@ -27,7 +27,7 @@ body {
     padding: 30px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start; /* Changed from center */
     position: fixed;
     left: 0;
     top: 0;
@@ -36,7 +36,7 @@ body {
 }
 
 .profile {
-    text-align: center;
+    text-align: left; /* Changed from center */
     margin-bottom: 40px;
 }
 
@@ -125,7 +125,7 @@ body {
     margin-top: 20px;
     font-size: 0.8rem;
     color: #64748B;
-    text-align: center;
+    text-align: left; /* Changed from center */
 }
 
 /* Main Content */
@@ -398,13 +398,13 @@ body {
 /* Desktop Styles (above 1025px) */
 @media screen and (min-width: 1025px) {
     .sidebar {
-        align-items: flex-start; /* Align items to the left on desktop sidebar */
+        align-items: flex-start; /* Keep left align */
     }
 
     .profile {
         display: flex; /* Arrange image and text in a row */
         align-items: center; /* Vertically align image and text */
-        text-align: left; /* Align text to the left within the profile */
+        text-align: left; /* Keep left align */
         margin-bottom: 50px; /* Adjust spacing */
     }
 
@@ -425,43 +425,54 @@ body {
     }
 }
 
-/* Existing Media Query for smaller tablets/laptops (max-width: 768px) - Keep as is */
+/* Existing Media Query for smaller tablets/laptops (max-width: 768px) - Modified */
 @media screen and (max-width: 768px) {
     .main-container {
         flex-direction: column;
     }
 
     .sidebar {
-        position: static;
-        width: 100%;
+        position: fixed; /* Keep it fixed */
+        width: 100%; /* Full width */
         min-height: auto;
-        flex-direction: row;
-        align-items: flex-start;
+        flex-direction: row; /* Horizontal layout */
+        align-items: center; /* Center vertically */
         padding: 20px;
-        overflow-x: auto;
-        align-items: center; /* Center items in horizontal sidebar */
+        overflow-x: auto; /* Allow horizontal scrolling if needed */
+        justify-content: space-between; /* Distribute items */
     }
 
     .profile {
-        margin-bottom: 20px;
-        margin-right: 30px;
-        text-align: center; /* Center profile info in horizontal bar */
+        margin-bottom: 0; /* Remove bottom margin */
+        margin-right: 20px; /* Add some right margin */
+        text-align: left; /* Align text left */
+        display: flex; /* Use flexbox for alignment */
+        align-items: center; /* Center items vertically */
     }
 
     .profile-image {
-        width: 100px;
-        height: 100px;
-        margin-bottom: 15px;
-        margin-right: 0; /* Reset right margin */
+        width: 80px; /* Smaller image */
+        height: 80px;
+        margin-bottom: 0; /* Remove bottom margin */
+        margin-right: 15px; /* Add right margin */
+    }
+
+    .name {
+        font-size: 1.6rem;
+        margin-bottom: 0;
+    }
+
+    .title {
+        font-size: 1rem;
     }
 
     .nav {
-        margin-bottom: 20px;
-        width: auto; /* Adjust nav width */
+        margin-bottom: 0; /* Remove bottom margin */
     }
 
     .nav-list {
         display: flex;
+        overflow-x: auto; /* Allow horizontal scrolling for nav */
     }
 
     .nav-item {
@@ -473,14 +484,15 @@ body {
         margin-left: 0;
         width: 100%;
         padding: 30px;
+        margin-top: 120px; /* Add top margin to avoid overlap with fixed horizontal sidebar */
     }
 
     .social-links {
-        margin-top: 20px;
+        margin-top: 0; /* Remove top margin */
     }
 
     .copyright {
-        margin-top: 10px;
+        display: none; /* Hide copyright in this view */
     }
 
     .project-list {
@@ -492,7 +504,7 @@ body {
     }
 
     .about .section-title {
-        text-align: center; /* Center 'About Me' title on smaller tablets/laptops */
+        text-align: center; /* Center 'About Me' title */
     }
 }
 
@@ -500,53 +512,79 @@ body {
 @media screen and (max-width: 480px) {
     .sidebar {
         padding: 15px;
-        align-items: center; /* Ensure centering */
+        align-items: center;
+        flex-direction: column; / Back to vertical /
+        position: static; / No longer fixed /
+        width: 100%;
+        overflow-x: auto; / Keep horizontal scroll for potential overflow */
     }
 
+    .profile {
+        text-align: center; /* Center profile info */
+        margin-bottom: 20px;
+        display: block; /* Back to block */
+    }
+    
     .profile-image {
         width: 100px;
         height: 100px;
         margin-bottom: 15px;
+        margin-right: 0; /* Reset right margin */
     }
-
+    
     .name {
         font-size: 1.8rem;
     }
-
+    
+    .nav {
+        margin-bottom: 20px;
+    }
+    
     .nav-list {
         flex-wrap: wrap;
         justify-content: center; /* Center navigation links */
     }
-
+    
     .nav-item {
         margin-right: 10px;
         margin-bottom: 10px;
     }
-
+    
     .nav-link {
         padding: 8px 15px;
         font-size: 0.9rem;
     }
-
+    
     .main-content {
         padding: 20px;
+        margin-top: 0; /* Reset top margin */
     }
-
+    
     .section-title {
         font-size: 1.8rem;
         margin-bottom: 20px;
         padding-bottom: 10px;
     }
-
+    
     .about-details {
         grid-template-columns: 1fr;
     }
-
+    
     .project-list {
         grid-template-columns: 1fr;
     }
-
+    
     .skills-container {
         grid-template-columns: 1fr;
+    }
+    
+    .social-links {
+        margin-top: 20px;
+        order: -1; /* Keep at the top */
+    }
+    
+    .copyright {
+        display: block; /* Show copyright */
+        text-align: center; /* Center copyright */
     }
 }
