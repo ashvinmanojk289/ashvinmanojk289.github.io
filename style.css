@@ -323,6 +323,13 @@ body {
     font-size: 1.1rem;
 }
 
+.resume-preview {
+    margin-bottom: 20px;
+    border: 1px solid #2C363F; /* Optional border */
+    border-radius: 8px; /* Optional rounded corners */
+    overflow: hidden; /* To contain the embed if needed */
+}
+
 .button {
     display: inline-block;
     background-color: #5EEAD4;
