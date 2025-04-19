@@ -323,11 +323,17 @@ body {
     font-size: 1.1rem;
 }
 
-.resume-preview {
+.resume-image-container {
     margin-bottom: 20px;
     border: 1px solid #2C363F; /* Optional border */
     border-radius: 8px; /* Optional rounded corners */
-    overflow: hidden; /* To contain the embed if needed */
+    overflow: hidden; /* To contain the image */
+}
+
+.resume-image-container img {
+    display: block; /* Prevent extra space below the image */
+    width: 100%;
+    height: auto;
 }
 
 .button {
