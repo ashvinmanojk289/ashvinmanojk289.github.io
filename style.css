@@ -134,8 +134,10 @@ body {
     padding: 40px;
     margin-left: 300px;
     width: calc(100% - 300px);
-    position: relative; /* Added for z-index context */
-    z-index: 1; /* Ensure it's below the sidebar if needed */
+    position: relative;
+    /* Added for z-index context */
+    z-index: 1;
+    /* Ensure it's below the sidebar if needed */
 }
 
 .section {
@@ -215,7 +217,7 @@ body {
 
 .project-card h3 a {
     color: inherit;
-    text-decoration: none;
+    text-decoration: none; /* Removed underline */
 }
 
 .project-card h3 a:hover {
@@ -302,40 +304,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding-right: 10px;
+    padding-right: 0; /* Removed padding to hide percentage */
     color: #161B22;
     font-size: 0.8rem;
     font-weight: bold;
-}
-
-/* Contact Section */
-.contact-container {
-    margin-top: 30px;
-}
-
-.contact-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    color: #E2E8F0;
-    margin-bottom: 15px;
-}
-
-.contact-item i {
-    font-size: 1.5rem;
-    color: #5EEAD4;
-    margin-right: 15px;
-    width: 30px;
-    text-align: center;
-}
-
-.contact-item span {
-    font-size: 1rem;
+    visibility: hidden; /* Hide the text */
 }
 
 /* Resume Section */
@@ -425,10 +398,6 @@ body {
     .skills-container {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
-
-    .contact-info {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }
 }
 
 @media screen and (max-width: 480px) {
@@ -479,10 +448,6 @@ body {
     }
 
     .skills-container {
-        grid-template-columns: 1fr;
-    }
-
-    .contact-info {
         grid-template-columns: 1fr;
     }
 }
