@@ -9,8 +9,8 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #191919;
-    color: #f0f8ff;
+    background-color: #161B22; /* Darker background */
+    color: #C6D0EB; /* Softer text color */
     line-height: 1.6;
     overflow-x: hidden;
 }
@@ -22,7 +22,7 @@ body {
 
 /* Sidebar */
 .sidebar {
-    background-color: #272727;
+    background-color: #1D252F; /* Slightly lighter sidebar */
     width: 300px;
     padding: 30px;
     display: flex;
@@ -32,7 +32,7 @@ body {
     left: 0;
     top: 0;
     bottom: 0;
-    z-index: 10; /* Ensure it's above the main content */
+    z-index: 10;
 }
 
 .profile {
@@ -46,7 +46,7 @@ body {
     border-radius: 50%;
     overflow: hidden;
     margin-bottom: 20px;
-    border: 5px solid #333;
+    border: 5px solid #2C363F; /* Border to match */
 }
 
 .profile-image img {
@@ -57,13 +57,13 @@ body {
 
 .name {
     font-size: 2rem;
-    color: #fff;
+    color: #F0F8FF; /* White for strong contrast */
     margin-bottom: 10px;
 }
 
 .title {
     font-size: 1.1rem;
-    color: #a0cff9;
+    color: #A5B4FC; /* Soft blue */
     font-weight: 300;
 }
 
@@ -83,7 +83,7 @@ body {
 
 .nav-link {
     display: block;
-    color: #f0f8ff;
+    color: #E2E8F0; /* Lighter text */
     text-decoration: none;
     padding: 10px 20px;
     border-radius: 25px;
@@ -99,8 +99,8 @@ body {
 
 .nav-link:hover,
 .nav-link.active {
-    background-color: #333;
-    color: #6fb1fc;
+    background-color: #2C363F; /* Hover/active state */
+    color: #5EEAD4; /* Teal accent */
 }
 
 /* Social Links */
@@ -111,28 +111,28 @@ body {
 }
 
 .social-links a {
-    color: #a0cff9;
+    color: #A5B4FC; /* Soft blue */
     font-size: 1.3rem;
     transition: color 0.3s ease;
 }
 
 .social-links a:hover {
-    color: #6fb1fc;
+    color: #5EEAD4; /* Teal accent */
 }
 
 /* Copyright */
 .copyright {
     margin-top: 20px;
     font-size: 0.8rem;
-    color: #777;
+    color: #64748B; /* Muted text */
     text-align: center;
 }
 
 /* Main Content */
 .main-content {
-    background-color: #191919;
+    background-color: #161B22;
     padding: 40px;
-    margin-left: 300px; /* Width of the sidebar */
+    margin-left: 300px;
     width: calc(100% - 300px);
 }
 
@@ -146,18 +146,18 @@ body {
 
 .section-title {
     font-size: 2rem;
-    color: #fff;
+    color: #F0F8FF;
     margin-bottom: 30px;
     position: relative;
     padding-bottom: 15px;
-    border-bottom: 2px solid #333;
+    border-bottom: 2px solid #2C363F;
 }
 
 /* About Section */
 .about-container p {
     line-height: 1.8;
     margin-bottom: 20px;
-    color: #ccc;
+    color: #C6D0EB;
 }
 
 .about-details {
@@ -169,15 +169,15 @@ body {
 .detail-item {
     display: flex;
     align-items: center;
-    background-color: #272727;
+    background-color: #1D252F;
     padding: 15px;
     border-radius: 8px;
-    color: #eee;
+    color: #E2E8F0;
 }
 
 .detail-item i {
     font-size: 1.5rem;
-    color: #6fb1fc;
+    color: #5EEAD4; /* Teal accent */
     margin-right: 15px;
 }
 
@@ -194,7 +194,7 @@ body {
 }
 
 .project-card {
-    background-color: #272727;
+    background-color: #1D252F;
     padding: 25px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -206,7 +206,7 @@ body {
 }
 
 .project-card h3 {
-    color: #fff;
+    color: #F0F8FF;
     margin-bottom: 15px;
     font-size: 1.5rem;
 }
@@ -218,10 +218,11 @@ body {
 
 .project-card h3 a:hover {
     text-decoration: underline;
+    color: #5EEAD4; /* Teal accent on hover */
 }
 
 .project-card p {
-    color: #ccc;
+    color: #C6D0EB;
     line-height: 1.7;
     margin-bottom: 20px;
     min-height: 80px; /* Adjust as needed */
@@ -235,8 +236,8 @@ body {
 }
 
 .tech-badge {
-    background-color: #333;
-    color: #fff;
+    background-color: #2C363F;
+    color: #E2E8F0;
     padding: 8px 12px;
     border-radius: 5px;
     font-size: 0.9rem;
@@ -244,7 +245,7 @@ body {
 
 .project-link {
     display: inline-block;
-    color: #6fb1fc;
+    color: #A5B4FC; /* Soft blue */
     text-decoration: none;
     transition: color 0.3s ease;
     font-weight: 500;
@@ -255,7 +256,7 @@ body {
 }
 
 .project-link:hover {
-    color: #a0cff9;
+    color: #5EEAD4; /* Teal accent on hover */
 }
 
 /* Skills Section */
@@ -267,16 +268,16 @@ body {
 }
 
 .skill-category h3 {
-    color: #fff;
+    color: #F0F8FF;
     font-size: 1.3rem;
     margin-bottom: 15px;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #2C363F;
     padding-bottom: 10px;
 }
 
 .progress-bar {
     margin-bottom: 20px;
-    color: #eee;
+    color: #E2E8F0;
 }
 
 .progress-bar span {
@@ -286,21 +287,21 @@ body {
 }
 
 .progress {
-    background-color: #333;
+    background-color: #2C363F;
     border-radius: 10px;
     height: 10px;
     overflow: hidden;
 }
 
 .progress-inner {
-    background-color: #6fb1fc;
+    background-color: #5EEAD4; /* Teal accent */
     height: 100%;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     padding-right: 10px;
-    color: #191919;
+    color: #161B22; /* Dark text on teal */
     font-size: 0.8rem;
     font-weight: bold;
 }
@@ -319,13 +320,13 @@ body {
 .contact-item {
     display: flex;
     align-items: center;
-    color: #eee;
+    color: #E2E8F0;
     margin-bottom: 15px;
 }
 
 .contact-item i {
     font-size: 1.5rem;
-    color: #6fb1fc;
+    color: #5EEAD4; /* Teal accent */
     margin-right: 15px;
     width: 30px; /* Ensure consistent icon width */
     text-align: center;
@@ -342,15 +343,15 @@ body {
 }
 
 .resume-container p {
-    color: #ccc;
+    color: #C6D0EB;
     margin-bottom: 20px;
     font-size: 1.1rem;
 }
 
 .button {
     display: inline-block;
-    background-color: #6fb1fc;
-    color: #191919;
+    background-color: #5EEAD4; /* Teal accent */
+    color: #161B22; /* Dark text on teal */
     padding: 15px 30px;
     border-radius: 25px;
     text-decoration: none;
@@ -363,7 +364,8 @@ body {
 }
 
 .button:hover {
-    background-color: #a0cff9;
+    background-color: #86D9C8; /* Lighter teal on hover */
+    color: #161B22;
 }
 
 /* Media Queries for Responsiveness */
