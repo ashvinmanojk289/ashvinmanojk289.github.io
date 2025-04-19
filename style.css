@@ -308,49 +308,20 @@ body {
     color: #161B22;
     font-size: 0.8rem;
     font-weight: bold;
-    visibility: hidden; /* Hide the text */
+    visibility: visible; /* Make the bar visible by default */
 }
 
-/* Re-apply the widths to show the progress */
-.skill-category:nth-child(1) .progress-bar:nth-child(1) .progress-inner {
-    width: 90%; /* Python */
-    visibility: visible; /* Make the bar visible */
-}
+/* Corrected CSS for progress bars using nth-of-type */
+.skill-category:nth-of-type(1) .progress-bar:nth-of-type(1) .progress-inner { width: 90%; } /* Python */
+.skill-category:nth-of-type(1) .progress-bar:nth-of-type(2) .progress-inner { width: 75%; } /* C++ */
+.skill-category:nth-of-type(1) .progress-bar:nth-of-type(3) .progress-inner { width: 60%; } /* Java */
 
-.skill-category:nth-child(1) .progress-bar:nth-child(2) .progress-inner {
-    width: 75%; /* C++ */
-    visibility: visible;
-}
+.skill-category:nth-of-type(2) .progress-bar:nth-of-type(1) .progress-inner { width: 85%; } /* TensorFlow */
+.skill-category:nth-of-type(2) .progress-bar:nth-of-type(2) .progress-inner { width: 80%; } /* PyTorch */
+.skill-category:nth-of-type(2) .progress-bar:nth-of-type(3) .progress-inner { width: 70%; } /* NLP */
 
-.skill-category:nth-child(1) .progress-bar:nth-child(3) .progress-inner {
-    width: 60%; /* Java */
-    visibility: visible;
-}
-
-.skill-category:nth-child(2) .progress-bar:nth-child(1) .progress-inner {
-    width: 85%; /* TensorFlow */
-    visibility: visible;
-}
-
-.skill-category:nth-child(2) .progress-bar:nth-child(2) .progress-inner {
-    width: 80%; /* PyTorch */
-    visibility: visible;
-}
-
-.skill-category:nth-child(2) .progress-bar:nth-child(3) .progress-inner {
-    width: 70%; /* NLP */
-    visibility: visible;
-}
-
-.skill-category:nth-child(3) .progress-bar:nth-child(1) .progress-inner {
-    width: 80%; /* ROS */
-    visibility: visible;
-}
-
-.skill-category:nth-child(3) .progress-bar:nth-child(2) .progress-inner {
-    width: 85%; /* Embedded Systems */
-    visibility: visible;
-}
+.skill-category:nth-of-type(3) .progress-bar:nth-of-type(1) .progress-inner { width: 80%; } /* ROS */
+.skill-category:nth-of-type(3) .progress-bar:nth-of-type(2) .progress-inner { width: 85%; } /* Embedded Systems */
 
 /* Resume Section */
 .resume-container {
