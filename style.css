@@ -9,8 +9,8 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #161B22; /* Darker background */
-    color: #C6D0EB; /* Softer text color */
+    background-color: #161B22;
+    color: #C6D0EB;
     line-height: 1.6;
     overflow-x: hidden;
 }
@@ -22,7 +22,7 @@ body {
 
 /* Sidebar */
 .sidebar {
-    background-color: #1D252F; /* Slightly lighter sidebar */
+    background-color: #1D252F;
     width: 300px;
     padding: 30px;
     display: flex;
@@ -46,7 +46,7 @@ body {
     border-radius: 50%;
     overflow: hidden;
     margin-bottom: 20px;
-    border: 5px solid #2C363F; /* Border to match */
+    border: 5px solid #2C363F;
 }
 
 .profile-image img {
@@ -57,13 +57,13 @@ body {
 
 .name {
     font-size: 2rem;
-    color: #F0F8FF; /* White for strong contrast */
+    color: #F0F8FF;
     margin-bottom: 10px;
 }
 
 .title {
     font-size: 1.1rem;
-    color: #A5B4FC; /* Soft blue */
+    color: #A5B4FC;
     font-weight: 300;
 }
 
@@ -83,7 +83,7 @@ body {
 
 .nav-link {
     display: block;
-    color: #E2E8F0; /* Lighter text */
+    color: #E2E8F0;
     text-decoration: none;
     padding: 10px 20px;
     border-radius: 25px;
@@ -99,8 +99,8 @@ body {
 
 .nav-link:hover,
 .nav-link.active {
-    background-color: #2C363F; /* Hover/active state */
-    color: #5EEAD4; /* Teal accent */
+    background-color: #2C363F;
+    color: #5EEAD4;
 }
 
 /* Social Links */
@@ -111,20 +111,20 @@ body {
 }
 
 .social-links a {
-    color: #A5B4FC; /* Soft blue */
+    color: #A5B4FC;
     font-size: 1.3rem;
     transition: color 0.3s ease;
 }
 
 .social-links a:hover {
-    color: #5EEAD4; /* Teal accent */
+    color: #5EEAD4;
 }
 
 /* Copyright */
 .copyright {
     margin-top: 20px;
     font-size: 0.8rem;
-    color: #64748B; /* Muted text */
+    color: #64748B;
     text-align: center;
 }
 
@@ -134,6 +134,8 @@ body {
     padding: 40px;
     margin-left: 300px;
     width: calc(100% - 300px);
+    position: relative; /* Added for z-index context */
+    z-index: 1; /* Ensure it's below the sidebar if needed */
 }
 
 .section {
@@ -177,7 +179,7 @@ body {
 
 .detail-item i {
     font-size: 1.5rem;
-    color: #5EEAD4; /* Teal accent */
+    color: #5EEAD4;
     margin-right: 15px;
 }
 
@@ -218,14 +220,14 @@ body {
 
 .project-card h3 a:hover {
     text-decoration: underline;
-    color: #5EEAD4; /* Teal accent on hover */
+    color: #5EEAD4;
 }
 
 .project-card p {
     color: #C6D0EB;
     line-height: 1.7;
     margin-bottom: 20px;
-    min-height: 80px; /* Adjust as needed */
+    min-height: 80px;
 }
 
 .tech-badges {
@@ -245,7 +247,7 @@ body {
 
 .project-link {
     display: inline-block;
-    color: #A5B4FC; /* Soft blue */
+    color: #A5B4FC;
     text-decoration: none;
     transition: color 0.3s ease;
     font-weight: 500;
@@ -256,7 +258,7 @@ body {
 }
 
 .project-link:hover {
-    color: #5EEAD4; /* Teal accent on hover */
+    color: #5EEAD4;
 }
 
 /* Skills Section */
@@ -294,14 +296,14 @@ body {
 }
 
 .progress-inner {
-    background-color: #5EEAD4; /* Teal accent */
+    background-color: #5EEAD4;
     height: 100%;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     padding-right: 10px;
-    color: #161B22; /* Dark text on teal */
+    color: #161B22;
     font-size: 0.8rem;
     font-weight: bold;
 }
@@ -326,9 +328,9 @@ body {
 
 .contact-item i {
     font-size: 1.5rem;
-    color: #5EEAD4; /* Teal accent */
+    color: #5EEAD4;
     margin-right: 15px;
-    width: 30px; /* Ensure consistent icon width */
+    width: 30px;
     text-align: center;
 }
 
@@ -350,13 +352,13 @@ body {
 
 .button {
     display: inline-block;
-    background-color: #5EEAD4; /* Teal accent */
-    color: #161B22; /* Dark text on teal */
+    background-color: #5EEAD4;
+    color: #161B22;
     padding: 15px 30px;
     border-radius: 25px;
     text-decoration: none;
     font-weight: 500;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .button i {
@@ -364,7 +366,7 @@ body {
 }
 
 .button:hover {
-    background-color: #86D9C8; /* Lighter teal on hover */
+    background-color: #86D9C8;
     color: #161B22;
 }
 
