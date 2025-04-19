@@ -37,29 +37,8 @@ header {
     margin-bottom: 50px; /* Increased margin */
 }
 
-.banner-container {
-    position: relative;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 20px;
-}
-
-.banner {
-    width: 100%;
-    max-height: 250px; /* Slightly taller banner */
-    object-fit: cover;
-    display: block; /* Prevent extra space below image */
-}
-
-.banner-container .overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
-    color: #fff;
-    padding: 20px;
-    border-radius: 8px;
+.header-info {
+    margin-bottom: 20px; /* Spacing between name/subtitle and nav */
 }
 
 h1 {
@@ -79,7 +58,7 @@ nav {
     background-color: #010409; /* Darker navigation background */
     border-radius: 8px;
     padding: 15px;
-    margin-top: 30px;
+    margin-top: 0; /* Adjust margin as banner is removed */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -169,6 +148,15 @@ h2 i {
 .project-card h3 {
     color: #58a6ff;
     margin-bottom: 10px;
+}
+
+.project-card h3 a {
+    color: inherit; /* Inherit the color from h3 */
+    text-decoration: none; /* Remove underline from the link */
+}
+
+.project-card h3 a:hover {
+    text-decoration: underline; /* Add underline on hover for better indication */
 }
 
 .project-card p {
