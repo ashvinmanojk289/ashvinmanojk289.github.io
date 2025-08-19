@@ -11,6 +11,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+        .project-card ul {
+            list-style-position: inside;
+            padding-left: 5px;
+            color: #C6D0EB;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .project-card ul li {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -83,12 +96,8 @@
             <section class="section about" id="about">
                 <h2 class="section-title">About Me</h2>
                 <div class="about-container">
-                    <p>Greetings! [cite_start]I'm Ashvin, a results-oriented AI/ML Engineer with a strong foundation in deep learning, NLP, and computer vision[cite: 5]. My passion lies in architecting intelligent systems that seamlessly integrate the physical and digital domains, creating innovative solutions for real-world challenges.</p>
+                    <p>Greetings! I'm Ashvin, a results-oriented AI/ML Engineer with a strong foundation in deep learning, NLP, and computer vision. My passion lies in architecting intelligent systems that seamlessly integrate the physical and digital domains, creating innovative solutions for real-world challenges.</p>
                     <div class="about-details">
-                        <div class="detail-item">
-                            <i class="fas fa-robot"></i>
-                            <span>Robot Operating System (ROS), PLC Ladder Logic, MATLAB</span>
-                        </div>
                         <div class="detail-item">
                             <i class="fas fa-brain"></i>
                             <span>Artificial Intelligence, Machine Learning, NLP, Prompt Engineering, Gen AI</span>
@@ -96,6 +105,10 @@
                         <div class="detail-item">
                             <i class="fas fa-lightbulb"></i>
                             <span>Developing impactful AI solutions for tangible, real-world problems</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-robot"></i>
+                            <span>Robot Operating System (ROS), PLC Ladder Logic, MATLAB</span>
                         </div>
                     </div>
                 </div>
@@ -106,10 +119,10 @@
                 <div class="experience-list">
                     <div class="experience-card">
                         <h3>Hardware Systems Intern</h3>
-                        <p class="experience-company-date">Sunlux Technovations | [cite_start]Feb 2024 - April 2024 [cite: 17]</p>
+                        <p class="experience-company-date">Sunlux Technovations | Feb 2024 - April 2024</p>
                         <ul>
-                            [cite_start]<li>Developed and debugged microprocessor programs in Assembly for industrial automation systems, contributing to a 15% improvement in process efficiency[cite: 18].</li>
-                            [cite_start]<li>Collaborated with a team of engineers to design and implement real-world embedded solutions for clients in the manufacturing sector[cite: 19].</li>
+                            <li>Developed and debugged microprocessor programs in Assembly for industrial automation systems, contributing to a 15% improvement in process efficiency.</li>
+                            <li>Collaborated with a team of engineers to design and implement real-world embedded solutions for clients in the Defence and Navy sector.</li>
                         </ul>
                     </div>
                 </div>
@@ -124,8 +137,14 @@
                                 target="_blank">Multilingual News Audio Translator</a>
                         </h3>
                         <p>
-                            [cite_start]Developed a full-stack audio translation app using Wav2Vec 2.0 for speech recognition (achieving 92% accuracy) and an mBART model fine-tuned with reinforcement learning for fluent, high-quality translation[cite: 22].
+                            Developed a full-stack audio translation app using Wav2Vec 2.0 for speech recognition (achieving 92% accuracy) and an mBART model fine-tuned with reinforcement learning for fluent, high-quality translation.
                         </p>
+                        <ul>
+                            <li><b>Key Features:</b></li>
+                            <li>Supports multiple languages for real-time multilingual broadcasting.</li>
+                            <li>Optimized for performance, suitable for live news applications.</li>
+                            <li>Features include downloadable audio and a dark mode toggle.</li>
+                        </ul>
                         <div class="tech-badges">
                             <span class="tech-badge">Wav2Vec 2.0</span>
                             <span class="tech-badge">mBART</span>
@@ -140,8 +159,14 @@
                             <a href="https://github.com/ashvinmanojk289/PDF-Query-Application" target="_blank">PDF Query Application</a>
                         </h3>
                         <p>
-                            [cite_start]Developed a scalable, voice-enabled PDF query system using NLP and Streamlit, transforming static documents into conversational hubs and reducing information retrieval time by over 89%[cite: 24].
+                            Developed a scalable, voice-enabled PDF query system using NLP and Streamlit, transforming static documents into conversational hubs and reducing information retrieval time by over 89%.
                         </p>
+                        <ul>
+                            <li><b>Key Features:</b></li>
+                            <li>Integrates OpenAI's Chat API for context-aware interactions.</li>
+                            <li>Incorporates Google Speech Recognition for voice input and gTTS for audio output.</li>
+                             <li>Sleek GUI built with Streamlit for file uploads and query submissions.</li>
+                        </ul>
                         <div class="tech-badges">
                             <span class="tech-badge">NLP</span>
                             <span class="tech-badge">Streamlit</span>
@@ -156,8 +181,14 @@
                                 Detection and Spraying Robot</a>
                         </h3>
                         <p>
-                           [cite_start]Revolutionizing precision agriculture with an AI-powered weed detection robot using ROS and a custom hybrid EfficientNetV2-Transformer model, achieving 97% accuracy for eco-friendly herbicide application[cite: 26].
+                           Revolutionizing precision agriculture with an AI-powered weed detection robot using ROS and a custom hybrid EfficientNetV2-Transformer model, achieving 97% accuracy for eco-friendly herbicide application.
                         </p>
+                        <ul>
+                            <li><b>Key Features:</b></li>
+                            <li>Leveraged advanced transformer models to accurately distinguish weeds from crops.</li>
+                            <li>Developed a modular architecture in ROS for autonomous navigation and control.</li>
+                            <li>Designed a targeted herbicide system to minimize environmental impact.</li>
+                        </ul>
                         <div class="tech-badges">
                             <span class="tech-badge">Python</span>
                             <span class="tech-badge">ROS</span>
@@ -174,6 +205,12 @@
                         <p>
                             A fun and interactive 4-legged robot with an emoji display, controlled via Bluetooth using an Arduino Nano and HC-05 module, capable of basic forward, backward, left, and right movements.
                         </p>
+                        <ul>
+                            <li><b>Key Features:</b></li>
+                            <li>Equipped with an LED screen that displays random emojis.</li>
+                            <li>Controlled wirelessly via a mobile application using an HC-05 Bluetooth module.</li>
+                            <li>Built with an Arduino Nano for a compact and efficient design.</li>
+                        </ul>
                         <div class="tech-badges">
                             <span class="tech-badge">Arduino</span>
                             <span class="tech-badge">Embedded Systems</span>
@@ -191,8 +228,8 @@
                 <div class="publication-list">
                     <div class="publication-card">
                         <h3>A Hybrid Transformer Model for Precision Weed Detection</h3>
-                        [cite_start]<p class="publication-authors">Sreedeep Krishnan, M. Karuppasamy Pandyan, Ashvin Manoj [cite: 28]</p>
-                        [cite_start]<p class="publication-venue">Presented at IEEE ACCESS '25, Adi Shankara Institute of Engineering & Technology, June 2025[cite: 29].</p>
+                        <p class="publication-authors">Sreedeep Krishnan, M. Karuppasamy Pandyan, Ashvin Manoj</p>
+                        <p class="publication-venue">Presented at IEEE ACCESS '25, Adi Shankara Institute of Engineering & Technology, June 2025.</p>
                     </div>
                 </div>
             </section>
@@ -225,11 +262,11 @@
                  <div class="certifications-container">
                     <h3 class="section-subtitle">Certifications</h3>
                     <div class="tech-badges">
-                        [cite_start]<span class="tech-badge">NPTEL: Python & DSA [cite: 31]</span>
-                        [cite_start]<span class="tech-badge">Infosys: Prompt Engineering [cite: 31]</span>
-                        [cite_start]<span class="tech-badge">Coursera: Google Data Analytics [cite: 31]</span>
-                        [cite_start]<span class="tech-badge">Coursera: Intro to GenAI [cite: 31]</span>
-                        [cite_start]<span class="tech-badge">Coursera: GenAl for UX Designers [cite: 31]</span>
+                        <span class="tech-badge">NPTEL: Python & DSA</span>
+                        <span class="tech-badge">Infosys: Prompt Engineering</span>
+                        <span class="tech-badge">Coursera: Google Data Analytics</span>
+                        <span class="tech-badge">Coursera: Intro to GenAI</span>
+                        <span class="tech-badge">Coursera: GenAl for UX Designers</span>
                     </div>
                 </div>
             </section>
@@ -239,18 +276,23 @@
                 <div class="education-list">
                     <div class="education-card">
                         <h3>MTech in Computer Science and Engineering (AI/ML)</h3>
-                        <p class="education-school-date">Rajagiri School of Engineering and Technology | [cite_start]Aug 2024 - Present [cite: 11]</p>
-                        [cite_start]<p class="education-grade">CGPA: 9.29 [cite: 11]</p>
+                        <p class="education-school-date">Rajagiri School of Engineering and Technology | Aug 2024 - Present</p>
+                        <p class="education-grade">CGPA: 9.29</p>
                     </div>
                     <div class="education-card">
                         <h3>BTech (Honours) in Robotics and Automation</h3>
-                        <p class="education-school-date">Adi Shankara Institute of Engineering and Technology | [cite_start]Oct 2020 - Jun 2024 [cite: 13]</p>
-                        [cite_start]<p class="education-grade">CGPA: 9.54 [cite: 12]</p>
+                        <p class="education-school-date">Adi Shankara Institute of Engineering and Technology | Oct 2020 - Jun 2024</p>
+                        <p class="education-grade">CGPA: 9.54</p>
                     </div>
                      <div class="education-card">
                         <h3>Higher Secondary (12th Grade) - Computer/Maths</h3>
                         <p class="education-school-date">St. Mary's Public School, Thamarachal | 2018 - 2020</p>
-                        [cite_start]<p class="education-grade">Percentage: 92.6% [cite: 14]</p>
+                        <p class="education-grade">Percentage: 92.6%</p>
+                    </div>
+                    <div class="education-card">
+                        <h3>Secondary School (10th Grade)</h3>
+                        <p class="education-school-date">St. Mary's Public School, Thamarachal | 2016 - 2018</p>
+                        <p class="education-grade">Percentage: 90.6%</p>
                     </div>
                 </div>
             </section>
