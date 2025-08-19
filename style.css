@@ -432,3 +432,8 @@ body {
 .project-card ul li {
     margin-bottom: 10px;
 }
+.resume-embed {
+    margin-bottom: 25px; /* Adds space between the embedded PDF and the download button */
+    border-radius: 8px;   /* Optional: adds rounded corners */
+    overflow: hidden;     /* Hides anything that might spill out */
+}
