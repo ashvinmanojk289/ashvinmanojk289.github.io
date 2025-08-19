@@ -11,8 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+
     <style>
+        /* It's best practice to move this CSS to your external 'style.css' file */
         .project-card ul {
             list-style-position: inside;
             padding-left: 5px;
@@ -20,6 +21,7 @@
             margin-bottom: 20px;
             text-align: left;
         }
+
         .project-card ul li {
             margin-bottom: 10px;
         }
@@ -50,7 +52,7 @@
                                 <i class="fas fa-briefcase"></i> Experience
                             </a>
                         </li>
-                         <li class="nav-item">
+                        <li class="nav-item">
                             <a href="#projects" class="nav-link">
                                 <i class="fas fa-project-diagram"></i> Projects
                             </a>
@@ -81,9 +83,9 @@
 
             <footer>
                 <div class="social-links">
-                    <a href="https://linkedin.com/in/ashvinmanojk289" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://instagram.com/__t_h_e_l_o_r_d__" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="mailto:ashvinmanojk@gmail.com"><i class="fas fa-envelope"></i></a>
+                    <a href="https://linkedin.com/in/ashvinmanojk289" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://instagram.com/__t_h_e_l_o_r_d__" target="_blank" aria-label="Instagram Profile"><i class="fab fa-instagram"></i></a>
+                    <a href="mailto:ashvinmanojk@gmail.com" aria-label="Send an Email"><i class="fas fa-envelope"></i></a>
                 </div>
 
                 <div class="copyright">
@@ -140,7 +142,7 @@
                             Developed a full-stack audio translation app using Wav2Vec 2.0 for speech recognition (achieving 92% accuracy) and an mBART model fine-tuned with reinforcement learning for fluent, high-quality translation.
                         </p>
                         <ul>
-                            <li><b>Key Features:</b></li>
+                            <li><strong>Key Features:</strong></li>
                             <li>Supports multiple languages for real-time multilingual broadcasting.</li>
                             <li>Optimized for performance, suitable for live news applications.</li>
                             <li>Features include downloadable audio and a dark mode toggle.</li>
@@ -154,7 +156,7 @@
                         <a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR"
                             class="project-link" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
                     </div>
-                     <div class="project-card">
+                    <div class="project-card">
                         <h3>
                             <a href="https://github.com/ashvinmanojk289/PDF-Query-Application" target="_blank">PDF Query Application</a>
                         </h3>
@@ -162,10 +164,10 @@
                             Developed a scalable, voice-enabled PDF query system using NLP and Streamlit, transforming static documents into conversational hubs and reducing information retrieval time by over 89%.
                         </p>
                         <ul>
-                            <li><b>Key Features:</b></li>
+                            <li><strong>Key Features:</strong></li>
                             <li>Integrates OpenAI's Chat API for context-aware interactions.</li>
                             <li>Incorporates Google Speech Recognition for voice input and gTTS for audio output.</li>
-                             <li>Sleek GUI built with Streamlit for file uploads and query submissions.</li>
+                            <li>Sleek GUI built with Streamlit for file uploads and query submissions.</li>
                         </ul>
                         <div class="tech-badges">
                             <span class="tech-badge">NLP</span>
@@ -181,10 +183,10 @@
                                 Detection and Spraying Robot</a>
                         </h3>
                         <p>
-                           Revolutionizing precision agriculture with an AI-powered weed detection robot using ROS and a custom hybrid EfficientNetV2-Transformer model, achieving 97% accuracy for eco-friendly herbicide application.
+                            Revolutionizing precision agriculture with an AI-powered weed detection robot using ROS and a custom hybrid EfficientNetV2-Transformer model, achieving 97% accuracy for eco-friendly herbicide application.
                         </p>
                         <ul>
-                            <li><b>Key Features:</b></li>
+                            <li><strong>Key Features:</strong></li>
                             <li>Leveraged advanced transformer models to accurately distinguish weeds from crops.</li>
                             <li>Developed a modular architecture in ROS for autonomous navigation and control.</li>
                             <li>Designed a targeted herbicide system to minimize environmental impact.</li>
@@ -206,7 +208,7 @@
                             A fun and interactive 4-legged robot with an emoji display, controlled via Bluetooth using an Arduino Nano and HC-05 module, capable of basic forward, backward, left, and right movements.
                         </p>
                         <ul>
-                            <li><b>Key Features:</b></li>
+                            <li><strong>Key Features:</strong></li>
                             <li>Equipped with an LED screen that displays random emojis.</li>
                             <li>Controlled wirelessly via a mobile application using an HC-05 Bluetooth module.</li>
                             <li>Built with an Arduino Nano for a compact and efficient design.</li>
@@ -239,40 +241,88 @@
                 <div class="skills-container">
                     <div class="skill-category">
                         <h3>Languages & Databases</h3>
-                        <div class="progress-bar"><span>Python</span><div class="progress"><div class="progress-inner" style="width: 90%;"></div></div></div>
-                        <div class="progress-bar"><span>C++ / C</span><div class="progress"><div class="progress-inner" style="width: 75%;"></div></div></div>
-                        <div class="progress-bar"><span>SQL</span><div class="progress"><div class="progress-inner" style="width: 70%;"></div></div></div>
-                         <div class="progress-bar"><span>R</span><div class="progress"><div class="progress-inner" style="width: 60%;"></div></div></div>
+                        <div class="progress-bar"><span>Python</span>
+                            <div class="progress" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-inner" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-bar"><span>C++ / C</span>
+                            <div class="progress" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-inner" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-bar"><span>SQL</span>
+                            <div class="progress" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-inner" style="width: 70%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-bar"><span>R</span>
+                            <div class="progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-inner" style="width: 60%;"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="skill-category">
                         <h3>AI/ML Frameworks & Libraries</h3>
-                        <div class="progress-bar"><span>TensorFlow</span><div class="progress"><div class="progress-inner" style="width: 85%;"></div></div></div>
-                        <div class="progress-bar"><span>PyTorch</span><div class="progress"><div class="progress-inner" style="width: 80%;"></div></div></div>
-                        <div class="progress-bar"><span>Scikit-learn</span><div class="progress"><div class="progress-inner" style="width: 85%;"></div></div></div>
-                        <div class="progress-bar"><span>NLP (Transformers)</span><div class="progress"><div class="progress-inner" style="width: 90%;"></div></div></div>
+                        <div class="progress-bar"><span>TensorFlow</span>
+                            <div class="progress" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-inner" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-bar"><span>PyTorch</span>
+                            <div class="progress" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-inner" style="width: 80%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-bar"><span>Scikit-learn</span>
+                            <div class="progress" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-inner" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-bar"><span>NLP (Transformers)</span>
+                            <div class="progress" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-inner" style="width: 90%;"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="skill-category">
                         <h3>Tools & Platforms</h3>
-                        <div class="progress-bar"><span>ROS</span><div class="progress"><div class="progress-inner" style="width: 85%;"></div></div></div>
-                        <div class="progress-bar"><span>Git</span><div class="progress"><div class="progress-inner" style="width: 80%;"></div></div></div>
-                        <div class="progress-bar"><span>Arduino / Embedded</span><div class="progress"><div class="progress-inner" style="width: 90%;"></div></div></div>
-                        <div class="progress-bar"><span>Streamlit / Flask</span><div class="progress"><div class="progress-inner" style="width: 75%;"></div></div></div>
+                        <div class="progress-bar"><span>ROS</span>
+                            <div class="progress" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-inner" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-bar"><span>Git</span>
+                            <div class="progress" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-inner" style="width: 80%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-bar"><span>Arduino / Embedded</span>
+                            <div class="progress" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-inner" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-bar"><span>Streamlit / Flask</span>
+                            <div class="progress" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-inner" style="width: 75%;"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                 <div class="certifications-container">
+                <div class="certifications-container">
                     <h3 class="section-subtitle">Certifications</h3>
                     <div class="tech-badges">
                         <span class="tech-badge">Coursera: Google Data Analytics </span>
-                        <span class="tech-badge">Coursera: Introduction to Generative AI Learning Path Specialization </span>
-                        <span class="tech-badge">Coursera: GenAl for UX Designers </span>
-                        <span class="tech-badge">Infosys: Prompt Engineering </span>
-                        <span class="tech-badge">NPTEL: Programming, Data Structures and Algorithms using Python </span>
-                        <span class="tech-badge">NPTEL: Automation In Production Systems And Management </span>
-                        <span class="tech-badge">NPTEL: Wheeled Mobile Robots </span>
+                        <span class="tech-badge">Coursera: Introduction to Generative AI Learning Path Specialization </span>
+                        <span class="tech-badge">Coursera: GenAl for UX Designers </span>
+                        <span class="tech-badge">Infosys: Prompt Engineering </span>
+                        <span class="tech-badge">NPTEL: Programming, Data Structures and Algorithms using Python </span>
+                        <span class="tech-badge">NPTEL: Automation In Production Systems And Management </span>
+                        <span class="tech-badge">NPTEL: Wheeled Mobile Robots </span>
                     </div>
                 </div>
             </section>
-            
+
             <section class="section education" id="education">
                 <h2 class="section-title">Education</h2>
                 <div class="education-list">
@@ -286,7 +336,7 @@
                         <p class="education-school-date">Adi Shankara Institute of Engineering and Technology | Oct 2020 - Jun 2024</p>
                         <p class="education-grade">CGPA: 9.54</p>
                     </div>
-                     <div class="education-card">
+                    <div class="education-card">
                         <h3>Higher Secondary (12th Grade) - Computer/Maths</h3>
                         <p class="education-school-date">St. Mary's Public School, Thamarachal | 2019 - 2020</p>
                         <p class="education-grade">Percentage: 92.6%</p>
@@ -317,28 +367,33 @@
             const sections = document.querySelectorAll('.section');
 
             function setActiveLink() {
-                let current = '';
+                let currentSectionId = '';
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
-                    if (pageYOffset >= sectionTop - 60) {
-                        current = section.getAttribute('id');
+                    // Check if the user's scroll position is past the top of the section, with a 60px offset
+                    if (window.scrollY >= sectionTop - 60) {
+                        currentSectionId = section.getAttribute('id');
                     }
                 });
 
                 navLinks.forEach(link => {
                     link.classList.remove('active');
-                    if (link.getAttribute('href').includes(current)) {
+                    // More precise check: link's href should exactly match the current section's ID
+                    if (currentSectionId && link.hash === '#' + currentSectionId) {
                         link.classList.add('active');
                     }
                 });
+
+                // If no section is active (e.g., scrolled to the very top), default to 'about'
+                if (!currentSectionId && navLinks.length > 0) {
+                     document.querySelector('.nav-link[href="#about"]').classList.add('active');
+                }
             }
 
             window.addEventListener('scroll', setActiveLink);
-            setActiveLink(); 
+            setActiveLink(); // Run on page load to set the initial state
         });
     </script>
 </body>
 
 </html>
-
-
