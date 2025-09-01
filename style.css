@@ -363,19 +363,4 @@ input:checked + .slider:before { transform: translateX(24px); }
     .resume-container { grid-template-columns: 1fr; text-align: center; }
     .skills-grid { grid-template-columns: 1fr; }
     .form-group { flex-direction: column; }
-
-    /* Show and style mobile-linkedin-link on small screens */
-    .mobile-linkedin-link {
-        display: block; /* Make it visible */
-        position: absolute; /* Position it relative to its parent div */
-        right: -30px; /* Adjust as needed for spacing */
-        top: 50%; /* Center vertically */
-        transform: translateY(-50%); /* Fine-tune vertical centering */
-        color: var(--accent-primary); /* Use accent color */
-        font-size: 1.3rem; /* Adjust size as needed */
-        margin-left: 10px; /* Space from title */
-    }
-    .mobile-linkedin-link i {
-        margin-right: 0; /* Remove default margin from other icons */
-    }
 }
