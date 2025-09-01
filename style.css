@@ -118,8 +118,8 @@ body {
 .social-links a:hover { color: var(--accent-primary); }
 .copyright { font-size: 0.8rem; }
 
-/* Hide mobile links by default */
-.mobile-social-links { display: none; }
+/* Hide mobile-linkedin-link by default (for larger screens) */
+.mobile-linkedin-link { display: none; }
 
 /* --- Theme Switcher --- */
 .theme-switcher { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; color: var(--text-secondary); }
@@ -339,19 +339,8 @@ input:checked + .slider:before { transform: translateX(24px); }
         box-shadow: 0 2px 5px var(--shadow-color);
     }
     .sidebar header { display: contents; }
-    .profile { 
-        display: flex; 
-        flex-grow: 1;
-        flex-direction: row; 
-        align-items: center; 
-        text-align: left; 
-        margin: 0;
-        justify-content: space-between;
-    }
-    .profile-info-group {
-        display: flex;
-        align-items: center;
-    }
+    .profile { display: flex; flex-direction: row; align-items: center; text-align: left; margin: 0; }
+    .profile > div:last-child { display: flex; flex-direction: column; position: relative; } /* Added relative positioning */
     .profile-image { width: 50px; height: 50px; margin: 0 15px 0 0; }
     .name { font-size: 1.2rem; margin: 0; }
     .title { font-size: 0.9rem; margin: 0; }
@@ -369,18 +358,18 @@ input:checked + .slider:before { transform: translateX(24px); }
     .skills-grid { grid-template-columns: 1fr; }
     .form-group { flex-direction: column; }
 
-    /* Show and style mobile social links on small screens */
-    .mobile-social-links {
-        display: flex;
-        align-items: center;
-        gap: 18px;
+    /* Show and style mobile-linkedin-link on small screens */
+    .mobile-linkedin-link {
+        display: block; /* Make it visible */
+        position: absolute; /* Position it relative to its parent div */
+        right: -30px; /* Adjust as needed for spacing */
+        top: 50%; /* Center vertically */
+        transform: translateY(-50%); /* Fine-tune vertical centering */
+        color: var(--accent-primary); /* Use accent color */
+        font-size: 1.3rem; /* Adjust size as needed */
+        margin-left: 10px; /* Space from title */
     }
-    .mobile-social-links a {
-        color: var(--text-secondary);
-        font-size: 1.5rem;
-        transition: color 0.3s ease;
-    }
-    .mobile-social-links a:hover {
-        color: var(--accent-primary);
+    .mobile-linkedin-link i {
+        margin-right: 0; /* Remove default margin from other icons */
     }
 }
