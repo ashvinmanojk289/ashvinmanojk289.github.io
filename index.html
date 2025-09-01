@@ -123,14 +123,51 @@
             
             <section class="section skills" id="skills">
                 <h2 class="section-title">Technical Skills</h2>
-                <div class="skill-filters reveal">
-                    <button class="skill-tag active" data-filter="all">All</button>
-                    <button class="skill-tag" data-filter="python">Python</button>
-                    <button class="skill-tag" data-filter="nlp">NLP</button>
-                    <button class="skill-tag" data-filter="cv">Computer Vision</button>
-                    <button class="skill-tag" data-filter="ros">ROS</button>
-                    <button class="skill-tag" data-filter="genai">GenAI</button>
-                    <button class="skill-tag" data-filter="transformer">Transformer</button>
+                <div class="skills-grid reveal">
+                    <div class="skill-category">
+                        <h3>Languages & Web</h3>
+                        <div class="tiles-container">
+                            <span class="skill-tile">Python</span><span class="skill-tile">R</span>
+                            <span class="skill-tile">C</span><span class="skill-tile">C++</span>
+                            <span class="skill-tile">HTML</span><span class="skill-tile">CSS</span>
+                            <span class="skill-tile">JavaScript</span><span class="skill-tile">SQL</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Artificial Intelligence</h3>
+                        <div class="tiles-container">
+                            <span class="skill-tile">Machine Learning</span><span class="skill-tile">Generative AI</span>
+                            <span class="skill-tile">Large Language Models (LLM)</span><span class="skill-tile">Responsible AI</span>
+                            <span class="skill-tile">Agricultural AI</span><span class="skill-tile">Medical AI</span>
+                            <span class="skill-tile">Multilingual NLP</span><span class="skill-tile">BERT</span>
+                            <span class="skill-tile">Prompt Engineering</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Frameworks & Tools</h3>
+                        <div class="tiles-container">
+                            <span class="skill-tile">Flask</span><span class="skill-tile">Streamlit</span>
+                            <span class="skill-tile">Hugging Face</span><span class="skill-tile">OpenAI API</span>
+                            <span class="skill-tile">gTTS</span><span class="skill-tile">Anaconda</span>
+                            <span class="skill-tile">MATLAB</span><span class="skill-tile">Data Analysis</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Robotics & Automation</h3>
+                        <div class="tiles-container">
+                            <span class="skill-tile">Robot Operating System (ROS)</span><span class="skill-tile">Mobile Robotics</span>
+                            <span class="skill-tile">Embedded Systems</span><span class="skill-tile">Industrial Automation</span>
+                            <span class="skill-tile">PLC Ladder Logic</span><span class="skill-tile">Automation Systems</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Hardware & Systems</h3>
+                        <div class="tiles-container">
+                            <span class="skill-tile">Arduino IDE</span><span class="skill-tile">PCB Design</span>
+                            <span class="skill-tile">PCB Assembly</span><span class="skill-tile">Integrated Systems</span>
+                            <span class="skill-tile">Google Cloud</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -264,27 +301,6 @@
         };
         closeModalButtons.forEach(button => button.addEventListener('click', closeModal));
         overlay.addEventListener('click', closeModal);
-
-        // --- Skill Filtering Logic ---
-        const skillTags = document.querySelectorAll('.skill-tag');
-        const projectCards = document.querySelectorAll('.project-card');
-
-        skillTags.forEach(tag => {
-            tag.addEventListener('click', () => {
-                skillTags.forEach(t => t.classList.remove('active'));
-                tag.classList.add('active');
-                const filter = tag.dataset.filter;
-
-                projectCards.forEach(card => {
-                    const skills = card.dataset.skills;
-                    if (filter === 'all' || skills.includes(filter)) {
-                        card.classList.remove('filtered-out');
-                    } else {
-                        card.classList.add('filtered-out');
-                    }
-                });
-            });
-        });
 
         // Event Listeners
         window.addEventListener('scroll', setActiveLink);
