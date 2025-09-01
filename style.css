@@ -274,6 +274,9 @@ input:checked + .slider:before { transform: translateX(24px); }
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 .button { background-color: var(--accent-primary); color: #fff; }
+.button i {
+    margin-left: 8px;
+}
 [data-theme="dark"] .button { color: #000; }
 .button:hover { background-color: var(--accent-hover); border-color: var(--accent-hover); }
 .button-secondary { background-color: transparent; color: var(--accent-primary); }
