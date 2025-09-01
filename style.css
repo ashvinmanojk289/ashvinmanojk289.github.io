@@ -257,6 +257,9 @@ input:checked + .slider:before { transform: translateX(24px); }
 .testimonial-author { text-align: right; }
 
 /* --- Contact & Buttons --- */
+.contact-container p {
+    margin-bottom: 1.5rem;
+}
 .contact-form { display: flex; flex-direction: column; gap: 15px; }
 .form-group { display: flex; gap: 15px; }
 .contact-form input, .contact-form textarea {
