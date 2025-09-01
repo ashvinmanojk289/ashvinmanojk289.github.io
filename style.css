@@ -245,11 +245,11 @@ input:checked + .slider:before { transform: translateX(24px); }
         flex-direction: column;
     }
     .sidebar {
-        position: relative; /* Becomes a static header */
+        position: relative;
         width: 100%;
         height: auto;
         flex-direction: row;
-        justify-content: flex-start;
+        justify-content: space-between; /* This will push profile left and footer right */
         align-items: center;
         padding: 15px 20px;
         overflow-y: hidden;
@@ -258,7 +258,7 @@ input:checked + .slider:before { transform: translateX(24px); }
         box-shadow: 0 2px 5px var(--shadow-color);
     }
     .sidebar header {
-        display: contents; /* Allows profile to be a direct child of the flex container */
+        display: contents;
     }
     .profile {
         display: flex;
@@ -280,9 +280,14 @@ input:checked + .slider:before { transform: translateX(24px); }
         font-size: 0.9rem;
         margin: 0;
     }
-    /* Hide everything except the profile */
-    .nav, .sidebar footer {
-        display: none;
+    .nav, .sidebar .social-links, .sidebar .copyright {
+        display: none; /* Hide nav and other footer items */
+    }
+    .sidebar footer {
+        margin-top: 0; /* Reset footer margin */
+    }
+    .theme-switcher {
+        margin-bottom: 0; /* Reset theme switcher margin */
     }
     .main-content {
         margin-left: 0;
