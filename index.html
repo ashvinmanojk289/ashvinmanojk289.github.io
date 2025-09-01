@@ -61,7 +61,7 @@
                 <div class="theme-switcher">
                     <i class="fas fa-sun"></i>
                     <label class="switch">
-                        <input type="checkbox" id="theme-toggle-checkbox">
+                        <input type="checkbox" id="theme-toggle-checkbox" aria-label="Toggle dark and light theme">
                         <span class="slider round"></span>
                     </label>
                     <i class="fas fa-moon"></i>
@@ -81,7 +81,7 @@
             <section class="section about" id="about">
                 <h2 class="section-title reveal">About Me</h2>
                 <div class="about-container reveal">
-                    <p>A results-oriented AI/ML Engineer with a strong foundation in deep learning, NLP, and computer vision. Eager to leverage hands-on experience in developing and deploying scalable machine learning solutions to solve complex business problems and drive innovation.</p>
+                    <p>Hello! I'm an AI/ML Engineer fascinated by the intersection of robotics and natural language processing. I thrive on building intelligent systems that can perceive, understand, and interact with the world in a meaningful way. I'm eager to apply my hands-on experience in deep learning and computer vision to help drive innovation and solve complex, real-world challenges.</p>
                 </div>
             </section>
 
@@ -289,8 +289,8 @@
                 <div class="testimonial-card reveal">
                     <p>"Ashvin was a remarkable intern. His ability to quickly grasp complex microprocessor systems and his contribution to improving our process efficiency was invaluable. He is a dedicated and resourceful engineer."</p>
                     <div class="testimonial-author">
-                        <strong>- Supervisor</strong>
-                        <span>Sunlux Technovations</span>
+                        <strong>- [Supervisor's Name]</strong>
+                        <span>[Supervisor's Title], Sunlux Technovations</span>
                     </div>
                 </div>
             </section>
@@ -323,28 +323,28 @@
         </main>
     </div>
 
-    <div class="modal" id="modal-pdf">
+    <div class="modal" id="modal-pdf" role="dialog" aria-modal="true" aria-labelledby="modal-pdf-title">
         <div class="modal-content">
-            <button class="close-modal-btn">&times;</button>
-            <h3>Case Study: PDF Query Application</h3>
+            <button class="close-modal-btn" aria-label="Close case study">&times;</button>
+            <h3 id="modal-pdf-title">Case Study: PDF Query Application</h3>
             <h4><strong>Problem:</strong> Extracting specific information from large PDF documents is time-consuming and inefficient.</h4>
             <p><strong>Solution:</strong> I developed a scalable, voice-enabled system using NLP models to transform static PDFs into conversational hubs. Users can ask questions in natural language (or voice) and receive instant, contextually accurate answers. This reduced information retrieval time by over 89%.</p>
             <p><strong>Tech Stack:</strong> Python, Streamlit, OpenAI API (for NLP), Google Speech Recognition, gTTS.</p>
         </div>
     </div>
-    <div class="modal" id="modal-robot">
+    <div class="modal" id="modal-robot" role="dialog" aria-modal="true" aria-labelledby="modal-robot-title">
         <div class="modal-content">
-            <button class="close-modal-btn">&times;</button>
-            <h3>Case Study: Automatic Weed Detection and Spraying Robot</h3>
+            <button class="close-modal-btn" aria-label="Close case study">&times;</button>
+            <h3 id="modal-robot-title">Case Study: Automatic Weed Detection and Spraying Robot</h3>
             <h4><strong>Problem:</strong> Traditional herbicide application in agriculture is often imprecise, leading to environmental damage and wasted resources.</h4>
             <p><strong>Solution:</strong> I built an AI-powered autonomous robot that uses computer vision to differentiate between crops and weeds with 97% accuracy. It navigates fields using ROS and applies herbicide directly to weeds, minimizing environmental impact. The core of the system is a custom-trained hybrid EfficientNetV2-Transformer model for robust detection.</p>
             <p><strong>Tech Stack:</strong> Python, ROS, PyTorch, Transformers, Computer Vision (OpenCV), Embedded Systems.</p>
         </div>
     </div>
-    <div class="modal" id="modal-translator">
+    <div class="modal" id="modal-translator" role="dialog" aria-modal="true" aria-labelledby="modal-translator-title">
         <div class="modal-content">
-            <button class="close-modal-btn">&times;</button>
-            <h3>Case Study: Multilingual News Audio Translator</h3>
+            <button class="close-modal-btn" aria-label="Close case study">&times;</button>
+            <h3 id="modal-translator-title">Case Study: Multilingual News Audio Translator</h3>
             <h4><strong>Problem:</strong> Live news broadcasts are often inaccessible to audiences who speak different languages.</h4>
             <p><strong>Solution:</strong> I developed a full-stack web application that translates spoken audio in near real-time. It uses a Wav2Vec 2.0 model for highly accurate speech recognition and a fine-tuned mBART model for fluent, context-aware translation between multiple languages.</p>
             <p><strong>Tech Stack:</strong> Python, Flask, Hugging Face (Transformers, Wav2Vec 2.0, mBART), PyTorch.</p>
@@ -419,25 +419,71 @@
             });
         });
 
-        // --- Modal Logic ---
+        // --- Modal Logic with Accessibility (Focus Trapping) ---
         const openModalButtons = document.querySelectorAll('.open-modal-btn');
         const closeModalButtons = document.querySelectorAll('.close-modal-btn');
         const modalOverlay = document.querySelector('.modal-overlay');
+        let activeModal = null;
+        let lastFocusedElement = null;
 
+        const openModal = (modal, button) => {
+            lastFocusedElement = button;
+            modal.classList.add('active');
+            modalOverlay.classList.add('active');
+            activeModal = modal;
+            document.addEventListener('keydown', handleKeyDown);
+            // Set focus on the first focusable element in the modal
+            const focusableElements = activeModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            if (focusableElements.length > 0) {
+                focusableElements[0].focus();
+            }
+        };
+
+        const closeModal = () => {
+            if (activeModal) {
+                activeModal.classList.remove('active');
+                modalOverlay.classList.remove('active');
+                document.removeEventListener('keydown', handleKeyDown);
+                activeModal = null;
+                if (lastFocusedElement) {
+                    lastFocusedElement.focus();
+                }
+            }
+        };
+
+        const handleKeyDown = (e) => {
+            if (e.key !== 'Tab' || !activeModal) return;
+
+            const focusableElements = activeModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (e.shiftKey) { // Shift + Tab
+                if (document.activeElement === firstElement) {
+                    lastElement.focus();
+                    e.preventDefault();
+                }
+            } else { // Tab
+                if (document.activeElement === lastElement) {
+                    firstElement.focus();
+                    e.preventDefault();
+                }
+            }
+        };
+        
         openModalButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const modal = document.getElementById(button.dataset.modalTarget);
-                modal.classList.add('active');
-                modalOverlay.classList.add('active');
+                openModal(modal, button);
             });
         });
 
-        const closeModal = () => {
-            document.querySelectorAll('.modal.active').forEach(modal => modal.classList.remove('active'));
-            modalOverlay.classList.remove('active');
-        };
         closeModalButtons.forEach(button => button.addEventListener('click', closeModal));
         modalOverlay.addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
 
         // Event Listeners
         window.addEventListener('scroll', setActiveLink);
