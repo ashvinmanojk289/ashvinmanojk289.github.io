@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ashvin Manoj | Personalized Portfolio</title>
+    <title>Ashvin Manoj | AI & ML Portfolio</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="stylesheet" href="style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-        integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
 </head>
 
 <body>
@@ -29,11 +28,11 @@
                 <nav class="nav">
                     <ul class="nav-list">
                         <li class="nav-item"><a href="#about" class="nav-link active"><i class="fas fa-user"></i> About</a></li>
+                        <li class="nav-item"><a href="#tech-stack" class="nav-link"><i class="fas fa-layer-group"></i> Tech Stack</a></li>
                         <li class="nav-item"><a href="#experience" class="nav-link"><i class="fas fa-briefcase"></i> Experience</a></li>
                         <li class="nav-item"><a href="#projects" class="nav-link"><i class="fas fa-project-diagram"></i> Projects</a></li>
-                        <li class="nav-item"><a href="#publications" class="nav-link"><i class="fas fa-book-open"></i> Publications</a></li>
                         <li class="nav-item"><a href="#skills" class="nav-link"><i class="fas fa-code"></i> Skills</a></li>
-                        <li class="nav-item"><a href="#education" class="nav-link"><i class="fas fa-graduation-cap"></i> Education</a></li>
+                        <li class="nav-item"><a href="#testimonials" class="nav-link"><i class="fas fa-comment-dots"></i> Testimonials</a></li>
                         <li class="nav-item"><a href="#contact" class="nav-link"><i class="fas fa-envelope-open-text"></i> Contact</a></li>
                         <li class="nav-item"><a href="#resume" class="nav-link"><i class="fas fa-file-alt"></i> Resume</a></li>
                     </ul>
@@ -41,9 +40,17 @@
             </header>
 
             <footer>
+                <div class="theme-switcher">
+                    <i class="fas fa-sun"></i>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-toggle-checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    <i class="fas fa-moon"></i>
+                </div>
                 <div class="social-links">
                     <a href="https://linkedin.com/in/ashvinmanojk289" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://instagram.com/__t_h_e_l_o_r_d__" target="_blank" aria-label="Instagram Profile"><i class="fab fa-instagram"></i></a>
+                    <a href="https://github.com/ashvinmanojk289" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
                     <a href="mailto:ashvinmanojk@gmail.com" aria-label="Send an Email"><i class="fas fa-envelope"></i></a>
                 </div>
                 <div class="copyright">
@@ -56,12 +63,21 @@
             <section class="section about" id="about">
                 <h2 class="section-title">About Me</h2>
                 <div class="about-container reveal">
-                    <p>Greetings! I'm Ashvin, a results-oriented AI/ML Engineer with a strong foundation in deep learning, NLP, and computer vision. My passion lies in architecting intelligent systems that seamlessly integrate the physical and digital domains, creating innovative solutions for real-world challenges.</p>
-                    <div class="about-details">
-                        <div class="detail-item"><i class="fas fa-brain"></i><span>Artificial Intelligence, Machine Learning, NLP, Prompt Engineering, Gen AI</span></div>
-                        <div class="detail-item"><i class="fas fa-lightbulb"></i><span>Developing impactful AI solutions for tangible, real-world problems</span></div>
-                        <div class="detail-item"><i class="fas fa-robot"></i><span>Robot Operating System (ROS), PLC Ladder Logic, MATLAB</span></div>
-                    </div>
+                    [cite_start]<p>Results-oriented AI/ML Engineer with a strong foundation in deep learning, NLP, and computer vision[cite: 5]. My passion lies in architecting intelligent systems that seamlessly integrate the physical and digital domains, creating innovative solutions for real-world challenges.</p>
+                </div>
+            </section>
+
+            <section class="section" id="tech-stack">
+                <h2 class="section-title">My Core Tech Stack</h2>
+                <div class="tech-stack-container reveal">
+                    <div class="tech-icon" title="Python"><i class="devicon-python-plain"></i><span>Python</span></div>
+                    <div class="tech-icon" title="TensorFlow"><i class="devicon-tensorflow-original"></i><span>TensorFlow</span></div>
+                    <div class="tech-icon" title="PyTorch"><i class="devicon-pytorch-original"></i><span>PyTorch</span></div>
+                    <div class="tech-icon" title="C++"><i class="devicon-cplusplus-plain"></i><span>C++</span></div>
+                    <div class="tech-icon" title="ROS"><i class="fas fa-robot"></i><span>ROS</span></div>
+                    <div class="tech-icon" title="SQL"><i class="devicon-mysql-plain"></i><span>SQL</span></div>
+                    <div class="tech-icon" title="Git"><i class="devicon-git-plain"></i><span>Git</span></div>
+                    <div class="tech-icon" title="Linux"><i class="devicon-linux-plain"></i><span>Linux</span></div>
                 </div>
             </section>
 
@@ -73,8 +89,8 @@
                             <h3>Hardware Systems Intern</h3>
                             <p class="timeline-date">Sunlux Technovations | Feb 2024 - April 2024</p>
                             <ul>
-                                <li>Developed and debugged microprocessor programs in Assembly for industrial automation systems, contributing to a 15% improvement in process efficiency.</li>
-                                <li>Collaborated with a team of engineers to design and implement real-world embedded solutions for clients in the Defence and Navy sector.</li>
+                                [cite_start]<li>Developed and debugged microprocessor programs in Assembly for industrial automation systems, contributing to a 15% improvement in process efficiency[cite: 18].</li>
+                                [cite_start]<li>Collaborated with engineers to design and implement embedded solutions for clients in the manufacturing sector[cite: 19].</li>
                             </ul>
                         </div>
                     </div>
@@ -84,98 +100,57 @@
             <section class="section projects" id="projects">
                 <h2 class="section-title">Featured Projects</h2>
                 <div class="project-list">
-                    <div class="project-card reveal">
-                        <h3><a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR" target="_blank">Multilingual News Audio Translator</a></h3>
-                        <p>Developed a full-stack audio translation app using Wav2Vec 2.0 for speech recognition (92% accuracy) and an mBART model fine-tuned with reinforcement learning for fluent translation.</p>
-                        <div class="tech-badges"><span class="tech-badge">Wav2Vec 2.0</span><span class="tech-badge">mBART</span><span class="tech-badge">Flask</span></div>
-                        <a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR" class="project-link" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
-                    </div>
-                    <div class="project-card reveal">
-                        <h3><a href="https://github.com/ashvinmanojk289/PDF-Query-Application" target="_blank">PDF Query Application</a></h3>
-                        <p>Developed a scalable, voice-enabled PDF query system using NLP and Streamlit, transforming static documents into conversational hubs and reducing information retrieval time by over 89%.</p>
+                    <div class="project-card reveal" data-skills="nlp genai python">
+                        <h3>PDF Query Application</h3>
+                        [cite_start]<p>A scalable, voice-enabled PDF query system using NLP and Streamlit, reducing information retrieval time by over 89%[cite: 24].</p>
                         <div class="tech-badges"><span class="tech-badge">NLP</span><span class="tech-badge">Streamlit</span><span class="tech-badge">GenAI</span></div>
-                        <a href="https://github.com/ashvinmanojk289/PDF-Query-Application" class="project-link" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+                        <button class="button-secondary open-modal-btn" data-modal-target="modal-pdf">View Case Study</button>
                     </div>
-                    <div class="project-card reveal">
-                        <h3><a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" target="_blank">Automatic Weed Detection Robot</a></h3>
-                        <p>An AI-powered weed detection robot using ROS and a custom hybrid EfficientNetV2-Transformer model, achieving 97% accuracy for eco-friendly herbicide application.</p>
+                    <div class="project-card reveal" data-skills="cv ros python transformer">
+                        <h3>Automatic Weed Detection Robot</h3>
+                        [cite_start]<p>An AI-powered robot using ROS and a custom EfficientNetV2-Transformer model (97% Accuracy) for precision agriculture[cite: 26].</p>
                         <div class="tech-badges"><span class="tech-badge">ROS</span><span class="tech-badge">Computer Vision</span><span class="tech-badge">Transformer</span></div>
-                        <a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" class="project-link" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+                        <button class="button-secondary open-modal-btn" data-modal-target="modal-robot">View Case Study</button>
                     </div>
-                </div>
-            </section>
-
-            <section class="section publications" id="publications">
-                <h2 class="section-title">Publications</h2>
-                <div class="publication-list reveal">
-                    <div class="publication-card">
-                        <h3>A Hybrid Transformer Model for Precision Weed Detection</h3>
-                        <p class="publication-authors">Sreedeep Krishnan, M. Karuppasamy Pandyan, Ashvin Manoj</p>
-                        <p class="publication-venue">Presented at IEEE ACCESS '25, Adi Shankara Institute of Engineering & Technology, June 2025.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section skills" id="skills">
-                <h2 class="section-title">Technical Skills</h2>
-                <div class="skills-container reveal">
-                    <div class="skill-category">
-                        <h3>Languages & Databases</h3>
-                        <div class="progress-bar"><span>Python</span><div class="progress" data-value="90"><div class="progress-inner"></div></div></div>
-                        <div class="progress-bar"><span>C++ / C</span><div class="progress" data-value="75"><div class="progress-inner"></div></div></div>
-                        <div class="progress-bar"><span>SQL</span><div class="progress" data-value="70"><div class="progress-inner"></div></div></div>
-                    </div>
-                    <div class="skill-category">
-                        <h3>AI/ML Frameworks</h3>
-                        <div class="progress-bar"><span>TensorFlow</span><div class="progress" data-value="85"><div class="progress-inner"></div></div></div>
-                        <div class="progress-bar"><span>PyTorch</span><div class="progress" data-value="80"><div class="progress-inner"></div></div></div>
-                        <div class="progress-bar"><span>NLP (Transformers)</span><div class="progress" data-value="90"><div class="progress-inner"></div></div></div>
-                    </div>
-                    <div class="skill-category">
-                        <h3>Tools & Platforms</h3>
-                        <div class="progress-bar"><span>ROS</span><div class="progress" data-value="85"><div class="progress-inner"></div></div></div>
-                        <div class="progress-bar"><span>Git</span><div class="progress" data-value="80"><div class="progress-inner"></div></div></div>
-                        <div class="progress-bar"><span>Streamlit / Flask</span><div class="progress" data-value="75"><div class="progress-inner"></div></div></div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section education" id="education">
-                <h2 class="section-title">Education</h2>
-                <div class="timeline">
-                    <div class="timeline-container left reveal">
-                        <div class="timeline-content">
-                            <h3>MTech in Computer Science and Engineering (AI/ML)</h3>
-                            <p class="timeline-date">Rajagiri School of Engineering and Technology | Aug 2024 - Present</p>
-                            <p class="timeline-grade">CGPA: 9.49</p>
-                        </div>
-                    </div>
-                    <div class="timeline-container right reveal">
-                        <div class="timeline-content">
-                            <h3>BTech (Honours) in Robotics and Automation</h3>
-                            <p class="timeline-date">Adi Shankara Institute of Engineering and Technology | Oct 2020 - Jun 2024</p>
-                            <p class="timeline-grade">CGPA: 9.54</p>
-                        </div>
-                    </div>
-                    <div class="timeline-container left reveal">
-                        <div class="timeline-content">
-                            <h3>Higher Secondary (12th Grade)</h3>
-                            <p class="timeline-date">St. Mary's Public School, Thamarachal | 2019 - 2020</p>
-                            <p class="timeline-grade">Percentage: 92.6%</p>
-                        </div>
+                    <div class="project-card reveal" data-skills="nlp python">
+                        <h3>Multilingual News Audio Translator</h3>
+                        [cite_start]<p>A full-stack audio translation app using Wav2Vec 2.0 and a fine-tuned mBART model for fluent, multilingual translation[cite: 22].</p>
+                        <div class="tech-badges"><span class="tech-badge">Wav2Vec 2.0</span><span class="tech-badge">mBART</span><span class="tech-badge">Flask</span></div>
+                        <button class="button-secondary open-modal-btn" data-modal-target="modal-translator">View Case Study</button>
                     </div>
                 </div>
             </section>
             
+            <section class="section skills" id="skills">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skill-filters reveal">
+                    <button class="skill-tag active" data-filter="all">All</button>
+                    <button class="skill-tag" data-filter="python">Python</button>
+                    <button class="skill-tag" data-filter="nlp">NLP</button>
+                    <button class="skill-tag" data-filter="cv">Computer Vision</button>
+                    <button class="skill-tag" data-filter="ros">ROS</button>
+                    <button class="skill-tag" data-filter="genai">GenAI</button>
+                    <button class="skill-tag" data-filter="transformer">Transformer</button>
+                </div>
+            </section>
+
+            <section class="section" id="testimonials">
+                <h2 class="section-title">Testimonials</h2>
+                <div class="testimonial-card reveal">
+                    <p>"Ashvin was a remarkable intern. His ability to quickly grasp complex microprocessor systems and his contribution to improving our process efficiency was invaluable. He is a dedicated and resourceful engineer."</p>
+                    <div class="testimonial-author">
+                        <strong>- Supervisor</strong>
+                        <span>Sunlux Technovations</span>
+                    </div>
+                </div>
+            </section>
+
             <section class="section contact" id="contact">
                 <h2 class="section-title">Get In Touch</h2>
                 <div class="contact-container reveal">
-                    <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious vision. Feel free to reach out!</p>
+                    <p>I'm always open to discussing new projects, creative ideas, or opportunities. Feel free to reach out!</p>
                     <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form">
-                        <div class="form-group">
-                            <input type="text" name="name" placeholder="Your Name" required>
-                            <input type="email" name="email" placeholder="Your Email" required>
-                        </div>
+                        <div class="form-group"><input type="text" name="name" placeholder="Your Name" required><input type="email" name="email" placeholder="Your Email" required></div>
                         <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
                         <button type="submit" class="button">Send Message <i class="fas fa-paper-plane"></i></button>
                     </form>
@@ -183,69 +158,138 @@
             </section>
             
             <section class="section resume" id="resume">
-                <h2 class="section-title">Resume</h2>
+                <h2 class="section-title">My Resume</h2>
                 <div class="resume-container reveal">
-                    <p>For a more detailed look at my experience, feel free to view or download my resume.</p>
-                    <div class="resume-embed">
-                        <iframe src="assets/resume.pdf" width="100%" height="600px" style="border: 1px solid #ccc;"></iframe>
+                    <div class="resume-preview">
+                        <img src="assets/resume.jpg" alt="Preview of Ashvin Manoj's Resume">
+                    </div>
+                    <div class="resume-cta">
+                        <h3>Interested in the full story?</h3>
+                        <p>For a detailed look at my qualifications, experience, and projects, please download the complete PDF version of my resume.</p>
+                        <a href="assets/resume.pdf" class="button" download="Ashvin_Manoj_Resume.pdf">Download PDF <i class="fas fa-download"></i></a>
                     </div>
                 </div>
             </section>
         </main>
     </div>
 
+    <div class="modal" id="modal-pdf">
+        <div class="modal-content">
+            <button class="close-modal-btn">&times;</button>
+            <h3>Case Study: PDF Query Application</h3>
+            <h4><strong>Problem:</strong> Extracting specific information from large PDF documents is time-consuming and inefficient.</h4>
+            <p><strong>Solution:</strong> I developed a scalable, voice-enabled system using NLP models to transform static PDFs into conversational hubs. Users can ask questions in natural language (or voice) and receive instant, contextually accurate answers. [cite_start]This reduced information retrieval time by over 89%[cite: 24].</p>
+            <p><strong>Tech Stack:</strong> Python, Streamlit, OpenAI API (for NLP), Google Speech Recognition, gTTS.</p>
+        </div>
+    </div>
+    <div class="modal" id="modal-robot">
+        <div class="modal-content">
+            <button class="close-modal-btn">&times;</button>
+            <h3>Case Study: Automatic Weed Detection Robot</h3>
+            <h4><strong>Problem:</strong> Traditional herbicide application in agriculture is often imprecise, leading to environmental damage and wasted resources.</h4>
+            [cite_start]<p><strong>Solution:</strong> I built an AI-powered autonomous robot that uses computer vision to differentiate between crops and weeds with 97% accuracy[cite: 26]. It navigates fields using ROS and applies herbicide directly to weeds, minimizing environmental impact. The core of the system is a custom-trained hybrid EfficientNetV2-Transformer model for robust detection.</p>
+            <p><strong>Tech Stack:</strong> Python, ROS, PyTorch, Transformers, Computer Vision (OpenCV), Embedded Systems.</p>
+        </div>
+    </div>
+    <div class="modal" id="modal-translator">
+        <div class="modal-content">
+            <button class="close-modal-btn">&times;</button>
+            <h3>Case Study: Multilingual News Audio Translator</h3>
+            <h4><strong>Problem:</strong> Live news broadcasts are often inaccessible to audiences who speak different languages.</h4>
+            <p><strong>Solution:</strong> I developed a full-stack web application that translates spoken audio in near real-time. [cite_start]It uses a Wav2Vec 2.0 model for highly accurate speech recognition and a fine-tuned mBART model for fluent, context-aware translation between multiple languages[cite: 22].</p>
+            <p><strong>Tech Stack:</strong> Python, Flask, Hugging Face (Transformers, Wav2Vec 2.0, mBART), PyTorch.</p>
+        </div>
+    </div>
+    <div class="modal-overlay"></div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const navLinks = document.querySelectorAll('.nav-link');
-            const sections = document.querySelectorAll('.section');
-            const progressBars = document.querySelectorAll('.progress');
+    document.addEventListener('DOMContentLoaded', function () {
+        // --- Theme Toggler ---
+        const themeToggle = document.getElementById('theme-toggle-checkbox');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        themeToggle.checked = currentTheme === 'dark';
 
-            // --- Scroll Spy Functionality ---
-            function setActiveLink() {
-                let currentSectionId = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (window.scrollY >= sectionTop - 100) {
-                        currentSectionId = section.getAttribute('id');
-                    }
-                });
-
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (currentSectionId && link.hash === '#' + currentSectionId) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-
-            // --- Intersection Observer for Animations ---
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        // General reveal animation
-                        entry.target.classList.add('visible');
-
-                        // Specific skill bar animation
-                        if (entry.target.classList.contains('progress')) {
-                            const value = entry.target.getAttribute('data-value');
-                            entry.target.querySelector('.progress-inner').style.width = `${value}%`;
-                        }
-                    }
-                });
-            }, {
-                threshold: 0.1 // Trigger when 10% of the element is visible
-            });
-
-            // Observe all elements with the 'reveal' class
-            document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-            // Observe all progress bars
-            progressBars.forEach((bar) => observer.observe(bar));
-
-            // Initial and on-scroll execution
-            window.addEventListener('scroll', setActiveLink);
-            setActiveLink();
+        themeToggle.addEventListener('change', function() {
+            const newTheme = this.checked ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
         });
+
+        // --- Scroll Spy ---
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.section');
+        function setActiveLink() {
+            let currentId = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 100) {
+                    currentId = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.hash === '#' + currentId) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // --- Intersection Observer for Animations ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- Modal Logic ---
+        const openModalButtons = document.querySelectorAll('.open-modal-btn');
+        const closeModalButtons = document.querySelectorAll('.close-modal-btn');
+        const overlay = document.querySelector('.modal-overlay');
+
+        openModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modal = document.getElementById(button.dataset.modalTarget);
+                modal.classList.add('active');
+                overlay.classList.add('active');
+            });
+        });
+
+        const closeModal = () => {
+            document.querySelectorAll('.modal.active').forEach(modal => modal.classList.remove('active'));
+            overlay.classList.remove('active');
+        };
+        closeModalButtons.forEach(button => button.addEventListener('click', closeModal));
+        overlay.addEventListener('click', closeModal);
+
+        // --- Skill Filtering Logic ---
+        const skillTags = document.querySelectorAll('.skill-tag');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        skillTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                skillTags.forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+                const filter = tag.dataset.filter;
+
+                projectCards.forEach(card => {
+                    const skills = card.dataset.skills;
+                    if (filter === 'all' || skills.includes(filter)) {
+                        card.classList.remove('filtered-out');
+                    } else {
+                        card.classList.add('filtered-out');
+                    }
+                });
+            });
+        });
+
+        // Event Listeners
+        window.addEventListener('scroll', setActiveLink);
+        setActiveLink(); // Initial call
+    });
     </script>
 </body>
-
 </html>
