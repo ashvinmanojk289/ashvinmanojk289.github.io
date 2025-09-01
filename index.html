@@ -16,14 +16,15 @@
 <body>
     <div class="main-container">
         <aside class="sidebar">
-            <button class="hamburger-btn" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
             <header>
                 <div class="profile">
                     <div class="profile-image">
                         <img src="assets/profile.jpg" alt="Photo of Ashvin Manoj">
                     </div>
-                    <h1 class="name">Ashvin Manoj</h1>
-                    <p class="title">AI & ML Enthusiast</p>
+                    <div>
+                        <h1 class="name">Ashvin Manoj</h1>
+                        <p class="title">AI & ML Enthusiast</p>
+                    </div>
                 </div>
 
                 <nav class="nav">
@@ -59,7 +60,6 @@
                 </div>
             </footer>
         </aside>
-        <div class="sidebar-overlay"></div>
 
         <main class="main-content">
             <section class="section about" id="about">
@@ -276,23 +276,6 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const sidebar = document.querySelector('.sidebar');
-        const hamburgerBtn = document.querySelector('.hamburger-btn');
-        const sidebarOverlay = document.querySelector('.sidebar-overlay');
-        const navLinks = document.querySelectorAll('.nav-link');
-        
-        // --- Mobile Menu Logic ---
-        const openMenu = () => sidebar.classList.add('expanded');
-        const closeMenu = () => sidebar.classList.remove('expanded');
-
-        hamburgerBtn.addEventListener('click', () => sidebar.classList.toggle('expanded'));
-        sidebarOverlay.addEventListener('click', closeMenu);
-        navLinks.forEach(link => link.addEventListener('click', () => {
-            if (window.innerWidth <= 992) {
-                closeMenu();
-            }
-        }));
-
         // --- Theme Toggler ---
         const themeToggle = document.getElementById('theme-toggle-checkbox');
         const currentTheme = localStorage.getItem('theme') || 'light';
@@ -306,8 +289,14 @@
         });
 
         // --- Scroll Spy ---
+        const navLinks = document.querySelectorAll('.nav-link');
         const sections = document.querySelectorAll('.section');
         function setActiveLink() {
+            // No scroll spy needed on mobile if nav is hidden
+            if (window.innerWidth <= 992) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                return;
+            }
             let currentId = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
@@ -355,6 +344,7 @@
 
         // Event Listeners
         window.addEventListener('scroll', setActiveLink);
+        window.addEventListener('resize', setActiveLink); // Re-check on resize
         setActiveLink();
     });
     </script>
