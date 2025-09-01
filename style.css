@@ -123,12 +123,21 @@ input:checked + .slider:before { transform: translateX(24px); }
 .project-card {
     background-color: var(--bg-secondary); padding: 25px; border-radius: 10px;
     border: 1px solid var(--border-color); box-shadow: 0 2px 8px var(--shadow-color);
-    display: flex; flex-direction: column; gap: 15px;
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    display: flex; flex-direction: column;
 }
-.project-card h3 { color: var(--text-primary); }
-.tech-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.project-card h3 { color: var(--text-primary); margin-bottom: 10px; }
+.project-card p { flex-grow: 1; margin-bottom: 15px; }
+.tech-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;}
 .tech-badge { background-color: var(--border-color); color: var(--text-secondary); padding: 5px 12px; border-radius: 15px; font-size: 0.85rem; }
+.project-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: auto;
+}
+.project-card-actions .button-secondary i {
+    margin-right: 8px;
+}
 
 /* --- Skills Section --- */
 .skills-grid {
@@ -172,7 +181,6 @@ input:checked + .slider:before { transform: translateX(24px); }
     color: #000;
 }
 
-
 /* --- Testimonials --- */
 .testimonial-card {
     background-color: var(--bg-secondary); padding: 30px; border-radius: 10px;
@@ -191,7 +199,7 @@ input:checked + .slider:before { transform: translateX(24px); }
 }
 .button, .button-secondary {
     padding: 12px 25px; border-radius: 25px; cursor: pointer; font-weight: 500;
-    text-decoration: none; text-align: center; display: inline-block;
+    text-decoration: none; text-align: center; display: inline-flex; align-items: center; justify-content: center;
     border: 1px solid var(--accent-primary);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
