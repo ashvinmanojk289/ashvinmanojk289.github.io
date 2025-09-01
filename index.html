@@ -12,21 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <style>
-        /* It's best practice to move this CSS to your external 'style.css' file */
-        .project-card ul {
-            list-style-position: inside;
-            padding-left: 5px;
-            color: #C6D0EB;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .project-card ul li {
-            margin-bottom: 10px;
-        }
-    </style>
 </head>
 
 <body>
@@ -43,41 +28,14 @@
 
                 <nav class="nav">
                     <ul class="nav-list">
-                        <li class="nav-item">
-                            <a href="#about" class="nav-link active">
-                                <i class="fas fa-user"></i> About
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#experience" class="nav-link">
-                                <i class="fas fa-briefcase"></i> Experience
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#projects" class="nav-link">
-                                <i class="fas fa-project-diagram"></i> Projects
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#publications" class="nav-link">
-                                <i class="fas fa-book-open"></i> Publications
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#skills" class="nav-link">
-                                <i class="fas fa-code"></i> Skills
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#education" class="nav-link">
-                                <i class="fas fa-graduation-cap"></i> Education
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#resume" class="nav-link">
-                                <i class="fas fa-file-alt"></i> Resume
-                            </a>
-                        </li>
+                        <li class="nav-item"><a href="#about" class="nav-link active"><i class="fas fa-user"></i> About</a></li>
+                        <li class="nav-item"><a href="#experience" class="nav-link"><i class="fas fa-briefcase"></i> Experience</a></li>
+                        <li class="nav-item"><a href="#projects" class="nav-link"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                        <li class="nav-item"><a href="#publications" class="nav-link"><i class="fas fa-book-open"></i> Publications</a></li>
+                        <li class="nav-item"><a href="#skills" class="nav-link"><i class="fas fa-code"></i> Skills</a></li>
+                        <li class="nav-item"><a href="#education" class="nav-link"><i class="fas fa-graduation-cap"></i> Education</a></li>
+                        <li class="nav-item"><a href="#contact" class="nav-link"><i class="fas fa-envelope-open-text"></i> Contact</a></li>
+                        <li class="nav-item"><a href="#resume" class="nav-link"><i class="fas fa-file-alt"></i> Resume</a></li>
                     </ul>
                 </nav>
             </header>
@@ -88,7 +46,6 @@
                     <a href="https://instagram.com/__t_h_e_l_o_r_d__" target="_blank" aria-label="Instagram Profile"><i class="fab fa-instagram"></i></a>
                     <a href="mailto:ashvinmanojk@gmail.com" aria-label="Send an Email"><i class="fas fa-envelope"></i></a>
                 </div>
-
                 <div class="copyright">
                     <p>© 2025 Ashvin Manoj</p>
                 </div>
@@ -98,35 +55,28 @@
         <main class="main-content">
             <section class="section about" id="about">
                 <h2 class="section-title">About Me</h2>
-                <div class="about-container">
+                <div class="about-container reveal">
                     <p>Greetings! I'm Ashvin, a results-oriented AI/ML Engineer with a strong foundation in deep learning, NLP, and computer vision. My passion lies in architecting intelligent systems that seamlessly integrate the physical and digital domains, creating innovative solutions for real-world challenges.</p>
                     <div class="about-details">
-                        <div class="detail-item">
-                            <i class="fas fa-brain"></i>
-                            <span>Artificial Intelligence, Machine Learning, NLP, Prompt Engineering, Gen AI</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-lightbulb"></i>
-                            <span>Developing impactful AI solutions for tangible, real-world problems</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-robot"></i>
-                            <span>Robot Operating System (ROS), PLC Ladder Logic, MATLAB</span>
-                        </div>
+                        <div class="detail-item"><i class="fas fa-brain"></i><span>Artificial Intelligence, Machine Learning, NLP, Prompt Engineering, Gen AI</span></div>
+                        <div class="detail-item"><i class="fas fa-lightbulb"></i><span>Developing impactful AI solutions for tangible, real-world problems</span></div>
+                        <div class="detail-item"><i class="fas fa-robot"></i><span>Robot Operating System (ROS), PLC Ladder Logic, MATLAB</span></div>
                     </div>
                 </div>
             </section>
 
             <section class="section experience" id="experience">
                 <h2 class="section-title">Professional Experience</h2>
-                <div class="experience-list">
-                    <div class="experience-card">
-                        <h3>Hardware Systems Intern</h3>
-                        <p class="experience-company-date">Sunlux Technovations | Feb 2024 - April 2024</p>
-                        <ul>
-                            <li>Developed and debugged microprocessor programs in Assembly for industrial automation systems, contributing to a 15% improvement in process efficiency.</li>
-                            <li>Collaborated with a team of engineers to design and implement real-world embedded solutions for clients in the Defence and Navy sector.</li>
-                        </ul>
+                <div class="timeline">
+                    <div class="timeline-container right reveal">
+                        <div class="timeline-content">
+                            <h3>Hardware Systems Intern</h3>
+                            <p class="timeline-date">Sunlux Technovations | Feb 2024 - April 2024</p>
+                            <ul>
+                                <li>Developed and debugged microprocessor programs in Assembly for industrial automation systems, contributing to a 15% improvement in process efficiency.</li>
+                                <li>Collaborated with a team of engineers to design and implement real-world embedded solutions for clients in the Defence and Navy sector.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -134,101 +84,30 @@
             <section class="section projects" id="projects">
                 <h2 class="section-title">Featured Projects</h2>
                 <div class="project-list">
-                    <div class="project-card">
-                        <h3>
-                            <a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR"
-                                target="_blank">Multilingual News Audio Translator</a>
-                        </h3>
-                        <p>
-                            Developed a full-stack audio translation app using Wav2Vec 2.0 for speech recognition (achieving 92% accuracy) and an mBART model fine-tuned with reinforcement learning for fluent, high-quality translation.
-                        </p>
-                        <ul>
-                            <p><strong>Key Features:</strong></p>
-                            <li>Supports multiple languages for real-time multilingual broadcasting.</li>
-                            <li>Optimized for performance, suitable for live news applications.</li>
-                            <li>Features include downloadable audio and a dark mode toggle.</li>
-                        </ul>
-                        <div class="tech-badges">
-                            <span class="tech-badge">Wav2Vec 2.0</span>
-                            <span class="tech-badge">mBART</span>
-                            <span class="tech-badge">Hugging Face</span>
-                            <span class="tech-badge">Flask</span>
-                        </div>
-                        <a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR"
-                            class="project-link" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+                    <div class="project-card reveal">
+                        <h3><a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR" target="_blank">Multilingual News Audio Translator</a></h3>
+                        <p>Developed a full-stack audio translation app using Wav2Vec 2.0 for speech recognition (92% accuracy) and an mBART model fine-tuned with reinforcement learning for fluent translation.</p>
+                        <div class="tech-badges"><span class="tech-badge">Wav2Vec 2.0</span><span class="tech-badge">mBART</span><span class="tech-badge">Flask</span></div>
+                        <a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR" class="project-link" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
                     </div>
-                    <div class="project-card">
-                        <h3>
-                            <a href="https://github.com/ashvinmanojk289/PDF-Query-Application" target="_blank">PDF Query Application</a>
-                        </h3>
-                        <p>
-                            Developed a scalable, voice-enabled PDF query system using NLP and Streamlit, transforming static documents into conversational hubs and reducing information retrieval time by over 89%.
-                        </p>
-                        <ul>
-                            <p><strong>Key Features:</strong></p>
-                            <li>Integrates OpenAI's Chat API for context-aware interactions.</li>
-                            <li>Incorporates Google Speech Recognition for voice input and gTTS for audio output.</li>
-                            <li>Sleek GUI built with Streamlit for file uploads and query submissions.</li>
-                        </ul>
-                        <div class="tech-badges">
-                            <span class="tech-badge">NLP</span>
-                            <span class="tech-badge">Streamlit</span>
-                            <span class="tech-badge">Python</span>
-                            <span class="tech-badge">GenAI</span>
-                        </div>
+                    <div class="project-card reveal">
+                        <h3><a href="https://github.com/ashvinmanojk289/PDF-Query-Application" target="_blank">PDF Query Application</a></h3>
+                        <p>Developed a scalable, voice-enabled PDF query system using NLP and Streamlit, transforming static documents into conversational hubs and reducing information retrieval time by over 89%.</p>
+                        <div class="tech-badges"><span class="tech-badge">NLP</span><span class="tech-badge">Streamlit</span><span class="tech-badge">GenAI</span></div>
                         <a href="https://github.com/ashvinmanojk289/PDF-Query-Application" class="project-link" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
                     </div>
-                    <div class="project-card">
-                        <h3>
-                            <a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" target="_blank">Automatic Weed
-                                Detection and Spraying Robot</a>
-                        </h3>
-                        <p>
-                            Revolutionizing precision agriculture with an AI-powered weed detection robot using ROS and a custom hybrid EfficientNetV2-Transformer model, achieving 97% accuracy for eco-friendly herbicide application.
-                        </p>
-                        <ul>
-                            <p><strong>Key Features:</strong></p>
-                            <li>Leveraged advanced transformer models to accurately distinguish weeds from crops.</li>
-                            <li>Developed a modular architecture in ROS for autonomous navigation and control.</li>
-                            <li>Designed a targeted herbicide system to minimize environmental impact.</li>
-                        </ul>
-                        <div class="tech-badges">
-                            <span class="tech-badge">Python</span>
-                            <span class="tech-badge">ROS</span>
-                            <span class="tech-badge">Computer Vision</span>
-                            <span class="tech-badge">Transformer</span>
-                        </div>
-                        <a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" class="project-link"
-                            target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
-                    </div>
-                    <div class="project-card">
-                        <h3>
-                            <a href="https://github.com/ashvinmanojk289/Quadrobot" target="_blank">4-legged Quadruped Robot (SpiderBot)</a>
-                        </h3>
-                        <p>
-                            A fun and interactive 4-legged robot with an emoji display, controlled via Bluetooth using an Arduino Nano and HC-05 module, capable of basic forward, backward, left, and right movements.
-                        </p>
-                        <ul>
-                            <p><strong>Key Features:</strong></p>
-                            <li>Equipped with an LED screen that displays random emojis.</li>
-                            <li>Controlled wirelessly via a mobile application using an HC-05 Bluetooth module.</li>
-                            <li>Built with an Arduino Nano for a compact and efficient design.</li>
-                        </ul>
-                        <div class="tech-badges">
-                            <span class="tech-badge">Arduino</span>
-                            <span class="tech-badge">Embedded Systems</span>
-                            <span class="tech-badge">PCB Design</span>
-                            <span class="tech-badge">Bluetooth</span>
-                        </div>
-                        <a href="https://github.com/ashvinmanojk289/Quadrobot" class="project-link" target="_blank"><i
-                                class="fab fa-github"></i> View on GitHub</a>
+                    <div class="project-card reveal">
+                        <h3><a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" target="_blank">Automatic Weed Detection Robot</a></h3>
+                        <p>An AI-powered weed detection robot using ROS and a custom hybrid EfficientNetV2-Transformer model, achieving 97% accuracy for eco-friendly herbicide application.</p>
+                        <div class="tech-badges"><span class="tech-badge">ROS</span><span class="tech-badge">Computer Vision</span><span class="tech-badge">Transformer</span></div>
+                        <a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" class="project-link" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
                     </div>
                 </div>
             </section>
 
             <section class="section publications" id="publications">
                 <h2 class="section-title">Publications</h2>
-                <div class="publication-list">
+                <div class="publication-list reveal">
                     <div class="publication-card">
                         <h3>A Hybrid Transformer Model for Precision Weed Detection</h3>
                         <p class="publication-authors">Sreedeep Krishnan, M. Karuppasamy Pandyan, Ashvin Manoj</p>
@@ -239,122 +118,74 @@
 
             <section class="section skills" id="skills">
                 <h2 class="section-title">Technical Skills</h2>
-                <div class="skills-container">
+                <div class="skills-container reveal">
                     <div class="skill-category">
                         <h3>Languages & Databases</h3>
-                        <div class="progress-bar"><span>Python</span>
-                            <div class="progress" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-inner" style="width: 90%;"></div>
-                            </div>
-                        </div>
-                        <div class="progress-bar"><span>C++ / C</span>
-                            <div class="progress" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-inner" style="width: 75%;"></div>
-                            </div>
-                        </div>
-                        <div class="progress-bar"><span>SQL</span>
-                            <div class="progress" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-inner" style="width: 70%;"></div>
-                            </div>
-                        </div>
-                        <div class="progress-bar"><span>R</span>
-                            <div class="progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-inner" style="width: 60%;"></div>
-                            </div>
-                        </div>
+                        <div class="progress-bar"><span>Python</span><div class="progress" data-value="90"><div class="progress-inner"></div></div></div>
+                        <div class="progress-bar"><span>C++ / C</span><div class="progress" data-value="75"><div class="progress-inner"></div></div></div>
+                        <div class="progress-bar"><span>SQL</span><div class="progress" data-value="70"><div class="progress-inner"></div></div></div>
                     </div>
                     <div class="skill-category">
-                        <h3>AI/ML Frameworks & Libraries</h3>
-                        <div class="progress-bar"><span>TensorFlow</span>
-                            <div class="progress" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-inner" style="width: 85%;"></div>
-                            </div>
-                        </div>
-                        <div class="progress-bar"><span>PyTorch</span>
-                            <div class="progress" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-inner" style="width: 80%;"></div>
-                            </div>
-                        </div>
-                        <div class="progress-bar"><span>Scikit-learn</span>
-                            <div class="progress" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-inner" style="width: 85%;"></div>
-                            </div>
-                        </div>
-                        <div class="progress-bar"><span>NLP (Transformers)</span>
-                            <div class="progress" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-inner" style="width: 90%;"></div>
-                            </div>
-                        </div>
+                        <h3>AI/ML Frameworks</h3>
+                        <div class="progress-bar"><span>TensorFlow</span><div class="progress" data-value="85"><div class="progress-inner"></div></div></div>
+                        <div class="progress-bar"><span>PyTorch</span><div class="progress" data-value="80"><div class="progress-inner"></div></div></div>
+                        <div class="progress-bar"><span>NLP (Transformers)</span><div class="progress" data-value="90"><div class="progress-inner"></div></div></div>
                     </div>
                     <div class="skill-category">
                         <h3>Tools & Platforms</h3>
-                        <div class="progress-bar"><span>ROS</span>
-                            <div class="progress" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-inner" style="width: 85%;"></div>
-                            </div>
-                        </div>
-                        <div class="progress-bar"><span>Git</span>
-                            <div class="progress" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-inner" style="width: 80%;"></div>
-                            </div>
-                        </div>
-                        <div class="progress-bar"><span>Arduino / Embedded</span>
-                            <div class="progress" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-inner" style="width: 90%;"></div>
-                            </div>
-                        </div>
-                        <div class="progress-bar"><span>Streamlit / Flask</span>
-                            <div class="progress" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-inner" style="width: 75%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="certifications-container">
-                    <h3 class="section-subtitle">Certifications</h3>
-                    <div class="tech-badges">
-                        <span class="tech-badge">Coursera: Google Data Analytics </span>
-                        <span class="tech-badge">Coursera: Introduction to Generative AI Learning Path Specialization </span>
-                        <span class="tech-badge">Coursera: GenAl for UX Designers </span>
-                        <span class="tech-badge">Infosys: Prompt Engineering </span>
-                        <span class="tech-badge">NPTEL: Programming, Data Structures and Algorithms using Python </span>
-                        <span class="tech-badge">NPTEL: Automation In Production Systems And Management </span>
-                        <span class="tech-badge">NPTEL: Wheeled Mobile Robots </span>
+                        <div class="progress-bar"><span>ROS</span><div class="progress" data-value="85"><div class="progress-inner"></div></div></div>
+                        <div class="progress-bar"><span>Git</span><div class="progress" data-value="80"><div class="progress-inner"></div></div></div>
+                        <div class="progress-bar"><span>Streamlit / Flask</span><div class="progress" data-value="75"><div class="progress-inner"></div></div></div>
                     </div>
                 </div>
             </section>
 
             <section class="section education" id="education">
                 <h2 class="section-title">Education</h2>
-                <div class="education-list">
-                    <div class="education-card">
-                        <h3>MTech in Computer Science and Engineering (AI/ML)</h3>
-                        <p class="education-school-date">Rajagiri School of Engineering and Technology | Aug 2024 - Present</p>
-                        <p class="education-grade">CGPA: 9.49</p>
+                <div class="timeline">
+                    <div class="timeline-container left reveal">
+                        <div class="timeline-content">
+                            <h3>MTech in Computer Science and Engineering (AI/ML)</h3>
+                            <p class="timeline-date">Rajagiri School of Engineering and Technology | Aug 2024 - Present</p>
+                            <p class="timeline-grade">CGPA: 9.49</p>
+                        </div>
                     </div>
-                    <div class="education-card">
-                        <h3>BTech (Honours) in Robotics and Automation</h3>
-                        <p class="education-school-date">Adi Shankara Institute of Engineering and Technology | Oct 2020 - Jun 2024</p>
-                        <p class="education-grade">CGPA: 9.54</p>
+                    <div class="timeline-container right reveal">
+                        <div class="timeline-content">
+                            <h3>BTech (Honours) in Robotics and Automation</h3>
+                            <p class="timeline-date">Adi Shankara Institute of Engineering and Technology | Oct 2020 - Jun 2024</p>
+                            <p class="timeline-grade">CGPA: 9.54</p>
+                        </div>
                     </div>
-                    <div class="education-card">
-                        <h3>Higher Secondary (12th Grade) - Computer/Maths</h3>
-                        <p class="education-school-date">St. Mary's Public School, Thamarachal | 2019 - 2020</p>
-                        <p class="education-grade">Percentage: 92.6%</p>
-                    </div>
-                    <div class="education-card">
-                        <h3>Secondary School (10th Grade)</h3>
-                        <p class="education-school-date">St. Mary's Public School, Thamarachal | 2017 - 2018</p>
-                        <p class="education-grade">Percentage: 90.6%</p>
+                    <div class="timeline-container left reveal">
+                        <div class="timeline-content">
+                            <h3>Higher Secondary (12th Grade)</h3>
+                            <p class="timeline-date">St. Mary's Public School, Thamarachal | 2019 - 2020</p>
+                            <p class="timeline-grade">Percentage: 92.6%</p>
+                        </div>
                     </div>
                 </div>
             </section>
-
+            
+            <section class="section contact" id="contact">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="contact-container reveal">
+                    <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious vision. Feel free to reach out!</p>
+                    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Your Name" required>
+                            <input type="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
+                        <button type="submit" class="button">Send Message <i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </section>
+            
             <section class="section resume" id="resume">
                 <h2 class="section-title">Resume</h2>
-                <div class="resume-container">
-                    <p>For a more detailed look at my experience, feel free to view my resume below or download it.</p>
-                    
+                <div class="resume-container reveal">
+                    <p>For a more detailed look at my experience, feel free to view or download my resume.</p>
                     <div class="resume-embed">
                         <iframe src="assets/resume.pdf" width="100%" height="600px" style="border: 1px solid #ccc;"></iframe>
                     </div>
@@ -367,39 +198,54 @@
         document.addEventListener('DOMContentLoaded', function () {
             const navLinks = document.querySelectorAll('.nav-link');
             const sections = document.querySelectorAll('.section');
+            const progressBars = document.querySelectorAll('.progress');
 
+            // --- Scroll Spy Functionality ---
             function setActiveLink() {
                 let currentSectionId = '';
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
-                    // Check if the user's scroll position is past the top of the section, with a 60px offset
-                    if (window.scrollY >= sectionTop - 60) {
+                    if (window.scrollY >= sectionTop - 100) {
                         currentSectionId = section.getAttribute('id');
                     }
                 });
 
                 navLinks.forEach(link => {
                     link.classList.remove('active');
-                    // More precise check: link's href should exactly match the current section's ID
                     if (currentSectionId && link.hash === '#' + currentSectionId) {
                         link.classList.add('active');
                     }
                 });
-
-                // If no section is active (e.g., scrolled to the very top), default to 'about'
-                if (!currentSectionId && navLinks.length > 0) {
-                     document.querySelector('.nav-link[href="#about"]').classList.add('active');
-                }
             }
 
+            // --- Intersection Observer for Animations ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        // General reveal animation
+                        entry.target.classList.add('visible');
+
+                        // Specific skill bar animation
+                        if (entry.target.classList.contains('progress')) {
+                            const value = entry.target.getAttribute('data-value');
+                            entry.target.querySelector('.progress-inner').style.width = `${value}%`;
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            });
+
+            // Observe all elements with the 'reveal' class
+            document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+            // Observe all progress bars
+            progressBars.forEach((bar) => observer.observe(bar));
+
+            // Initial and on-scroll execution
             window.addEventListener('scroll', setActiveLink);
-            setActiveLink(); // Run on page load to set the initial state
+            setActiveLink();
         });
     </script>
 </body>
 
 </html>
-
-
-
-
