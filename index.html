@@ -59,6 +59,7 @@
                 </div>
             </footer>
         </aside>
+        <div class="sidebar-overlay"></div>
 
         <main class="main-content">
             <section class="section about" id="about">
@@ -276,22 +277,21 @@
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         const sidebar = document.querySelector('.sidebar');
-        const mainContent = document.querySelector('.main-content');
         const hamburgerBtn = document.querySelector('.hamburger-btn');
+        const sidebarOverlay = document.querySelector('.sidebar-overlay');
+        const navLinks = document.querySelectorAll('.nav-link');
         
-        // --- Hamburger Menu Logic for Mobile ---
-        if (hamburgerBtn) {
-            hamburgerBtn.addEventListener('click', () => {
-                sidebar.classList.toggle('expanded');
-            });
-        }
-        
-        // Function to set initial sidebar state based on screen size
-        const setInitialSidebarState = () => {
+        // --- Mobile Menu Logic ---
+        const openMenu = () => sidebar.classList.add('expanded');
+        const closeMenu = () => sidebar.classList.remove('expanded');
+
+        hamburgerBtn.addEventListener('click', () => sidebar.classList.toggle('expanded'));
+        sidebarOverlay.addEventListener('click', closeMenu);
+        navLinks.forEach(link => link.addEventListener('click', () => {
             if (window.innerWidth <= 992) {
-                sidebar.classList.remove('expanded');
+                closeMenu();
             }
-        };
+        }));
 
         // --- Theme Toggler ---
         const themeToggle = document.getElementById('theme-toggle-checkbox');
@@ -306,7 +306,6 @@
         });
 
         // --- Scroll Spy ---
-        const navLinks = document.querySelectorAll('.nav-link');
         const sections = document.querySelectorAll('.section');
         function setActiveLink() {
             let currentId = '';
@@ -337,29 +336,26 @@
         // --- Modal Logic ---
         const openModalButtons = document.querySelectorAll('.open-modal-btn');
         const closeModalButtons = document.querySelectorAll('.close-modal-btn');
-        const overlay = document.querySelector('.modal-overlay');
+        const modalOverlay = document.querySelector('.modal-overlay');
 
         openModalButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const modal = document.getElementById(button.dataset.modalTarget);
                 modal.classList.add('active');
-                overlay.classList.add('active');
+                modalOverlay.classList.add('active');
             });
         });
 
         const closeModal = () => {
             document.querySelectorAll('.modal.active').forEach(modal => modal.classList.remove('active'));
-            overlay.classList.remove('active');
+            modalOverlay.classList.remove('active');
         };
         closeModalButtons.forEach(button => button.addEventListener('click', closeModal));
-        overlay.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', closeModal);
 
         // Event Listeners
         window.addEventListener('scroll', setActiveLink);
-        
-        // Initial calls on page load
         setActiveLink();
-        setInitialSidebarState();
     });
     </script>
 </body>
