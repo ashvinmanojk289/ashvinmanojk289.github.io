@@ -131,6 +131,7 @@ input:checked + .slider:before { transform: translateX(24px); }
 }
 .timeline-content h3 { color: var(--text-primary); }
 .timeline-date { color: var(--accent-primary); font-weight: 500; margin-bottom: 10px; font-size: 0.9rem; }
+.timeline-content .timeline-grade { font-style: italic; }
 .timeline-content ul { list-style-position: inside; padding-left: 5px; }
 
 /* --- Projects --- */
@@ -173,6 +174,34 @@ input:checked + .slider:before { transform: translateX(24px); }
     transform: translateY(-2px); box-shadow: 0 4px 10px var(--shadow-color);
 }
 [data-theme="dark"] .skill-tile:hover { color: #000; }
+
+/* --- Certifications Section --- */
+.certifications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+.certification-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.cert-icon i {
+    font-size: 2.5rem;
+    color: var(--accent-primary);
+}
+.cert-details h3 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+.cert-details p {
+    font-size: 0.9rem;
+}
 
 /* --- Testimonials --- */
 .testimonial-card {
@@ -249,7 +278,7 @@ input:checked + .slider:before { transform: translateX(24px); }
         width: 100%;
         height: auto;
         flex-direction: row;
-        justify-content: space-between; /* This will push profile left and footer right */
+        justify-content: space-between;
         align-items: center;
         padding: 15px 20px;
         overflow-y: hidden;
@@ -267,6 +296,10 @@ input:checked + .slider:before { transform: translateX(24px); }
         text-align: left;
         margin: 0;
     }
+    .profile > div:last-child {
+        display: flex;
+        flex-direction: column;
+    }
     .profile-image {
         width: 50px;
         height: 50px;
@@ -281,13 +314,13 @@ input:checked + .slider:before { transform: translateX(24px); }
         margin: 0;
     }
     .nav, .sidebar .social-links, .sidebar .copyright {
-        display: none; /* Hide nav and other footer items */
+        display: none;
     }
     .sidebar footer {
-        margin-top: 0; /* Reset footer margin */
+        margin-top: 0;
     }
     .theme-switcher {
-        margin-bottom: 0; /* Reset theme switcher margin */
+        margin-bottom: 0;
     }
     .main-content {
         margin-left: 0;
