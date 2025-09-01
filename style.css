@@ -148,6 +148,29 @@ input:checked + .slider:before { transform: translateX(24px); }
 .project-card-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
 .project-card-actions .button-secondary i { margin-right: 8px; }
 
+/* --- Publications Section --- */
+.publication-card {
+    background-color: var(--bg-secondary);
+    padding: 30px;
+    border-radius: 10px;
+    border-left: 5px solid var(--accent-primary);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+.publication-card h3 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+.publication-authors {
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+.publication-venue {
+    font-style: italic;
+}
+
 /* --- Skills Section --- */
 .skills-grid {
     display: grid;
