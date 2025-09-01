@@ -275,3 +275,18 @@ input:checked + .slider:before { transform: translateX(24px); }
     .form-group { flex-direction: column; }
     .skills-grid { grid-template-columns: 1fr; }
 }
+.sidebar {
+    background-color: var(--bg-secondary);
+    width: 300px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
+    border-right: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    overflow-y: auto; /* Add this line */
+}
