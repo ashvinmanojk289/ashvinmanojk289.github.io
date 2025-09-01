@@ -89,12 +89,22 @@ input:checked + .slider:before { transform: translateX(24px); }
 .tech-icon {
     display: flex; flex-direction: column; align-items: center; gap: 10px;
     background-color: var(--bg-secondary); padding: 20px; border-radius: 10px;
-    width: 120px; text-align: center; font-size: 0.9rem;
+    width: 120px; text-align: center;
     border: 1px solid var(--border-color); transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .tech-icon:hover { transform: translateY(-5px); box-shadow: 0 5px 15px var(--shadow-color); }
-.tech-icon i, .tech-icon span:first-of-type { font-size: 3rem; color: var(--accent-primary); }
-.tech-icon span { font-size: 0.9rem; }
+.tech-icon-image {
+    font-size: 3rem;
+    color: var(--accent-primary);
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tech-icon span {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
 
 /* --- Timeline --- */
 .timeline { position: relative; max-width: 1000px; margin: 0 auto; }
