@@ -210,7 +210,6 @@ input:checked + .slider:before { transform: translateX(24px); }
 .tech-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;}
 .tech-badge { background-color: var(--border-color); color: var(--text-secondary); padding: 5px 12px; border-radius: 15px; font-size: 0.85rem; }
 .project-card-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
-.button-secondary i { margin-right: 8px; }
 
 /* --- Publications Section --- */
 .publication-card {
@@ -284,6 +283,9 @@ input:checked + .slider:before { transform: translateX(24px); }
 [data-theme="dark"] .button { color: #000; }
 .button:hover { background-color: var(--accent-hover); border-color: var(--accent-hover); }
 .button-secondary { background-color: transparent; color: var(--accent-primary); }
+.button-secondary i {
+    margin-right: 8px;
+}
 .button-secondary:hover { background-color: var(--accent-primary); color: var(--bg-secondary); }
 [data-theme="dark"] .button-secondary:hover { color: #000; }
 
