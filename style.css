@@ -163,12 +163,10 @@ input:checked + .slider:before { transform: translateX(24px); }
 .timeline::after {
     content: ''; position: absolute; width: 4px; background-color: var(--accent-primary);
     top: 0; bottom: 0; left: 50%; margin-left: -2px;
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 0.8s ease-out;
 }
 .timeline.visible::after {
     transform: scaleY(1);
+    transition: transform 0.8s ease-out;
 }
 .timeline-container { padding: 10px 40px; position: relative; width: 50%; opacity: 0; }
 .timeline.visible .timeline-container.left { animation: slideInLeft 0.8s ease-out forwards; }
