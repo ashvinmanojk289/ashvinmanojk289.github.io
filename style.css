@@ -1,6 +1,6 @@
 /* --- CSS Custom Properties (Variables) --- */
 :root {
-    --bg-primary: #FFFFFF; /* Changed to pure white for a cleaner look with the pattern */
+    --bg-primary: #FFFFFF;
     --bg-secondary: #FFFFFF;
     --text-primary: #212529;
     --text-secondary: #495057;
@@ -371,3 +371,4 @@ input:checked + .slider:before { transform: translateX(24px); }
     .skills-grid { grid-template-columns: 1fr; }
     .form-group { flex-direction: column; }
 }
+
