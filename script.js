@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // --- Set Current Year in Footer ---
+    const yearSpan = document.getElementById('current-year');
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
+
     // --- Theme Toggler ---
     const themeToggle = document.getElementById('theme-toggle-checkbox');
     const currentTheme = localStorage.getItem('theme') || 'light';
@@ -34,18 +40,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- Intersection Observer for Re-triggering Animations ---
+    // --- Intersection Observer for Re-triggering Animations (FIXED) ---
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
             } else {
-                // Optional: remove class to re-trigger animation on scroll up
-                // entry.target.classList.remove('visible'); 
+                // This line makes the animation re-trigger on scroll up/down
+                entry.target.classList.remove('visible');
             }
         });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal, .timeline').forEach(el => observer.observe(el));
+
 
     // --- 3D Tilt Effect for Project Cards ---
     const projectCards = document.querySelectorAll('.project-card');
@@ -79,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function () {
         activeModal = modal;
         document.body.style.overflow = 'hidden'; // Prevent background scrolling
         document.addEventListener('keydown', handleKeyDown);
-        // Set focus on the first focusable element in the modal
         const focusableElements = activeModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
         if (focusableElements.length > 0) {
             focusableElements[0].focus();
