@@ -1,6 +1,6 @@
 /* --- CSS Custom Properties (Variables) --- */
 :root {
-    --bg-primary: #F8F9FA;
+    --bg-primary: #FFFFFF; /* Changed to pure white for a cleaner look with the pattern */
     --bg-secondary: #FFFFFF;
     --text-primary: #212529;
     --text-secondary: #495057;
@@ -8,6 +8,7 @@
     --accent-hover: #004494;
     --border-color: #dee2e6;
     --shadow-color: rgba(0, 0, 0, 0.05);
+    --background-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e9ecef' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
 [data-theme="dark"] {
@@ -19,6 +20,7 @@
     --accent-hover: #86D9C8;
     --border-color: #2C363F;
     --shadow-color: rgba(0, 0, 0, 0.2);
+    --background-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232C363F' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* --- Keyframe Animations --- */
@@ -60,6 +62,7 @@
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--bg-primary);
+    background-image: var(--background-pattern); /* APPLY THE PATTERN HERE */
     color: var(--text-secondary);
     line-height: 1.6;
     overflow-x: hidden;
