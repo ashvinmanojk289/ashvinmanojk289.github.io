@@ -72,7 +72,7 @@
                     <a href="mailto:ashvinmanojk@gmail.com" aria-label="Send an Email"><i class="fas fa-envelope"></i></a>
                 </div>
                 <div class="copyright">
-                    <p>© 2025 Ashvin Manoj</p>
+                    <p>© <span id="current-year">2025</span> Ashvin Manoj</p>
                 </div>
             </footer>
         </aside>
@@ -142,16 +142,6 @@
             <section class="section projects" id="projects">
                 <h2 class="section-title reveal">Featured Projects</h2>
                 <div class="project-list stagger-reveal">
-                     <div class="project-card reveal">
-                        <h3>Multilingual News Audio Translator</h3>
-                        <p>A full-stack audio translation app using Wav2Vec 2.0 and a fine-tuned mBART model for fluent, multilingual translation.</p>
-                        <div class="tech-badges"><span class="tech-badge">Wav2Vec 2.0</span><span class="tech-badge">mBART</span><span class="tech-badge">Flask</span></div>
-                        <div class="project-card-actions">
-                            <a href="#" target="_blank" class="button-secondary"><i class="fas fa-rocket"></i> Live Demo</a>
-                            <button class="button-secondary open-modal-btn" data-modal-target="modal-translator">View Case Study</button>
-                            <a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR" target="_blank" class="button-secondary"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
                     <div class="project-card reveal">
                         <h3>PDF Query Application</h3>
                         <p>Developed a scalable, voice-enabled PDF query system using NLP and Streamlit, transforming static documents into conversational hubs.</p>
@@ -168,6 +158,15 @@
                         <div class="project-card-actions">
                             <button class="button-secondary open-modal-btn" data-modal-target="modal-robot">View Case Study</button>
                             <a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" target="_blank" class="button-secondary"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                    <div class="project-card reveal">
+                        <h3>Multilingual News Audio Translator</h3>
+                        <p>A full-stack audio translation app using Wav2Vec 2.0 and a fine-tuned mBART model for fluent, multilingual translation.</p>
+                        <div class="tech-badges"><span class="tech-badge">Wav2Vec 2.0</span><span class="tech-badge">mBART</span><span class="tech-badge">Flask</span></div>
+                        <div class="project-card-actions">
+                            <button class="button-secondary open-modal-btn" data-modal-target="modal-translator">View Case Study</button>
+                            <a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR" target="_blank" class="button-secondary"><i class="fab fa-github"></i> GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -281,6 +280,10 @@
 
             <section class="section" id="testimonials">
                 <h2 class="section-title reveal">Testimonials</h2>
+                <!-- 
+                    TODO: Replace this placeholder with a real testimonial.
+                    Ask your supervisor for a quote about your work, skills, or work ethic.
+                -->
                 <div class="testimonial-card reveal">
                     <p>"Ashvin was a remarkable intern. His ability to quickly grasp complex microprocessor systems and his contribution to improving our process efficiency was invaluable. He is a dedicated and resourceful engineer."</p>
                     <div class="testimonial-author">
@@ -318,13 +321,14 @@
         </main>
     </div>
 
+    <!-- Modals for Project Case Studies -->
     <div class="modal" id="modal-pdf" role="dialog" aria-modal="true" aria-labelledby="modal-pdf-title">
         <div class="modal-content">
             <button class="close-modal-btn" aria-label="Close case study">&times;</button>
             <h3 id="modal-pdf-title">Case Study: PDF Query Application</h3>
             <h4><strong>Problem:</strong> Extracting specific information from large PDF documents is time-consuming and inefficient.</h4>
             <p><strong>Solution:</strong> I developed a scalable, voice-enabled system using NLP models to transform static PDFs into conversational hubs. Users can ask questions in natural language (or voice) and receive instant, contextually accurate answers. This reduced information retrieval time by over 89%.</p>
-            <p><strong>Tech Stack:</strong> Python, Streamlit, OpenAI API (for NLP), Google Speech Recognition, gTTS.</p>
+            <p><strong>Tech Stack:</strong> Python, Streamlit, LangChain, Google Gemini Pro, FAISS.</p>
         </div>
     </div>
     <div class="modal" id="modal-robot" role="dialog" aria-modal="true" aria-labelledby="modal-robot-title">
