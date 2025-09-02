@@ -143,6 +143,24 @@
                 <h2 class="section-title reveal">Featured Projects</h2>
                 <div class="project-list stagger-reveal">
                     <div class="project-card reveal">
+                        <h3>Quadruped Robot Simulation</h3>
+                        <p>Developed a comprehensive simulation for a four-legged robot using ROS, Gazebo, and URDF, focusing on stable locomotion and control systems.</p>
+                        <div class="tech-badges"><span class="tech-badge">ROS</span><span class="tech-badge">Gazebo</span><span class="tech-badge">URDF</span><span class="tech-badge">Robotics</span></div>
+                        <div class="project-card-actions">
+                            <button class="button-secondary open-modal-btn" data-modal-target="modal-quadrobot">View Case Study</button>
+                            <a href="https://github.com/ashvinmanojk289/Quadrobot" target="_blank" class="button-secondary"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                    <div class="project-card reveal">
+                        <h3>Weed Detection Model Comparison</h3>
+                        <p>An in-depth analysis comparing a novel Hybrid EfficientNetV2-Transformer with other models for high-accuracy weed detection in agriculture.</p>
+                        <div class="tech-badges"><span class="tech-badge">PyTorch</span><span class="tech-badge">Computer Vision</span><span class="tech-badge">Transformer</span></div>
+                        <div class="project-card-actions">
+                            <button class="button-secondary open-modal-btn" data-modal-target="modal-comparison">View Case Study</button>
+                            <a href="https://github.com/ashvinmanojk289/Hybrid-EfficientNetV2-Transformer-Model-and-Other-Model-Comparison-for-Weed-Detection" target="_blank" class="button-secondary"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                    <div class="project-card reveal">
                         <h3>PDF Query Application</h3>
                         <p>Developed a scalable, voice-enabled PDF query system using NLP and Streamlit, transforming static documents into conversational hubs.</p>
                         <div class="tech-badges"><span class="tech-badge">NLP</span><span class="tech-badge">Streamlit</span><span class="tech-badge">GenAI</span></div>
@@ -322,6 +340,24 @@
     </div>
 
     <!-- Modals for Project Case Studies -->
+    <div class="modal" id="modal-quadrobot" role="dialog" aria-modal="true" aria-labelledby="modal-quadrobot-title">
+        <div class="modal-content">
+            <button class="close-modal-btn" aria-label="Close case study">&times;</button>
+            <h3 id="modal-quadrobot-title">Case Study: Quadruped Robot Simulation</h3>
+            <h4><strong>Problem:</strong> Designing and testing stable walking gaits for four-legged robots in the real world is expensive, time-consuming, and risks hardware damage.</h4>
+            <p><strong>Solution:</strong> I developed a complete simulation environment using ROS and Gazebo. By creating a detailed URDF model of the robot and implementing control nodes, I could safely develop, test, and refine locomotion algorithms in a virtual world. This approach significantly accelerates development and reduces costs.</p>
+            <p><strong>Tech Stack:</strong> ROS, Gazebo, URDF (Unified Robot Description Format), C++, Python.</p>
+        </div>
+    </div>
+    <div class="modal" id="modal-comparison" role="dialog" aria-modal="true" aria-labelledby="modal-comparison-title">
+        <div class="modal-content">
+            <button class="close-modal-btn" aria-label="Close case study">&times;</button>
+            <h3 id="modal-comparison-title">Case Study: Weed Detection Model Comparison</h3>
+            <h4><strong>Problem:</strong> While many models can detect weeds, achieving the highest possible accuracy is critical for effective, eco-friendly precision agriculture.</h4>
+            <p><strong>Solution:</strong> I conducted a rigorous comparative analysis of multiple deep learning architectures for weed detection. The research introduced and validated a novel Hybrid EfficientNetV2-Transformer model, which outperformed existing models by effectively combining convolutional feature extraction with transformer-based attention, leading to state-of-the-art accuracy.</p>
+            <p><strong>Tech Stack:</strong> Python, PyTorch, Transformers, Computer Vision (OpenCV), Pandas, Matplotlib.</p>
+        </div>
+    </div>
     <div class="modal" id="modal-pdf" role="dialog" aria-modal="true" aria-labelledby="modal-pdf-title">
         <div class="modal-content">
             <button class="close-modal-btn" aria-label="Close case study">&times;</button>
@@ -354,3 +390,4 @@
     <script src="script.js" defer></script>
 </body>
 </html>
+
