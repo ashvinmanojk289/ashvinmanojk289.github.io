@@ -40,13 +40,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- Intersection Observer for Re-triggering Animations (FIXED) ---
+    // --- Intersection Observer for Animations ---
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
             } else {
-                // This line makes the animation re-trigger on scroll up/down
                 entry.target.classList.remove('visible');
             }
         });
@@ -54,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.reveal, .timeline').forEach(el => observer.observe(el));
 
 
-    // --- 3D Tilt Effect for Project Cards ---
+    // --- 3D Tilt Effect for Project Cards (Subtler Effect) ---
     const projectCards = document.querySelectorAll('.project-card');
     projectCards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
@@ -63,8 +62,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const y = e.clientY - rect.top;
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            const rotateX = (y - centerY) / 10;
-            const rotateY = (centerX - x) / 10;
+            const rotateX = (y - centerY) / 20; // Changed from 10 to 20
+            const rotateY = (centerX - x) / 20; // Changed from 10 to 20
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         });
         card.addEventListener('mouseleave', () => {
@@ -72,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // --- Modal Logic with Accessibility (Focus Trapping) ---
+    // --- Modal Logic with Accessibility ---
     const openModalButtons = document.querySelectorAll('.open-modal-btn');
     const closeModalButtons = document.querySelectorAll('.close-modal-btn');
     const modalOverlay = document.querySelector('.modal-overlay');
@@ -84,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.classList.add('active');
         modalOverlay.classList.add('active');
         activeModal = modal;
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        document.body.classList.add('no-scroll'); // Prevent background scrolling
         document.addEventListener('keydown', handleKeyDown);
         const focusableElements = activeModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
         if (focusableElements.length > 0) {
@@ -96,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (activeModal) {
             activeModal.classList.remove('active');
             modalOverlay.classList.remove('active');
-            document.body.style.overflow = ''; // Restore scrolling
+            document.body.classList.remove('no-scroll'); // Restore scrolling
             document.removeEventListener('keydown', handleKeyDown);
             activeModal = null;
             if (lastFocusedElement) {
@@ -110,13 +109,10 @@ document.addEventListener('DOMContentLoaded', function () {
             closeModal();
             return;
         }
-
         if (e.key !== 'Tab' || !activeModal) return;
-
         const focusableElements = activeModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
         const firstElement = focusableElements[0];
         const lastElement = focusableElements[focusableElements.length - 1];
-
         if (e.shiftKey) { // Shift + Tab
             if (document.activeElement === firstElement) {
                 lastElement.focus();
@@ -139,6 +135,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
     closeModalButtons.forEach(button => button.addEventListener('click', closeModal));
     modalOverlay.addEventListener('click', closeModal);
+
+    // --- Mobile Navigation Logic ---
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const mobileNavPanel = document.querySelector('.mobile-nav-panel');
+    const closeMobileNavBtn = document.querySelector('.close-mobile-nav');
+    const desktopNav = document.querySelector('.nav .nav-list');
+    const mobileNavContainer = document.querySelector('.mobile-nav');
+
+    if (desktopNav && mobileNavContainer) {
+        // Clone desktop nav list for the mobile panel
+        mobileNavContainer.innerHTML = desktopNav.outerHTML;
+    }
+    
+    const openMobileNav = () => {
+        mobileNavPanel.classList.add('active');
+        document.body.classList.add('no-scroll');
+        mobileNavToggle.setAttribute('aria-expanded', 'true');
+    };
+
+    const closeMobileNav = () => {
+        mobileNavPanel.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+        mobileNavToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    mobileNavToggle.addEventListener('click', openMobileNav);
+    closeMobileNavBtn.addEventListener('click', closeMobileNav);
+    
+    // Close mobile nav when a link is clicked
+    mobileNavPanel.addEventListener('click', function(e) {
+        if (e.target.matches('.nav-link') || e.target.closest('.nav-link')) {
+            closeMobileNav();
+        }
+    });
 
     // Event Listeners
     window.addEventListener('scroll', setActiveLink);
