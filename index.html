@@ -139,7 +139,7 @@
                     </div>
                 </div>
             </section>
-            
+
             <section class="section" id="publications">
                  <div class="section-content reveal">
                     <h2 class="section-title">Publications</h2>
@@ -229,11 +229,51 @@
         </main>
     </div>
 
-    <div class="modal" id="modal-translator">...</div>
-    <div class="modal" id="modal-comparison">...</div>
-    <div class="modal" id="modal-robot">...</div>
-    <div class="modal" id="modal-pdf">...</div>
-    <div class="modal" id="modal-quadrobot">...</div>
+    <div class="modal" id="modal-translator" role="dialog" aria-modal="true" aria-labelledby="modal-translator-title">
+        <div class="modal-content">
+            <button class="close-modal-btn" aria-label="Close case study">&times;</button>
+            <h3 id="modal-translator-title">Case Study: Multilingual News Audio Translator</h3>
+            <h4><strong>Problem:</strong> Live news broadcasts are often inaccessible to audiences who speak different languages.</h4>
+            <p><strong>Solution:</strong> I developed a full-stack web application that translates spoken audio in near real-time. It uses a Wav2Vec 2.0 model for highly accurate speech recognition and a fine-tuned mBART model for fluent, context-aware translation between multiple languages.</p>
+            <p><strong>Tech Stack:</strong> Python, Flask, Hugging Face (Transformers, Wav2Vec 2.0, mBART), PyTorch.</p>
+        </div>
+    </div>
+    <div class="modal" id="modal-comparison" role="dialog" aria-modal="true" aria-labelledby="modal-comparison-title">
+        <div class="modal-content">
+            <button class="close-modal-btn" aria-label="Close case study">&times;</button>
+            <h3 id="modal-comparison-title">Case Study: Weed Detection Model Comparison</h3>
+            <h4><strong>Problem:</strong> While many models can detect weeds, achieving the highest possible accuracy is critical for effective, eco-friendly precision agriculture.</h4>
+            <p><strong>Solution:</strong> I conducted a rigorous comparative analysis of multiple deep learning architectures for weed detection. The research introduced and validated a novel Hybrid EfficientNetV2-Transformer model, which outperformed existing models by effectively combining convolutional feature extraction with transformer-based attention, leading to state-of-the-art accuracy.</p>
+            <p><strong>Tech Stack:</strong> Python, PyTorch, Transformers, Computer Vision (OpenCV), Pandas, Matplotlib.</p>
+        </div>
+    </div>
+    <div class="modal" id="modal-robot" role="dialog" aria-modal="true" aria-labelledby="modal-robot-title">
+        <div class="modal-content">
+            <button class="close-modal-btn" aria-label="Close case study">&times;</button>
+            <h3 id="modal-robot-title">Case Study: Automatic Weed Detection and Spraying Robot</h3>
+            <h4><strong>Problem:</strong> Traditional herbicide application in agriculture is often imprecise, leading to environmental damage and wasted resources.</h4>
+            <p><strong>Solution:</strong> I built an AI-powered autonomous robot that uses computer vision to differentiate between crops and weeds with 97% accuracy. It navigates fields using ROS and applies herbicide directly to weeds, minimizing environmental impact. The core of the system is a custom-trained hybrid EfficientNetV2-Transformer model for robust detection.</p>
+            <p><strong>Tech Stack:</strong> Python, ROS, PyTorch, Transformers, Computer Vision (OpenCV), Embedded Systems.</p>
+        </div>
+    </div>
+    <div class="modal" id="modal-pdf" role="dialog" aria-modal="true" aria-labelledby="modal-pdf-title">
+        <div class="modal-content">
+            <button class="close-modal-btn" aria-label="Close case study">&times;</button>
+            <h3 id="modal-pdf-title">Case Study: PDF Query Application</h3>
+            <h4><strong>Problem:</strong> Extracting specific information from large PDF documents is time-consuming and inefficient.</h4>
+            <p><strong>Solution:</strong> I developed a scalable, voice-enabled system using NLP models to transform static PDFs into conversational hubs. Users can ask questions in natural language (or voice) and receive instant, contextually accurate answers. This reduced information retrieval time by over 89%.</p>
+            <p><strong>Tech Stack:</strong> Python, Streamlit, LangChain, Google Gemini Pro, FAISS.</p>
+        </div>
+    </div>
+    <div class="modal" id="modal-quadrobot" role="dialog" aria-modal="true" aria-labelledby="modal-quadrobot-title">
+        <div class="modal-content">
+            <button class="close-modal-btn" aria-label="Close case study">&times;</button>
+            <h3 id="modal-quadrobot-title">Case Study: Quadruped Emoji Bot</h3>
+            <h4><strong>Problem:</strong> Creating an engaging, interactive hardware project that is both fun and demonstrates core robotics principles like locomotion and wireless control.</h4>
+            <p><strong>Solution:</strong> I built a 4-legged robot controlled by an Arduino Nano. The robot can be commanded via a custom mobile app using an HC-05 Bluetooth module. To make it more interactive, it features an OLED screen that displays random, customizable emojis, adding personality to its movements.</p>
+            <p><strong>Tech Stack:</strong> Arduino (C++), HC-05 Bluetooth, OLED Display, Servo Motors, Android (App Inventor).</p>
+        </div>
+    </div>
     <div class="modal-overlay"></div>
 
     <script src="script.js" defer></script>
