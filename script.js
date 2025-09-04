@@ -53,26 +53,29 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.classList.toggle('no-scroll', isActive);
     };
 
-    mobileNavToggle.addEventListener('click', toggleMobileNav);
-    mobileNavPanel.addEventListener('click', (e) => {
-        if (e.target.matches('.nav-link') || e.target.closest('.nav-link')) {
-            toggleMobileNav();
-        }
-    });
+    if (mobileNavToggle) {
+        mobileNavToggle.addEventListener('click', toggleMobileNav);
+    }
+    
+    if (mobileNavPanel) {
+        mobileNavPanel.addEventListener('click', (e) => {
+            if (e.target.matches('.nav-link') || e.target.closest('.nav-link')) {
+                toggleMobileNav();
+            }
+        });
+    }
 
     // --- Intersection Observer for Reveal Animations ---
     const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Optional: unobserve after revealing to prevent re-triggering
-                // observer.unobserve(entry.target); 
             }
         });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // --- Modal Logic (largely unchanged) ---
+    // --- Modal Logic ---
     const openModalButtons = document.querySelectorAll('.open-modal-btn');
     const closeModalButtons = document.querySelectorAll('.close-modal-btn');
     const modalOverlay = document.querySelector('.modal-overlay');
@@ -97,9 +100,13 @@ document.addEventListener('DOMContentLoaded', function () {
     openModalButtons.forEach(button => {
         button.addEventListener('click', () => {
             const modal = document.getElementById(button.dataset.modalTarget);
-            openModal(modal);
+            if (modal) {
+                openModal(modal);
+            }
         });
     });
     closeModalButtons.forEach(button => button.addEventListener('click', closeModal));
-    modalOverlay.addEventListener('click', closeModal);
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', closeModal);
+    }
 });
