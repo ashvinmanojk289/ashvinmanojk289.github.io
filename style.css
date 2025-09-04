@@ -160,9 +160,8 @@ body.no-scroll {
     color: var(--accent-primary);
     transform: translateY(-2px);
 }
-.theme-switcher, .switch, .slider { /* Unchanged styles */ }
-/* Minor tweaks to theme switcher */
-.theme-switcher { justify-content: flex-start; margin-bottom: 0; }
+/* Theme Switcher */
+.theme-switcher { display: flex; align-items: center; gap: 10px; justify-content: flex-start; margin-bottom: 0; }
 .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
 .switch input { opacity: 0; width: 0; height: 0; }
 .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--border-color); transition: .4s; }
@@ -220,7 +219,7 @@ input:checked + .slider:before { transform: translateX(24px); }
 }
 .project-card h3 { font-size: 1.25rem; color: var(--text-primary); margin-bottom: var(--spacing-unit); }
 .project-card p { flex-grow: 1; }
-.project-card-actions { margin-top: calc(var(--spacing-unit) * 2); display: flex; gap: var(--spacing-unit); }
+.project-card-actions { margin-top: calc(var(--spacing-unit) * 2); display: flex; flex-wrap: wrap; gap: var(--spacing-unit); }
 .tech-badges { display: flex; flex-wrap: wrap; gap: var(--spacing-unit); margin: calc(var(--spacing-unit) * 2) 0; }
 .tech-badge { background-color: var(--bg-primary); border: 1px solid var(--border-color); color: var(--text-secondary); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; }
 
@@ -275,7 +274,7 @@ input:checked + .slider:before { transform: translateX(24px); }
     font-weight: 500;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
 }
 .button {
     background-color: var(--accent-primary);
@@ -296,7 +295,7 @@ input:checked + .slider:before { transform: translateX(24px); }
     background-color: var(--bg-primary);
     border-color: var(--text-primary);
 }
-.contact-form { /* Unchanged styles */ }
+.contact-form { display: flex; flex-direction: column; gap: 15px; }
 .form-group { display: flex; gap: 15px; }
 .contact-form input, .contact-form textarea {
     width: 100%; padding: 15px; border-radius: 8px; background-color: var(--bg-secondary);
@@ -305,6 +304,9 @@ input:checked + .slider:before { transform: translateX(24px); }
 }
 .resume-cta { text-align: center; background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: calc(var(--spacing-unit) * 6); }
 .resume-cta h3 { font-size: 1.5rem; color: var(--text-primary); margin-bottom: var(--spacing-unit); }
+.tech-stack-container { display: flex; flex-wrap: wrap; gap: 20px; }
+.tech-icon { display: flex; flex-direction: column; align-items: center; gap: 10px; background-color: var(--bg-secondary); border: 1px solid var(--border-color); padding: 20px; border-radius: var(--border-radius); width: 120px; }
+.tech-icon-image { font-size: 3rem; color: var(--accent-primary); }
 
 /* --- 6. Mobile & Tablet Layout --- */
 .mobile-header { display: none; }
@@ -371,7 +373,6 @@ input:checked + .slider:before { transform: translateX(24px); }
     .form-group { flex-direction: column; }
 }
 
-
 /* --- 7. Keyframe Animations & Reveal --- */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes slideInLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
@@ -403,3 +404,5 @@ input:checked + .slider:before { transform: translateX(24px); }
 }
 .modal-overlay.active { opacity: 1; visibility: visible; }
 .close-modal-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 2rem; color: var(--text-secondary); cursor: pointer; }
+.modal-content h3 { color: var(--text-primary); margin-bottom: 20px; }
+.modal-content h4 { color: var(--accent-primary); margin: 15px 0 5px; }
