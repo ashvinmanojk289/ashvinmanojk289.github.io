@@ -24,6 +24,8 @@
 </head>
 
 <body>
+    <a href="#main" class="skip-to-main">Skip to Main Content</a>
+    
     <div class="main-container">
         <aside class="sidebar">
             <header>
@@ -34,9 +36,6 @@
                     <div>
                         <h1 class="name">Ashvin Manoj</h1>
                         <p class="title">AI & ML Enthusiast</p>
-                        <a href="https://linkedin.com/in/ashvinmanojk289" target="_blank" aria-label="LinkedIn Profile" class="mobile-linkedin-link">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
                     </div>
                 </div>
 
@@ -58,6 +57,16 @@
             </header>
 
             <footer>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/ashvinmanojk289" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/ashvinmanojk289" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+                    <a href="mailto:ashvinmanojk@gmail.com" aria-label="Send an Email"><i class="fas fa-envelope"></i></a>
+                </div>
+                 <div class="copyright">
+                    <p>© <span id="current-year"></span> Ashvin Manoj</p>
+                </div>
+            </footer>
+             <div class="mobile-header-controls">
                 <div class="theme-switcher">
                     <i class="fas fa-sun"></i>
                     <label class="switch">
@@ -66,21 +75,23 @@
                     </label>
                     <i class="fas fa-moon"></i>
                 </div>
-                <div class="social-links">
-                    <a href="https://linkedin.com/in/ashvinmanojk289" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/ashvinmanojk289" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
-                    <a href="mailto:ashvinmanojk@gmail.com" aria-label="Send an Email"><i class="fas fa-envelope"></i></a>
-                </div>
-                <div class="copyright">
-                    <p>© <span id="current-year">2025</span> Ashvin Manoj</p>
-                </div>
-            </footer>
+                <button class="mobile-nav-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </aside>
 
-        <main class="main-content">
+        <div class="mobile-nav-panel" role="dialog" aria-modal="true">
+            <button class="close-mobile-nav" aria-label="Close navigation menu">&times;</button>
+            <nav class="mobile-nav">
+                </nav>
+        </div>
+
+
+        <main class="main-content" id="main">
             <section class="section about" id="about">
-                <h2 class="section-title reveal">About Me</h2>
-                <div class="about-container reveal">
+                <div class="content-wrapper reveal">
+                    <h2 class="section-title">About Me</h2>
                     <p>Hello! I am an AI/ML Engineer and a current M.Tech student specializing in building intelligent systems that bridge the physical and digital worlds. My passion lies at the intersection of robotics and natural language processing, where I leverage hands-on skills in ROS, PyTorch, and deep learning to create machines that can perceive, understand, and interact with their environment. From developing autonomous navigation for agricultural robots to building conversational AI, I am driven by the challenge of creating practical, real-world solutions and am eager to contribute to a team that is pushing the boundaries of AI and automation.</p>
                 </div>
             </section>
@@ -308,10 +319,6 @@
 
             <section class="section" id="testimonials">
                 <h2 class="section-title reveal">Testimonials</h2>
-                <!-- 
-                    TODO: Replace this placeholder with a real testimonial.
-                    Ask your supervisor for a quote about your work, skills, or work ethic.
-                -->
                 <div class="testimonial-card reveal">
                     <p>"Ashvin was a remarkable intern. His ability to quickly grasp complex microprocessor systems and his contribution to improving our process efficiency was invaluable. He is a dedicated and resourceful engineer."</p>
                     <div class="testimonial-author">
@@ -322,8 +329,8 @@
             </section>
 
             <section class="section contact" id="contact">
-                <h2 class="section-title reveal">Get In Touch</h2>
-                <div class="contact-container reveal">
+                <div class="content-wrapper reveal">
+                    <h2 class="section-title">Get In Touch</h2>
                     <p>I'm always open to discussing new projects, creative ideas, or opportunities. Feel free to reach out!</p>
                     <form action="https://getform.io/f/adrddnka" method="POST" class="contact-form">
                         <div class="form-group"><input type="text" name="name" placeholder="Your Name" required><input type="email" name="email" placeholder="Your Email" required></div>
@@ -334,22 +341,23 @@
             </section>
             
             <section class="section resume" id="resume">
-                <h2 class="section-title reveal">My Resume</h2>
-                <div class="resume-container reveal">
-                    <div class="resume-preview">
-                        <img src="assets/resume.jpg" alt="Preview of Ashvin Manoj's Resume">
-                    </div>
-                    <div class="resume-cta">
-                        <h3>Interested in the full story?</h3>
-                        <p>For a detailed look at my qualifications, experience, and projects, please download the complete PDF version of my resume.</p>
-                        <a href="assets/resume.pdf" class="button" download="Ashvin_Manoj_Resume.pdf">Download PDF <i class="fas fa-download"></i></a>
+                <div class="content-wrapper reveal">
+                    <h2 class="section-title">My Resume</h2>
+                    <div class="resume-container">
+                        <div class="resume-preview">
+                            <img src="assets/resume.jpg" alt="Preview of Ashvin Manoj's Resume">
+                        </div>
+                        <div class="resume-cta">
+                            <h3>Interested in the full story?</h3>
+                            <p>For a detailed look at my qualifications, experience, and projects, please download the complete PDF version of my resume.</p>
+                            <a href="assets/resume.pdf" class="button" download="Ashvin_Manoj_Resume.pdf">Download PDF <i class="fas fa-download"></i></a>
+                        </div>
                     </div>
                 </div>
             </section>
         </main>
     </div>
 
-    <!-- Modals for Project Case Studies -->
     <div class="modal" id="modal-translator" role="dialog" aria-modal="true" aria-labelledby="modal-translator-title">
         <div class="modal-content">
             <button class="close-modal-btn" aria-label="Close case study">&times;</button>
@@ -396,9 +404,7 @@
         </div>
     </div>
     <div class="modal-overlay"></div>
-
+    
     <script src="script.js" defer></script>
 </body>
 </html>
-
-
