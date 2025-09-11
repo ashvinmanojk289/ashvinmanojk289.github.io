@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Scroll Spy for Active Nav Link Highlighting ---
     function initScrollSpy() {
-        const navLinks = document.querySelectorAll('.nav-link');
+        const navLinks = document.querySelectorAll('.nav-menu .nav-link');
         const sections = document.querySelectorAll('.section');
         const setActiveLink = () => {
             let currentId = '';
