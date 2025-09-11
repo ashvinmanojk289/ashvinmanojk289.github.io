@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Master Initialization ---
     initTheme();
     initCurrentYear();
+    initMobileNav();
+    initHeaderScroll();
     initScrollSpy();
     initIntersectionObserver();
     initCustomCursor();
@@ -27,14 +29,94 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Set Current Year in Footer ---
+    // --- Dynamic Copyright Year ---
     function initCurrentYear() {
-        document.getElementById('current-year').textContent = new Date().getFullYear();
+        const yearSpan = document.getElementById('current-year');
+        if (yearSpan) yearSpan.textContent = new Date().getFullYear();
     }
 
-    // --- Custom Cursor ---
+    // --- Mobile Navigation Toggle ---
+    function initMobileNav() {
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        const navLinks = document.querySelectorAll('.nav-menu .nav-link');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    }
+    
+    // --- Header Hide/Show on Scroll ---
+    function initHeaderScroll() {
+        const header = document.querySelector('.top-header');
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+            if (lastScrollY < window.scrollY && window.scrollY > 100) {
+                // Scrolling down
+                header.style.top = '-80px';
+            } else {
+                // Scrolling up
+                header.style.top = '0';
+            }
+            lastScrollY = window.scrollY;
+
+            // Add shadow on scroll for depth
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 2px 15px var(--shadow-color)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+    }
+
+    // --- Scroll Spy for Active Nav Link Highlighting ---
+    function initScrollSpy() {
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.section');
+        const setActiveLink = () => {
+            let currentId = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 150) {
+                    currentId = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentId) {
+                    link.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', setActiveLink);
+        setActiveLink();
+    }
+
+    // --- Animate Elements on Scroll ---
+    function initIntersectionObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }
+
+    // --- Custom Cursor Effect ---
     function initCustomCursor() {
-        if (window.matchMedia("(pointer: coarse)").matches) return; // Disable on touch devices
+        // Disable on touch devices for better user experience
+        if (window.matchMedia("(pointer: coarse)").matches) return;
+
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
         window.addEventListener('mousemove', e => {
@@ -43,13 +125,13 @@ document.addEventListener('DOMContentLoaded', () => {
             cursorOutline.style.left = `${e.clientX}px`;
             cursorOutline.style.top = `${e.clientY}px`;
         });
-        document.querySelectorAll('a, button, .switch, .filter-btn, .slider').forEach(el => {
+        document.querySelectorAll('a, button, .switch, .filter-btn, .slider, input, textarea, .project-card').forEach(el => {
             el.addEventListener('mouseenter', () => cursorOutline.classList.add('cursor-interact'));
             el.addEventListener('mouseleave', () => cursorOutline.classList.remove('cursor-interact'));
         });
     }
 
-    // --- Hero Section Typing Effect ---
+    // --- Hero Section Typing Animation ---
     function initTypingEffect() {
         const target = document.querySelector('.typing-effect');
         if (!target) return;
@@ -66,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         type();
     }
 
-    // --- GitHub API Fetch ---
+    // --- Fetch Live Data from GitHub API ---
     async function fetchGitHubStats() {
         try {
             const user = 'ashvinmanojk289';
@@ -77,10 +159,13 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('github-stars').textContent = totalStars;
             const activityList = document.getElementById('github-activity');
             activityList.innerHTML = repos.slice(0, 3).map(repo => `<li>Pushed to <strong>${repo.name}</strong></li>`).join('');
-        } catch (error) { console.error('Failed to fetch GitHub stats:', error); }
+        } catch (error) { 
+            console.error('Failed to fetch GitHub stats:', error);
+            document.getElementById('github-activity').innerHTML = '<li>Could not fetch data.</li>';
+        }
     }
 
-    // --- Project Filtering ---
+    // --- Project Category Filtering Logic ---
     function initProjectFilter() {
         const filterBtns = document.querySelectorAll('.filter-btn');
         const projectCards = document.querySelectorAll('.project-card');
@@ -115,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Modal Logic with Accessibility (RESTORED) ---
+    // --- Accessible Modal Logic (with Focus Trapping) ---
     function initModals() {
         const openModalButtons = document.querySelectorAll('.open-modal-btn');
         const closeModalButtons = document.querySelectorAll('.close-modal-btn');
@@ -129,7 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
             activeModal = modal;
             document.body.style.overflow = 'hidden';
             document.addEventListener('keydown', handleKeyDown);
-            activeModal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])').focus();
+            const focusableElements = activeModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            if (focusableElements.length > 0) focusableElements[0].focus();
         };
 
         const closeModal = () => {
@@ -142,6 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (lastFocusedElement) lastFocusedElement.focus();
         };
 
+        // This function traps the focus within the active modal for accessibility
         const handleKeyDown = (e) => {
             if (e.key === 'Escape') closeModal();
             if (e.key !== 'Tab' || !activeModal) return;
@@ -156,11 +243,44 @@ document.addEventListener('DOMContentLoaded', () => {
         modalOverlay.addEventListener('click', closeModal);
     }
     
-    // --- AI Chat Assistant ---
-    function initChatAssistant() { /* ... same as before ... */ }
-    function handleChatMessage() { /* ... same as before ... */ }
+    // --- AI Chat Assistant Widget Logic ---
+    function initChatAssistant() {
+        const toggleBtn = document.querySelector('.chat-toggle-btn');
+        const chatWindow = document.querySelector('.chat-window');
+        const sendBtn = document.getElementById('chat-send-btn');
+        const input = document.getElementById('chat-input');
+        
+        toggleBtn.addEventListener('click', () => chatWindow.classList.toggle('active'));
+        sendBtn.addEventListener('click', handleChatMessage);
+        input.addEventListener('keyup', (e) => { if (e.key === 'Enter') handleChatMessage(); });
+    }
 
-    // --- Command Palette ---
+    // --- Handles Sending and Receiving Chat Messages (Demo) ---
+    function handleChatMessage() {
+        const input = document.getElementById('chat-input');
+        const message = input.value.trim();
+        if (!message) return;
+        
+        const chatBody = document.querySelector('.chat-body');
+        const userMessageDiv = document.createElement('div');
+        userMessageDiv.className = 'chat-message user';
+        userMessageDiv.textContent = message;
+        chatBody.appendChild(userMessageDiv);
+        
+        input.value = '';
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        // **Placeholder for actual AI Logic**
+        setTimeout(() => {
+            const botMessageDiv = document.createElement('div');
+            botMessageDiv.className = 'chat-message bot';
+            botMessageDiv.textContent = "I'm a demo bot! For a real implementation, Ashvin would connect me to a model trained on his resume data using RAG.";
+            chatBody.appendChild(botMessageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }, 1000);
+    }
+
+    // --- Command Palette (Cmd/Ctrl + K) Logic ---
     function initCommandPalette() {
         const overlay = document.getElementById('command-palette-overlay');
         const input = document.getElementById('cmdk-input');
@@ -168,45 +288,58 @@ document.addEventListener('DOMContentLoaded', () => {
         const commands = [
             { icon: 'fas fa-home', name: 'Home', action: () => window.location.href = '#home' },
             { icon: 'fas fa-user', name: 'About', action: () => window.location.href = '#about' },
+            { icon: 'fas fa-briefcase', name: 'Experience', action: () => window.location.href = '#experience' },
             { icon: 'fas fa-project-diagram', name: 'Projects', action: () => window.location.href = '#projects' },
+            { icon: 'fas fa-book-open', name: 'Publications', action: () => window.location.href = '#publications' },
+            { icon: 'fas fa-code', name: 'Skills', action: () => window.location.href = '#skills' },
+            { icon: 'fas fa-graduation-cap', name: 'Education', action: () => window.location.href = '#education' },
             { icon: 'fas fa-award', name: 'Certifications', action: () => window.location.href = '#certifications' },
             { icon: 'fas fa-envelope', name: 'Contact', action: () => window.location.href = '#contact' },
             { icon: 'fas fa-file-alt', name: 'Resume', action: () => window.location.href = '#resume' },
-            { icon: 'fab fa-github', name: 'Open GitHub', action: () => window.open('https://github.com/ashvinmanojk289') },
-            { icon: 'fab fa-linkedin', name: 'Open LinkedIn', action: () => window.open('https://linkedin.com/in/ashvinmanojk289') },
+            { icon: 'fab fa-github', name: 'Open GitHub', action: () => window.open('https://github.com/ashvinmanojk289', '_blank') },
+            { icon: 'fab fa-linkedin', name: 'Open LinkedIn', action: () => window.open('https://linkedin.com/in/ashvinmanojk289', '_blank') },
             { icon: 'fas fa-moon', name: 'Toggle Theme', action: () => document.getElementById('theme-toggle-checkbox').click() },
         ];
         
-        const renderCommands = (filter = '') => { /* ... same logic as before ... */ };
-        const togglePalette = (show) => { /* ... same logic as before ... */ };
-        document.addEventListener('keydown', (e) => { /* ... same logic as before ... */ });
-        //... [Full Command Palette logic from previous response goes here]
-    }
-
-    // --- Scroll Spy & Intersection Observer (Original Logic) ---
-    function initScrollSpy() {
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('.section');
-        const setActiveLink = () => {
-            if (window.innerWidth <= 992) { navLinks.forEach(link => link.classList.remove('active')); return; }
-            let currentId = '';
-            sections.forEach(section => { if (window.scrollY >= section.offsetTop - 150) currentId = section.id; });
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.hash === '#' + currentId) link.classList.add('active');
+        const renderCommands = (filter = '') => {
+            list.innerHTML = commands
+                .filter(cmd => cmd.name.toLowerCase().includes(filter.toLowerCase()))
+                .map(cmd => `<li data-action="${cmd.name}"><i class="${cmd.icon}"></i> ${cmd.name}</li>`)
+                .join('');
+            
+            list.querySelectorAll('li').forEach(li => {
+                li.addEventListener('click', () => {
+                    const actionName = li.dataset.action;
+                    const command = commands.find(c => c.name === actionName);
+                    if (command) {
+                        command.action();
+                        togglePalette(false);
+                    }
+                });
             });
         };
-        window.addEventListener('scroll', setActiveLink);
-        window.addEventListener('resize', setActiveLink);
-        setActiveLink();
-    }
 
-    function initIntersectionObserver() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        const togglePalette = (show) => {
+            if (show) {
+                overlay.classList.add('active');
+                input.focus();
+                renderCommands();
+            } else {
+                overlay.classList.remove('active');
+                input.value = '';
+            }
+        };
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                togglePalette(!overlay.classList.contains('active'));
+            }
+            if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                togglePalette(false);
+            }
+        });
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) togglePalette(false); });
+        input.addEventListener('input', () => renderCommands(input.value));
     }
 });
