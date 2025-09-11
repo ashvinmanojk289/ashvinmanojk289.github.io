@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,37 +25,22 @@
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <div class="main-container">
-        <aside class="sidebar">
-            <header>
-                <div class="profile">
-                    <div class="profile-image">
-                        <img src="assets/profile.jpg" alt="Photo of Ashvin Manoj" />
-                    </div>
-                    <div>
-                        <h1 class="name">Ashvin Manoj</h1>
-                        <p class="title">AI & ML Engineer</p>
-                    </div>
+    <header class="top-header">
+        <nav class="navbar">
+            <a href="#home" class="nav-logo">AM.</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
+                <li class="nav-item"><a href="#publications" class="nav-link">Publications</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/ashvinmanojk289" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/ashvinmanojk289" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
                 </div>
-
-                <nav class="nav">
-                    <ul class="nav-list">
-                        <li class="nav-item"><a href="#home" class="nav-link active"><i class="fas fa-home"></i> <span>Home</span></a></li>
-                        <li class="nav-item"><a href="#about" class="nav-link"><i class="fas fa-user"></i> <span>About</span></a></li>
-                        <li class="nav-item"><a href="#experience" class="nav-link"><i class="fas fa-briefcase"></i> <span>Experience</span></a></li>
-                        <li class="nav-item"><a href="#projects" class="nav-link"><i class="fas fa-project-diagram"></i> <span>Projects</span></a></li>
-                        <li class="nav-item"><a href="#publications" class="nav-link"><i class="fas fa-book-open"></i> <span>Publications</span></a></li>
-                        <li class="nav-item"><a href="#skills" class="nav-link"><i class="fas fa-code"></i> <span>Skills</span></a></li>
-                        <li class="nav-item"><a href="#education" class="nav-link"><i class="fas fa-graduation-cap"></i> <span>Education</span></a></li>
-                        <li class="nav-item"><a href="#certifications" class="nav-link"><i class="fas fa-award"></i> <span>Certifications</span></a></li>
-                        <li class="nav-item"><a href="#testimonials" class="nav-link"><i class="fas fa-comment-dots"></i> <span>Testimonials</span></a></li>
-                        <li class="nav-item"><a href="#contact" class="nav-link"><i class="fas fa-envelope-open-text"></i> <span>Contact</span></a></li>
-                        <li class="nav-item"><a href="#resume" class="nav-link"><i class="fas fa-file-alt"></i> <span>Resume</span></a></li>
-                    </ul>
-                </nav>
-            </header>
-
-            <footer>
                 <div class="theme-switcher">
                     <i class="fas fa-sun"></i>
                     <label class="switch">
@@ -65,25 +49,25 @@
                     </label>
                     <i class="fas fa-moon"></i>
                 </div>
-                <div class="social-links">
-                    <a href="https://linkedin.com/in/ashvinmanojk289" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/ashvinmanojk289" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
-                    <a href="mailto:ashvinmanojk@gmail.com" aria-label="Send an Email"><i class="fas fa-envelope"></i></a>
+                <div class="nav-toggle" id="nav-toggle">
+                    <span></span><span></span><span></span>
                 </div>
-                <div class="copyright">
-                    <p>© <span id="current-year">2025</span> Ashvin Manoj</p>
-                </div>
-            </footer>
-        </aside>
+            </div>
+        </nav>
+    </header>
 
+    <div class="main-container">
         <main class="main-content">
             <section class="section hero" id="home">
+                 <div class="hero-profile-image reveal">
+                    <img src="assets/profile.jpg" alt="Photo of Ashvin Manoj" />
+                </div>
                 <div class="hero-text reveal">
-                    <p class="hero-intro">Hello, I'm Ashvin Manoj.</p>
-                    <h2 class="hero-title">I build intelligent systems for <br><span class="typing-effect"></span></h2>
-                    <p class="hero-subtitle">A results-oriented AI/ML Engineer with a strong foundation in deep learning, NLP, and computer vision. I transform complex problems into scalable, real-world solutions.</p>
+                    <p class="hero-intro">Ashvin Manoj</p>
+                    <h1 class="hero-title">AI Engineer building for <br><span class="typing-effect"></span></h1>
+                    <p class="hero-subtitle">I transform complex problems into scalable, real-world solutions through deep learning, NLP, and computer vision.</p>
                     <a href="#projects" class="button">View My Work <i class="fas fa-arrow-right"></i></a>
-                    <a href="#contact" class="button-secondary">Get In Touch <i class="fas fa-paper-plane"></i></a>
+                    <a href="assets/resume.pdf" class="button-secondary" download="Ashvin_Manoj_Resume.pdf">Download Resume <i class="fas fa-download"></i></a>
                 </div>
             </section>
 
@@ -91,8 +75,8 @@
                 <h2 class="section-title reveal">About Me</h2>
                 <div class="about-grid">
                     <div class="about-text reveal">
-                        <p>Hello! [cite_start]I am an AI/ML Engineer and a current M.Tech student specializing in building intelligent systems that bridge the physical and digital worlds. [cite: 8, 9]</p>
-                        <p>My passion lies at the intersection of robotics and natural language processing, where I leverage hands-on skills in ROS, PyTorch, and deep learning to create machines that can perceive, understand, and interact with their environment. [cite_start]From developing autonomous navigation for agricultural robots to building conversational AI, I am driven by the challenge of creating practical, real-world solutions. [cite: 8, 9]</p>
+                        <p>Hello! I am an AI/ML Engineer and a current M.Tech student specializing in building intelligent systems that bridge the physical and digital worlds. [cite: 2, 7]</p>
+                        <p>My passion lies at the intersection of robotics and natural language processing, where I leverage hands-on skills in ROS, PyTorch, and deep learning to create machines that can perceive, understand, and interact with their environment. From developing autonomous navigation for agricultural robots to building conversational AI, I am driven by the challenge of creating practical, real-world solutions.</p>
                     </div>
                     <div class="github-stats reveal">
                         <h3>Live from GitHub</h3>
@@ -121,11 +105,11 @@
                 <div class="timeline reveal">
                     <div class="timeline-container right">
                         <div class="timeline-content">
-                            [cite_start]<h3>Hardware Systems Intern [cite: 20]</h3>
-                            <p class="timeline-date">Sunlux Technovations | [cite_start]Feb 2024 - April 2024 [cite: 20, 21]</p>
+                            <h3>Hardware Systems Intern</h3>
+                            <p class="timeline-date">Sunlux Technovations | Feb 2024 - April 2024 [cite: 19, 20]</p>
                             <ul>
-                                [cite_start]<li>Developed and debugged microprocessor programs in Assembly for industrial automation systems, contributing to a 15% improvement in process efficiency. [cite: 22]</li>
-                                [cite_start]<li>Collaborated with a team of engineers to design and implement real-world embedded solutions for clients in the manufacturing sector. [cite: 23]</li>
+                                <li>Developed and debugged microprocessor programs in Assembly for industrial automation systems, contributing to a 15% improvement in process efficiency. [cite: 21]</li>
+                                <li>Collaborated with a team of engineers to design and implement real-world embedded solutions for clients in the manufacturing sector. [cite: 22]</li>
                             </ul>
                         </div>
                     </div>
@@ -142,20 +126,20 @@
                 </div>
                 <div class="project-list stagger-reveal">
                     <div class="project-card reveal" data-category="nlp">
-                        [cite_start]<h3>Multilingual News Audio Translator [cite: 25]</h3>
-                        [cite_start]<p>A full-stack audio translation app using Wav2Vec 2.0 and a fine-tuned mBART model for fluent, multilingual translation. [cite: 26]</p>
+                        <h3>Multilingual News Audio Translator [cite: 24]</h3>
+                        <p>A full-stack audio translation app using Wav2Vec 2.0 and a fine-tuned mBART model for fluent, multilingual translation. [cite: 25]</p>
                         <div class="tech-badges"><span class="tech-badge">Wav2Vec 2.0</span><span class="tech-badge">mBART</span><span class="tech-badge">Flask</span></div>
                         <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-translator">View Case Study</button><a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR" target="_blank" class="button-secondary"><i class="fab fa-github"></i> GitHub</a></div>
                     </div>
                     <div class="project-card reveal" data-category="cv robotics">
-                        [cite_start]<h3>Automatic Weed Detection Robot [cite: 29]</h3>
-                        [cite_start]<p>An AI-powered robot using ROS and a custom EfficientNetV2-Transformer model (97% Accuracy) for precision agriculture. [cite: 30]</p>
+                        <h3>Automatic Weed Detection Robot [cite: 28]</h3>
+                        <p>An AI-powered robot using ROS and a custom EfficientNetV2-Transformer model (97% Accuracy) for precision agriculture. [cite: 29]</p>
                         <div class="tech-badges"><span class="tech-badge">ROS</span><span class="tech-badge">Computer Vision</span><span class="tech-badge">Transformer</span></div>
                         <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-robot">View Case Study</button><a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" target="_blank" class="button-secondary"><i class="fab fa-github"></i> GitHub</a></div>
                     </div>
                     <div class="project-card reveal" data-category="nlp">
-                        [cite_start]<h3>PDF Query Application [cite: 27]</h3>
-                        [cite_start]<p>Developed a scalable, voice-enabled PDF query system using NLP and Streamlit, transforming static documents into conversational hubs. [cite: 28]</p>
+                        <h3>PDF Query Application [cite: 26]</h3>
+                        <p>Developed a scalable, voice-enabled PDF query system using NLP and Streamlit, transforming static documents into conversational hubs. [cite: 27]</p>
                         <div class="tech-badges"><span class="tech-badge">NLP</span><span class="tech-badge">Streamlit</span><span class="tech-badge">GenAI</span></div>
                         <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-pdf">View Case Study</button><a href="https://github.com/ashvinmanojk289/PDF-Query-Application" target="_blank" class="button-secondary"><i class="fab fa-github"></i> GitHub</a></div>
                     </div>
@@ -171,15 +155,15 @@
             <section class="section" id="publications">
                 <h2 class="section-title reveal">Publications</h2>
                 <div class="publication-card reveal">
-                    [cite_start]<h3>A Hybrid Transformer Model Approach for Precision Weed Detection [cite: 32]</h3>
-                    <p class="publication-authors">S. [cite_start]Krishnan, M. Karuppasamypandiyan, and A. Manoj. [cite: 32]</p>
-                    [cite_start]<p class="publication-venue"><em>2025 4th International Conference on Advances in Computing, Communication, Embedded and Secure Systems (ACCESS)</em>, Ernakulam, India. [cite: 32]</p>
+                    <h3>A Hybrid Transformer Model Approach for Precision Weed Detection [cite: 31]</h3>
+                    <p class="publication-authors">S. Krishnan, M. Karuppasamypandiyan, and A. Manoj. [cite: 31]</p>
+                    <p class="publication-venue"><em>2025 4th International Conference on Advances in Computing, Communication, Embedded and Secure Systems (ACCESS)</em>, Ernakulam, India. [cite: 31]</p>
                     <div class="publication-actions"><a href="https://doi.org/10.1109/ACCESS65134.2025.11135583" target="_blank" class="button-secondary"><i class="fas fa-book-open"></i> View Publication</a></div>
                 </div>
             </section>
 
             <section class="section" id="skills">
-                [cite_start]<h2 class="section-title reveal">Technical Skills [cite: 10]</h2>
+                <h2 class="section-title reveal">Technical Skills</h2>
                 <div class="bento-grid">
                     <div class="bento-box reveal" style="--d: 1;">
                         <h3>Languages & Databases</h3>
@@ -201,34 +185,34 @@
             </section>
             
             <section class="section" id="education">
-                [cite_start]<h2 class="section-title reveal">Education [cite: 13]</h2>
+                <h2 class="section-title reveal">Education</h2>
                 <div class="timeline reveal">
                     <div class="timeline-container right">
                         <div class="timeline-content">
-                            [cite_start]<h3>MTech in Computer Science and Engineering (AI/ML) [cite: 14]</h3>
-                            <p class="timeline-date">Rajagiri School of Engineering and Technology | [cite_start]Aug 2024 - Present [cite: 14]</p>
-                            [cite_start]<p class="timeline-grade">CGPA: 9.49 [cite: 14]</p>
+                            <h3>MTech in Computer Science and Engineering (AI/ML) [cite: 13]</h3>
+                            <p class="timeline-date">Rajagiri School of Engineering and Technology | Aug 2024 - Present [cite: 13]</p>
+                            <p class="timeline-grade">CGPA: 9.49 [cite: 13]</p>
                         </div>
                     </div>
                     <div class="timeline-container left">
                         <div class="timeline-content">
-                            [cite_start]<h3>BTech (Honours) in Robotics and Automation [cite: 15]</h3>
-                            <p class="timeline-date">Adi Shankara Institute of Engineering and Technology | [cite_start]Oct 2020 - Jun 2024 [cite: 15, 16]</p>
-                            [cite_start]<p class="timeline-grade">CGPA: 9.54 [cite: 15]</p>
+                            <h3>BTech (Honours) in Robotics and Automation [cite: 14]</h3>
+                            <p class="timeline-date">Adi Shankara Institute of Engineering and Technology | Oct 2020 - Jun 2024 [cite: 14, 15]</p>
+                            <p class="timeline-grade">CGPA: 9.54 [cite: 14]</p>
                         </div>
                     </div>
                     <div class="timeline-container right">
                         <div class="timeline-content">
-                            [cite_start]<h3>Higher Secondary (12th) - Computer/ Maths [cite: 17]</h3>
-                            <p class="timeline-date">St. Mary's Public School, Thamarachal | [cite_start]2020 [cite: 18]</p>
-                            [cite_start]<p class="timeline-grade">Percentage: 92.6% [cite: 18]</p>
+                            <h3>Higher Secondary (12th) - Computer/ Maths [cite: 16]</h3>
+                            <p class="timeline-date">St. Mary's Public School, Thamarachal | 2020 [cite: 16, 17]</p>
+                            <p class="timeline-grade">Percentage: 92.6% [cite: 17]</p>
                         </div>
                     </div>
                 </div>
             </section>
 
             <section class="section" id="certifications">
-                [cite_start]<h2 class="section-title reveal">Certifications [cite: 34]</h2>
+                <h2 class="section-title reveal">Certifications</h2>
                 <div class="skills-grid stagger-reveal">
                     <div class="skill-category reveal" style="--d: 1;">
                         <h3>Coursera</h3>
@@ -285,6 +269,10 @@
                     </div>
                 </div>
             </section>
+
+            <footer class="main-footer">
+                <p>© <span id="current-year"></span> Ashvin Manoj. All Rights Reserved.</p>
+            </footer>
         </main>
     </div>
 
@@ -306,18 +294,10 @@
     </div>
 
     <div class="modal-overlay"></div>
-    <div class="modal" id="modal-translator" role="dialog" aria-modal="true" aria-labelledby="modal-translator-title">
-        <div class="modal-content"><button class="close-modal-btn" aria-label="Close case study">&times;</button><h3 id="modal-translator-title">Case Study: Multilingual News Audio Translator</h3><h4><strong>Problem:</strong> Live news broadcasts are often inaccessible to audiences who speak different languages.</h4><p><strong>Solution:</strong> I developed a full-stack web application that translates spoken audio in near real-time. It uses a Wav2Vec 2.0 model for highly accurate speech recognition and a fine-tuned mBART model for fluent, context-aware translation between multiple languages.</p><p><strong>Tech Stack:</strong> Python, Flask, Hugging Face (Transformers, Wav2Vec 2.0, mBART), PyTorch.</p></div>
-    </div>
-    <div class="modal" id="modal-robot" role="dialog" aria-modal="true" aria-labelledby="modal-robot-title">
-        <div class="modal-content"><button class="close-modal-btn" aria-label="Close case study">&times;</button><h3 id="modal-robot-title">Case Study: Automatic Weed Detection and Spraying Robot</h3><h4><strong>Problem:</strong> Traditional herbicide application in agriculture is often imprecise, leading to environmental damage and wasted resources.</h4><p><strong>Solution:</strong> I built an AI-powered autonomous robot that uses computer vision to differentiate between crops and weeds with 97% accuracy. It navigates fields using ROS and applies herbicide directly to weeds, minimizing environmental impact. The core of the system is a custom-trained hybrid EfficientNetV2-Transformer model for robust detection.</p><p><strong>Tech Stack:</strong> Python, ROS, PyTorch, Transformers, Computer Vision (OpenCV), Embedded Systems.</p></div>
-    </div>
-    <div class="modal" id="modal-pdf" role="dialog" aria-modal="true" aria-labelledby="modal-pdf-title">
-        <div class="modal-content"><button class="close-modal-btn" aria-label="Close case study">&times;</button><h3 id="modal-pdf-title">Case Study: PDF Query Application</h3><h4><strong>Problem:</strong> Extracting specific information from large PDF documents is time-consuming and inefficient.</h4><p><strong>Solution:</strong> I developed a scalable, voice-enabled system using NLP models to transform static PDFs into conversational hubs. Users can ask questions in natural language (or voice) and receive instant, contextually accurate answers. This reduced information retrieval time by over 89%.</p><p><strong>Tech Stack:</strong> Python, Streamlit, LangChain, Google Gemini Pro, FAISS.</p></div>
-    </div>
-    <div class="modal" id="modal-quadrobot" role="dialog" aria-modal="true" aria-labelledby="modal-quadrobot-title">
-        <div class="modal-content"><button class="close-modal-btn" aria-label="Close case study">&times;</button><h3 id="modal-quadrobot-title">Case Study: Quadruped Emoji Bot</h3><h4><strong>Problem:</strong> Creating an engaging, interactive hardware project that is both fun and demonstrates core robotics principles like locomotion and wireless control.</h4><p><strong>Solution:</strong> I built a 4-legged robot controlled by an Arduino Nano. The robot can be commanded via a custom mobile app using an HC-05 Bluetooth module. To make it more interactive, it features an OLED screen that displays random, customizable emojis, adding personality to its movements.</p><p><strong>Tech Stack:</strong> Arduino (C++), HC-05 Bluetooth, OLED Display, Servo Motors, Android (App Inventor).</p></div>
-    </div>
+    <div class="modal" id="modal-translator" role="dialog" aria-modal="true" aria-labelledby="modal-translator-title"><div class="modal-content"><button class="close-modal-btn" aria-label="Close case study">&times;</button><h3 id="modal-translator-title">Case Study: Multilingual News Audio Translator [cite: 24]</h3><h4><strong>Problem:</strong> Live news broadcasts are often inaccessible to audiences who speak different languages.</h4><p><strong>Solution:</strong> I developed a full-stack web application that translates spoken audio in near real-time. It uses a Wav2Vec 2.0 model for highly accurate speech recognition and a fine-tuned mBART model for fluent, context-aware translation between multiple languages. [cite: 25]</p><p><strong>Tech Stack:</strong> Python, Flask, Hugging Face (Transformers, Wav2Vec 2.0, mBART), PyTorch.</p></div></div>
+    <div class="modal" id="modal-robot" role="dialog" aria-modal="true" aria-labelledby="modal-robot-title"><div class="modal-content"><button class="close-modal-btn" aria-label="Close case study">&times;</button><h3 id="modal-robot-title">Case Study: Automatic Weed Detection and Spraying Robot [cite: 28]</h3><h4><strong>Problem:</strong> Traditional herbicide application in agriculture is often imprecise, leading to environmental damage and wasted resources.</h4><p><strong>Solution:</strong> I built an AI-powered autonomous robot that uses computer vision to differentiate between crops and weeds with 97% accuracy. It navigates fields using ROS and applies herbicide directly to weeds, minimizing environmental impact. The core of the system is a custom-trained hybrid EfficientNetV2-Transformer model for robust detection. [cite: 29]</p><p><strong>Tech Stack:</strong> Python, ROS, PyTorch, Transformers, Computer Vision (OpenCV), Embedded Systems.</p></div></div>
+    <div class="modal" id="modal-pdf" role="dialog" aria-modal="true" aria-labelledby="modal-pdf-title"><div class="modal-content"><button class="close-modal-btn" aria-label="Close case study">&times;</button><h3 id="modal-pdf-title">Case Study: PDF Query Application [cite: 26]</h3><h4><strong>Problem:</strong> Extracting specific information from large PDF documents is time-consuming and inefficient.</h4><p><strong>Solution:</strong> I developed a scalable, voice-enabled system using NLP models to transform static PDFs into conversational hubs. Users can ask questions in natural language (or voice) and receive instant, contextually accurate answers. This reduced information retrieval time by over 89%. [cite: 27]</p><p><strong>Tech Stack:</strong> Python, Streamlit, LangChain, Google Gemini Pro, FAISS.</p></div></div>
+    <div class="modal" id="modal-quadrobot" role="dialog" aria-modal="true" aria-labelledby="modal-quadrobot-title"><div class="modal-content"><button class="close-modal-btn" aria-label="Close case study">&times;</button><h3 id="modal-quadrobot-title">Case Study: Quadruped Emoji Bot</h3><h4><strong>Problem:</strong> Creating an engaging, interactive hardware project that is both fun and demonstrates core robotics principles like locomotion and wireless control.</h4><p><strong>Solution:</strong> I built a 4-legged robot controlled by an Arduino Nano. The robot can be commanded via a custom mobile app using an HC-05 Bluetooth module. To make it more interactive, it features an OLED screen that displays random, customizable emojis, adding personality to its movements.</p><p><strong>Tech Stack:</strong> Arduino (C++), HC-05 Bluetooth, OLED Display, Servo Motors, Android (App Inventor).</p></div></div>
 
     <script src="script.js" defer></script>
 </body>
