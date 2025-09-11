@@ -255,60 +255,47 @@ document.addEventListener('DOMContentLoaded', () => {
         input.addEventListener('keyup', (e) => { if (e.key === 'Enter') handleChatMessage(); });
     }
 
+    // --- Handles Sending and Receiving Chat Messages ---
     async function handleChatMessage() {
         const input = document.getElementById('chat-input');
         const message = input.value.trim();
         if (!message) return;
-    
+
         const chatBody = document.querySelector('.chat-body');
-    
-        // Display the user's message
+        
         const userMessageDiv = document.createElement('div');
         userMessageDiv.className = 'chat-message user';
         userMessageDiv.textContent = message;
         chatBody.appendChild(userMessageDiv);
         input.value = '';
         chatBody.scrollTop = chatBody.scrollHeight;
-    
-        // Display a "thinking" indicator
+
         const thinkingDiv = document.createElement('div');
         thinkingDiv.className = 'chat-message bot';
         thinkingDiv.innerHTML = '<span class="thinking-indicator"></span>';
         chatBody.appendChild(thinkingDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
-    
+
         try {
-            // Call your local Flask backend
-            const response = await fetch('http://127.0.0.1:5000/ask', {
+            // IMPORTANT: Replace this URL with your own live backend URL from Render
+            const response = await fetch('https://your-service-name.onrender.com/ask', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ question: message })
             });
-    
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-    
+
             const data = await response.json();
-    
-            // Replace "thinking" with the real AI answer
             thinkingDiv.textContent = data.answer;
-    
+
         } catch (error) {
-            thinkingDiv.textContent = 'Sorry, I am having trouble connecting to my brain right now.';
+            thinkingDiv.textContent = 'Sorry, I am having trouble connecting right now.';
             console.error('Error fetching AI response:', error);
         }
         chatBody.scrollTop = chatBody.scrollHeight;
-    }
-
-        // **Placeholder for actual AI Logic**
-        setTimeout(() => {
-            const botMessageDiv = document.createElement('div');
-            botMessageDiv.className = 'chat-message bot';
-            botMessageDiv.textContent = "I'm a demo bot! For a real implementation, Ashvin would connect me to a model trained on his resume data using RAG.";
-            chatBody.appendChild(botMessageDiv);
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }, 1000);
     }
 
     // --- Command Palette (Cmd/Ctrl + K) Logic ---
