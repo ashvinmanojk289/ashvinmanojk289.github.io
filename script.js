@@ -1,4 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Loading Spinner Logic ---
+    const spinner = document.getElementById('loadingSpinner');
+    window.addEventListener('beforeunload', () => {
+        spinner.classList.add('active');
+    });
+    window.addEventListener('load', () => {
+        spinner.classList.remove('active');
+    });
+    // --- Scroll-to-Top Button Logic ---
+    const scrollBtn = document.getElementById('scrollToTopBtn');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollBtn.classList.add('visible');
+        } else {
+            scrollBtn.classList.remove('visible');
+        }
+    });
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
     // --- Master Initialization ---
     initTheme();
@@ -106,7 +126,25 @@ document.addEventListener('DOMContentLoaded', () => {
     function initIntersectionObserver() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Add animation classes based on element type
+                    if (entry.target.classList.contains('fade-in')) {
+                        entry.target.classList.add('fade-in');
+                    }
+                    if (entry.target.classList.contains('slide-in-left')) {
+                        entry.target.classList.add('slide-in-left');
+                    }
+                    if (entry.target.classList.contains('slide-in-right')) {
+                        entry.target.classList.add('slide-in-right');
+                    }
+                    if (entry.target.classList.contains('scale-up')) {
+                        entry.target.classList.add('scale-up');
+                    }
+                    if (entry.target.classList.contains('shadow-pop')) {
+                        entry.target.classList.add('shadow-pop');
+                    }
+                }
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));

@@ -38,8 +38,8 @@
             </ul>
             <div class="header-actions">
                 <div class="social-links">
-                    <a href="https://linkedin.com/in/ashvinmanojk289" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/ashvinmanojk289" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/ashvinmanojk289" target="_blank" rel="noopener" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/ashvinmanojk289" target="_blank" rel="noopener" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
                 </div>
                 <div class="theme-switcher">
                     <i class="fas fa-sun"></i>
@@ -59,10 +59,10 @@
     <div class="main-container">
         <main class="main-content">
             <section class="section hero" id="home">
-                 <div class="hero-profile-image reveal">
+                 <div class="hero-profile-image reveal fade-in scale-up">
                     <img src="assets/profile.jpg" alt="Photo of Ashvin Manoj" />
                 </div>
-                <div class="hero-text reveal">
+                <div class="hero-text reveal slide-in-right">
                     <p class="hero-intro">Ashvin Manoj</p>
                     <h1 class="hero-title">AI Engineer building for <br><span class="typing-effect"></span></h1>
                     <p class="hero-subtitle">I transform complex problems into scalable, real-world solutions through deep learning, NLP, and computer vision.</p>
@@ -72,13 +72,14 @@
             </section>
 
             <section class="section" id="about">
-                <h2 class="section-title reveal">About Me</h2>
-                <div class="about-grid">
-                    <div class="about-text reveal">
+                <h2 class="section-title reveal fade-in">About Me</h2>
+                <div class="about-grid reveal slide-in-left">
+                    <div class="about-text reveal fade-in">
                         <p>Hello! I am an AI/ML Engineer and a current M.Tech student specializing in building intelligent systems that bridge the physical and digital worlds.</p>
                         <p>My passion lies at the intersection of robotics and natural language processing, where I leverage hands-on skills in ROS, PyTorch, and deep learning to create machines that can perceive, understand, and interact with their environment. From developing autonomous navigation for agricultural robots to building conversational AI, I am driven by the challenge of creating practical, real-world solutions.</p>
                     </div>
                     <div class="github-stats reveal">
+                    <!-- Add fade-in to stats -->
                         <h3>Live from GitHub</h3>
                         <div class="stats-container">
                             <div class="stat-card">
@@ -117,67 +118,67 @@
             </section>
 
             <section class="section" id="projects">
-                <h2 class="section-title reveal">Featured Projects</h2>
-                <div class="project-filters reveal">
+                <h2 class="section-title reveal fade-in">Featured Projects</h2>
+                <div class="project-filters reveal fade-in">
                     <button class="filter-btn active" data-filter="all">All</button>
                     <button class="filter-btn" data-filter="nlp">NLP</button>
                     <button class="filter-btn" data-filter="cv">Computer Vision</button>
                     <button class="filter-btn" data-filter="robotics">Robotics</button>
                 </div>
                 <div class="project-list stagger-reveal">
-                    <div class="project-card reveal" data-category="nlp">
+                    <div class="project-card reveal scale-up shadow-pop" data-category="nlp">
                         <h3>Multilingual News Audio Translator</h3>
                         <p>A full-stack audio translation app using Wav2Vec 2.0 and a fine-tuned mBART model for fluent, multilingual translation.</p>
                         <div class="tech-badges"><span class="tech-badge">Wav2Vec 2.0</span><span class="tech-badge">mBART</span><span class="tech-badge">Flask</span></div>
-                        <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-translator">View Case Study</button><a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR" target="_blank" class="button-secondary"><i class="fab fa-github"></i> GitHub</a></div>
+                        <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-translator">View Case Study</button><a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR" target="_blank" rel="noopener" class="button-secondary"><i class="fab fa-github"></i> GitHub</a></div>
                     </div>
-                    <div class="project-card reveal" data-category="cv robotics">
+                    <div class="project-card reveal scale-up shadow-pop" data-category="cv robotics">
                         <h3>Automatic Weed Detection Robot</h3>
                         <p>An AI-powered robot using ROS and a custom EfficientNetV2-Transformer model (97% Accuracy) for precision agriculture.</p>
                         <div class="tech-badges"><span class="tech-badge">ROS</span><span class="tech-badge">Computer Vision</span><span class="tech-badge">Transformer</span></div>
-                        <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-robot">View Case Study</button><a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" target="_blank" class="button-secondary"><i class="fab fa-github"></i> GitHub</a></div>
+                        <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-robot">View Case Study</button><a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" target="_blank" rel="noopener" class="button-secondary"><i class="fab fa-github"></i> GitHub</a></div>
                     </div>
-                    <div class="project-card reveal" data-category="nlp">
+                    <div class="project-card reveal scale-up shadow-pop" data-category="nlp">
                         <h3>PDF Query Application</h3>
                         <p>Developed a scalable, voice-enabled PDF query system using NLP and Streamlit, transforming static documents into conversational hubs.</p>
                         <div class="tech-badges"><span class="tech-badge">NLP</span><span class="tech-badge">Streamlit</span><span class="tech-badge">GenAI</span></div>
-                        <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-pdf">View Case Study</button><a href="https://github.com/ashvinmanojk289/PDF-Query-Application" target="_blank" class="button-secondary"><i class="fab fa-github"></i> GitHub</a></div>
+                        <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-pdf">View Case Study</button><a href="https://github.com/ashvinmanojk289/PDF-Query-Application" target="_blank" rel="noopener" class="button-secondary"><i class="fab fa-github"></i> GitHub</a></div>
                     </div>
-                     <div class="project-card reveal" data-category="robotics">
+                     <div class="project-card reveal scale-up shadow-pop" data-category="robotics">
                         <h3>Quadruped Emoji Bot</h3>
                         <p>A fun, interactive 4-legged robot that displays random emojis on an OLED screen, controlled wirelessly via a custom mobile app.</p>
                         <div class="tech-badges"><span class="tech-badge">Arduino</span><span class="tech-badge">Bluetooth</span><span class="tech-badge">Robotics</span></div>
-                        <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-quadrobot">View Case Study</button><a href="https://github.com/ashvinmanojk289/Quadrobot" target="_blank" class="button-secondary"><i class="fab fa-github"></i> GitHub</a></div>
+                        <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-quadrobot">View Case Study</button><a href="https://github.com/ashvinmanojk289/Quadrobot" target="_blank" rel="noopener" class="button-secondary"><i class="fab fa-github"></i> GitHub</a></div>
                     </div>
                 </div>
             </section>
 
             <section class="section" id="publications">
-                <h2 class="section-title reveal">Publications</h2>
-                <div class="publication-card reveal">
+                <h2 class="section-title reveal fade-in">Publications</h2>
+                <div class="publication-card reveal fade-in">
                     <h3>A Hybrid Transformer Model Approach for Precision Weed Detection</h3>
                     <p class="publication-authors">S. Krishnan, M. Karuppasamypandiyan, and A. Manoj.</p>
                     <p class="publication-venue"><em>2025 4th International Conference on Advances in Computing, Communication, Embedded and Secure Systems (ACCESS)</em>, Ernakulam, India.</p>
-                    <div class="publication-actions"><a href="https://doi.org/10.1109/ACCESS65134.2025.11135583" target="_blank" class="button-secondary"><i class="fas fa-book-open"></i> View Publication</a></div>
+                    <div class="publication-actions"><a href="https://doi.org/10.1109/ACCESS65134.2025.11135583" target="_blank" rel="noopener" class="button-secondary"><i class="fas fa-book-open"></i> View Publication</a></div>
                 </div>
             </section>
 
             <section class="section" id="skills">
-                <h2 class="section-title reveal">Technical Skills</h2>
+                <h2 class="section-title reveal fade-in">Technical Skills</h2>
                 <div class="bento-grid">
-                    <div class="bento-box reveal" style="--d: 1;">
+                    <div class="bento-box reveal scale-up d1">
                         <h3>Languages & Databases</h3>
                         <div class="tiles-container"><span class="skill-tile">Python</span><span class="skill-tile">C++</span><span class="skill-tile">C</span><span class="skill-tile">SQL</span><span class="skill-tile">R</span></div>
                     </div>
-                    <div class="bento-box reveal" id="core-focus" style="--d: 2;">
+                    <div class="bento-box reveal scale-up d2" id="core-focus">
                         <h3>Core Focus</h3>
                         <p>Specializing in Generative AI, Multilingual NLP, and Computer Vision for Robotics.</p>
                     </div>
-                    <div class="bento-box reveal" style="--d: 3;">
+                    <div class="bento-box reveal scale-up d3">
                         <h3>AI/ML Frameworks</h3>
                         <div class="tiles-container"><span class="skill-tile">PyTorch</span><span class="skill-tile">TensorFlow</span><span class="skill-tile">Scikit-learn</span><span class="skill-tile">Hugging Face</span><span class="skill-tile">Pandas & NumPy</span></div>
                     </div>
-                    <div class="bento-box reveal" style="--d: 4;">
+                    <div class="bento-box reveal scale-up d4">
                         <h3>Platforms & Tools</h3>
                         <div class="tiles-container"><span class="skill-tile">ROS</span><span class="skill-tile">Git</span><span class="skill-tile">Linux</span><span class="skill-tile">Streamlit</span><span class="skill-tile">Flask</span><span class="skill-tile">Arduino</span><span class="skill-tile">MATLAB</span></div>
                     </div>
@@ -214,7 +215,7 @@
             <section class="section" id="certifications">
                 <h2 class="section-title reveal">Certifications</h2>
                 <div class="skills-grid stagger-reveal">
-                    <div class="skill-category reveal" style="--d: 1;">
+                    <div class="skill-category reveal d1">
                         <h3>Coursera</h3>
                         <div class="tiles-container">
                             <span class="skill-tile">Google Data Analytics</span>
@@ -222,11 +223,11 @@
                             <span class="skill-tile">GenAI for UX Designers</span>
                         </div>
                     </div>
-                    <div class="skill-category reveal" style="--d: 2;">
+                    <div class="skill-category reveal d2">
                         <h3>Infosys</h3>
                         <div class="tiles-container"><span class="skill-tile">Prompt Engineering</span></div>
                     </div>
-                    <div class="skill-category reveal" style="--d: 3;">
+                    <div class="skill-category reveal d3">
                         <h3>NPTEL</h3>
                         <div class="tiles-container"><span class="skill-tile">Python & DSA</span></div>
                     </div>
@@ -282,7 +283,7 @@
             <div class="chat-header"><h3>AI Assistant</h3><span>Ask me about my resume!</span></div>
             <div class="chat-body"><div class="chat-message bot">Hi there! How can I help you learn about Ashvin's work?</div></div>
             <div class="chat-footer">
-                <input type="text" id="chat-input" placeholder="e.g., What are his top skills?"><button id="chat-send-btn"><i class="fas fa-paper-plane"></i></button>
+                <input type="text" id="chat-input" placeholder="e.g., What are his top skills?"><button id="chat-send-btn" title="Send message"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
@@ -300,5 +301,14 @@
     <div class="modal" id="modal-quadrobot" role="dialog" aria-modal="true" aria-labelledby="modal-quadrobot-title"><div class="modal-content"><button class="close-modal-btn" aria-label="Close case study">&times;</button><h3 id="modal-quadrobot-title">Case Study: Quadruped Emoji Bot</h3><h4><strong>Problem:</strong> Creating an engaging, interactive hardware project that is both fun and demonstrates core robotics principles like locomotion and wireless control.</h4><p><strong>Solution:</strong> I built a 4-legged robot controlled by an Arduino Nano. The robot can be commanded via a custom mobile app using an HC-05 Bluetooth module. To make it more interactive, it features an OLED screen that displays random, customizable emojis, adding personality to its movements.</p><p><strong>Tech Stack:</strong> Arduino (C++), HC-05 Bluetooth, OLED Display, Servo Motors, Android (App Inventor).</p></div></div>
 
     <script src="script.js" defer></script>
+            <!-- Loading Spinner -->
+            <div class="loading-spinner" id="loadingSpinner">
+                <div class="spinner"></div>
+            </div>
+    </body>
+    <!-- Scroll-to-Top Button -->
+    <button class="scroll-to-top" id="scrollToTopBtn" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 </body>
 </html>
