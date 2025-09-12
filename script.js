@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chatBody.scrollTop = chatBody.scrollHeight;
 
         try {
-            // IMPORTANT: Replace this URL with your own live backend URL from Render
+            // IMPORTANT: Replace this placeholder URL with your actual backend service URL!
             const response = await fetch('https://your-service-name.onrender.com/ask', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

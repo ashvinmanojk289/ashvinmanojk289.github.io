@@ -1,7 +1,15 @@
 BEGIN:VCARD
 VERSION:3.0
+N:Manoj;Ashvin;;;
 FN:Ashvin Manoj
-EMAIL:ashvinmanojk289@gmail.com
-URL:https://ashvinmanojk289.github.io
 TITLE:AI/ML Engineer
+ORG:Rajagiri School of Engineering and Technology
+TEL;TYPE=CELL,VOICE;VALUE=uri:tel:+91-88482-36253
+EMAIL;TYPE=INTERNET,WORK:ashvinmanojk@gmail.com
+ADR;TYPE=HOME:Sreenandanam;Kandayath Lane, Ambunadu;Edathala P.O;Ernakulam;Kerala;India;Pin-683561
+URL;TYPE=WEBSITE:https://ashvinmanojk289.github.io
+X-SOCIALPROFILE;type=linkedin:https://www.linkedin.com/in/ashvinmanojk289
+X-SOCIALPROFILE;type=github:https://github.com/ashvinmanojk289
+X-SOCIALPROFILE;type=twitter:https://twitter.com/ashvinmanojk289
+REV:2025-09-12T17:12:08Z
 END:VCARD
