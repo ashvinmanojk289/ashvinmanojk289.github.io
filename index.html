@@ -14,11 +14,45 @@
     <meta property="og:url" content="https://ashvinmanojk289.github.io">
     <meta property="og:type" content="website">
 
+        <!-- Advanced SEO Meta Tags -->
+        <meta name="robots" content="index, follow">
+        <meta name="googlebot" content="index, follow">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Ashvin Manoj | AI & ML Portfolio">
+        <meta name="twitter:description" content="AI & ML engineer specializing in deep learning, NLP, and robotics.">
+        <meta name="twitter:image" content="https://ashvinmanojk289.github.io/assets/banner.png">
+
+        <!-- Structured Data (JSON-LD) -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Ashvin Manoj",
+            "url": "https://ashvinmanojk289.github.io",
+            "image": "https://ashvinmanojk289.github.io/assets/profile.jpg",
+            "sameAs": [
+                "https://linkedin.com/in/ashvinmanojk289",
+                "https://github.com/ashvinmanojk289"
+            ],
+            "jobTitle": "AI/ML Engineer",
+            "description": "AI & ML engineer specializing in deep learning, NLP, and robotics."
+        }
+        </script>
+
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="stylesheet" href="style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+
+        <!-- Google Analytics (GA4) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXX');
+        </script>
 </head>
 
 <body>
@@ -38,6 +72,8 @@
             </ul>
             <div class="header-actions">
                 <div class="social-links">
+                    <a href="mailto:ashvinmanojk289@gmail.com" target="_blank" rel="noopener" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://twitter.com/ashvinmanojk289" target="_blank" rel="noopener" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
                     <a href="https://linkedin.com/in/ashvinmanojk289" target="_blank" rel="noopener" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
                     <a href="https://github.com/ashvinmanojk289" target="_blank" rel="noopener" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
                 </div>
@@ -60,7 +96,7 @@
         <main class="main-content">
             <section class="section hero" id="home">
                  <div class="hero-profile-image reveal fade-in scale-up">
-                    <img src="assets/profile.jpg" alt="Photo of Ashvin Manoj" />
+                    <img src="assets/profile.jpg" alt="Photo of Ashvin Manoj" width="250" height="250" loading="lazy" />
                 </div>
                 <div class="hero-text reveal slide-in-right">
                     <p class="hero-intro">Ashvin Manoj</p>
@@ -130,25 +166,25 @@
                         <h3>Multilingual News Audio Translator</h3>
                         <p>A full-stack audio translation app using Wav2Vec 2.0 and a fine-tuned mBART model for fluent, multilingual translation.</p>
                         <div class="tech-badges"><span class="tech-badge">Wav2Vec 2.0</span><span class="tech-badge">mBART</span><span class="tech-badge">Flask</span></div>
-                        <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-translator">View Case Study</button><a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR" target="_blank" rel="noopener" class="button-secondary"><i class="fab fa-github"></i> GitHub</a></div>
+                        <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-translator">View Case Study</button><a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR" target="_blank" rel="noopener" class="button-secondary"><i class="fab fa-github"></i>&nbsp;GitHub</a></div>
                     </div>
                     <div class="project-card reveal scale-up shadow-pop" data-category="cv robotics">
                         <h3>Automatic Weed Detection Robot</h3>
                         <p>An AI-powered robot using ROS and a custom EfficientNetV2-Transformer model (97% Accuracy) for precision agriculture.</p>
                         <div class="tech-badges"><span class="tech-badge">ROS</span><span class="tech-badge">Computer Vision</span><span class="tech-badge">Transformer</span></div>
-                        <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-robot">View Case Study</button><a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" target="_blank" rel="noopener" class="button-secondary"><i class="fab fa-github"></i> GitHub</a></div>
+                        <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-robot">View Case Study</button><a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" target="_blank" rel="noopener" class="button-secondary"><i class="fab fa-github"></i>&nbsp;GitHub</a></div>
                     </div>
                     <div class="project-card reveal scale-up shadow-pop" data-category="nlp">
                         <h3>PDF Query Application</h3>
                         <p>Developed a scalable, voice-enabled PDF query system using NLP and Streamlit, transforming static documents into conversational hubs.</p>
                         <div class="tech-badges"><span class="tech-badge">NLP</span><span class="tech-badge">Streamlit</span><span class="tech-badge">GenAI</span></div>
-                        <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-pdf">View Case Study</button><a href="https://github.com/ashvinmanojk289/PDF-Query-Application" target="_blank" rel="noopener" class="button-secondary"><i class="fab fa-github"></i> GitHub</a></div>
+                        <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-pdf">View Case Study</button><a href="https://github.com/ashvinmanojk289/PDF-Query-Application" target="_blank" rel="noopener" class="button-secondary"><i class="fab fa-github"></i>&nbsp;GitHub</a></div>
                     </div>
                      <div class="project-card reveal scale-up shadow-pop" data-category="robotics">
                         <h3>Quadruped Emoji Bot</h3>
                         <p>A fun, interactive 4-legged robot that displays random emojis on an OLED screen, controlled wirelessly via a custom mobile app.</p>
                         <div class="tech-badges"><span class="tech-badge">Arduino</span><span class="tech-badge">Bluetooth</span><span class="tech-badge">Robotics</span></div>
-                        <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-quadrobot">View Case Study</button><a href="https://github.com/ashvinmanojk289/Quadrobot" target="_blank" rel="noopener" class="button-secondary"><i class="fab fa-github"></i> GitHub</a></div>
+                        <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-quadrobot">View Case Study</button><a href="https://github.com/ashvinmanojk289/Quadrobot" target="_blank" rel="noopener" class="button-secondary"><i class="fab fa-github"></i>&nbsp;GitHub</a></div>
                     </div>
                 </div>
             </section>
@@ -159,7 +195,7 @@
                     <h3>A Hybrid Transformer Model Approach for Precision Weed Detection</h3>
                     <p class="publication-authors">S. Krishnan, M. Karuppasamypandiyan, and A. Manoj.</p>
                     <p class="publication-venue"><em>2025 4th International Conference on Advances in Computing, Communication, Embedded and Secure Systems (ACCESS)</em>, Ernakulam, India.</p>
-                    <div class="publication-actions"><a href="https://doi.org/10.1109/ACCESS65134.2025.11135583" target="_blank" rel="noopener" class="button-secondary"><i class="fas fa-book-open"></i> View Publication</a></div>
+                    <div class="publication-actions"><a href="https://doi.org/10.1109/ACCESS65134.2025.11135583" target="_blank" rel="noopener" class="button-secondary"><i class="fas fa-book-open"></i>&nbsp;View Publication</a></div>
                 </div>
             </section>
 
@@ -253,6 +289,7 @@
                         <div class="form-group"><input type="text" name="name" placeholder="Your Name" required><input type="email" name="email" placeholder="Your Email" required></div>
                         <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
                         <button type="submit" class="button">Send Message <i class="fas fa-paper-plane"></i></button>
+                        <a href="assets/ashvinmanoj.vcf" class="button-secondary vcard-btn" download="Ashvin_Manoj.vcf"><i class="fas fa-id-card"></i>&nbsp;Download vCard</a>
                     </form>
                 </div>
             </section>
@@ -261,7 +298,7 @@
                 <h2 class="section-title reveal">My Resume</h2>
                 <div class="resume-container reveal">
                     <div class="resume-preview">
-                        <img src="assets/resume.jpg" alt="Preview of Ashvin Manoj's Resume">
+                        <img src="assets/resume.jpg" alt="Preview of Ashvin Manoj's Resume" width="400" height="565" loading="lazy">
                     </div>
                     <div class="resume-cta">
                         <h3>Interested in the full story?</h3>
@@ -272,6 +309,12 @@
             </section>
 
             <footer class="main-footer">
+                <div class="social-links">
+                    <a href="mailto:ashvinmanojk289@gmail.com" target="_blank" rel="noopener" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://twitter.com/ashvinmanojk289" target="_blank" rel="noopener" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
+                    <a href="https://linkedin.com/in/ashvinmanojk289" target="_blank" rel="noopener" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/ashvinmanojk289" target="_blank" rel="noopener" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+                </div>
                 <p>© <span id="current-year"></span> Ashvin Manoj. All Rights Reserved.</p>
             </footer>
         </main>
