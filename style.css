@@ -287,7 +287,22 @@ input:checked + .slider:before { transform: translateX(24px); }
 #core-focus h3 { color: var(--bg-secondary); border-bottom-color: rgba(255,255,255,0.5); }
 [data-theme="dark"] #core-focus { color: #000; } [data-theme="dark"] #core-focus h3 { color: #000; }
 .tiles-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-.skill-tile { background-color: var(--border-color); color: var(--text-secondary); padding: 8px 15px; border-radius: 5px; font-size: 0.9rem; font-weight: 500; }
+.skill-tile {
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: 1.5px solid var(--border-color);
+    box-shadow: 0 2px 8px var(--shadow-color);
+    margin: 2px;
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+.skill-tile:hover {
+    box-shadow: 0 6px 18px var(--shadow-color);
+    border-color: var(--accent-primary);
+}
 
 /* --- Other Sections (Certifications, Resume, etc.) --- */
 .skills-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
