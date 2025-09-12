@@ -114,13 +114,26 @@ input:checked + .slider:before { transform: translateX(24px); }
 .hero .button { margin-right: 15px; }
 
 /* --- Shared Components & Cards --- */
-.button, .button-secondary { padding: 12px 25px; border-radius: 25px; cursor: pointer; font-weight: 500; text-decoration: none; text-align: center; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--accent-primary); transition: background-color 0.3s ease, color 0.3s ease; }
+.button, .button-secondary {
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--accent-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-top: 22px;
+}
 .button { background-color: var(--accent-primary); color: #fff; }
-.button i { margin-left: 8px; }
+.button i { margin-left: 16px; }
 [data-theme="dark"] .button { color: #000; }
 .button:hover { background-color: var(--accent-hover); border-color: var(--accent-hover); }
 .button-secondary { background-color: transparent; color: var(--accent-primary); }
-.button-secondary i { margin-right: 8px; }
+.button-secondary i { margin-right: 16px; }
 .button-secondary:hover { background-color: var(--accent-primary); color: var(--bg-secondary); }
 [data-theme="dark"] .button-secondary:hover { color: #000; }
 .publication-card { background-color: var(--bg-secondary); padding: 30px; border-radius: 10px; border-left: 5px solid var(--accent-primary); border: 1px solid var(--border-color); box-shadow: 0 2px 8px var(--shadow-color); }
