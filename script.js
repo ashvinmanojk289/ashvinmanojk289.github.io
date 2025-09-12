@@ -134,20 +134,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     let direction = (window.scrollY > lastScrollY) ? 'down' : 'up';
                     // Add animation classes based on direction and element type
                     if (entry.target.classList.contains('fade-in')) {
-                        entry.target.classList.add(direction === 'down' ? 'fade-in-up' : 'fade-in-down'); // MODIFIED
+                        entry.target.classList.add(direction === 'down' ? 'fade-in-up' : 'fade-in-down');
                     }
                     if (entry.target.classList.contains('slide-in-left')) {
-                        entry.target.classList.add(direction === 'down' ? 'slide-in-left-up' : 'slide-in-left-down'); // MODIFIED
+                        entry.target.classList.add(direction === 'down' ? 'slide-in-left-up' : 'slide-in-left-down');
                     }
                     if (entry.target.classList.contains('slide-in-right')) {
-                        entry.target.classList.add(direction === 'down' ? 'slide-in-right-up' : 'slide-in-right-down'); // MODIFIED
+                        entry.target.classList.add(direction === 'down' ? 'slide-in-right-up' : 'slide-in-right-down');
                     }
                     if (entry.target.classList.contains('scale-up')) {
-                        entry.target.classList.add(direction === 'down' ? 'scale-up-up' : 'scale-up-down'); // MODIFIED
+                        entry.target.classList.add(direction === 'down' ? 'scale-up-up' : 'scale-up-down');
                     }
                     if (entry.target.classList.contains('shadow-pop')) {
-                        entry.target.classList.add(direction === 'down' ? 'shadow-pop-up' : 'shadow-pop-down'); // MODIFIED
+                        entry.target.classList.add(direction === 'down' ? 'shadow-pop-up' : 'shadow-pop-down');
                     }
+                } else {
+                    // MODIFIED: Reset element by removing classes when it's not intersecting
+                    entry.target.classList.remove(
+                        'visible',
+                        'fade-in-up', 'fade-in-down',
+                        'slide-in-left-up', 'slide-in-left-down',
+                        'slide-in-right-up', 'slide-in-right-down',
+                        'scale-up-up', 'scale-up-down',
+                        'shadow-pop-up', 'shadow-pop-down'
+                    );
                 }
             });
             lastScrollY = window.scrollY;
