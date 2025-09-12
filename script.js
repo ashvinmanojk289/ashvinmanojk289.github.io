@@ -39,11 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Theme Toggler ---
     function initTheme() {
         const themeToggle = document.getElementById('theme-toggle-checkbox');
-        const currentTheme = localStorage.getItem('theme') || 'lab';
+        const currentTheme = localStorage.getItem('theme') || 'lab'; // Default to 'lab' (light)
         document.documentElement.setAttribute('data-theme', currentTheme);
-        themeToggle.checked = currentTheme === 'field';
+        themeToggle.checked = currentTheme === 'dark'; // Check the box if the theme is 'dark'
+        
         themeToggle.addEventListener('change', function() {
-            const newTheme = this.checked ? 'field' : 'lab';
+            const newTheme = this.checked ? 'dark' : 'lab'; // If checked, go dark. Otherwise, go light.
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
         });
@@ -133,19 +134,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     let direction = (window.scrollY > lastScrollY) ? 'down' : 'up';
                     // Add animation classes based on direction and element type
                     if (entry.target.classList.contains('fade-in')) {
-                        entry.target.classList.add(direction === 'down' ? 'fade-in-down' : 'fade-in-up');
+                        entry.target.classList.add(direction === 'down' ? 'fade-in-up' : 'fade-in-down'); // MODIFIED
                     }
                     if (entry.target.classList.contains('slide-in-left')) {
-                        entry.target.classList.add(direction === 'down' ? 'slide-in-left-down' : 'slide-in-left-up');
+                        entry.target.classList.add(direction === 'down' ? 'slide-in-left-up' : 'slide-in-left-down'); // MODIFIED
                     }
                     if (entry.target.classList.contains('slide-in-right')) {
-                        entry.target.classList.add(direction === 'down' ? 'slide-in-right-down' : 'slide-in-right-up');
+                        entry.target.classList.add(direction === 'down' ? 'slide-in-right-up' : 'slide-in-right-down'); // MODIFIED
                     }
                     if (entry.target.classList.contains('scale-up')) {
-                        entry.target.classList.add(direction === 'down' ? 'scale-up-down' : 'scale-up-up');
+                        entry.target.classList.add(direction === 'down' ? 'scale-up-up' : 'scale-up-down'); // MODIFIED
                     }
                     if (entry.target.classList.contains('shadow-pop')) {
-                        entry.target.classList.add(direction === 'down' ? 'shadow-pop-down' : 'shadow-pop-up');
+                        entry.target.classList.add(direction === 'down' ? 'shadow-pop-up' : 'shadow-pop-down'); // MODIFIED
                     }
                 }
             });
