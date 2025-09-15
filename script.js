@@ -41,14 +41,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const themeBtn = document.getElementById('theme-toggle-btn');
         const iconSun = document.getElementById('theme-icon-sun');
         const iconMoon = document.getElementById('theme-icon-moon');
+        const profileImg = document.getElementById('profile-img');
         const currentTheme = localStorage.getItem('theme') || 'lab';
         document.documentElement.setAttribute('data-theme', currentTheme);
         if (currentTheme === 'lab') {
             iconSun.classList.remove('hidden');
             iconMoon.classList.add('hidden');
+            if (profileImg) profileImg.src = 'assets/profile-light.jpg';
         } else {
             iconSun.classList.add('hidden');
             iconMoon.classList.remove('hidden');
+            if (profileImg) profileImg.src = 'assets/profile-dark.jpg';
         }
         themeBtn.addEventListener('click', function() {
             const isLab = document.documentElement.getAttribute('data-theme') === 'lab';
@@ -57,11 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('theme', 'dark');
                 iconSun.classList.add('hidden');
                 iconMoon.classList.remove('hidden');
+                if (profileImg) profileImg.src = 'assets/profile-dark.jpg';
             } else {
                 document.documentElement.setAttribute('data-theme', 'lab');
                 localStorage.setItem('theme', 'lab');
                 iconSun.classList.remove('hidden');
                 iconMoon.classList.add('hidden');
+                if (profileImg) profileImg.src = 'assets/profile-light.jpg';
             }
         });
     }
