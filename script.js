@@ -38,15 +38,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Theme Toggler ---
     function initTheme() {
-        const themeToggle = document.getElementById('theme-toggle-checkbox');
-        const currentTheme = localStorage.getItem('theme') || 'lab'; // Default to 'lab' (light)
+        const btnLight = document.getElementById('theme-btn-light');
+        const btnDark = document.getElementById('theme-btn-dark');
+        const currentTheme = localStorage.getItem('theme') || 'lab';
         document.documentElement.setAttribute('data-theme', currentTheme);
-        themeToggle.checked = currentTheme === 'dark'; // Check the box if the theme is 'dark'
-        
-        themeToggle.addEventListener('change', function() {
-            const newTheme = this.checked ? 'dark' : 'lab'; // If checked, go dark. Otherwise, go light.
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+        if (currentTheme === 'lab') {
+            btnLight.classList.add('active');
+            btnDark.classList.remove('active');
+        } else {
+            btnLight.classList.remove('active');
+            btnDark.classList.add('active');
+        }
+        btnLight.addEventListener('click', function() {
+            document.documentElement.setAttribute('data-theme', 'lab');
+            localStorage.setItem('theme', 'lab');
+            btnLight.classList.add('active');
+            btnDark.classList.remove('active');
+        });
+        btnDark.addEventListener('click', function() {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            btnLight.classList.remove('active');
+            btnDark.classList.add('active');
         });
     }
 
