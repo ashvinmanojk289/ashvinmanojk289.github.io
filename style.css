@@ -168,6 +168,7 @@ body:hover .cursor-outline { opacity: 0.5; }
     transition: background 0.3s, color 0.3s, border-color 0.3s;
     outline: none;
 }
+.hidden { display: none !important; }
 .theme-btn.active, .theme-btn:focus {
     background: var(--accent-primary);
     color: var(--bg-secondary);

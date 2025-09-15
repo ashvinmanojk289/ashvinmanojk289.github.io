@@ -38,28 +38,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Theme Toggler ---
     function initTheme() {
-        const btnLight = document.getElementById('theme-btn-light');
-        const btnDark = document.getElementById('theme-btn-dark');
+        const themeBtn = document.getElementById('theme-toggle-btn');
+        const iconSun = document.getElementById('theme-icon-sun');
+        const iconMoon = document.getElementById('theme-icon-moon');
         const currentTheme = localStorage.getItem('theme') || 'lab';
         document.documentElement.setAttribute('data-theme', currentTheme);
         if (currentTheme === 'lab') {
-            btnLight.classList.add('active');
-            btnDark.classList.remove('active');
+            iconSun.classList.remove('hidden');
+            iconMoon.classList.add('hidden');
         } else {
-            btnLight.classList.remove('active');
-            btnDark.classList.add('active');
+            iconSun.classList.add('hidden');
+            iconMoon.classList.remove('hidden');
         }
-        btnLight.addEventListener('click', function() {
-            document.documentElement.setAttribute('data-theme', 'lab');
-            localStorage.setItem('theme', 'lab');
-            btnLight.classList.add('active');
-            btnDark.classList.remove('active');
-        });
-        btnDark.addEventListener('click', function() {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-            btnLight.classList.remove('active');
-            btnDark.classList.add('active');
+        themeBtn.addEventListener('click', function() {
+            const isLab = document.documentElement.getAttribute('data-theme') === 'lab';
+            if (isLab) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                iconSun.classList.add('hidden');
+                iconMoon.classList.remove('hidden');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'lab');
+                localStorage.setItem('theme', 'lab');
+                iconSun.classList.remove('hidden');
+                iconMoon.classList.add('hidden');
+            }
         });
     }
 
