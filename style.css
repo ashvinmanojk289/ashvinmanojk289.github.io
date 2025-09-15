@@ -527,7 +527,8 @@ input:checked + .slider:before { transform: translateX(24px); }
 @media screen and (max-width: 1200px) { .about-grid, .resume-container { grid-template-columns: 1fr; } .bento-grid { grid-template-columns: 1fr 1fr; } #core-focus { grid-column: span 2; } }
 @media screen and (max-width: 992px) {
     body { cursor: auto; } .cursor-dot, .cursor-outline { display: none; }
-    .header-actions .social-links, .header-actions .theme-switcher { display: none; }
+    .header-actions .social-links { display: none; }
+    .header-actions .theme-switcher { display: flex !important; }
     .nav-toggle { display: block; z-index: 1002; }
     .nav-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .nav-toggle.active span:nth-child(2) { opacity: 0; }
