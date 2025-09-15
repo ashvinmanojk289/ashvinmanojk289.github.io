@@ -89,7 +89,7 @@
     <div class="main-container">
         <main class="main-content">
             <section class="section hero" id="home">
-                 <div class="hero-profile-image reveal fade-in scale-up">
+                <div class="hero-profile-image reveal fade-in scale-up">
                     <img id="profile-img" src="assets/profile-light.jpg" alt="Photo of Ashvin Manoj" width="250" height="250" loading="lazy" />
                 </div>
                 <div class="hero-text reveal slide-in-right">
@@ -119,7 +119,7 @@
                                 <h4 id="github-stars">0</h4>
                                 <p>Stars Earned</p>
                             </div>
-                             <div class="stat-card full-width">
+                            <div class="stat-card full-width">
                                 <h4>Recent Activity</h4>
                                 <ul id="github-activity">
                                     <li>Fetching latest commits...</li>
@@ -189,7 +189,7 @@
                         <div class="tech-badges"><span class="tech-badge">NLP</span><span class="tech-badge">Streamlit</span><span class="tech-badge">GenAI</span></div>
                         <div class="project-card-actions"><button class="button-secondary open-modal-btn" data-modal-target="modal-pdf">View Case Study</button><a href="https://github.com/ashvinmanojk289/PDF-Query-Application" target="_blank" rel="noopener" class="button-secondary"><i class="fab fa-github"></i>&nbsp;GitHub</a></div>
                     </div>
-                     <div class="project-card reveal scale-up shadow-pop" data-category="robotics">
+                    <div class="project-card reveal scale-up shadow-pop" data-category="robotics">
                         <h3>Quadruped Emoji Bot</h3>
                         <p>A fun, interactive 4-legged robot that displays random emojis on an OLED screen, controlled wirelessly via a custom mobile app.</p>
                         <div class="tech-badges"><span class="tech-badge">Arduino</span><span class="tech-badge">Bluetooth</span><span class="tech-badge">Robotics</span></div>
@@ -314,7 +314,7 @@
                 </div>
             </section>
 
-             <section class="section resume" id="resume">
+            <section class="section resume" id="resume">
                 <h2 class="section-title reveal">My Resume</h2>
                 <div class="resume-container reveal">
                     <div class="resume-preview">
@@ -367,9 +367,17 @@
             <div class="loading-spinner" id="loadingSpinner">
                 <div class="spinner"></div>
             </div>
-    </body>
+    
     <button class="scroll-to-top" id="scrollToTopBtn" aria-label="Scroll to top">
         <i class="fas fa-arrow-up"></i>
     </button>
-</body>
+
+    <script>
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        });
+    </script>
+    </body>
 </html>
