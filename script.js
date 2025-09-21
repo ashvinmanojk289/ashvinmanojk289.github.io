@@ -54,7 +54,79 @@ document.addEventListener('DOMContentLoaded', () => {
             if (profileImg) profileImg.src = 'assets/profile-dark.jpg';
         }
         themeBtn.addEventListener('click', function() {
-            const isLab = document.documentElement.getAttribute('data-theme') === 'lab';
+            triggerTransformersTransition();
+        });
+    }
+
+    // --- Transformers-Style Theme Transition ---
+    function triggerTransformersTransition() {
+        const isLab = document.documentElement.getAttribute('data-theme') === 'lab';
+        
+        // Prevent multiple clicks during transition
+        if (document.querySelector('.transformers-transition')) return;
+        
+        // Add transition blocker
+        document.body.classList.add('theme-switching');
+        
+        // Create transition container
+        const transitionContainer = document.createElement('div');
+        transitionContainer.className = 'transformers-transition';
+        
+        // Create overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'transform-overlay';
+        transitionContainer.appendChild(overlay);
+        
+        // Create wave effect
+        const waves = document.createElement('div');
+        waves.className = 'transform-waves';
+        transitionContainer.appendChild(waves);
+        
+        // Create segment grid
+        const segmentGrid = document.createElement('div');
+        segmentGrid.className = 'transform-segments';
+        
+        // Generate transformation segments
+        for (let i = 0; i < 48; i++) {
+            const segment = document.createElement('div');
+            segment.className = 'transform-segment';
+            segment.style.setProperty('--delay', i);
+            segmentGrid.appendChild(segment);
+            
+            // Add random sparks
+            if (Math.random() > 0.7) {
+                setTimeout(() => {
+                    const spark = document.createElement('div');
+                    spark.className = 'transform-sparks';
+                    spark.style.left = Math.random() * 100 + '%';
+                    spark.style.top = Math.random() * 100 + '%';
+                    segment.appendChild(spark);
+                    
+                    setTimeout(() => spark.remove(), 1000);
+                }, Math.random() * 800);
+            }
+        }
+        
+        transitionContainer.appendChild(segmentGrid);
+        document.body.appendChild(transitionContainer);
+        
+        // Play transformation sound effect (if available)
+        const transformSound = new Audio();
+        transformSound.volume = 0.3;
+        try {
+            // You can add a transformer sound file here
+            // transformSound.src = 'assets/transform-sound.mp3';
+            // transformSound.play();
+        } catch (e) {
+            // Silent fail if no sound file
+        }
+        
+        // Trigger actual theme change at peak of animation
+        setTimeout(() => {
+            const iconSun = document.getElementById('theme-icon-sun');
+            const iconMoon = document.getElementById('theme-icon-moon');
+            const profileImg = document.getElementById('profile-img');
+            
             if (isLab) {
                 document.documentElement.setAttribute('data-theme', 'dark');
                 localStorage.setItem('theme', 'dark');
@@ -68,7 +140,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 iconMoon.classList.add('hidden');
                 if (profileImg) profileImg.src = 'assets/profile-light.jpg';
             }
-        });
+        }, 600); // Peak of transformation
+        
+        // Clean up after animation
+        setTimeout(() => {
+            transitionContainer.remove();
+            document.body.classList.remove('theme-switching');
+        }, 1500);
     }
 
     // --- Dynamic Copyright Year ---

@@ -1333,8 +1333,32 @@ input:checked + .slider:before { transform: translateX(24px); }
     transition: width 0.6s ease;
 }
 
+.progress-25 {
+    width: 25%;
+}
+
+.progress-50 {
+    width: 50%;
+}
+
 .progress-75 {
     width: 75%;
+}
+
+.progress-85 {
+    width: 85%;
+}
+
+.progress-90 {
+    width: 90%;
+}
+
+.progress-95 {
+    width: 95%;
+}
+
+.progress-100 {
+    width: 100%;
 }
 
 .progress-text {
@@ -1532,5 +1556,163 @@ input:checked + .slider:before { transform: translateX(24px); }
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+}
+
+/* --- Transformers Theme Transition --- */
+.transformers-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.transform-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460);
+    opacity: 0;
+    animation: transformOverlay 1.5s ease-in-out;
+}
+
+.transform-segments {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 2px;
+}
+
+.transform-segment {
+    background: linear-gradient(135deg, #ff6b35, #f7931e, #ffd23f);
+    opacity: 0;
+    transform: rotateX(90deg) rotateY(45deg) scale(0);
+    animation: segmentTransform 1.2s ease-out forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+.transform-segment::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+    animation: shimmer 0.8s ease-in-out;
+}
+
+.transform-segment:nth-child(odd) {
+    animation-delay: calc(var(--delay, 0) * 0.02s);
+}
+
+.transform-segment:nth-child(even) {
+    animation-delay: calc(var(--delay, 0) * 0.03s);
+}
+
+@keyframes transformOverlay {
+    0% { opacity: 0; }
+    20% { opacity: 0.8; }
+    80% { opacity: 0.8; }
+    100% { opacity: 0; }
+}
+
+@keyframes segmentTransform {
+    0% {
+        opacity: 0;
+        transform: rotateX(90deg) rotateY(45deg) scale(0) translateZ(-100px);
+    }
+    30% {
+        opacity: 1;
+        transform: rotateX(45deg) rotateY(20deg) scale(1.2) translateZ(50px);
+    }
+    60% {
+        opacity: 1;
+        transform: rotateX(0deg) rotateY(0deg) scale(1) translateZ(0px);
+    }
+    80% {
+        opacity: 0.8;
+        transform: rotateX(-10deg) rotateY(-5deg) scale(0.8) translateZ(-20px);
+    }
+    100% {
+        opacity: 0;
+        transform: rotateX(-90deg) rotateY(-45deg) scale(0) translateZ(-100px);
+    }
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) skewX(-15deg); }
+    50% { transform: translateX(0%) skewX(-15deg); }
+    100% { transform: translateX(100%) skewX(-15deg); }
+}
+
+.transform-sparks {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ffd23f;
+    border-radius: 50%;
+    opacity: 0;
+    animation: sparkle 1s ease-out;
+}
+
+@keyframes sparkle {
+    0% {
+        opacity: 1;
+        transform: scale(0) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.5) rotate(180deg);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0) rotate(360deg);
+    }
+}
+
+.theme-switching {
+    transition: none !important;
+}
+
+.theme-switching * {
+    transition: none !important;
+}
+
+/* Sound wave effect for additional flair */
+.transform-waves {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1px;
+    height: 1px;
+    border: 2px solid #ff6b35;
+    border-radius: 50%;
+    animation: waveExpand 1.2s ease-out;
+}
+
+@keyframes waveExpand {
+    0% {
+        width: 1px;
+        height: 1px;
+        opacity: 1;
+    }
+    50% {
+        width: 200vw;
+        height: 200vw;
+        opacity: 0.6;
+    }
+    100% {
+        width: 300vw;
+        height: 300vw;
+        opacity: 0;
     }
 }
