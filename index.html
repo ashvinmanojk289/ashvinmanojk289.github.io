@@ -38,6 +38,7 @@
         </script>
 
     <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIkFzaHZpbiBNYW5vaiBQb3J0Zm9saW8gRnV0dXJpc3RpYyIsCiAgInNob3J0X25hbWUiOiAiQXNodmluUG9ydGZvbGlvIiwKICAic3RhcnRfdXJsIjogIi4vaW5kZXguaHRtbCIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBBNjZDMiIsCiAgInRoZW1lX2NvbG9yIjogIiMwQTY2QzIiLAogICJkZXNjcmlwdGlvbiI6ICJBIHN0YXRlLW9mLXRoZS1hcnQgQUkvTUwgZW5naW5lZXIgcG9ydGZvbGlvIHdpdGggM0QsIGdlbmVyYXRpdmUsIGFuZCBpbnRlcmFjdGl2ZSBmZWF0dXJlcy4iLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJhc3NldHMvZmF2aWNvbi5wbmciLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiYXNzZXRzL2Zhdmljb24ucG5nIiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciCiAgICB9CiAgXQp9">
     <link rel="stylesheet" href="style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -55,6 +56,10 @@
 <body>
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
+    <!-- Particle Background -->
+    <script type="module">import { initParticlesBG } from './particles-bg.js'; initParticlesBG();</script>
+    <!-- Voice Navigation Button -->
+    <button id="voice-nav-btn" class="fab" title="Voice Navigation" style="bottom:100px;right:32px;z-index:1002;"><i class="fas fa-microphone"></i></button>
 
     <header class="top-header">
         <nav class="navbar">
@@ -89,6 +94,7 @@
     <div class="main-container">
         <main class="main-content">
             <section class="section hero" id="home">
+                <div id="three-hero" style="width:100vw;height:60vh;"></div>
                 <div class="hero-profile-image reveal fade-in scale-up">
                     <img id="profile-img" src="assets/profile-light.jpg" alt="Photo of Ashvin Manoj" width="250" height="250" loading="lazy" />
                 </div>
@@ -124,6 +130,10 @@
                                 <ul id="github-activity">
                                     <li>Fetching latest commits...</li>
                                 </ul>
+                            </div>
+                            <div class="stat-card full-width">
+                                <h4>Language Breakdown</h4>
+                                <canvas id="github-lang-chart" width="400" height="400"></canvas>
                             </div>
                         </div>
                     </div>
@@ -586,6 +596,11 @@
     <div class="modal" id="modal-pagerank" role="dialog" aria-modal="true" aria-labelledby="modal-pagerank-title"><div class="modal-content"><button class="close-modal-btn" aria-label="Close case study">&times;</button><h3 id="modal-pagerank-title">Case Study: Simple Google PageRank Algorithm Implementation</h3><h4><strong>Problem:</strong> Understanding and implementing the foundational algorithm that revolutionized web search and information ranking.</h4><p><strong>Solution:</strong> I implemented Google's PageRank algorithm from scratch, demonstrating the mathematical principles behind web page ranking. The implementation showcases how link analysis and graph theory can be used to determine the importance and authority of web pages in a network.</p><p><strong>Learning Outcome:</strong> This project provided deep insights into graph-based algorithms, iterative mathematical computations, and the foundational concepts that power modern search engines and recommendation systems.</p><p><strong>Tech Stack:</strong> Python, Graph Theory, Linear Algebra, Iterative Algorithms, Network Analysis.</p></div></div>
 
     <script src="script.js" defer></script>
+        <script>
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('service-worker.js');
+            }
+        </script>
             <div class="loading-spinner" id="loadingSpinner">
                 <div class="spinner"></div>
             </div>
