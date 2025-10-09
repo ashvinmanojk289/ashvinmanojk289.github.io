@@ -1954,6 +1954,3 @@ input:checked + .slider:before { transform: translateX(24px); }
 }
 
 /* Prefer modern image formats via picture where supported (handled in HTML insertion) */
-
-
-
