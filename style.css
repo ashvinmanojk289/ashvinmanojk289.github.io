@@ -32,6 +32,107 @@
     .chat-toggle-btn, .scroll-to-top { right: 15px; }
     .scroll-to-top { bottom: 90px; }
     .section { margin-bottom: 50px; }
+        /* Ensure all grids stack vertically and are full width */
+        .bento-grid,
+        .about-grid,
+        .project-list,
+        .tech-stack-container,
+        .timeline,
+        .featured-projects-container,
+        .current-work-container {
+            display: block !important;
+            width: 100%;
+            gap: 0 !important;
+        }
+
+        .bento-box,
+        .project-card,
+        .stat-card,
+        .tech-icon,
+        .side-work-item,
+        .featured-project-main,
+        .achievement-card,
+        .interest-card {
+            width: 100% !important;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .hero-profile-image {
+            max-width: 100vw;
+            height: auto;
+        }
+
+        .tiles-container,
+        .tech-badges,
+        .work-tech-stack {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 8px !important;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 18px;
+            padding-bottom: 6px;
+        }
+
+        .hero-title {
+            font-size: 1.4rem;
+        }
+
+        .main-content {
+            padding: 40px 5px 10px 5px;
+        }
+
+        .navbar {
+            height: 50px;
+            padding: 0 5px;
+        }
+
+        .nav-menu {
+            gap: 0.5rem;
+        }
+
+        .header-actions {
+            gap: 0.5rem;
+        }
+
+        .resume-container {
+            padding: 10px;
+        }
+
+        .resume-preview img {
+            border-radius: 4px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 8px;
+            font-size: 0.9rem;
+        /* Futuristic glassmorphism/neumorphism styles */
+        }
+
+        .form-group {
+            gap: 6px;
+        }
+
+        .timeline-content {
+            padding: 15px;
+        }
+
+        .timeline-container {
+            padding: 5px 0;
+            width: 100%;
+            left: 0 !important;
+        }
+
+        .timeline-date, .timeline-grade {
+            font-size: 0.8rem;
+        }
+
+        .achievement-card, .interest-card {
+            padding: 10px;
+        }
 }
 /* Resume actual resolution preview */
 .resume-img-actual {
@@ -1625,3 +1726,210 @@ input:checked + .slider:before { transform: translateX(24px); }
 .theme-switching * {
     transition: none !important;
 }
+
+/* --------------------------------------------------------------------------
+   Modern polish & unified heading tiles
+   - Introduces a unified tile look for section headings, badges and icons
+   - Adds subtle entrance and hover animations
+   - Enhances button micro-interactions and card depth
+   (This block only appends styles; it does not remove or reduce existing lines.)
+   -------------------------------------------------------------------------- */
+
+:root {
+    --modern-tile-radius: 14px;
+    --modern-tile-padding: 10px 16px;
+    --modern-tile-bg: linear-gradient(135deg, rgba(255,255,255,0.65), rgba(255,255,255,0.5));
+    --modern-tile-bg-dark: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    --modern-tile-accent: var(--accent-primary);
+    --modern-tile-color: var(--text-primary);
+    --modern-tile-border: 1px solid rgba(255,255,255,0.06);
+    --modern-tile-shadow: 0 8px 30px rgba(2,6,23,0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root { --modern-tile-bg: var(--modern-tile-bg-dark); }
+}
+
+/* shared tile style applied to headings and small badges */
+.heading-tile,
+.section-title,
+.featured-project-badge,
+.work-status-badge,
+.achievement-icon,
+.featured-project-small .featured-project-badge,
+.timeline-date,
+.stat-item .stat-number {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: var(--modern-tile-padding);
+    border-radius: var(--modern-tile-radius);
+    color: var(--modern-tile-color);
+    background: var(--modern-tile-bg);
+    border: var(--modern-tile-border);
+    box-shadow: var(--modern-tile-shadow);
+    transition: transform 0.28s cubic-bezier(.2,.9,.2,1), box-shadow 0.28s, background 0.28s;
+    will-change: transform, box-shadow;
+}
+
+/* Slight entrance animation for tiles */
+@keyframes tileEntrance {
+    from { opacity: 0; transform: translateY(6px) scale(0.995); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.heading-tile, .section-title, .featured-project-badge, .work-status-badge {
+    animation: tileEntrance 560ms cubic-bezier(.2,.9,.2,1) both;
+}
+
+/* Hover/interaction state */
+.heading-tile:hover,
+.section-title:hover,
+.featured-project-badge:hover,
+.work-status-badge:hover,
+.achievement-icon:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 18px 45px rgba(2,6,23,0.12);
+}
+
+/* Ensure section titles retain their original underline behavior but look like tiles */
+.section-title {
+    padding-bottom: 12px;
+    border-bottom: none; /* move underline into tile design */
+}
+.section-title::after {
+    content: '';
+    position: absolute;
+    right: -22px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.2));
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    opacity: 0.7;
+}
+
+/* Consistent small icon style inside achievement cards */
+.achievement-icon {
+    width: 44px; height: 44px;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+/* Modernize card elevation and hover polish */
+.project-card, .bento-box, .featured-project-small, .featured-project-main, .current-work-main, .interest-card, .achievement-card {
+    transition: transform 0.36s cubic-bezier(.2,.9,.2,1), box-shadow 0.36s, border-color 0.36s;
+    border-radius: 16px;
+}
+.project-card:hover, .bento-box:hover, .featured-project-small:hover, .featured-project-main:hover {
+    transform: translateY(-10px) scale(1.01);
+    box-shadow: 0 30px 70px rgba(2,6,23,0.12);
+}
+
+/* Button ripple target styles (ripple elements will be injected via JS) */
+.button, .button-secondary, .filter-btn {
+    position: relative; overflow: hidden;
+}
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    background: rgba(255,255,255,0.45);
+    animation: rippleAnim 600ms ease-out;
+    pointer-events: none;
+}
+@keyframes rippleAnim { to { transform: scale(6); opacity: 0; } }
+
+/* Animated progress fill when it becomes visible */
+.progress-fill {
+    transition: width 1.2s cubic-bezier(.2,.9,.2,1), box-shadow 0.4s;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08) inset;
+}
+
+/* Subtle section divider: angled separator */
+.section + .section { position: relative; }
+.section + .section::before {
+    content: '';
+    position: absolute;
+    top: -24px; left: 0; right: 0; height: 24px;
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.02));
+    transform: skewY(-2deg);
+    pointer-events: none;
+    opacity: 0.65;
+}
+
+/* Floating action button (consistent modern look) */
+.fab {
+    position: fixed; right: 18px; bottom: 24px; z-index: 2000;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 54px; height: 54px; border-radius: 50%;
+    background: var(--gradient-primary); color: white; border: none;
+    box-shadow: 0 18px 36px rgba(2,6,23,0.16); cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.fab:hover { transform: translateY(-6px); box-shadow: 0 28px 56px rgba(2,6,23,0.18); }
+
+/* Small responsive tweaks for heading tiles */
+@media (max-width: 768px) {
+    .section-title::after { display: none; }
+    .heading-tile, .section-title { padding: 8px 12px; }
+}
+
+/* --- Testimonials carousel & decorative divider --- */
+.section-divider { width: 100%; overflow: hidden; line-height: 0; }
+.testimonials-container { display: flex; align-items: center; gap: 12px; position: relative; }
+.testimonials-track { display: flex; gap: 18px; overflow: hidden; width: 100%; }
+.testimonial-card { min-width: 320px; max-width: 680px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 22px; box-shadow: 0 12px 30px rgba(2,6,23,0.06); }
+.testimonial-card p { color: var(--text-secondary); line-height: 1.6; }
+.testimonial-author { margin-top: 12px; font-weight: 700; color: var(--text-primary); }
+.test-nav { background: var(--bg-secondary); border: 1px solid var(--border-color); width: 44px; height: 44px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.test-nav:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(2,6,23,0.08); }
+
+/* helper class to mark tiles (optional wrapper) */
+.heading-tile-wrapper { display: flex; align-items: center; gap: 12px; }
+
+/* hero parallax subtle fallback */
+.hero { background-attachment: fixed; background-position: center; }
+
+/* small responsive for testimonials */
+@media (max-width: 700px) {
+    .testimonials-track { gap: 12px; }
+    .testimonial-card { min-width: 260px; padding: 16px; }
+    .test-nav { width: 36px; height: 36px; }
+}
+
+/* Accessibility: Skip link */
+.skip-link {
+    position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+}
+.skip-link:focus {
+    position: fixed; left: 18px; top: 18px; width: auto; height: auto; padding: 10px 14px; background: var(--accent-primary); color: #fff; border-radius: 8px; z-index: 10001;
+}
+
+/* testimonial avatars + indicators */
+.testimonial-top { display:flex; align-items:center; gap:12px; margin-bottom: 8px; }
+.testimonial-avatar { width: 64px; height: 64px; border-radius: 50%; border: 3px solid var(--border-color); object-fit: cover; }
+.test-indicators { display:flex; gap:8px; margin-top:12px; justify-content:center; }
+.test-indicators button { width:10px; height:10px; border-radius:50%; background:var(--border-color); border:none; cursor:pointer; }
+.test-indicators button[aria-selected='true'] { background:var(--accent-primary); box-shadow:0 6px 16px rgba(0,0,0,0.12); }
+
+/* screen-reader only helper */
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/* FAB focus styles when present in DOM */
+.fab:focus { outline: 3px solid rgba(10,102,194,0.18); outline-offset: 4px; }
+
+/* Hero Lottie container */
+.hero-lottie { width: 220px; height: 220px; display: flex; align-items: center; justify-content: center; }
+.hero-lottie lottie-player { width: 100%; height: 100%; }
+
+/* Avatar fallback: initials background using CSS variable --initials */
+.testimonial-avatar[onerror] { display: none; }
+.avatar-fallback {
+    width: 64px; height: 64px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; color: white; background: linear-gradient(135deg, var(--accent-primary), var(--accent-hover));
+}
+
+/* Prefer modern image formats via picture where supported (handled in HTML insertion) */
+
+
+

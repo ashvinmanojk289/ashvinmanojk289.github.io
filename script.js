@@ -36,6 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initCommandPalette();
     fetchGitHubStats();
 
+    // Initialize micro-interactions after main init
+    initButtonRipples();
+    initProgressAnimations();
+
     // --- Theme Toggler ---
     function initTheme() {
         const themeBtn = document.getElementById('theme-toggle-btn');
@@ -57,6 +61,222 @@ document.addEventListener('DOMContentLoaded', () => {
             triggerTransformersTransition();
         });
     }
+        // Sticky navbar logic
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.sticky-navbar');
+            if (window.scrollY > 10) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+    // --- Button Ripple Micro-interaction ---
+    function initButtonRipples() {
+        const buttons = document.querySelectorAll('.button, .button-secondary, .filter-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                const rect = btn.getBoundingClientRect();
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+                btn.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 700);
+            });
+        });
+    }
+
+    // --- Animate progress bars when visible ---
+    function initProgressAnimations() {
+        const progressFills = document.querySelectorAll('.progress-fill');
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    // read width style classes (progress-25 etc.) and animate
+                    if (el.classList.contains('progress-25')) el.style.width = '25%';
+                    if (el.classList.contains('progress-50')) el.style.width = '50%';
+                    if (el.classList.contains('progress-75')) el.style.width = '75%';
+                    if (el.classList.contains('progress-85')) el.style.width = '85%';
+                    if (el.classList.contains('progress-90')) el.style.width = '90%';
+                    if (el.classList.contains('progress-95')) el.style.width = '95%';
+                    if (el.classList.contains('progress-100')) el.style.width = '100%';
+                    obs.unobserve(el);
+                }
+            });
+        }, { threshold: 0.3 });
+        progressFills.forEach(p => {
+            // collapse initially to allow animation
+            p.style.width = '0%';
+            obs.observe(p);
+        });
+    }
+
+    // --- Testimonials carousel ---
+    function initTestimonials() {
+        const track = document.querySelector('.testimonials-track');
+        const prevBtn = document.querySelector('.test-nav.prev');
+        const nextBtn = document.querySelector('.test-nav.next');
+        const indicatorsContainer = document.querySelector('.test-indicators');
+        if (!track) return;
+        let index = 0;
+        const cards = Array.from(track.children);
+        let autoTimer = null;
+
+        function cardWidth() {
+            const gap = parseInt(getComputedStyle(track).gap) || 18;
+            return (cards[0].getBoundingClientRect().width + gap);
+        }
+
+        function update() {
+            const w = cardWidth();
+            track.style.transform = `translateX(${-(w * index)}px)`;
+            // update indicators
+            if (indicatorsContainer) {
+                Array.from(indicatorsContainer.children).forEach((btn, i) => {
+                    btn.setAttribute('aria-selected', i === index ? 'true' : 'false');
+                    btn.tabIndex = i === index ? 0 : -1;
+                });
+            }
+            // announce to screen readers
+            const live = document.getElementById('testimonials-live');
+            if (live && cards[index]) {
+                const author = cards[index].querySelector('.testimonial-author')?.textContent || `Testimonial ${index+1}`;
+                const excerpt = cards[index].querySelector('p')?.textContent?.slice(0, 120) || '';
+                live.textContent = `${author}: ${excerpt}`;
+            }
+        }
+
+        function goto(i) {
+            index = Math.max(0, Math.min(cards.length - 1, i));
+            update();
+            resetAuto();
+        }
+
+        prevBtn.addEventListener('click', () => goto(index - 1));
+        nextBtn.addEventListener('click', () => goto(index + 1));
+
+        // create indicators
+        if (indicatorsContainer) {
+            indicatorsContainer.innerHTML = '';
+            cards.forEach((_, i) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.setAttribute('aria-label', `Show testimonial ${i + 1}`);
+                btn.setAttribute('role', 'tab');
+                btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+                btn.tabIndex = i === 0 ? 0 : -1;
+                btn.addEventListener('click', () => goto(i));
+                indicatorsContainer.appendChild(btn);
+            });
+        }
+
+        // auto advance with pause on interaction
+        function resetAuto() {
+            if (autoTimer) clearInterval(autoTimer);
+            autoTimer = setInterval(() => { goto((index + 1) % cards.length); }, 6000);
+        }
+        resetAuto();
+
+        // keyboard support
+        track.parentElement.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') goto(index - 1);
+            if (e.key === 'ArrowRight') goto(index + 1);
+        });
+
+        // touch support (simple swipe)
+        let touchStartX = 0;
+        track.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+        track.addEventListener('touchend', (e) => {
+            const dx = (e.changedTouches[0].clientX - touchStartX);
+            if (dx > 40) goto(index - 1);
+            else if (dx < -40) goto(index + 1);
+        });
+
+        window.addEventListener('resize', update);
+        // initial layout call
+        setTimeout(update, 50);
+    }
+
+    // --- Floating Action Button (FAB) behavior ---
+    function initFAB() {
+        // Create and append a FAB for quick contact if not present
+        if (document.querySelector('.fab')) return;
+        const fab = document.createElement('button');
+        fab.className = 'fab';
+        fab.setAttribute('aria-label', 'Contact');
+        fab.innerHTML = '<i class="fas fa-envelope"></i>';
+        document.body.appendChild(fab);
+        fab.addEventListener('click', () => { window.location.href = '#contact'; });
+    }
+
+    // --- Hero parallax subtle effect ---
+    function initHeroParallax() {
+        const hero = document.querySelector('.hero');
+        if (!hero) return;
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            hero.style.backgroundPositionY = `${scrolled * 0.06}px`;
+        });
+    }
+
+    // --- Ensure section headings get unified tile styles ---
+    function initHeadingTiles() {
+        document.querySelectorAll('.section-title').forEach(el => el.classList.add('heading-tile'));
+    }
+
+    // Final initialization for added features
+    initTestimonials();
+    initFAB();
+    initHeroParallax();
+    initHeadingTiles();
+
+    // --- Avatar fallback & initialization ---
+    function initAvatarFallbacks() {
+        document.querySelectorAll('.testimonial-avatar').forEach(img => {
+            // hide fallback when image loads
+            img.addEventListener('load', () => {
+                const fallback = img.parentElement.querySelector('.avatar-fallback');
+                if (fallback) fallback.style.display = 'none';
+            });
+            img.addEventListener('error', () => {
+                img.style.display = 'none';
+                const fallback = img.parentElement.querySelector('.avatar-fallback');
+                if (fallback) fallback.style.display = 'inline-flex';
+            });
+        });
+
+        // Set initial avatar sources based on theme
+        const isLab = document.documentElement.getAttribute('data-theme') === 'lab';
+        document.querySelectorAll('.testimonial-avatar').forEach(img => {
+            const light = img.dataset.light;
+            const dark = img.dataset.dark;
+            if (isLab && light) img.src = light;
+            if (!isLab && dark) img.src = dark;
+        });
+    }
+    initAvatarFallbacks();
+
+    // --- Dynamic initials for avatar-fallback elements ---
+    function initAvatarInitials() {
+        document.querySelectorAll('.testimonial-card').forEach(card => {
+            const authorEl = card.querySelector('.testimonial-author');
+            const fallback = card.querySelector('.avatar-fallback');
+            if (!authorEl || !fallback) return;
+            const text = authorEl.textContent || '';
+            // Extract initials from common patterns — take first letters of first two words
+            const name = text.replace(/^—\s*/, '').split(',')[0].trim();
+            const parts = name.split(/\s+/).filter(Boolean);
+            let initials = '';
+            if (parts.length === 1) initials = parts[0].slice(0,2).toUpperCase();
+            else initials = (parts[0][0] + (parts[1][0] || '')).toUpperCase();
+            fallback.textContent = initials;
+        });
+    }
+    initAvatarInitials();
 
     // --- Simple Elegant Theme Transition ---
     function triggerTransformersTransition() {
@@ -96,12 +316,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 iconSun.classList.add('hidden');
                 iconMoon.classList.remove('hidden');
                 if (profileImg) profileImg.src = 'assets/profile-dark.jpg';
+                // swap testimonial avatars to darker variants if available
+                document.querySelectorAll('.testimonial-avatar').forEach((img, i) => {
+                    // fallback: keep same if dark variant unavailable
+                    const darkSrc = img.dataset.dark || img.src;
+                    img.src = darkSrc;
+                });
             } else {
                 document.documentElement.setAttribute('data-theme', 'lab');
                 localStorage.setItem('theme', 'lab');
                 iconSun.classList.remove('hidden');
                 iconMoon.classList.add('hidden');
                 if (profileImg) profileImg.src = 'assets/profile-light.jpg';
+                // swap testimonial avatars back to light variants if available
+                document.querySelectorAll('.testimonial-avatar').forEach((img, i) => {
+                    const lightSrc = img.dataset.light || img.src;
+                    img.src = lightSrc;
+                });
             }
         }, 400); // Middle of curtain animation
         

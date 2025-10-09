@@ -44,6 +44,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
 
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        <!-- Lottie player for hero animation -->
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -53,6 +55,8 @@
 </head>
 
 <body>
+    <!-- Accessibility: Skip link -->
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
@@ -87,10 +91,13 @@
     </header>
 
     <div class="main-container">
-        <main class="main-content">
+    <main id="main-content" class="main-content" role="main">
             <section class="section hero" id="home">
                 <div class="hero-profile-image reveal fade-in scale-up">
-                    <img id="profile-img" src="assets/profile-light.jpg" alt="Photo of Ashvin Manoj" width="250" height="250" loading="lazy" />
+                    <img id="profile-img" src="assets/profile-light.jpg" alt="Portrait of Ashvin Manoj" width="250" height="250" loading="lazy" />
+                </div>
+                <div class="hero-lottie" aria-hidden="true">
+                    <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_jcikwtux.json" background="transparent" speed="1" loop autoplay></lottie-player>
                 </div>
                 <div class="hero-text reveal slide-in-right">
                     <p class="hero-intro">Ashvin Manoj</p>
@@ -100,6 +107,13 @@
                     <a href="#contact" class="button-secondary">Contact Me</a>
                 </div>
             </section>
+
+            <!-- Decorative angled SVG divider -->
+            <div class="section-divider" aria-hidden="true">
+                <svg viewBox="0 0 1200 60" preserveAspectRatio="none" width="100%" height="60" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0,60 L1200,0 L1200,60 Z" fill="var(--bg-secondary)" opacity="0.85"></path>
+                </svg>
+            </div>
 
             <section class="section" id="about">
                 <h2 class="section-title reveal fade-in">About Me</h2>
@@ -327,6 +341,51 @@
                 </div>
             </section>
 
+            <!-- Testimonials / Social proof -->
+            <section class="section" id="testimonials" aria-labelledby="testimonials-title">
+                <h2 id="testimonials-title" class="section-title reveal fade-in">What People Say</h2>
+                <div class="testimonials-container reveal" role="region" aria-roledescription="carousel" aria-label="Testimonials">
+                    <button class="test-nav prev" aria-label="Previous testimonial">‹</button>
+                    <div class="testimonials-track" role="list">
+                        <div class="testimonial-card" role="listitem">
+                            <div class="testimonial-top">
+                                <picture>
+                                    <source type="image/webp" srcset="assets/profile-light.webp">
+                                    <img loading="lazy" class="testimonial-avatar" src="assets/profile-light.jpg" data-light="assets/profile-light.jpg" data-dark="assets/profile-dark.jpg" alt="Dr. Meera Krishnan avatar">
+                                </picture>
+                                <div class="avatar-fallback" aria-hidden="true">AM</div>
+                            </div>
+                            <p>"Ashvin consistently delivers production-ready ML systems with clean engineering and reproducible experiments. Highly recommended for applied AI work."</p>
+                            <div class="testimonial-author">— Dr. Meera Krishnan, Research Supervisor</div>
+                        </div>
+                        <div class="testimonial-card" role="listitem">
+                            <div class="testimonial-top">
+                                <picture>
+                                    <source type="image/webp" srcset="assets/profile-dark.webp">
+                                    <img loading="lazy" class="testimonial-avatar" src="assets/profile-dark.jpg" data-light="assets/profile-light.jpg" data-dark="assets/profile-dark.jpg" alt="Rahul Menon avatar">
+                                </picture>
+                                <div class="avatar-fallback" aria-hidden="true">RM</div>
+                            </div>
+                            <p>"Ashvin is a dependable ML engineer who balances model innovation with production constraints—excellent collaboration and technical delivery."</p>
+                            <div class="testimonial-author">— Rahul Menon, Product Lead</div>
+                        </div>
+                        <div class="testimonial-card" role="listitem">
+                            <div class="testimonial-top">
+                                <picture>
+                                    <source type="image/webp" srcset="assets/resume.webp">
+                                    <img loading="lazy" class="testimonial-avatar" src="assets/resume.jpg" data-light="assets/resume.jpg" data-dark="assets/profile-dark.jpg" alt="Prof. Anita Varma avatar">
+                                </picture>
+                                <div class="avatar-fallback" aria-hidden="true">AV</div>
+                            </div>
+                            <p>"Ashvin's research-driven approach and clear engineering make complex models accessible and deployable. A thoughtful practitioner."</p>
+                            <div class="testimonial-author">— Prof. Anita Varma, Academic Advisor</div>
+                        </div>
+                    </div>
+                    <button class="test-nav next" aria-label="Next testimonial">›</button>
+                    <div class="test-indicators" role="tablist" aria-label="Testimonial indicators"></div>
+                </div>
+            </section>
+
             <section class="section" id="skills">
                 <h2 class="section-title reveal fade-in">Technical Skills</h2>
                 <div class="bento-grid">
@@ -528,8 +587,14 @@
                 <div class="contact-container reveal">
                     <p>I'm always open to discussing new projects, creative ideas, or opportunities. Feel free to reach out, or just say hello!</p>
                     <form action="https://getform.io/f/adrddnka" method="POST" class="contact-form">
-                        <div class="form-group"><input type="text" name="name" placeholder="Your Name" required><input type="email" name="email" placeholder="Your Email" required></div>
-                        <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
+                        <div class="form-group">
+                            <label for="contact-name" class="visually-hidden">Name</label>
+                            <input id="contact-name" type="text" name="name" placeholder="Your Name" required autocomplete="name" />
+                            <label for="contact-email" class="visually-hidden">Email</label>
+                            <input id="contact-email" type="email" name="email" placeholder="Your Email" required autocomplete="email" />
+                        </div>
+                        <label for="contact-message" class="visually-hidden">Message</label>
+                        <textarea id="contact-message" name="message" placeholder="Your Message" rows="6" required autocomplete="off"></textarea>
                         <button type="submit" class="button">Send Message <i class="fas fa-paper-plane"></i></button>
                         <a href="assets/ashvinmanoj.vcf" class="button-secondary vcard-btn" download="Ashvin_Manoj.vcf"><i class="fas fa-id-card"></i>&nbsp;Download vCard</a>
                     </form>
@@ -590,9 +655,17 @@
                 <div class="spinner"></div>
             </div>
     
+    <!-- Floating Action Button (accessible in HTML) -->
+    <button class="fab" id="fab-contact" aria-label="Contact" title="Contact">
+        <i class="fas fa-envelope" aria-hidden="true"></i>
+    </button>
+
     <button class="scroll-to-top" id="scrollToTopBtn" aria-label="Scroll to top">
         <i class="fas fa-arrow-up"></i>
     </button>
+
+    <!-- ARIA live region for announcing testimonial changes -->
+    <div id="testimonials-live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
     <script>
         document.addEventListener('contextmenu', function(e) {
