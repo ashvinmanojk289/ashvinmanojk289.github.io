@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     const projectData = [
-        { title: 'Hybrid EfficientNetV2-Transformer Model', description: 'Advanced deep learning model for precision weed detection with comprehensive model comparison and analysis.', link: 'https://github.com/ashvinmanojk289/Hybrid-EfficientNetV2-Transformer-Model-and-Other-Model-Comparison-for-Weed-Detection', category: 'cv' },
-        { title: 'PDF Query Application', description: 'Developed a scalable, voice-enabled PDF query system using NLP and Streamlit, transforming static documents into conversational hubs.', link: 'https://github.com/ashvinmanojk289/PDF-Query-Application', category: 'nlp' },
-        { title: 'Simple Google PageRank Algorithm', description: 'Implementation of Google\'s PageRank algorithm, demonstrating fundamental concepts of link analysis and graph-based ranking systems.', link: 'https://github.com/ashvinmanojk289/Simple-Google-PageRank-Algorithm', category: 'nlp' },
-        { title: 'Quadruped Emoji Bot', description: 'A fun, interactive 4-legged robot that displays random emojis on an OLED screen, controlled wirelessly via a custom mobile app.', link: 'https://github.com/ashvinmanojk289/Quadrobot', category: 'robotics' }
+        { title: 'Hybrid EfficientNetV2-Transformer Model', description: 'Advanced deep learning model for precision weed detection.', link: 'https://github.com/ashvinmanojk289/Hybrid-EfficientNetV2-Transformer-Model-and-Other-Model-Comparison-for-Weed-Detection', category: 'cv' },
+        { title: 'PDF Query Application', description: 'A scalable, voice-enabled system using NLP to make PDFs conversational.', link: 'https://github.com/ashvinmanojk289/PDF-Query-Application', category: 'nlp' },
+        { title: 'Simple Google PageRank Algorithm', description: 'Implementation of Google\'s PageRank algorithm for link analysis.', link: 'https://github.com/ashvinmanojk289/Simple-Google-PageRank-Algorithm', category: 'nlp' },
+        { title: 'Quadruped Emoji Bot', description: 'An interactive 4-legged robot controlled wirelessly via a custom mobile app.', link: 'https://github.com/ashvinmanojk289/Quadrobot', category: 'robotics' }
     ];
 
     const testimonialData = [
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const loader = document.getElementById('page-loader');
         window.addEventListener('load', () => {
             loader.style.opacity = '0';
-            setTimeout(() => { loader.style.display = 'none'; }, 500);
+            loader.style.visibility = 'hidden';
         });
     }
 
@@ -54,9 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function initCurrentYear() {
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-    }
+    function initCurrentYear() { document.getElementById('current-year').textContent = new Date().getFullYear(); }
 
     function initMobileNav() {
         const navToggle = document.getElementById('nav-toggle');
@@ -65,23 +63,18 @@ document.addEventListener('DOMContentLoaded', () => {
             navToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                navToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
-        });
+        document.querySelectorAll('.nav-menu a').forEach(link => link.addEventListener('click', () => {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
     }
 
     function initHeaderScroll() {
         const header = document.querySelector('.main-header');
         let lastScrollY = window.scrollY;
         window.addEventListener('scroll', () => {
-            if (window.scrollY > lastScrollY && window.scrollY > 100) {
-                header.style.top = '-100px';
-            } else {
-                header.style.top = '0';
-            }
+            if (window.scrollY > lastScrollY && window.scrollY > 100) { header.style.top = '-100px'; } 
+            else { header.style.top = '0'; }
             lastScrollY = window.scrollY;
         });
     }
@@ -92,16 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('scroll', () => {
             let currentId = '';
             sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (window.scrollY >= sectionTop - 150) {
-                    currentId = section.getAttribute('id');
-                }
+                if (window.scrollY >= section.offsetTop - 150) { currentId = section.id; }
             });
             navLinks.forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('href') === `#${currentId}`) {
-                    link.classList.add('active');
-                }
+                if (link.getAttribute('href') === `#${currentId}`) { link.classList.add('active'); }
             });
         });
     }
@@ -111,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.1 });
@@ -127,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cursorOutline.style.left = `${e.clientX}px`;
             cursorOutline.style.top = `${e.clientY}px`;
         });
-        document.querySelectorAll('a, button').forEach(el => {
+        document.querySelectorAll('a, button, input, textarea').forEach(el => {
             el.addEventListener('mouseenter', () => cursorOutline.classList.add('cursor-interact'));
             el.addEventListener('mouseleave', () => cursorOutline.classList.remove('cursor-interact'));
         });
@@ -142,22 +131,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentWord = words[wordIndex];
             target.textContent = currentWord.substring(0, charIndex);
             if (isDeleting) charIndex--; else charIndex++;
-            if (!isDeleting && charIndex === currentWord.length) {
-                setTimeout(() => isDeleting = true, 2000);
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                wordIndex = (wordIndex + 1) % words.length;
-            }
+            if (!isDeleting && charIndex === currentWord.length) { setTimeout(() => isDeleting = true, 2000); } 
+            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % words.length; }
             setTimeout(type, isDeleting ? 75 : 150);
         }
         type();
     }
 
     function initMarquee() {
-        const marqueeInner = document.querySelector('.marquee-inner');
-        if (marqueeInner) {
-            const content = marqueeInner.querySelector('.marquee-content');
-            if (content) marqueeInner.appendChild(content.cloneNode(true));
+        const marquee = document.querySelector('.marquee-inner');
+        if (marquee) {
+            const content = marquee.querySelector('.marquee-content');
+            if (content) marquee.appendChild(content.cloneNode(true));
         }
     }
 
@@ -168,80 +153,57 @@ document.addEventListener('DOMContentLoaded', () => {
             const totalStars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
             document.getElementById('github-repos').textContent = repos.length || 0;
             document.getElementById('github-stars').textContent = totalStars || 0;
-        } catch (error) {
-            console.error('Failed to fetch GitHub stats:', error);
-        }
+        } catch (error) { console.error('Failed to fetch GitHub stats:', error); }
     }
 
     function initProjects() {
         const projectList = document.querySelector('.project-list');
         const filterBtns = document.querySelectorAll('.filter-btn');
-        if (!projectList || !filterBtns) return;
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
 
         const renderProjects = (filter = 'all') => {
             projectList.innerHTML = '';
-            const filteredProjects = (filter === 'all') ? projectData : projectData.filter(p => p.category === filter);
-            
-            filteredProjects.forEach(project => {
+            const filtered = (filter === 'all') ? projectData : projectData.filter(p => p.category === filter);
+            filtered.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'project-card reveal';
                 card.innerHTML = `
-                    <div class="project-details">
-                        <h3>${project.title}</h3>
-                        <p>${project.description}</p>
-                    </div>
-                    <div class="project-link">
-                        <a href="${project.link}" target="_blank" rel="noopener">View Project <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                `;
+                    <div class="project-details"><h3>${p.title}</h3><p>${p.description}</p></div>
+                    <a href="${p.link}" target="_blank" rel="noopener" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>`;
                 projectList.appendChild(card);
+                observer.observe(card);
             });
-            // Re-run observer for new elements
-            document.querySelectorAll('.project-list .reveal').forEach(el => new IntersectionObserver(entries => {
-                entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('visible'); });
-            }, {threshold: 0.1}).observe(el));
         };
-        
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                renderProjects(btn.dataset.filter);
-            });
-        });
-        
+        filterBtns.forEach(btn => btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderProjects(btn.dataset.filter);
+        }));
         renderProjects();
     }
     
     function initTestimonials() {
         const track = document.querySelector('.testimonial-track');
-        const prevBtn = document.querySelector('.test-nav.prev');
-        const nextBtn = document.querySelector('.test-nav.next');
         if (!track) return;
-
         testimonialData.forEach(item => {
             const card = document.createElement('div');
             card.className = 'testimonial-card';
             card.innerHTML = `<p>"${item.quote}"</p><span>— ${item.author}</span>`;
             track.appendChild(card);
         });
-
-        let currentIndex = 0;
-        const cards = track.querySelectorAll('.testimonial-card');
-        const totalCards = cards.length;
-
-        function updateSlider() {
-            track.style.transform = `translateX(-${currentIndex * 100}%)`;
-        }
-
-        prevBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex === 0) ? totalCards - 1 : currentIndex - 1;
-            updateSlider();
+        let index = 0;
+        const update = () => { track.style.transform = `translateX(-${index * 100}%)`; };
+        document.querySelector('.test-nav.prev').addEventListener('click', () => {
+            index = (index === 0) ? testimonialData.length - 1 : index - 1;
+            update();
         });
-
-        nextBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex === totalCards - 1) ? 0 : currentIndex + 1;
-            updateSlider();
+        document.querySelector('.test-nav.next').addEventListener('click', () => {
+            index = (index === testimonialData.length - 1) ? 0 : index + 1;
+            update();
         });
     }
 });
