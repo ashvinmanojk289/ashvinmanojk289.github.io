@@ -44,7 +44,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
 
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-        <!-- Lottie player for hero animation -->
         <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -55,7 +54,6 @@
 </head>
 
 <body>
-    <!-- Accessibility: Skip link -->
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
@@ -108,7 +106,6 @@
                 </div>
             </section>
 
-            <!-- Decorative angled SVG divider -->
             <div class="section-divider" aria-hidden="true">
                 <svg viewBox="0 0 1200 60" preserveAspectRatio="none" width="100%" height="60" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0,60 L1200,0 L1200,60 Z" fill="var(--bg-secondary)" opacity="0.85"></path>
@@ -341,7 +338,6 @@
                 </div>
             </section>
 
-            <!-- Testimonials / Social proof -->
             <section class="section" id="testimonials" aria-labelledby="testimonials-title">
                 <h2 id="testimonials-title" class="section-title reveal fade-in">What People Say</h2>
                 <div class="testimonials-container reveal" role="region" aria-roledescription="carousel" aria-label="Testimonials">
@@ -521,17 +517,6 @@
                 </div>
             </section>
 
-            <section class="section" id="testimonials">
-                <h2 class="section-title reveal">Testimonials</h2>
-                <div class="testimonial-card reveal">
-                    <p>"Ashvin was a remarkable intern. His ability to quickly grasp complex microprocessor systems and his contribution to improving our process efficiency was invaluable. He is a dedicated and resourceful engineer."</p>
-                    <div class="testimonial-author">
-                        <strong>- HR</strong>
-                        <span>Sunlux Technovations</span>
-                    </div>
-                </div>
-            </section>
-
             <section class="section" id="interests">
                 <h2 class="section-title reveal">Beyond Code</h2>
                 <div class="interests-container reveal">
@@ -626,7 +611,7 @@
     </div>
 
     <div class="chat-assistant">
-    <button class="chat-toggle-btn hidden" aria-label="Toggle AI Assistant"><i class="fas fa-robot"></i></button>
+        <button class="chat-toggle-btn" aria-label="Toggle AI Assistant"><i class="fas fa-robot"></i></button>
         <div class="chat-window">
             <div class="chat-header"><h3>AI Assistant</h3><span>Ask me about my resume!</span></div>
             <div class="chat-body"><div class="chat-message bot">Hi there! How can I help you learn about Ashvin's work?</div></div>
@@ -655,7 +640,6 @@
                 <div class="spinner"></div>
             </div>
     
-    <!-- Floating Action Button (accessible in HTML) -->
     <button class="fab" id="fab-contact" aria-label="Contact" title="Contact">
         <i class="fas fa-envelope" aria-hidden="true"></i>
     </button>
@@ -664,15 +648,7 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- ARIA live region for announcing testimonial changes -->
     <div id="testimonials-live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
-    <script>
-        document.addEventListener('contextmenu', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-            }
-        });
-    </script>
-    </body>
+</body>
 </html>
