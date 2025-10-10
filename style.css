@@ -282,11 +282,6 @@ body:hover .cursor-outline { opacity: 0.5; }
 .nav-link { color: var(--text-secondary); text-decoration: none; font-weight: 500; position: relative; transition: color 0.3s; }
 .nav-link:hover { color: var(--accent-primary); }
 .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 50%; transform: translateX(-50%); background-color: var(--accent-primary); transition: width 0.3s; }
-body {
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
 .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 .header-actions {
     display: flex;
@@ -412,15 +407,14 @@ input:checked + .slider:before { transform: translateX(24px); }
 .section-title::after {
     content: '';
     position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent-hover), var(--accent-primary));
-    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.section-title:hover::after {
-    width: 100%;
+    right: -22px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.2));
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    opacity: 0.7;
 }
 
 /* --- Hero Section --- */
@@ -1819,19 +1813,6 @@ input:checked + .slider:before { transform: translateX(24px); }
     padding-bottom: 12px;
     border-bottom: none; /* move underline into tile design */
 }
-.section-title::after {
-    content: '';
-    position: absolute;
-    right: -22px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 22px; height: 22px;
-    border-radius: 6px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.2));
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    opacity: 0.7;
-}
-
 /* Consistent small icon style inside achievement cards */
 .achievement-icon {
     width: 44px; height: 44px;
@@ -1965,3 +1946,5 @@ input:checked + .slider:before { transform: translateX(24px); }
 }
 
 /* Prefer modern image formats via picture where supported (handled in HTML insertion) */
+
+}
