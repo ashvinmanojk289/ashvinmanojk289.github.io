@@ -203,14 +203,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Floating Action Button (FAB) behavior ---
     function initFAB() {
-        // Create and append a FAB for quick contact if not present
-        if (document.querySelector('.fab')) return;
-        const fab = document.createElement('button');
-        fab.className = 'fab';
-        fab.setAttribute('aria-label', 'Contact');
-        fab.innerHTML = '<i class="fas fa-envelope"></i>';
-        document.body.appendChild(fab);
-        fab.addEventListener('click', () => { window.location.href = '#contact'; });
+        const fab = document.getElementById('fab-contact');
+        if (fab) {
+            fab.addEventListener('click', () => { window.location.href = '#contact'; });
+        }
     }
 
     // --- Hero parallax subtle effect ---
@@ -666,7 +662,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { icon: 'fas fa-file-alt', name: 'Resume', action: () => window.location.href = '#resume' },
             { icon: 'fab fa-github', name: 'Open GitHub', action: () => window.open('https://github.com/ashvinmanojk289', '_blank') },
             { icon: 'fab fa-linkedin', name: 'Open LinkedIn', action: () => window.open('https://linkedin.com/in/ashvinmanojk289', '_blank') },
-            { icon: 'fas fa-moon', name: 'Toggle Theme', action: () => document.getElementById('theme-toggle-checkbox').click() },
+            { icon: 'fas fa-moon', name: 'Toggle Theme', action: () => document.getElementById('theme-toggle-btn').click() },
         ];
         
         const renderCommands = (filter = '') => {
