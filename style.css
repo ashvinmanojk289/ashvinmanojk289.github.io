@@ -288,8 +288,19 @@ body {
     user-select: none;
 }
 .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-.header-actions { display: flex; align-items: center; gap: 1.5rem; }
-.header-actions .social-links { margin-bottom: 0; display: flex; gap: 1rem; }
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 2.2rem;
+    height: 100%;
+}
+.header-actions .social-links {
+    margin-bottom: 0;
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    height: 100%;
+}
 .header-actions .social-links a {
     color: var(--text-secondary);
     font-size: 1.8rem;
