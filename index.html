@@ -14,34 +14,10 @@
     <meta property="og:url" content="https://ashvinmanojk289.github.io">
     <meta property="og:type" content="website">
 
-    <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Ashvin Manoj | AI & ML Portfolio">
-    <meta name="twitter:description" content="AI & ML engineer specializing in deep learning, NLP, and robotics.">
-    <meta name="twitter:image" content="https://ashvinmanojk289.github.io/assets/banner.png">
-
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="stylesheet" href="style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Ashvin Manoj",
-        "url": "https://ashvinmanojk289.github.io",
-        "image": "https://ashvinmanojk289.github.io/assets/profile.jpg",
-        "sameAs": [
-            "https://linkedin.com/in/ashvinmanojk289",
-            "https://github.com/ashvinmanojk289"
-        ],
-        "jobTitle": "AI/ML Engineer",
-        "description": "AI & ML engineer specializing in deep learning, NLP, and robotics."
-    }
-    </script>
 </head>
 <body>
     <div class="cursor-dot"></div>
@@ -56,8 +32,9 @@
             <a href="#home" class="nav-logo">AM.</a>
             <ul class="nav-menu">
                 <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="#experience" class="nav-link">Experience</a></li>
+                <li class="nav-item"><a href="#experience" class="nav-link">Journey</a></li>
                 <li class="nav-item"><a href="#projects" class="nav-link">Work</a></li>
+                <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
                 <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="header-actions">
@@ -88,7 +65,7 @@
             </div>
         </section>
 
-        <section class="marquee" id="tech-stack">
+        <section class="marquee">
             <div class="marquee-inner">
                 <div class="marquee-content">
                     <span>Python</span><span class="star">✦</span>
@@ -99,58 +76,84 @@
                     <span>Computer Vision</span><span class="star">✦</span>
                     <span>NLP</span><span class="star">✦</span>
                     <span>Generative AI</span><span class="star">✦</span>
-                    <span>SQL</span><span class="star">✦</span>
-                    <span>Git</span><span class="star">✦</span>
                 </div>
             </div>
         </section>
 
         <section class="section about" id="about">
             <div class="section-container">
-                <h2 class="section-title reveal">About Me</h2>
                 <div class="about-grid">
-                    <div class="about-text reveal">
-                        <p>Hello! I am an AI/ML Engineer and a current M.Tech student specializing in building intelligent systems that bridge the physical and digital worlds.</p>
-                        <p>My passion lies at the intersection of robotics and natural language processing, where I leverage hands-on skills in ROS, PyTorch, and deep learning to create machines that can perceive, understand, and interact with their environment. From developing autonomous navigation for agricultural robots to building conversational AI, I am driven by the challenge of creating practical, real-world solutions.</p>
-                    </div>
                     <div class="about-image-container reveal">
                         <img id="profile-img" src="assets/profile-dark.jpg" alt="Portrait of Ashvin Manoj" class="about-image" loading="lazy" />
+                    </div>
+                    <div class="about-text">
+                        <h2 class="section-title reveal">About Me</h2>
+                        <p class="reveal">Hello! I am an AI/ML Engineer and a current M.Tech student specializing in building intelligent systems that bridge the physical and digital worlds.</p>
+                        <p class="reveal">My passion lies at the intersection of robotics and natural language processing, where I leverage hands-on skills in ROS, PyTorch, and deep learning to create machines that can perceive, understand, and interact with their environment.</p>
+                        <div class="stats-container reveal">
+                            <div class="stat-card">
+                                <span id="github-repos">0</span>
+                                <p>Public Repos</p>
+                            </div>
+                            <div class="stat-card">
+                                <span id="github-stars">0</span>
+                                <p>Stars Earned</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="section experience" id="experience">
+        <section class="section work-in-progress" id="current-work">
             <div class="section-container">
-                <h2 class="section-title reveal">Experience</h2>
-                <div class="timeline reveal">
-                    <div class="timeline-item">
-                        <div class="timeline-meta">
-                            <p class="timeline-date">Aug 2025 - Present</p>
-                            <p class="timeline-company">Mastermine Technologies</p>
-                        </div>
-                        <div class="timeline-content">
-                            <h3>Data Science Intern</h3>
-                            <ul>
-                                <li>Engineering a full-stack desktop application for photographers to streamline album generation workflows.</li>
-                                <li>Designing and implementing a multi-agent LLM framework to automate data analysis pipelines.</li>
-                                <li>Developing intelligent automation tools that transform data into business intelligence reports.</li>
-                            </ul>
+                <h2 class="section-title reveal">What I'm Working On</h2>
+                <div class="wip-grid">
+                    <div class="wip-card reveal">
+                        <span class="wip-status">In Progress</span>
+                        <h3>Multimodal Graph Learning for Alzheimer's Classification</h3>
+                        <p>Designing a novel deep learning architecture (MAGMF-Net) to fuse sMRI, DTI, and SNP data for accurate early diagnosis of Alzheimer's Disease.</p>
+                        <div class="tech-badges">
+                            <span class="tech-badge">GCN</span>
+                            <span class="tech-badge">Graph Transformers</span>
+                            <span class="tech-badge">PyTorch</span>
                         </div>
                     </div>
+                    <div class="wip-card reveal">
+                        <span class="wip-status">In Progress</span>
+                        <h3>Multi-Agent LLM Framework</h3>
+                        <p>Building an intelligent data analysis system using multiple specialized AI agents to generate deep insights from structured datasets at Mastermine Technologies.</p>
+                        <div class="tech-badges">
+                            <span class="tech-badge">LangChain</span>
+                            <span class="tech-badge">Generative AI</span>
+                            <span class="tech-badge">React.js</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section journey" id="experience">
+            <div class="section-container">
+                <h2 class="section-title reveal">My Journey</h2>
+                <div class="timeline reveal">
+                    <div class="timeline-heading">Experience</div>
                     <div class="timeline-item">
-                        <div class="timeline-meta">
-                            <p class="timeline-date">Feb 2024 - April 2024</p>
-                            <p class="timeline-company">Sunlux Technovations</p>
-                        </div>
-                        <div class="timeline-content">
-                            <h3>Hardware Systems Intern</h3>
-                            <ul>
-                                <li>Architected microprocessor programs in Assembly, achieving a 15% improvement in process efficiency.</li>
-                                <li>Collaborated with engineering teams to design and deploy embedded solutions for manufacturing.</li>
-                                <li>Conducted system debugging and performance optimization, reducing downtime by 20%.</li>
-                            </ul>
-                        </div>
+                        <div class="timeline-meta"><p>2025 - Present</p></div>
+                        <div class="timeline-content"><h3>Data Science Intern at Mastermine Technologies</h3></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-meta"><p>2024</p></div>
+                        <div class="timeline-content"><h3>Hardware Systems Intern at Sunlux Technovations</h3></div>
+                    </div>
+                    <div class="timeline-heading">Education</div>
+                    <div class="timeline-item">
+                        <div class="timeline-meta"><p>2024 - Present</p></div>
+                        <div class="timeline-content"><h3>M.Tech, AI/ML at Rajagiri School of Engineering</h3></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-meta"><p>2020 - 2024</p></div>
+                        <div class="timeline-content"><h3>B.Tech, Robotics & Automation at Adi Shankara Institute</h3></div>
                     </div>
                 </div>
             </div>
@@ -158,63 +161,89 @@
 
         <section class="section projects" id="projects">
             <div class="section-container">
-                <h2 class="section-title reveal">Featured Work</h2>
+                <h2 class="section-title reveal">Selected Work</h2>
+                <div class="project-filters reveal">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="nlp">NLP</button>
+                    <button class="filter-btn" data-filter="cv">Computer Vision</button>
+                    <button class="filter-btn" data-filter="robotics">Robotics</button>
+                </div>
                 <div class="project-list">
-                    <div class="project-card reveal">
-                        <div class="project-header">
-                            <h3>Multilingual News Audio Translator</h3>
-                            <div class="project-links">
-                                <a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR" target="_blank" rel="noopener">GitHub <i class="fas fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                        <p>A full-stack application using Wav2Vec 2.0 and mBART models for real-time audio translation across multiple languages.</p>
-                        <div class="tech-badges">
-                            <span class="tech-badge">PyTorch</span>
-                            <span class="tech-badge">Hugging Face</span>
-                            <span class="tech-badge">Flask</span>
-                        </div>
                     </div>
-                    <div class="project-card reveal">
-                        <div class="project-header">
-                            <h3>Weed Detection Robot & Hybrid Model</h3>
-                            <div class="project-links">
-                                <a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" target="_blank" rel="noopener">GitHub <i class="fas fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                        <p>An autonomous robot with a hybrid EfficientNetV2-Transformer model that achieves 97% accuracy in precision agriculture.</p>
-                        <div class="tech-badges">
-                            <span class="tech-badge">Computer Vision</span>
-                            <span class="tech-badge">ROS</span>
-                            <span class="tech-badge">EfficientNetV2</span>
-                        </div>
+            </div>
+        </section>
+
+        <section class="section publications">
+            <div class="section-container">
+                 <h2 class="section-title reveal">Publications</h2>
+                 <div class="publication-card reveal">
+                    <div class="publication-content">
+                        <h3>A Hybrid Transformer Model Approach for Precision Weed Detection</h3>
+                        <p>S. Krishnan, M. Karuppasamypandiyan, and A. Manoj. <em>2025 4th International Conference on ACCESS</em>.</p>
                     </div>
-                    <div class="project-card reveal">
-                        <div class="project-header">
-                            <h3>PDF Query Application</h3>
-                            <div class="project-links">
-                                <a href="https://github.com/ashvinmanojk289/PDF-Query-Application" target="_blank" rel="noopener">GitHub <i class="fas fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                        <p>A scalable, voice-enabled system using NLP to transform static PDFs into conversational information hubs.</p>
-                        <div class="tech-badges">
-                            <span class="tech-badge">Generative AI</span>
-                            <span class="tech-badge">Streamlit</span>
-                            <span class="tech-badge">LangChain</span>
-                        </div>
+                    <a href="https://doi.org/10.1109/ACCESS65134.2025.11135583" target="_blank" rel="noopener" class="button">View Publication <i class="fas fa-arrow-right"></i></a>
+                 </div>
+            </div>
+        </section>
+
+        <section class="section skills" id="skills">
+            <div class="section-container">
+                <h2 class="section-title reveal">Technical Skills</h2>
+                <div class="bento-grid">
+                    <div class="bento-box reveal">
+                        <h3>Languages & Databases</h3>
+                        <div class="tiles-container"><span class="skill-tile">Python</span><span class="skill-tile">C++</span><span class="skill-tile">SQL</span><span class="skill-tile">R</span></div>
                     </div>
-                    <div class="project-card reveal">
-                        <div class="project-header">
-                            <h3>Quadruped Emoji Bot</h3>
-                            <div class="project-links">
-                                <a href="https://github.com/ashvinmanojk289/Quadrobot" target="_blank" rel="noopener">GitHub <i class="fas fa-arrow-right"></i></a>
-                            </div>
+                    <div class="bento-box reveal">
+                        <h3>AI & Machine Learning</h3>
+                        <div class="tiles-container"><span class="skill-tile">Generative AI</span><span class="skill-tile">LLMs</span><span class="skill-tile">Computer Vision</span><span class="skill-tile">NLP</span><span class="skill-tile">Deep Learning</span></div>
+                    </div>
+                    <div class="bento-box reveal">
+                        <h3>Frameworks</h3>
+                        <div class="tiles-container"><span class="skill-tile">PyTorch</span><span class="skill-tile">TensorFlow</span><span class="skill-tile">Scikit-learn</span><span class="skill-tile">Hugging Face</span><span class="skill-tile">Pandas</span></div>
+                    </div>
+                    <div class="bento-box reveal">
+                        <h3>Platforms & Tools</h3>
+                        <div class="tiles-container"><span class="skill-tile">ROS</span><span class="skill-tile">Git</span><span class="skill-tile">Linux</span><span class="skill-tile">Streamlit</span><span class="skill-tile">Flask</span><span class="skill-tile">Arduino</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section awards" id="achievements">
+             <div class="section-container">
+                <h2 class="section-title reveal">Awards & Achievements</h2>
+                <div class="card-grid">
+                    <div class="info-card reveal"><h3>Academic Excellence</h3><p>Maintained a high GPA (9.54/10 in B.Tech & 9.49/10 in M.Tech) with Honours distinction.</p></div>
+                    <div class="info-card reveal"><h3>IEEE Publication</h3><p>Co-authored a research paper on AI in agriculture accepted into the ACCESS 2025 conference.</p></div>
+                    <div class="info-card reveal"><h3>Professional Impact</h3><p>Improved automation efficiency by 15% and reduced system downtime by 20% during internships.</p></div>
+                    <div class="info-card reveal"><h3>Technical Certifications</h3><p>Certified in Google Data Analytics and multiple specializations in Generative AI and Prompt Engineering.</p></div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section testimonials" id="testimonials">
+            <div class="section-container">
+                <h2 class="section-title reveal">What People Say</h2>
+                <div class="testimonial-container reveal">
+                    <div class="testimonial-track">
                         </div>
-                        <p>An interactive 4-legged robot that displays emojis on an OLED screen, controlled wirelessly via a custom mobile app.</p>
-                        <div class="tech-badges">
-                            <span class="tech-badge">Robotics</span>
-                            <span class="tech-badge">Arduino</span>
-                            <span class="tech-badge">Bluetooth</span>
-                        </div>
+                    <button class="test-nav prev" aria-label="Previous testimonial">‹</button>
+                    <button class="test-nav next" aria-label="Next testimonial">›</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section resume" id="resume">
+            <div class="section-container">
+                <div class="resume-grid">
+                    <div class="resume-image-container reveal">
+                        <img src="assets/resume.jpg" alt="Preview of Ashvin Manoj's Resume" loading="lazy">
+                    </div>
+                    <div class="resume-cta reveal">
+                        <h2 class="section-title">My Resume</h2>
+                        <p>For a detailed look at my qualifications, experience, and projects, please download the complete PDF version of my resume.</p>
+                        <a href="assets/resume.pdf" class="button" download="Ashvin_Manoj_Resume.pdf">Download PDF <i class="fas fa-download"></i></a>
                     </div>
                 </div>
             </div>
@@ -234,16 +263,13 @@
     <footer class="main-footer">
         <div class="footer-container">
             <div class="footer-logo">AM.</div>
-            <div class="footer-copyright">
-                <p>© <span id="current-year"></span> Ashvin Manoj. All Rights Reserved.</p>
-            </div>
+            <div class="footer-copyright"><p>© <span id="current-year"></span> Ashvin Manoj. All Rights Reserved.</p></div>
             <div class="footer-socials">
                 <a href="https://linkedin.com/in/ashvinmanojk289" target="_blank" rel="noopener" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
                 <a href="https://github.com/ashvinmanojk289" target="_blank" rel="noopener" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
             </div>
         </div>
     </footer>
-
     <script src="script.js" defer></script>
 </body>
 </html>
