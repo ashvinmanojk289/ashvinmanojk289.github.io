@@ -13,11 +13,23 @@
     <meta property="og:url" content="https://ashvinmanojk289.github.io">
 
     <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
 </head>
 <body>
+    <div id="vanta-bg"></div>
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
@@ -82,7 +94,10 @@
             <div class="section-container">
                 <div class="about-grid">
                     <div class="about-image-container reveal">
-                        <img id="profile-img" src="assets/profile-dark.jpg" alt="Portrait of Ashvin Manoj" class="about-image" loading="lazy" />
+                        <picture>
+                            <source srcset="assets/profile-dark.webp" type="image/webp">
+                            <img id="profile-img" src="assets/profile-dark.jpg" alt="Portrait of Ashvin Manoj" class="about-image" loading="lazy" />
+                        </picture>
                     </div>
                     <div class="about-text">
                         <h2 class="section-title reveal">About Me</h2>
@@ -156,6 +171,7 @@
             <div class="section-container">
                 <h2 class="section-title reveal">All Projects</h2>
                 <div class="project-filters reveal">
+                    <input type="text" id="project-search" placeholder="Search projects..." class="search-input" aria-label="Search projects" />
                     <button class="filter-btn active" data-filter="all">All</button>
                     <button class="filter-btn" data-filter="nlp">NLP</button>
                     <button class="filter-btn" data-filter="cv">Computer Vision</button>
@@ -256,6 +272,17 @@
             </div>
         </section>
     </main>
+
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <img id="modal-image" src="" alt="Project Image" class="modal-img" />
+            <h3 id="modal-title"></h3>
+            <p id="modal-description"></p>
+            <div id="modal-tech" class="modal-tech"></div>
+            <a id="modal-link" href="#" target="_blank" rel="noopener" class="button">View Project</a>
+        </div>
+    </div>
 
     <footer class="main-footer">
         <div class="footer-container">

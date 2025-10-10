@@ -1,18 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const projectData = [
-        { title: 'Hybrid EfficientNetV2-Transformer Model', description: 'Advanced deep learning model for precision weed detection.', link: 'https://github.com/ashvinmanojk289/Hybrid-EfficientNetV2-Transformer-Model-and-Other-Model-Comparison-for-Weed-Detection', category: 'cv' },
-        { title: 'PDF Query Application', description: 'A scalable, voice-enabled system using NLP to make PDFs conversational.', link: 'https://github.com/ashvinmanojk289/PDF-Query-Application', category: 'nlp' },
-        { title: 'Simple Google PageRank Algorithm', description: 'Implementation of Google\'s PageRank algorithm for link analysis.', link: 'https://github.com/ashvinmanojk289/Simple-Google-PageRank-Algorithm', category: 'nlp' },
-        { title: 'Quadruped Emoji Bot', description: 'An interactive 4-legged robot controlled wirelessly via a custom mobile app.', link: 'https://github.com/ashvinmanojk289/Quadrobot', category: 'robotics' }
-    ];
-
-    const testimonialData = [
-        { quote: "Ashvin consistently delivers production-ready ML systems with clean engineering and reproducible experiments. Highly recommended for applied AI work.", author: "Dr. Meera Krishnan, Research Supervisor" },
-        { quote: "Ashvin is a dependable ML engineer who balances model innovation with production constraints—excellent collaboration and technical delivery.", author: "Rahul Menon, Product Lead" },
-        { quote: "His ability to quickly grasp complex systems and his contribution to improving our process efficiency was invaluable. He is a dedicated and resourceful engineer.", author: "HR, Sunlux Technovations" }
-    ];
-
     // --- Master Initialization ---
     initPageLoader();
     initTheme();
@@ -25,8 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initTypingEffect();
     initMarquee();
     fetchGitHubStats();
-    initProjects();
-    initTestimonials();
+    fetchDataAndInit();
+    initVanta();
+    registerSW();
+    initParallax();
 
     function initPageLoader() {
         const loader = document.getElementById('page-loader');
@@ -156,37 +145,88 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) { console.error('Failed to fetch GitHub stats:', error); }
     }
 
-    function initProjects() {
+    async function fetchDataAndInit() {
+        try {
+            const response = await fetch('data.json');
+            const data = await response.json();
+            initProjects(data.projects);
+            initTestimonials(data.testimonials);
+        } catch (error) {
+            console.error('Failed to fetch data:', error);
+        }
+    }
+
+    function initProjects(projectData) {
         const projectList = document.querySelector('.project-list');
         const filterBtns = document.querySelectorAll('.filter-btn');
+        const searchInput = document.getElementById('project-search');
+        const modal = document.getElementById('project-modal');
+        const closeBtn = document.querySelector('.close-btn');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+        const modalLink = document.getElementById('modal-link');
+        const modalImage = document.getElementById('modal-image');
+        const modalTech = document.getElementById('modal-tech');
+
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) entry.target.classList.add('visible');
             });
         }, { threshold: 0.1 });
 
-        const renderProjects = (filter = 'all') => {
+        const renderProjects = (filter = 'all', search = '') => {
             projectList.innerHTML = '';
-            const filtered = (filter === 'all') ? projectData : projectData.filter(p => p.category === filter);
+            let filtered = (filter === 'all') ? projectData : projectData.filter(p => p.category === filter);
+            if (search) {
+                filtered = filtered.filter(p => p.title.toLowerCase().includes(search.toLowerCase()) || p.description.toLowerCase().includes(search.toLowerCase()));
+            }
             filtered.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'project-card reveal';
                 card.innerHTML = `
                     <div class="project-details"><h3>${p.title}</h3><p>${p.description}</p></div>
                     <a href="${p.link}" target="_blank" rel="noopener" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>`;
+                
+                card.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    modalTitle.textContent = p.title;
+                    modalDescription.textContent = p.description;
+                    modalLink.href = p.link;
+                    modalImage.src = p.image || '';
+                    modalTech.innerHTML = p.tech ? p.tech.map(t => `<span class="tile">${t}</span>`).join('') : '';
+                    modal.style.display = 'block';
+                });
+
                 projectList.appendChild(card);
                 observer.observe(card);
             });
         };
+
         filterBtns.forEach(btn => btn.addEventListener('click', () => {
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            renderProjects(btn.dataset.filter);
+            renderProjects(btn.dataset.filter, searchInput.value);
         }));
+
+        searchInput.addEventListener('input', () => {
+            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+            renderProjects(activeFilter, searchInput.value);
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+
         renderProjects();
     }
     
-    function initTestimonials() {
+    function initTestimonials(testimonialData) {
         const track = document.querySelector('.testimonial-track');
         if (!track) return;
         testimonialData.forEach(item => {
@@ -206,4 +246,43 @@ document.addEventListener('DOMContentLoaded', () => {
             update();
         });
     }
+
+    function initVanta() {
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x58a6ff,
+            backgroundColor: 0x111111,
+            points: 10.00,
+            maxDistance: 25.00,
+            spacing: 15.00
+        });
+    }
+
+    function registerSW() {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('SW registered'))
+                .catch(err => console.log('SW registration failed'));
+        }
+    }
+
+    function initParallax() {
+        const sections = document.querySelectorAll('.section');
+        window.addEventListener('scroll', () => {
+            sections.forEach(section => {
+                const speed = 0.5;
+                const yPos = -(window.pageYOffset * speed);
+                section.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+    }
+
+    initParallax();
 });

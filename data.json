@@ -1,0 +1,13 @@
+{
+    "projects": [
+        { "title": "Hybrid EfficientNetV2-Transformer Model", "description": "Advanced deep learning model for precision weed detection.", "link": "https://github.com/ashvinmanojk289/Hybrid-EfficientNetV2-Transformer-Model-and-Other-Model-Comparison-for-Weed-Detection", "category": "cv", "tech": ["Python", "PyTorch", "TensorFlow"], "image": "assets/project1.webp" },
+        { "title": "PDF Query Application", "description": "A scalable, voice-enabled system using NLP to make PDFs conversational.", "link": "https://github.com/ashvinmanojk289/PDF-Query-Application", "category": "nlp", "tech": ["Python", "Flask", "NLP"], "image": "assets/project2.webp" },
+        { "title": "Simple Google PageRank Algorithm", "description": "Implementation of Google's PageRank algorithm for link analysis.", "link": "https://github.com/ashvinmanojk289/Simple-Google-PageRank-Algorithm", "category": "nlp", "tech": ["Python", "Algorithms"], "image": "assets/project3.webp" },
+        { "title": "Quadruped Emoji Bot", "description": "An interactive 4-legged robot controlled wirelessly via a custom mobile app.", "link": "https://github.com/ashvinmanojk289/Quadrobot", "category": "robotics", "tech": ["ROS", "Arduino", "Mobile App"], "image": "assets/project4.webp" }
+    ],
+    "testimonials": [
+        { "quote": "Ashvin consistently delivers production-ready ML systems with clean engineering and reproducible experiments. Highly recommended for applied AI work.", "author": "Dr. Meera Krishnan, Research Supervisor" },
+        { "quote": "Ashvin is a dependable ML engineer who balances model innovation with production constraints—excellent collaboration and technical delivery.", "author": "Rahul Menon, Product Lead" },
+        { "quote": "His ability to quickly grasp complex systems and his contribution to improving our process efficiency was invaluable. He is a dedicated and resourceful engineer.", "author": "HR, Sunlux Technovations" }
+    ]
+}
