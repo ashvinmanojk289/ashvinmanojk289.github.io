@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function initTypingEffect() {
         const target = document.querySelector('.typing-effect');
         if (!target) return;
-        const words = ["Robotics", "Natural Language Processing", "Computer Vision", "the Real World"];
+        const words = ["Robotics", "Natural Language Processing", "Computer Vision", "Multimodal AI", "AgTech Innovation"];
         let wordIndex = 0, charIndex = 0, isDeleting = false;
         function type() {
             const currentWord = words[wordIndex];
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalDescription = document.getElementById('modal-description');
         const modalLink = document.getElementById('modal-link');
         const modalImage = document.getElementById('modal-image');
-        const modalTech = document.getElementById('modal-tech');
+        const modalCaseStudy = document.getElementById('modal-case-study');
 
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
@@ -185,8 +185,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.className = 'project-card reveal';
                 card.innerHTML = `
                     <div class="project-details"><h3>${p.title}</h3><p>${p.description}</p></div>
-                    <a href="${p.link}" target="_blank" rel="noopener" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>`;
+                    <div class="project-buttons">
+                        <button class="case-study-btn button" data-case-study="${p.caseStudy ? p.caseStudy.replace(/\n/g, '\\n') : ''}">Case Study</button>
+                        <a href="${p.link}" target="_blank" rel="noopener" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>`;
                 
+                const caseStudyBtn = card.querySelector('.case-study-btn');
+                caseStudyBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    modalTitle.textContent = p.title;
+                    modalDescription.textContent = p.description;
+                    modalLink.href = p.link;
+                    modalImage.src = p.image || '';
+                    modalTech.innerHTML = p.tech ? p.tech.map(t => `<span class="tile">${t}</span>`).join('') : '';
+                    modalCaseStudy.textContent = p.caseStudy || 'Case study not available.';
+                    modal.style.display = 'block';
+                });
+
                 card.addEventListener('click', (e) => {
                     e.preventDefault();
                     modalTitle.textContent = p.title;
@@ -194,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     modalLink.href = p.link;
                     modalImage.src = p.image || '';
                     modalTech.innerHTML = p.tech ? p.tech.map(t => `<span class="tile">${t}</span>`).join('') : '';
+                    modalCaseStudy.textContent = p.caseStudy || 'Case study not available.';
                     modal.style.display = 'block';
                 });
 

@@ -104,13 +104,21 @@ body { font-family: var(--font-sans); background-color: var(--background); color
 .stat-card span { display: block; font-size: 2rem; font-weight: 700; color: var(--accent); }
 .stat-card p { font-size: 0.9rem; margin: 0; opacity: 0.7; }
 
-.wip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+.wip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
 .wip-card { background-color: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--subtle-gray); }
 .wip-status { display: inline-block; background-color: var(--accent); color: var(--background); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 1rem; }
 [data-theme="light"] .wip-status { color: white; }
 .wip-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
 .wip-card p { opacity: 0.8; }
+.tech-tags {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
 
+/* -------------------------------------------------------------------------- */
+/* TIMELINE & FEATURED WORK                 */
+/* -------------------------------------------------------------------------- */
 .timeline { border-left: 2px solid var(--subtle-gray); }
 .timeline-heading { font-weight: 600; opacity: 0.5; text-transform: uppercase; letter-spacing: 1px; padding-left: 2rem; margin-bottom: 2rem; margin-top: 3rem; }
 .timeline-heading:first-of-type { margin-top: 0; }
@@ -129,6 +137,12 @@ body { font-family: var(--font-sans); background-color: var(--background); color
 .featured-small h4 { font-size: 1.25rem; }
 .project-link { color: var(--text); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.3s ease, gap 0.3s ease; margin-top: 1rem; }
 .project-link:hover { color: var(--accent); gap: 0.75rem; }
+
+.project-meta {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin: 0.5rem 0;
+}
 
 .project-filters { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem; }
 .filter-btn { background-color: transparent; border: 1px solid var(--subtle-gray); color: var(--text); padding: 10px 20px; border-radius: 30px; font-weight: 500; cursor: pointer; transition: all 0.3s ease; }
@@ -292,6 +306,16 @@ body { font-family: var(--font-sans); background-color: var(--background); color
     font-size: 0.8rem;
 }
 
+.modal-case-study {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: var(--subtle-gray);
+    border-radius: 8px;
+    white-space: pre-line;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
 /* -------------------------------------------------------------------------- */
 /* RESPONSIVE STYLES                       */
 /* -------------------------------------------------------------------------- */
@@ -321,4 +345,16 @@ body { font-family: var(--font-sans); background-color: var(--background); color
 button:focus, input:focus, textarea:focus, a:focus {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
+}
+
+.project-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.case-study-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
 }
