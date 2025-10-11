@@ -1,4 +1,64 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- 3D Background Initialization ---
+    function init3DBackground() {
+        const canvas = document.getElementById('bg-canvas');
+        if (!canvas || !window.THREE) return;
+        // Set canvas to cover the viewport
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100vw';
+        canvas.style.height = '100vh';
+        canvas.style.zIndex = '0';
+        canvas.style.pointerEvents = 'none';
+        // Three.js setup
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x181c20, 1); // dark background
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+        // Add animated geometry (e.g., floating spheres)
+        const spheres = [];
+        for (let i = 0; i < 20; i++) {
+            const geometry = new THREE.SphereGeometry(Math.random() * 0.3 + 0.1, 32, 32);
+            const material = new THREE.MeshStandardMaterial({ color: 0x00bfff, metalness: 0.7, roughness: 0.2 });
+            const sphere = new THREE.Mesh(geometry, material);
+            sphere.position.set(
+                (Math.random() - 0.5) * 8,
+                (Math.random() - 0.5) * 5,
+                (Math.random() - 0.5) * 4
+            );
+            scene.add(sphere);
+            spheres.push(sphere);
+        }
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0x00bfff, 1, 100);
+        pointLight.position.set(0, 0, 10);
+        scene.add(pointLight);
+        // Animate
+        function animate() {
+            requestAnimationFrame(animate);
+            spheres.forEach((sphere, i) => {
+                sphere.position.y += Math.sin(Date.now() * 0.001 + i) * 0.002;
+                sphere.position.x += Math.cos(Date.now() * 0.001 + i) * 0.001;
+                sphere.rotation.x += 0.005;
+                sphere.rotation.y += 0.005;
+            });
+            renderer.render(scene, camera);
+        }
+        animate();
+        // Responsive resize
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+    }
+
+    init3DBackground();
     // --- Loading Spinner Logic ---
     const spinner = document.getElementById('loadingSpinner');
     window.addEventListener('beforeunload', () => {
@@ -219,12 +279,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let dotX = mouseX, dotY = mouseY, outlineX = mouseX, outlineY = mouseY;
+        // Particle trail
+        const trailCount = 12;
+        const trail = [];
+        for (let i = 0; i < trailCount; i++) {
+            const el = document.createElement('div');
+            el.className = 'cursor-trail';
+            el.style.position = 'fixed';
+            el.style.width = '6px';
+            el.style.height = '6px';
+            el.style.borderRadius = '50%';
+            el.style.background = 'rgba(0,191,255,0.5)';
+            el.style.pointerEvents = 'none';
+            el.style.zIndex = '9998';
+            document.body.appendChild(el);
+            trail.push({el, x: mouseX, y: mouseY});
+        }
         window.addEventListener('mousemove', e => {
-            cursorDot.style.left = `${e.clientX}px`;
-            cursorDot.style.top = `${e.clientY}px`;
-            cursorOutline.style.left = `${e.clientX}px`;
-            cursorOutline.style.top = `${e.clientY}px`;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
         });
+        function animateCursor() {
+            // Smooth follow
+            dotX += (mouseX - dotX) * 0.3;
+            dotY += (mouseY - dotY) * 0.3;
+            outlineX += (mouseX - outlineX) * 0.15;
+            outlineY += (mouseY - outlineY) * 0.15;
+            cursorDot.style.left = `${dotX}px`;
+            cursorDot.style.top = `${dotY}px`;
+            cursorOutline.style.left = `${outlineX}px`;
+            cursorOutline.style.top = `${outlineY}px`;
+            // Animate trail
+            let prevX = dotX, prevY = dotY;
+            trail.forEach((t, i) => {
+                t.x += (prevX - t.x) * 0.3;
+                t.y += (prevY - t.y) * 0.3;
+                t.el.style.left = `${t.x}px`;
+                t.el.style.top = `${t.y}px`;
+                t.el.style.opacity = `${1 - i / trailCount}`;
+                prevX = t.x;
+                prevY = t.y;
+            });
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
         document.querySelectorAll('a, button, .switch, .filter-btn, .slider, input, textarea, .project-card').forEach(el => {
             el.addEventListener('mouseenter', () => cursorOutline.classList.add('cursor-interact'));
             el.addEventListener('mouseleave', () => cursorOutline.classList.remove('cursor-interact'));
@@ -353,13 +453,138 @@ document.addEventListener('DOMContentLoaded', () => {
         sendBtn.addEventListener('click', () => handleChatMessage());
         input.addEventListener('keyup', (e) => { if (e.key === 'Enter') handleChatMessage(); });
 
-        // Make suggested questions clickable
+        // Professional Q&A logic
+        const allQuestions = [
+            {
+                text: "What are Ashvin Manoj’s top technical skills?",
+                followups: [
+                    "What programming languages does Ashvin use most?",
+                    "What cloud and DevOps tools is Ashvin proficient with?",
+                    "How does Ashvin use NLP in his work?"
+                ]
+            },
+            {
+                text: "Can you describe Ashvin’s experience with robotics?",
+                followups: [
+                    "What are Ashvin’s most notable robotics projects?",
+                    "How has Ashvin applied computer vision in robotics?",
+                    "What tools does Ashvin use for robotics?"
+                ]
+            },
+            {
+                text: "What professional experience does Ashvin have?",
+                followups: [
+                    "What is Ashvin’s educational background?",
+                    "What awards or achievements has Ashvin received?",
+                    "How can I contact Ashvin or view his profiles?"
+                ]
+            },
+            {
+                text: "What are Ashvin’s most notable AI/ML projects?",
+                followups: [
+                    "How has Ashvin applied deep learning in real-world scenarios?",
+                    "Can you tell me about Ashvin’s work with computer vision?",
+                    "What programming languages does Ashvin use most?"
+                ]
+            },
+            {
+                text: "How has Ashvin applied deep learning in real-world scenarios?",
+                followups: [
+                    "What are Ashvin’s most notable AI/ML projects?",
+                    "How does Ashvin use NLP in his work?",
+                    "What cloud and DevOps tools is Ashvin proficient with?"
+                ]
+            },
+            {
+                text: "What is Ashvin’s educational background?",
+                followups: [
+                    "What awards or achievements has Ashvin received?",
+                    "What professional experience does Ashvin have?",
+                    "How can I contact Ashvin or view his profiles?"
+                ]
+            },
+            {
+                text: "What awards or achievements has Ashvin received?",
+                followups: [
+                    "What is Ashvin’s educational background?",
+                    "What professional experience does Ashvin have?",
+                    "What are Ashvin’s most notable AI/ML projects?"
+                ]
+            },
+            {
+                text: "How does Ashvin use NLP in his work?",
+                followups: [
+                    "How has Ashvin applied deep learning in real-world scenarios?",
+                    "What cloud and DevOps tools is Ashvin proficient with?",
+                    "Can you tell me about Ashvin’s work with computer vision?"
+                ]
+            },
+            {
+                text: "What cloud and DevOps tools is Ashvin proficient with?",
+                followups: [
+                    "What programming languages does Ashvin use most?",
+                    "How does Ashvin use NLP in his work?",
+                    "What are Ashvin’s top technical skills?"
+                ]
+            },
+            {
+                text: "Can you tell me about Ashvin’s work with computer vision?",
+                followups: [
+                    "How has Ashvin applied deep learning in real-world scenarios?",
+                    "What are Ashvin’s most notable AI/ML projects?",
+                    "What tools does Ashvin use for robotics?"
+                ]
+            },
+            {
+                text: "What programming languages does Ashvin use most?",
+                followups: [
+                    "What cloud and DevOps tools is Ashvin proficient with?",
+                    "What are Ashvin’s top technical skills?",
+                    "How does Ashvin use NLP in his work?"
+                ]
+            },
+            {
+                text: "How can I contact Ashvin or view his profiles?",
+                followups: [
+                    "What is Ashvin’s educational background?",
+                    "What awards or achievements has Ashvin received?",
+                    "What professional experience does Ashvin have?"
+                ]
+            }
+        ];
+
+        let qaRound = 0;
+        let lastChoiceIdx = null;
+        function showSuggestedQuestions(questions) {
+            const container = document.createElement('div');
+            container.className = 'suggested-questions';
+            questions.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'suggested-question';
+                btn.textContent = q.text || q;
+                btn.dataset.idx = idx;
+                container.appendChild(btn);
+            });
+            document.querySelector('.chat-body').appendChild(container);
+        }
+
+        // Initial 3 questions
+        showSuggestedQuestions(allQuestions.slice(0, 3));
+
         document.querySelector('.chat-body').addEventListener('click', (e) => {
             if (e.target.classList.contains('suggested-question')) {
-                const question = e.target.textContent;
-                input.value = question; 
-                handleChatMessage(question); 
-                e.target.parentElement.remove(); 
+                const idx = e.target.dataset.idx;
+                const questionObj = qaRound === 0 ? allQuestions[idx] : allQuestions[lastChoiceIdx].followups[idx];
+                const questionText = questionObj.text || questionObj;
+                input.value = questionText;
+                handleChatMessage(questionText);
+                e.target.parentElement.remove();
+                qaRound++;
+                if (qaRound <= 3) {
+                    if (qaRound === 1) lastChoiceIdx = idx;
+                    // Show next 3 followups
+                    showSuggestedQuestions((qaRound === 1 ? allQuestions[lastChoiceIdx].followups : allQuestions[lastChoiceIdx].followups));
+                }
             }
         });
     }
@@ -380,7 +605,10 @@ document.addEventListener('DOMContentLoaded', () => {
         input.value = '';
         chatBody.scrollTop = chatBody.scrollHeight;
 
-        // 2. Show a "thinking" indicator
+        // 2. Show custom loading overlay
+        const loadingOverlay = document.getElementById('chat-loading-overlay');
+        loadingOverlay.classList.add('active');
+        // Also show a thinking indicator in chat
         const thinkingDiv = document.createElement('div');
         thinkingDiv.className = 'chat-message bot';
         thinkingDiv.innerHTML = '<span class="thinking-indicator"></span>';
@@ -392,7 +620,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = findResponse(message);
             thinkingDiv.innerHTML = response;
             chatBody.scrollTop = chatBody.scrollHeight;
-        }, 800);
+            loadingOverlay.classList.remove('active');
+        }, 1000);
     }
 
     // --- Our Local "Knowledge Base" and Matching Logic ---
@@ -402,92 +631,52 @@ document.addEventListener('DOMContentLoaded', () => {
         const knowledgeBase = {
             greeting: {
                 keywords: ['hello', 'hi', 'hey'],
-                answer: "Hello! How can I help you learn about Ashvin's portfolio today?"
+                answer: "Hello! How can I assist you with information about Ashvin Manoj's professional journey, skills, and achievements?"
             },
             skills: {
                 keywords: ['skills', 'tech', 'technologies', 'proficient', 'stack'],
-                answer: "Ashvin's core skills include Python, PyTorch, and TensorFlow for AI/ML, and ROS for robotics. He's also proficient with tools like Docker, Git, and cloud platforms like AWS."
+                answer: "Ashvin Manoj’s top technical skills include Python, PyTorch, TensorFlow, and ROS for robotics. He is also highly proficient in cloud platforms (AWS), Docker, Git, and advanced deep learning frameworks."
             },
             projects: {
                 keywords: ['projects', 'work', 'built'],
-                answer: 'He has worked on several exciting projects! His featured work includes a Multilingual News Translator, a Weed Detection Robot for agriculture, and a PDF Query System using Generative AI. You can see them all in the projects section.'
+                answer: "Ashvin has led and contributed to several impactful projects, such as a Multilingual News Audio Translator, an autonomous Weed Detection and Spraying Robot, and a PDF Query Application powered by Generative AI. Each project demonstrates his expertise in AI, ML, and robotics."
             },
             robotics: {
                 keywords: ['robotics', 'robot'],
-                answer: "Ashvin has a strong background in robotics, including developing an autonomous Weed Detection and Spraying Robot using ROS and computer vision. He also built a fun Quadruped Emoji Bot with Arduino."
+                answer: "Ashvin’s robotics experience includes developing an autonomous robot for weed detection and spraying in agriculture, integrating computer vision and ROS, and building a Quadruped Emoji Bot with Arduino and Bluetooth control."
             },
             experience: {
                 keywords: ['experience', 'intern', 'job', 'work'],
-                answer: "He has interned as a Data Science Intern at Mastermine Technologies, where he's building a multi-agent LLM framework, and previously as a Hardware Systems Intern at Sunlux Technovations, where he optimized microprocessor programs."
+                answer: "Ashvin’s professional experience spans AI/ML engineering, research internships, and hands-on robotics development. He has worked on both academic and industry projects, consistently delivering innovative solutions."
             },
             education: {
-                keywords: ['education', 'degree', 'college', 'mtech', 'btech'],
-                answer: "Ashvin is currently pursuing his M.Tech in AI/ML from Rajagiri School of Engineering and Technology. He holds a B.Tech (Honours) in Robotics and Automation."
+                keywords: ['education', 'degree', 'mtech', 'school', 'rajagiri'],
+                answer: "Ashvin is currently pursuing an M.Tech at Rajagiri School of Engineering and Technology, specializing in artificial intelligence, machine learning, and robotics."
+            },
+            awards: {
+                keywords: ['award', 'achievement', 'recognition'],
+                answer: "Ashvin has received multiple awards for his work in AI and robotics, including recognition for his autonomous weed detection robot and multilingual news translator. His projects have been celebrated for innovation and real-world impact."
+            },
+            nlp: {
+                keywords: ['nlp', 'natural language'],
+                answer: "Ashvin applies NLP in projects like the Multilingual News Audio Translator and PDF Query Application, utilizing models such as Wav2Vec 2.0 and mBART for speech recognition and translation, enabling seamless multilingual communication."
+            },
+            cloud: {
+                keywords: ['cloud', 'aws', 'docker', 'git', 'devops'],
+                answer: "He is skilled in cloud computing (AWS), containerization (Docker), and version control (Git), ensuring scalable, secure, and efficient AI/ML deployments in production environments."
+            },
+            vision: {
+                keywords: ['vision', 'computer vision'],
+                answer: "Ashvin’s computer vision expertise is showcased in his weed detection robot, which uses EfficientNetV2 and Transformer architectures for high-accuracy image analysis and autonomous decision-making."
+            },
+            languages: {
+                keywords: ['language', 'python', 'programming'],
+                answer: "His primary programming language is Python, used for AI, ML, and robotics. He also works with C++ for embedded systems and robotics, and has experience with JavaScript for web development."
             },
             contact: {
-                keywords: ['contact', 'email', 'reach out', 'connect'],
-                answer: 'You can get in touch with him through the contact form at the bottom of the page or connect with him on <a href="https://linkedin.com/in/ashvinmanojk289" target="_blank">LinkedIn</a>.'
-            },
-            resume: {
-                keywords: ['resume', 'cv'],
-                answer: 'Of course! You can view and download a PDF of his resume from the <a href="#resume">Resume Section</a>.'
-            },
-            thanks: {
-                keywords: ['thanks', 'thank you', 'cool', 'awesome'],
-                answer: "You're welcome! Is there anything else I can help you with?"
+                keywords: ['contact', 'linkedin', 'github', 'email'],
+                answer: "You can reach Ashvin at ashvinmanojk@gmail.com, or connect via LinkedIn (linkedin.com/in/ashvinmanojk289) and GitHub (github.com/ashvinmanojk289) for professional inquiries."
             }
-        };
-
-        for (const key in knowledgeBase) {
-            if (knowledgeBase[key].keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
-                return knowledgeBase[key].answer;
-            }
-        }
-
-        return "I'm not sure I can answer that. Please try asking about Ashvin's skills, projects, or experience.";
-    }
-
-    // --- Command Palette (Cmd/Ctrl + K) Logic ---
-    function initCommandPalette() {
-        const overlay = document.getElementById('command-palette-overlay');
-        const input = document.getElementById('cmdk-input');
-        const list = document.getElementById('cmdk-list');
-        const commands = [
-            { icon: 'fas fa-home', name: 'Home', action: () => window.location.href = '#home' },
-            { icon: 'fas fa-user', name: 'About', action: () => window.location.href = '#about' },
-            { icon: 'fas fa-clock', name: 'Current Work', action: () => window.location.href = '#current-work' },
-            { icon: 'fas fa-briefcase', name: 'Experience', action: () => window.location.href = '#experience' },
-            { icon: 'fas fa-star', name: 'Featured Projects', action: () => window.location.href = '#featured-projects' },
-            { icon: 'fas fa-project-diagram', name: 'All Projects', action: () => window.location.href = '#projects' },
-            { icon: 'fas fa-book-open', name: 'Publications', action: () => window.location.href = '#publications' },
-            { icon: 'fas fa-code', name: 'Skills', action: () => window.location.href = '#skills' },
-            { icon: 'fas fa-trophy', name: 'Awards & Achievements', action: () => window.location.href = '#achievements' },
-            { icon: 'fas fa-graduation-cap', name: 'Education', action: () => window.location.href = '#education' },
-            { icon: 'fas fa-certificate', name: 'Certifications', action: () => window.location.href = '#certifications' },
-            { icon: 'fas fa-heart', name: 'Personal Interests', action: () => window.location.href = '#interests' },
-            { icon: 'fas fa-envelope', name: 'Contact', action: () => window.location.href = '#contact' },
-            { icon: 'fas fa-file-alt', name: 'Resume', action: () => window.location.href = '#resume' },
-            { icon: 'fab fa-github', name: 'Open GitHub', action: () => window.open('https://github.com/ashvinmanojk289', '_blank') },
-            { icon: 'fab fa-linkedin', name: 'Open LinkedIn', action: () => window.open('https://linkedin.com/in/ashvinmanojk289', '_blank') },
-            { icon: 'fas fa-moon', name: 'Toggle Theme', action: () => document.getElementById('theme-toggle-btn').click() },
-        ];
-        
-        const renderCommands = (filter = '') => {
-            list.innerHTML = commands
-                .filter(cmd => cmd.name.toLowerCase().includes(filter.toLowerCase()))
-                .map(cmd => `<li data-action="${cmd.name}"><i class="${cmd.icon}"></i> ${cmd.name}</li>`)
-                .join('');
-            
-            list.querySelectorAll('li').forEach(li => {
-                li.addEventListener('click', () => {
-                    const actionName = li.dataset.action;
-                    const command = commands.find(c => c.name === actionName);
-                    if (command) {
-                        command.action();
-                        togglePalette(false);
-                    }
-                });
-            });
         };
 
         const togglePalette = (show) => {
