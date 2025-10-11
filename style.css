@@ -879,7 +879,6 @@ input:checked + .slider:before { transform: translateX(24px); }
     from { text-shadow: 0 2px 16px var(--shadow-color), 0 0 0 var(--accent-primary); }
     to { text-shadow: 0 6px 32px var(--accent-primary), 0 0 16px var(--accent-primary); }
 }
-}
 .thinking-indicator { display: flex; align-items: center; }
 .thinking-indicator::after { content: '.'; animation: dots 1s steps(5, end) infinite; font-size: 2em; }
 
