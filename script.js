@@ -1,7 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Loading Spinner Logic ---
+    const spinner = document.getElementById('loadingSpinner');
+    window.addEventListener('beforeunload', () => {
+        spinner.classList.add('active');
+    });
+    window.addEventListener('load', () => {
+        spinner.classList.remove('active');
+    });
+    // --- Scroll-to-Top Button Logic ---
+    const scrollBtn = document.getElementById('scrollToTopBtn');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollBtn.classList.add('visible');
+        } else {
+            scrollBtn.classList.remove('visible');
+        }
+    });
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
     // --- Master Initialization ---
-    initPageLoader();
     initTheme();
     initCurrentYear();
     initMobileNav();
@@ -10,93 +29,194 @@ document.addEventListener('DOMContentLoaded', () => {
     initIntersectionObserver();
     initCustomCursor();
     initTypingEffect();
-    initMarquee();
+    initProjectFilter();
+    init3DTiltEffect();
+    initModals();
+    initChatAssistant();
+    initCommandPalette();
     fetchGitHubStats();
-    fetchDataAndInit();
-    initVanta();
-    registerSW();
-    initParallax();
 
-    function initPageLoader() {
-        const loader = document.getElementById('page-loader');
-        window.addEventListener('load', () => {
-            loader.style.opacity = '0';
-            loader.style.visibility = 'hidden';
-        });
-    }
-
+    // --- Theme Toggler ---
     function initTheme() {
         const themeBtn = document.getElementById('theme-toggle-btn');
+        const iconSun = document.getElementById('theme-icon-sun');
+        const iconMoon = document.getElementById('theme-icon-moon');
         const profileImg = document.getElementById('profile-img');
-        const applyTheme = (theme) => {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-            if (profileImg) {
-                profileImg.src = theme === 'dark' ? 'assets/profile-dark.jpg' : 'assets/profile-light.jpg';
-            }
-        };
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        applyTheme(currentTheme);
-        themeBtn.addEventListener('click', () => {
-            const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            applyTheme(newTheme);
+        const currentTheme = localStorage.getItem('theme') || 'lab';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        if (currentTheme === 'lab') {
+            iconSun.classList.remove('hidden');
+            iconMoon.classList.add('hidden');
+            if (profileImg) profileImg.src = 'assets/profile-light.jpg';
+        } else {
+            iconSun.classList.add('hidden');
+            iconMoon.classList.remove('hidden');
+            if (profileImg) profileImg.src = 'assets/profile-dark.jpg';
+        }
+        themeBtn.addEventListener('click', function() {
+            triggerTransformersTransition();
         });
     }
 
-    function initCurrentYear() { document.getElementById('current-year').textContent = new Date().getFullYear(); }
+    // --- Simple Elegant Theme Transition ---
+    function triggerTransformersTransition() {
+        const isLab = document.documentElement.getAttribute('data-theme') === 'lab';
+        
+        if (document.querySelector('.theme-transition')) return;
+        
+        document.body.classList.add('theme-switching');
+        
+        const transitionContainer = document.createElement('div');
+        transitionContainer.className = 'theme-transition';
+        
+        const curtain = document.createElement('div');
+        curtain.className = 'transition-curtain';
+        transitionContainer.appendChild(curtain);
+        
+        const ripple = document.createElement('div');
+        ripple.className = 'transition-ripple';
+        transitionContainer.appendChild(ripple);
+        
+        document.body.appendChild(transitionContainer);
+        
+        setTimeout(() => {
+            const iconSun = document.getElementById('theme-icon-sun');
+            const iconMoon = document.getElementById('theme-icon-moon');
+            const profileImg = document.getElementById('profile-img');
+            
+            if (isLab) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                iconSun.classList.add('hidden');
+                iconMoon.classList.remove('hidden');
+                if (profileImg) profileImg.src = 'assets/profile-dark.jpg';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'lab');
+                localStorage.setItem('theme', 'lab');
+                iconSun.classList.remove('hidden');
+                iconMoon.classList.add('hidden');
+                if (profileImg) profileImg.src = 'assets/profile-light.jpg';
+            }
+        }, 400); 
+        
+        setTimeout(() => {
+            transitionContainer.remove();
+            document.body.classList.remove('theme-switching');
+        }, 800);
+    }
 
+    // --- Dynamic Copyright Year ---
+    function initCurrentYear() {
+        const yearSpan = document.getElementById('current-year');
+        if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+    }
+
+    // --- Mobile Navigation Toggle ---
     function initMobileNav() {
         const navToggle = document.getElementById('nav-toggle');
         const navMenu = document.querySelector('.nav-menu');
+        const navLinks = document.querySelectorAll('.nav-menu .nav-link');
+
         navToggle.addEventListener('click', () => {
             navToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
-        document.querySelectorAll('.nav-menu a').forEach(link => link.addEventListener('click', () => {
-            navToggle.classList.remove('active');
-            navMenu.classList.remove('active');
-        }));
-    }
 
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    }
+    
+    // --- Header Hide/Show on Scroll ---
     function initHeaderScroll() {
-        const header = document.querySelector('.main-header');
+        const header = document.querySelector('.top-header');
         let lastScrollY = window.scrollY;
+
         window.addEventListener('scroll', () => {
-            if (window.scrollY > lastScrollY && window.scrollY > 100) { header.style.top = '-100px'; } 
-            else { header.style.top = '0'; }
+            if (lastScrollY < window.scrollY && window.scrollY > 100) {
+                header.style.top = '-80px';
+            } else {
+                header.style.top = '0';
+            }
             lastScrollY = window.scrollY;
+
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 2px 15px var(--shadow-color)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
         });
     }
 
+    // --- Scroll Spy for Active Nav Link Highlighting ---
     function initScrollSpy() {
+        const navLinks = document.querySelectorAll('.nav-menu .nav-link');
         const sections = document.querySelectorAll('.section');
-        const navLinks = document.querySelectorAll('.nav-menu a');
-        window.addEventListener('scroll', () => {
+        const setActiveLink = () => {
             let currentId = '';
             sections.forEach(section => {
-                if (window.scrollY >= section.offsetTop - 150) { currentId = section.id; }
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 150) {
+                    currentId = section.getAttribute('id');
+                }
             });
             navLinks.forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('href') === `#${currentId}`) { link.classList.add('active'); }
+                if (link.getAttribute('href') === '#' + currentId) {
+                    link.classList.add('active');
+                }
             });
-        });
+        };
+        window.addEventListener('scroll', setActiveLink);
+        setActiveLink();
     }
 
+    // --- Animate Elements on Scroll ---
     function initIntersectionObserver() {
+        let lastScrollY = window.scrollY;
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
+                    let direction = (window.scrollY > lastScrollY) ? 'down' : 'up';
+                    if (entry.target.classList.contains('fade-in')) {
+                        entry.target.classList.add(direction === 'down' ? 'fade-in-up' : 'fade-in-down');
+                    }
+                    if (entry.target.classList.contains('slide-in-left')) {
+                        entry.target.classList.add(direction === 'down' ? 'slide-in-left-up' : 'slide-in-left-down');
+                    }
+                    if (entry.target.classList.contains('slide-in-right')) {
+                        entry.target.classList.add(direction === 'down' ? 'slide-in-right-up' : 'slide-in-right-down');
+                    }
+                    if (entry.target.classList.contains('scale-up')) {
+                        entry.target.classList.add(direction === 'down' ? 'scale-up-up' : 'scale-up-down');
+                    }
+                    if (entry.target.classList.contains('shadow-pop')) {
+                        entry.target.classList.add(direction === 'down' ? 'shadow-pop-up' : 'shadow-pop-down');
+                    }
+                } else {
+                    entry.target.classList.remove(
+                        'visible',
+                        'fade-in-up', 'fade-in-down',
+                        'slide-in-left-up', 'slide-in-left-down',
+                        'slide-in-right-up', 'slide-in-right-down',
+                        'scale-up-up', 'scale-up-down',
+                        'shadow-pop-up', 'shadow-pop-down'
+                    );
                 }
             });
+            lastScrollY = window.scrollY;
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     }
 
+    // --- Custom Cursor Effect ---
     function initCustomCursor() {
         if (window.matchMedia("(pointer: coarse)").matches) return;
+
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
         window.addEventListener('mousemove', e => {
@@ -105,16 +225,17 @@ document.addEventListener('DOMContentLoaded', () => {
             cursorOutline.style.left = `${e.clientX}px`;
             cursorOutline.style.top = `${e.clientY}px`;
         });
-        document.querySelectorAll('a, button, input, textarea').forEach(el => {
+        document.querySelectorAll('a, button, .switch, .filter-btn, .slider, input, textarea, .project-card').forEach(el => {
             el.addEventListener('mouseenter', () => cursorOutline.classList.add('cursor-interact'));
             el.addEventListener('mouseleave', () => cursorOutline.classList.remove('cursor-interact'));
         });
     }
 
+    // --- Hero Section Typing Animation ---
     function initTypingEffect() {
         const target = document.querySelector('.typing-effect');
         if (!target) return;
-        const words = ["Robotics", "Natural Language Processing", "Computer Vision", "Multimodal AI", "AgTech Innovation"];
+        const words = ["Robotics", "Natural Language Processing", "Computer Vision", "the Real World"];
         let wordIndex = 0, charIndex = 0, isDeleting = false;
         function type() {
             const currentWord = words[wordIndex];
@@ -127,178 +248,269 @@ document.addEventListener('DOMContentLoaded', () => {
         type();
     }
 
-    function initMarquee() {
-        const marquee = document.querySelector('.marquee-inner');
-        if (marquee) {
-            const content = marquee.querySelector('.marquee-content');
-            if (content) marquee.appendChild(content.cloneNode(true));
-        }
-    }
-
+    // --- Fetch Live Data from GitHub API ---
     async function fetchGitHubStats() {
         try {
-            const response = await fetch('https://api.github.com/users/ashvinmanojk289/repos');
-            const repos = await response.json();
+            const user = 'ashvinmanojk289';
+            const repoResponse = await fetch(`https://api.github.com/users/${user}/repos?sort=pushed&per_page=100`);
+            const repos = await repoResponse.json();
             const totalStars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
-            document.getElementById('github-repos').textContent = repos.length || 0;
-            document.getElementById('github-stars').textContent = totalStars || 0;
-        } catch (error) { console.error('Failed to fetch GitHub stats:', error); }
-    }
-
-    async function fetchDataAndInit() {
-        try {
-            const response = await fetch('data.json');
-            const data = await response.json();
-            initProjects(data.projects);
-            initTestimonials(data.testimonials);
-        } catch (error) {
-            console.error('Failed to fetch data:', error);
+            document.getElementById('github-repos').textContent = repos.length;
+            document.getElementById('github-stars').textContent = totalStars;
+            const activityList = document.getElementById('github-activity');
+            activityList.innerHTML = repos.slice(0, 3).map(repo => `<li>Pushed to <strong>${repo.name}</strong></li>`).join('');
+        } catch (error) { 
+            console.error('Failed to fetch GitHub stats:', error);
+            document.getElementById('github-activity').innerHTML = '<li>Could not fetch data.</li>';
         }
     }
 
-    function initProjects(projectData) {
-        const projectList = document.querySelector('.project-list');
+    // --- Project Category Filtering Logic ---
+    function initProjectFilter() {
         const filterBtns = document.querySelectorAll('.filter-btn');
-        const searchInput = document.getElementById('project-search');
-        const modal = document.getElementById('project-modal');
-        const closeBtn = document.querySelector('.close-btn');
-        const modalTitle = document.getElementById('modal-title');
-        const modalDescription = document.getElementById('modal-description');
-        const modalLink = document.getElementById('modal-link');
-        const modalImage = document.getElementById('modal-image');
-        const modalCaseStudy = document.getElementById('modal-case-study');
-
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) entry.target.classList.add('visible');
+        const projectCards = document.querySelectorAll('.project-card');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                projectCards.forEach(card => {
+                    card.classList.add('hidden');
+                    if (filter === 'all' || card.dataset.category.includes(filter)) {
+                        card.classList.remove('hidden');
+                    }
+                });
             });
-        }, { threshold: 0.1 });
+        });
+    }
 
-        const renderProjects = (filter = 'all', search = '') => {
-            projectList.innerHTML = '';
-            let filtered = (filter === 'all') ? projectData : projectData.filter(p => p.category === filter);
-            if (search) {
-                filtered = filtered.filter(p => p.title.toLowerCase().includes(search.toLowerCase()) || p.description.toLowerCase().includes(search.toLowerCase()));
+    // --- 3D Tilt Effect for Project Cards ---
+    function init3DTiltEffect() {
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const rotateX = (y - rect.height / 2) / 10;
+                const rotateY = (rect.width / 2 - x) / 10;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            card.addEventListener('mouseleave', () => card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)');
+        });
+    }
+
+    // --- Accessible Modal Logic (with Focus Trapping) ---
+    function initModals() {
+        const openModalButtons = document.querySelectorAll('.open-modal-btn');
+        const closeModalButtons = document.querySelectorAll('.close-modal-btn');
+        const modalOverlay = document.querySelector('.modal-overlay');
+        let activeModal = null, lastFocusedElement = null;
+
+        const openModal = (modal, button) => {
+            lastFocusedElement = button;
+            modal.classList.add('active');
+            modalOverlay.classList.add('active');
+            activeModal = modal;
+            document.body.style.overflow = 'hidden';
+            document.addEventListener('keydown', handleKeyDown);
+            const focusableElements = activeModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            if (focusableElements.length > 0) focusableElements[0].focus();
+        };
+
+        const closeModal = () => {
+            if (!activeModal) return;
+            activeModal.classList.remove('active');
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', handleKeyDown);
+            activeModal = null;
+            if (lastFocusedElement) lastFocusedElement.focus();
+        };
+
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') closeModal();
+            if (e.key !== 'Tab' || !activeModal) return;
+            const focusable = activeModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            const first = focusable[0], last = focusable[focusable.length - 1];
+            if (e.shiftKey && document.activeElement === first) { last.focus(); e.preventDefault(); } 
+            else if (!e.shiftKey && document.activeElement === last) { first.focus(); e.preventDefault(); }
+        };
+        
+        openModalButtons.forEach(button => button.addEventListener('click', () => openModal(document.getElementById(button.dataset.modalTarget), button)));
+        closeModalButtons.forEach(button => button.addEventListener('click', closeModal));
+        modalOverlay.addEventListener('click', closeModal);
+    }
+    
+    // --- AI Chat Assistant Widget Logic ---
+    function initChatAssistant() {
+        const toggleBtn = document.querySelector('.chat-toggle-btn');
+        const chatWindow = document.querySelector('.chat-window');
+        const sendBtn = document.getElementById('chat-send-btn');
+        const input = document.getElementById('chat-input');
+        
+        toggleBtn.addEventListener('click', () => chatWindow.classList.toggle('active'));
+        sendBtn.addEventListener('click', () => handleChatMessage());
+        input.addEventListener('keyup', (e) => { if (e.key === 'Enter') handleChatMessage(); });
+
+        // Make suggested questions clickable
+        document.querySelector('.chat-body').addEventListener('click', (e) => {
+            if (e.target.classList.contains('suggested-question')) {
+                const question = e.target.textContent;
+                input.value = question; 
+                handleChatMessage(question); 
+                e.target.parentElement.remove(); 
             }
-            filtered.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'project-card reveal';
-                card.innerHTML = `
-                    <div class="project-details"><h3>${p.title}</h3><p>${p.description}</p></div>
-                    <div class="project-buttons">
-                        <button class="case-study-btn button" data-case-study="${p.caseStudy ? p.caseStudy.replace(/\n/g, '\\n') : ''}">Case Study</button>
-                        <a href="${p.link}" target="_blank" rel="noopener" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
-                    </div>`;
-                
-                const caseStudyBtn = card.querySelector('.case-study-btn');
-                caseStudyBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    modalTitle.textContent = p.title;
-                    modalDescription.textContent = p.description;
-                    modalLink.href = p.link;
-                    modalImage.src = p.image || '';
-                    modalTech.innerHTML = p.tech ? p.tech.map(t => `<span class="tile">${t}</span>`).join('') : '';
-                    modalCaseStudy.textContent = p.caseStudy || 'Case study not available.';
-                    modal.style.display = 'block';
-                });
+        });
+    }
 
-                card.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    modalTitle.textContent = p.title;
-                    modalDescription.textContent = p.description;
-                    modalLink.href = p.link;
-                    modalImage.src = p.image || '';
-                    modalTech.innerHTML = p.tech ? p.tech.map(t => `<span class="tile">${t}</span>`).join('') : '';
-                    modalCaseStudy.textContent = p.caseStudy || 'Case study not available.';
-                    modal.style.display = 'block';
-                });
+    // --- Handles Sending and Receiving Chat Messages (NO API) ---
+    function handleChatMessage(predefinedMessage = null) {
+        const input = document.getElementById('chat-input');
+        const message = predefinedMessage || input.value.trim();
+        if (!message) return;
 
-                projectList.appendChild(card);
-                observer.observe(card);
+        const chatBody = document.querySelector('.chat-body');
+        
+        // 1. Display User's Message
+        const userMessageDiv = document.createElement('div');
+        userMessageDiv.className = 'chat-message user';
+        userMessageDiv.textContent = message;
+        chatBody.appendChild(userMessageDiv);
+        input.value = '';
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        // 2. Show a "thinking" indicator
+        const thinkingDiv = document.createElement('div');
+        thinkingDiv.className = 'chat-message bot';
+        thinkingDiv.innerHTML = '<span class="thinking-indicator"></span>';
+        chatBody.appendChild(thinkingDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        // 3. Find a response from our local knowledge base
+        setTimeout(() => {
+            const response = findResponse(message);
+            thinkingDiv.innerHTML = response;
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }, 800);
+    }
+
+    // --- Our Local "Knowledge Base" and Matching Logic ---
+    function findResponse(userMessage) {
+        const lowerCaseMessage = userMessage.toLowerCase();
+
+        const knowledgeBase = {
+            greeting: {
+                keywords: ['hello', 'hi', 'hey'],
+                answer: "Hello! How can I help you learn about Ashvin's portfolio today?"
+            },
+            skills: {
+                keywords: ['skills', 'tech', 'technologies', 'proficient', 'stack'],
+                answer: "Ashvin's core skills include Python, PyTorch, and TensorFlow for AI/ML, and ROS for robotics. He's also proficient with tools like Docker, Git, and cloud platforms like AWS."
+            },
+            projects: {
+                keywords: ['projects', 'work', 'built'],
+                answer: 'He has worked on several exciting projects! His featured work includes a Multilingual News Translator, a Weed Detection Robot for agriculture, and a PDF Query System using Generative AI. You can see them all in the projects section.'
+            },
+            robotics: {
+                keywords: ['robotics', 'robot'],
+                answer: "Ashvin has a strong background in robotics, including developing an autonomous Weed Detection and Spraying Robot using ROS and computer vision. He also built a fun Quadruped Emoji Bot with Arduino."
+            },
+            experience: {
+                keywords: ['experience', 'intern', 'job', 'work'],
+                answer: "He has interned as a Data Science Intern at Mastermine Technologies, where he's building a multi-agent LLM framework, and previously as a Hardware Systems Intern at Sunlux Technovations, where he optimized microprocessor programs."
+            },
+            education: {
+                keywords: ['education', 'degree', 'college', 'mtech', 'btech'],
+                answer: "Ashvin is currently pursuing his M.Tech in AI/ML from Rajagiri School of Engineering and Technology. He holds a B.Tech (Honours) in Robotics and Automation."
+            },
+            contact: {
+                keywords: ['contact', 'email', 'reach out', 'connect'],
+                answer: 'You can get in touch with him through the contact form at the bottom of the page or connect with him on <a href="https://linkedin.com/in/ashvinmanojk289" target="_blank">LinkedIn</a>.'
+            },
+            resume: {
+                keywords: ['resume', 'cv'],
+                answer: 'Of course! You can view and download a PDF of his resume from the <a href="#resume">Resume Section</a>.'
+            },
+            thanks: {
+                keywords: ['thanks', 'thank you', 'cool', 'awesome'],
+                answer: "You're welcome! Is there anything else I can help you with?"
+            }
+        };
+
+        for (const key in knowledgeBase) {
+            if (knowledgeBase[key].keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
+                return knowledgeBase[key].answer;
+            }
+        }
+
+        return "I'm not sure I can answer that. Please try asking about Ashvin's skills, projects, or experience.";
+    }
+
+    // --- Command Palette (Cmd/Ctrl + K) Logic ---
+    function initCommandPalette() {
+        const overlay = document.getElementById('command-palette-overlay');
+        const input = document.getElementById('cmdk-input');
+        const list = document.getElementById('cmdk-list');
+        const commands = [
+            { icon: 'fas fa-home', name: 'Home', action: () => window.location.href = '#home' },
+            { icon: 'fas fa-user', name: 'About', action: () => window.location.href = '#about' },
+            { icon: 'fas fa-clock', name: 'Current Work', action: () => window.location.href = '#current-work' },
+            { icon: 'fas fa-briefcase', name: 'Experience', action: () => window.location.href = '#experience' },
+            { icon: 'fas fa-star', name: 'Featured Projects', action: () => window.location.href = '#featured-projects' },
+            { icon: 'fas fa-project-diagram', name: 'All Projects', action: () => window.location.href = '#projects' },
+            { icon: 'fas fa-book-open', name: 'Publications', action: () => window.location.href = '#publications' },
+            { icon: 'fas fa-code', name: 'Skills', action: () => window.location.href = '#skills' },
+            { icon: 'fas fa-trophy', name: 'Awards & Achievements', action: () => window.location.href = '#achievements' },
+            { icon: 'fas fa-graduation-cap', name: 'Education', action: () => window.location.href = '#education' },
+            { icon: 'fas fa-certificate', name: 'Certifications', action: () => window.location.href = '#certifications' },
+            { icon: 'fas fa-heart', name: 'Personal Interests', action: () => window.location.href = '#interests' },
+            { icon: 'fas fa-envelope', name: 'Contact', action: () => window.location.href = '#contact' },
+            { icon: 'fas fa-file-alt', name: 'Resume', action: () => window.location.href = '#resume' },
+            { icon: 'fab fa-github', name: 'Open GitHub', action: () => window.open('https://github.com/ashvinmanojk289', '_blank') },
+            { icon: 'fab fa-linkedin', name: 'Open LinkedIn', action: () => window.open('https://linkedin.com/in/ashvinmanojk289', '_blank') },
+            { icon: 'fas fa-moon', name: 'Toggle Theme', action: () => document.getElementById('theme-toggle-btn').click() },
+        ];
+        
+        const renderCommands = (filter = '') => {
+            list.innerHTML = commands
+                .filter(cmd => cmd.name.toLowerCase().includes(filter.toLowerCase()))
+                .map(cmd => `<li data-action="${cmd.name}"><i class="${cmd.icon}"></i> ${cmd.name}</li>`)
+                .join('');
+            
+            list.querySelectorAll('li').forEach(li => {
+                li.addEventListener('click', () => {
+                    const actionName = li.dataset.action;
+                    const command = commands.find(c => c.name === actionName);
+                    if (command) {
+                        command.action();
+                        togglePalette(false);
+                    }
+                });
             });
         };
 
-        filterBtns.forEach(btn => btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderProjects(btn.dataset.filter, searchInput.value);
-        }));
+        const togglePalette = (show) => {
+            if (show) {
+                overlay.classList.add('active');
+                input.focus();
+                renderCommands();
+            } else {
+                overlay.classList.remove('active');
+                input.value = '';
+            }
+        };
 
-        searchInput.addEventListener('input', () => {
-            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
-            renderProjects(activeFilter, searchInput.value);
-        });
-
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target == modal) {
-                modal.style.display = 'none';
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                togglePalette(!overlay.classList.contains('active'));
+            }
+            if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                togglePalette(false);
             }
         });
-
-        renderProjects();
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) togglePalette(false); });
+        input.addEventListener('input', () => renderCommands(input.value));
     }
-    
-    function initTestimonials(testimonialData) {
-        const track = document.querySelector('.testimonial-track');
-        if (!track) return;
-        testimonialData.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'testimonial-card';
-            card.innerHTML = `<p>"${item.quote}"</p><span>— ${item.author}</span>`;
-            track.appendChild(card);
-        });
-        let index = 0;
-        const update = () => { track.style.transform = `translateX(-${index * 100}%)`; };
-        document.querySelector('.test-nav.prev').addEventListener('click', () => {
-            index = (index === 0) ? testimonialData.length - 1 : index - 1;
-            update();
-        });
-        document.querySelector('.test-nav.next').addEventListener('click', () => {
-            index = (index === testimonialData.length - 1) ? 0 : index + 1;
-            update();
-        });
-    }
-
-    function initVanta() {
-        VANTA.NET({
-            el: "#vanta-bg",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x58a6ff,
-            backgroundColor: 0x111111,
-            points: 10.00,
-            maxDistance: 25.00,
-            spacing: 15.00
-        });
-    }
-
-    function registerSW() {
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(reg => console.log('SW registered'))
-                .catch(err => console.log('SW registration failed'));
-        }
-    }
-
-    function initParallax() {
-        const sections = document.querySelectorAll('.section');
-        window.addEventListener('scroll', () => {
-            sections.forEach(section => {
-                const speed = 0.5;
-                const yPos = -(window.pageYOffset * speed);
-                section.style.transform = `translateY(${yPos}px)`;
-            });
-        });
-    }
-
-    initParallax();
 });
