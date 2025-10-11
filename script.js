@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function init3DBackground() {
         const canvas = document.getElementById('bg-canvas');
         if (!canvas || !window.THREE) return;
-        // Set canvas to cover the viewport
         canvas.style.position = 'fixed';
         canvas.style.top = '0';
         canvas.style.left = '0';
@@ -14,38 +13,84 @@ document.addEventListener('DOMContentLoaded', () => {
         // Three.js setup
         const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor(0x181c20, 1); // dark background
+        // Theme colors
+        function getThemeColors() {
+            const theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'lab') {
+                return {
+                    bg: 0xf5f7fa,
+                    grid: 0xcccccc,
+                    accent: 0x0077ff,
+                    cube: 0x0077ff
+                };
+            } else {
+                return {
+                    bg: 0x181c20,
+                    grid: 0x222a35,
+                    accent: 0x00bfff,
+                    cube: 0x00bfff
+                };
+            }
+        }
+        let colors = getThemeColors();
+        renderer.setClearColor(colors.bg, 1);
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 5;
-        // Add animated geometry (e.g., floating spheres)
-        const spheres = [];
-        for (let i = 0; i < 20; i++) {
-            const geometry = new THREE.SphereGeometry(Math.random() * 0.3 + 0.1, 32, 32);
-            const material = new THREE.MeshStandardMaterial({ color: 0x00bfff, metalness: 0.7, roughness: 0.2 });
-            const sphere = new THREE.Mesh(geometry, material);
-            sphere.position.set(
-                (Math.random() - 0.5) * 8,
+        camera.position.z = 7;
+        // Tech grid
+        const grid = new THREE.GridHelper(20, 40, colors.grid, colors.grid);
+        grid.position.y = -2.5;
+        scene.add(grid);
+        // Floating cubes
+        const cubes = [];
+        for (let i = 0; i < 18; i++) {
+            const geometry = new THREE.BoxGeometry(Math.random() * 0.5 + 0.2, Math.random() * 0.5 + 0.2, Math.random() * 0.5 + 0.2);
+            const material = new THREE.MeshStandardMaterial({ color: colors.cube, metalness: 0.8, roughness: 0.25, emissive: colors.accent, emissiveIntensity: 0.3 });
+            const cube = new THREE.Mesh(geometry, material);
+            cube.position.set(
+                (Math.random() - 0.5) * 10,
                 (Math.random() - 0.5) * 5,
-                (Math.random() - 0.5) * 4
+                (Math.random() - 0.5) * 6
             );
-            scene.add(sphere);
-            spheres.push(sphere);
+            scene.add(cube);
+            cubes.push(cube);
         }
         // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
         scene.add(ambientLight);
-        const pointLight = new THREE.PointLight(0x00bfff, 1, 100);
-        pointLight.position.set(0, 0, 10);
-        scene.add(pointLight);
+        const accentLight = new THREE.PointLight(colors.accent, 1.2, 30);
+        accentLight.position.set(0, 5, 10);
+        scene.add(accentLight);
+        // Mouse movement responsiveness
+        let mouseX = 0, mouseY = 0;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+        // Theme change responsiveness
+        const observer = new MutationObserver(() => {
+            colors = getThemeColors();
+            renderer.setClearColor(colors.bg, 1);
+            grid.material.color.setHex(colors.grid);
+            accentLight.color.setHex(colors.accent);
+            cubes.forEach(cube => {
+                cube.material.color.setHex(colors.cube);
+                cube.material.emissive.setHex(colors.accent);
+            });
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
         // Animate
         function animate() {
             requestAnimationFrame(animate);
-            spheres.forEach((sphere, i) => {
-                sphere.position.y += Math.sin(Date.now() * 0.001 + i) * 0.002;
-                sphere.position.x += Math.cos(Date.now() * 0.001 + i) * 0.001;
-                sphere.rotation.x += 0.005;
-                sphere.rotation.y += 0.005;
+            // Camera follows mouse
+            camera.position.x += (mouseX * 2 - camera.position.x) * 0.08;
+            camera.position.y += (mouseY * 1.5 - camera.position.y) * 0.08;
+            camera.lookAt(0, 0, 0);
+            // Animate cubes
+            cubes.forEach((cube, i) => {
+                cube.rotation.x += 0.008 + i * 0.0005;
+                cube.rotation.y += 0.01 + i * 0.0007;
+                cube.position.y += Math.sin(Date.now() * 0.001 + i) * 0.003;
             });
             renderer.render(scene, camera);
         }
