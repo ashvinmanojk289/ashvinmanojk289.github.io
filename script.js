@@ -318,21 +318,21 @@ document.addEventListener('DOMContentLoaded', () => {
     initFloatingActionButton();
     initCommandPalette();
     initChatAssistant();
-// --- FAB Bounce Animation ---
-const style = document.createElement('style');
-style.innerHTML = `
-    .floating-action-btn.bounce {
-        animation: fabBounce 0.6s;
-    }
-    @keyframes fabBounce {
-        0% { transform: scale(1); }
-        30% { transform: scale(1.18); }
-        50% { transform: scale(0.92); }
-        70% { transform: scale(1.08); }
-        100% { transform: scale(1); }
-    }
-`;
-document.head.appendChild(style);
+    // --- FAB Bounce Animation ---
+    const style = document.createElement('style');
+    style.innerHTML = `
+        .floating-action-btn.bounce {
+            animation: fabBounce 0.6s;
+        }
+        @keyframes fabBounce {
+            0% { transform: scale(1); }
+            30% { transform: scale(1.18); }
+            50% { transform: scale(0.92); }
+            70% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+    `;
+    document.head.appendChild(style);
     // --- Loading Spinner Logic ---
     const spinner = document.getElementById('loadingSpinner');
     window.addEventListener('beforeunload', () => {
@@ -977,3 +977,75 @@ document.head.appendChild(style);
         input.addEventListener('input', () => renderCommands(input.value));
     }
 });
+// --- Unique Animated Mouse Cursor Logic ---
+function initAnimatedCursor() {
+    const dot = document.querySelector('.cursor-dot');
+    const outline = document.querySelector('.cursor-outline');
+    let trailParticles = [];
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let lastX = mouseX;
+    let lastY = mouseY;
+    let interact = false;
+
+    function moveCursor(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.left = mouseX + 'px';
+        dot.style.top = mouseY + 'px';
+        outline.style.left = mouseX + 'px';
+        outline.style.top = mouseY + 'px';
+        // Animate outline with a slight lag for smoothness
+        outline.style.transform = `translate(-50%, -50%) scale(${interact ? 1.35 : 1})`;
+        dot.style.transform = `translate(-50%, -50%) scale(${interact ? 1.18 : 1})`;
+        // Create trailing particle
+        createTrail(mouseX, mouseY);
+        lastX = mouseX;
+        lastY = mouseY;
+    }
+    function createTrail(x, y) {
+        const trail = document.createElement('div');
+        trail.className = 'cursor-trail';
+        trail.style.left = x + 'px';
+        trail.style.top = y + 'px';
+        document.body.appendChild(trail);
+        trailParticles.push(trail);
+        setTimeout(() => {
+            trail.remove();
+            trailParticles = trailParticles.filter(t => t !== trail);
+        }, 700);
+    }
+    // Interact effect on clickable elements
+    document.querySelectorAll('a, button, .button, .nav-link, input, textarea').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            interact = true;
+            dot.classList.add('cursor-interact');
+            outline.classList.add('cursor-interact');
+        });
+        el.addEventListener('mouseleave', () => {
+            interact = false;
+            dot.classList.remove('cursor-interact');
+            outline.classList.remove('cursor-interact');
+        });
+    });
+    window.addEventListener('mousemove', moveCursor);
+    // Hide cursor on mouse leave
+    window.addEventListener('mouseleave', () => {
+        dot.style.opacity = '0';
+        outline.style.opacity = '0';
+    });
+    window.addEventListener('mouseenter', () => {
+        dot.style.opacity = '0.95';
+        outline.style.opacity = '0.7';
+    });
+}
+
+init3DBackground();
+initParallaxScrolling();
+initFloatingActionButton();
+initCommandPalette();
+initChatAssistant();
+initSmoothScrollAndScrollSpy();
+initContactFormValidation();
+initGitHubFeed();
+initAnimatedCursor();
