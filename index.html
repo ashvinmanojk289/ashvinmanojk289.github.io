@@ -53,6 +53,28 @@
 </head>
 
 <body>
+    <!-- Chatbot/AI Assistant -->
+    <div id="chat-toggle-btn" class="chat-toggle-btn" title="Ask AI Assistant" aria-label="Open AI Assistant">
+    <i class="fas fa-robot" aria-hidden="true"></i>
+    </div>
+    <div id="chat-window" class="chat-window" style="display:none;" aria-modal="true" aria-label="AI Assistant Chat">
+        <div class="chat-header">
+            <span class="chat-title"><i class="fas fa-robot" aria-hidden="true"></i> AI Assistant</span>
+            <button id="chat-close-btn" class="chat-close-btn" aria-label="Close Chat" tabindex="0">&times;</button>
+        </div>
+        <div id="chat-messages" class="chat-messages"></div>
+        <form id="chat-form" class="chat-form" autocomplete="off">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Ask me to navigate, answer, or help..." aria-label="Type your question" />
+            <button type="submit" class="chat-send-btn" aria-label="Send"><i class="fas fa-paper-plane" aria-hidden="true"></i></button>
+        </form>
+    </div>
+    <!-- Command Palette Modal -->
+    <div id="command-palette" class="command-palette-modal" tabindex="-1" aria-modal="true" aria-label="Command Palette" style="display:none;">
+        <div class="command-palette-container">
+            <input type="text" id="command-palette-input" class="command-palette-input" placeholder="Type a command..." autocomplete="off" aria-label="Type a command" />
+            <ul id="command-palette-list" class="command-palette-list"></ul>
+        </div>
+    </div>
     <!-- 3D Background Canvas -->
     <canvas id="bg-canvas"></canvas>
     <!-- three.js CDN -->
@@ -60,17 +82,22 @@
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
+    <!-- Floating Action Button -->
+    <button id="fab-contact" class="floating-action-btn" title="Contact Me" aria-label="Contact Me">
+    <i class="fas fa-paper-plane" aria-hidden="true"></i>
+    </button>
+
     <header class="top-header">
         <nav class="navbar">
-            <a href="#home" class="nav-logo">AM.</a>
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
-                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="#experience" class="nav-link">Experience</a></li>
-                <li class="nav-item"><a href="#featured-projects" class="nav-link">Projects</a></li>
-                <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
-                <li class="nav-item"><a href="#achievements" class="nav-link">Awards</a></li>
-                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+            <a href="#home" class="nav-logo" tabindex="0" aria-label="Go to Home">AM.</a>
+            <ul class="nav-menu" role="menubar">
+                <li class="nav-item" role="none"><a href="#home" class="nav-link active" role="menuitem" tabindex="0" aria-label="Home">Home</a></li>
+                <li class="nav-item" role="none"><a href="#about" class="nav-link" role="menuitem" tabindex="0" aria-label="About">About</a></li>
+                <li class="nav-item" role="none"><a href="#experience" class="nav-link" role="menuitem" tabindex="0" aria-label="Experience">Experience</a></li>
+                <li class="nav-item" role="none"><a href="#featured-projects" class="nav-link" role="menuitem" tabindex="0" aria-label="Projects">Projects</a></li>
+                <li class="nav-item" role="none"><a href="#skills" class="nav-link" role="menuitem" tabindex="0" aria-label="Skills">Skills</a></li>
+                <li class="nav-item" role="none"><a href="#achievements" class="nav-link" role="menuitem" tabindex="0" aria-label="Awards">Awards</a></li>
+                <li class="nav-item" role="none"><a href="#contact" class="nav-link" role="menuitem" tabindex="0" aria-label="Contact">Contact</a></li>
             </ul>
             <div class="header-actions">
                 <div class="social-links">

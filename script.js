@@ -1,4 +1,214 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Chatbot/AI Assistant Logic ---
+    function initChatAssistant() {
+        const chatToggleBtn = document.getElementById('chat-toggle-btn');
+        const chatWindow = document.getElementById('chat-window');
+        const chatCloseBtn = document.getElementById('chat-close-btn');
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+        if (!chatToggleBtn || !chatWindow || !chatCloseBtn || !chatForm || !chatInput || !chatMessages) return;
+
+        function showChat() {
+            chatWindow.style.display = 'flex';
+            chatInput.focus();
+        }
+        function hideChat() {
+            chatWindow.style.display = 'none';
+        }
+        chatToggleBtn.addEventListener('click', showChat);
+        chatCloseBtn.addEventListener('click', hideChat);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && chatWindow.style.display === 'flex') hideChat();
+        });
+
+        function addMessage(text, sender = 'assistant') {
+            const msg = document.createElement('div');
+            msg.className = 'chat-message ' + sender;
+            msg.textContent = text;
+            chatMessages.appendChild(msg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function handleUserInput(input) {
+            const val = input.trim().toLowerCase();
+            addMessage(input, 'user');
+            // Navigation commands
+            if (val.includes('home')) {
+                addMessage('Navigating to Home section...');
+                document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
+            } else if (val.includes('about')) {
+                addMessage('Navigating to About section...');
+                document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+            } else if (val.includes('experience')) {
+                addMessage('Navigating to Experience section...');
+                document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' });
+            } else if (val.includes('project')) {
+                addMessage('Navigating to Projects section...');
+                document.getElementById('featured-projects')?.scrollIntoView({ behavior: 'smooth' });
+            } else if (val.includes('skill')) {
+                addMessage('Navigating to Skills section...');
+                document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' });
+            } else if (val.includes('award')) {
+                addMessage('Navigating to Awards section...');
+                document.getElementById('achievements')?.scrollIntoView({ behavior: 'smooth' });
+            } else if (val.includes('contact')) {
+                addMessage('Navigating to Contact section...');
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+            } else if (val.includes('theme')) {
+                addMessage('Toggling theme...');
+                document.getElementById('theme-toggle-btn')?.click();
+            } else if (val.includes('github')) {
+                addMessage('Opening GitHub profile...');
+                window.open('https://github.com/ashvinmanojk289', '_blank');
+            } else if (val.includes('linkedin')) {
+                addMessage('Opening LinkedIn profile...');
+                window.open('https://linkedin.com/in/ashvinmanojk289', '_blank');
+            } else if (val.includes('help')) {
+                addMessage('You can ask me to navigate to any section, toggle theme, or open social profiles. Try "Go to Projects" or "Toggle theme".');
+            } else {
+                addMessage('Sorry, I can help you navigate, toggle theme, or open profiles. Try "Go to Contact" or "Open GitHub".');
+            }
+        }
+
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const val = chatInput.value;
+            if (val) handleUserInput(val);
+            chatInput.value = '';
+        });
+
+        // Initial greeting
+        addMessage('Hi! I am your AI assistant. Ask me to navigate, toggle theme, or open profiles. Type "help" for options.');
+    }
+    // --- Command Palette Logic ---
+    function initCommandPalette() {
+        const palette = document.getElementById('command-palette');
+        const input = document.getElementById('command-palette-input');
+        const list = document.getElementById('command-palette-list');
+        if (!palette || !input || !list) return;
+
+        // Command definitions
+        const commands = [
+            { label: 'Go to Home', action: () => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' }) },
+            { label: 'Go to About', action: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
+            { label: 'Go to Experience', action: () => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' }) },
+            { label: 'Go to Projects', action: () => document.getElementById('featured-projects')?.scrollIntoView({ behavior: 'smooth' }) },
+            { label: 'Go to Skills', action: () => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' }) },
+            { label: 'Go to Awards', action: () => document.getElementById('achievements')?.scrollIntoView({ behavior: 'smooth' }) },
+            { label: 'Go to Contact', action: () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) },
+            { label: 'Toggle Theme', action: () => document.getElementById('theme-toggle-btn')?.click() },
+            { label: 'Open GitHub', action: () => window.open('https://github.com/ashvinmanojk289', '_blank') },
+            { label: 'Open LinkedIn', action: () => window.open('https://linkedin.com/in/ashvinmanojk289', '_blank') },
+        ];
+
+        let filtered = [...commands];
+        let selectedIdx = 0;
+
+        function renderList() {
+            list.innerHTML = '';
+            filtered.forEach((cmd, i) => {
+                const li = document.createElement('li');
+                li.textContent = cmd.label;
+                if (i === selectedIdx) li.classList.add('selected');
+                li.addEventListener('click', () => {
+                    cmd.action();
+                    closePalette();
+                });
+                list.appendChild(li);
+            });
+        }
+
+        function openPalette() {
+            palette.style.display = 'flex';
+            input.value = '';
+            filtered = [...commands];
+            selectedIdx = 0;
+            renderList();
+            setTimeout(() => input.focus(), 100);
+        }
+
+        function closePalette() {
+            palette.style.display = 'none';
+        }
+
+        input.addEventListener('input', () => {
+            const val = input.value.toLowerCase();
+            filtered = commands.filter(cmd => cmd.label.toLowerCase().includes(val));
+            selectedIdx = 0;
+            renderList();
+        });
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown') {
+                selectedIdx = Math.min(selectedIdx + 1, filtered.length - 1);
+                renderList();
+                e.preventDefault();
+            } else if (e.key === 'ArrowUp') {
+                selectedIdx = Math.max(selectedIdx - 1, 0);
+                renderList();
+                e.preventDefault();
+            } else if (e.key === 'Enter') {
+                if (filtered[selectedIdx]) {
+                    filtered[selectedIdx].action();
+                    closePalette();
+                }
+            } else if (e.key === 'Escape') {
+                closePalette();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                openPalette();
+                e.preventDefault();
+            }
+        });
+
+        palette.addEventListener('click', (e) => {
+            if (e.target === palette) closePalette();
+        });
+    }
+    // --- Floating Action Button Logic ---
+    function initFloatingActionButton() {
+        const fab = document.getElementById('fab-contact');
+        if (!fab) return;
+        fab.addEventListener('click', () => {
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+                fab.classList.add('bounce');
+                setTimeout(() => fab.classList.remove('bounce'), 600);
+            }
+        });
+    }
+    // --- Parallax Scrolling for Hero/Background ---
+    function initParallaxScrolling() {
+        const hero = document.querySelector('.hero');
+        const bgCanvas = document.getElementById('bg-canvas');
+        if (!hero || !bgCanvas) return;
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            // Parallax for hero section
+            hero.style.transform = `translateY(${scrollY * 0.18}px)`;
+            // Parallax for background canvas
+            bgCanvas.style.transform = `translateY(${scrollY * 0.08}px)`;
+            lastScrollY = scrollY;
+        });
+        // Mouse parallax for hero text
+        const heroText = document.querySelector('.hero-text');
+        if (heroText) {
+            window.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 20;
+                const y = (e.clientY / window.innerHeight - 0.5) * 10;
+                heroText.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            });
+            window.addEventListener('mouseleave', () => {
+                heroText.style.transform = '';
+            });
+        }
+    }
     // --- 3D Background Initialization ---
     function init3DBackground() {
         const canvas = document.getElementById('bg-canvas');
@@ -104,6 +314,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     init3DBackground();
+    initParallaxScrolling();
+    initFloatingActionButton();
+    initCommandPalette();
+    initChatAssistant();
+// --- FAB Bounce Animation ---
+const style = document.createElement('style');
+style.innerHTML = `
+    .floating-action-btn.bounce {
+        animation: fabBounce 0.6s;
+    }
+    @keyframes fabBounce {
+        0% { transform: scale(1); }
+        30% { transform: scale(1.18); }
+        50% { transform: scale(0.92); }
+        70% { transform: scale(1.08); }
+        100% { transform: scale(1); }
+    }
+`;
+document.head.appendChild(style);
     // --- Loading Spinner Logic ---
     const spinner = document.getElementById('loadingSpinner');
     window.addEventListener('beforeunload', () => {
@@ -249,9 +478,9 @@ document.addEventListener('DOMContentLoaded', () => {
             lastScrollY = window.scrollY;
 
             if (window.scrollY > 50) {
-                header.style.boxShadow = '0 2px 15px var(--shadow-color)';
+                header.classList.add('scrolled');
             } else {
-                header.style.boxShadow = 'none';
+                header.classList.remove('scrolled');
             }
         });
     }
