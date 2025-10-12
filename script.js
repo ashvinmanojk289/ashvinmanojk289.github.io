@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     uniform float uTime;
                     varying float vNoise;
 
-                    // Perlin 3D Noise
+                    // Perlin 3D Noise (from https://github.com/stegu/webgl-noise)
                     vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
                     vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
                     vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
@@ -438,89 +438,41 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     }
 
-    // --- Unique Liquid Cursor Effect ---
+    // --- NEW: High-Performance Orbital Cursor ---
     function initCustomCursor() {
         if (window.matchMedia("(pointer: coarse)").matches) return;
 
-        const cursorContainer = document.createElement('div');
-        cursorContainer.className = 'cursor-container';
-        document.body.appendChild(cursorContainer);
+        const cursorContainer = document.querySelector('.custom-cursor');
+        const dot = document.querySelector('.cursor-dot');
+        const ring = document.querySelector('.cursor-ring');
 
-        const particleCount = 20;
-        const particles = [];
-        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-        let currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        let mouseX = 0, mouseY = 0;
+        let dotX = 0, dotY = 0;
+        let ringX = 0, ringY = 0;
 
-        for (let i = 0; i < particleCount; i++) {
-            const el = document.createElement('div');
-            el.className = 'cursor-particle';
-            cursorContainer.appendChild(el);
-            particles.push({
-                el: el,
-                x: mouseX, y: mouseY, vx: 0, vy: 0,
-                size: (particleCount - i) / particleCount * 15 + 5
-            });
-        }
-
-        function updateCursorStyles() {
-            particles.forEach((p, i) => {
-                if (currentTheme === 'lab') {
-                    p.el.style.background = `radial-gradient(circle at 30% 30%, #E1E5E9, #4A4A4A)`;
-                    p.el.style.boxShadow = `none`;
-                } else {
-                    p.el.style.background = `radial-gradient(circle, #58A6FF, transparent)`;
-                    p.el.style.boxShadow = `0 0 ${p.size * 0.5}px #1F6FEB`;
-                }
-            });
-        }
-
-        updateCursorStyles();
-        
-        const themeObserver = new MutationObserver(() => {
-            currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-            updateCursorStyles();
-        });
-        themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-        
         window.addEventListener('mousemove', e => {
             mouseX = e.clientX;
             mouseY = e.clientY;
         });
 
         function animateCursor() {
-            let leader = particles[0];
-            leader.vx += (mouseX - leader.x) * 0.15;
-            leader.vy += (mouseY - leader.y) * 0.15;
-            leader.vx *= 0.8;
-            leader.vy *= 0.8;
-            leader.x += leader.vx;
-            leader.y += leader.vy;
-            
-            for (let i = 1; i < particleCount; i++) {
-                const follower = particles[i];
-                const target = particles[i - 1];
-                follower.vx += (target.x - follower.x) * 0.2;
-                follower.vy += (target.y - follower.y) * 0.2;
-                follower.vx *= 0.8;
-                follower.vy *= 0.8;
-                follower.x += follower.vx;
-                follower.y += follower.vy;
-            }
+            // Easing (Lerp) for smooth follow
+            dotX += (mouseX - dotX) * 0.9; // Dot follows fast
+            dotY += (mouseY - dotY) * 0.9;
 
-            particles.forEach(p => {
-                p.el.style.transform = `translate(${p.x - p.size/2}px, ${p.y - p.size/2}px)`;
-                p.el.style.width = `${p.size}px`;
-                p.el.style.height = `${p.size}px`;
-            });
+            ringX += (mouseX - ringX) * 0.25; // Ring follows slower
+            ringY += (mouseY - ringY) * 0.25;
+
+            dot.style.transform = `translate(${dotX - 4}px, ${dotY - 4}px)`;
+            ring.style.transform = `translate(${ringX - 20}px, ${ringY - 20}px)`;
 
             requestAnimationFrame(animateCursor);
         }
-
         animateCursor();
 
-        document.querySelectorAll('a, button, .switch, .filter-btn, .slider, input, textarea, .project-card').forEach(el => {
-            el.addEventListener('mouseenter', () => cursorContainer.classList.add('cursor-interact'));
-            el.addEventListener('mouseleave', () => cursorContainer.classList.remove('cursor-interact'));
+        document.querySelectorAll('a, button, .filter-btn, .theme-btn, .project-card, .chat-toggle-btn, .scroll-to-top, input, textarea, .suggested-question').forEach(el => {
+            el.addEventListener('mouseenter', () => cursorContainer.classList.add('interact'));
+            el.addEventListener('mouseleave', () => cursorContainer.classList.remove('interact'));
         });
     }
 
@@ -546,6 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const user = 'ashvinmanojk289';
             const repoResponse = await fetch(`https://api.github.com/users/${user}/repos?sort=pushed&per_page=100`);
+            if (!repoResponse.ok) throw new Error('GitHub API request failed');
             const repos = await repoResponse.json();
             const totalStars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
             document.getElementById('github-repos').textContent = repos.length;
@@ -585,11 +538,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                const rotateX = (y - rect.height / 2) / 10;
-                const rotateY = (rect.width / 2 - x) / 10;
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                const rotateX = (y - rect.height / 2) / 15; // Reduced intensity
+                const rotateY = (rect.width / 2 - x) / 15; // Reduced intensity
+                card.style.transition = 'transform 0.1s'; // Smooth transition
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
             });
-            card.addEventListener('mouseleave', () => card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)');
+            card.addEventListener('mouseleave', () => {
+                card.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)'; // Spring back
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            });
         });
     }
 
@@ -701,7 +658,7 @@ document.addEventListener('DOMContentLoaded', () => {
             thinkingDiv.innerHTML = response;
             chatBody.scrollTop = chatBody.scrollHeight;
             loadingOverlay.classList.remove('active');
-        }, 2000);
+        }, 1500); // Reduced delay
     }
 
     // --- Our Local "Knowledge Base" and Matching Logic ---
