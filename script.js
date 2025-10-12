@@ -13,54 +13,174 @@ document.addEventListener('DOMContentLoaded', () => {
         // Three.js setup
         const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        // Theme colors
-        function getThemeColors() {
-            const theme = document.documentElement.getAttribute('data-theme');
-            if (theme === 'lab') {
-                return {
-                    bg: 0xf5f7fa,
-                    grid: 0xcccccc,
-                    accent: 0x0077ff,
-                    cube: 0x0077ff
-                };
-            } else {
-                return {
-                    bg: 0x181c20,
-                    grid: 0x222a35,
-                    accent: 0x00bfff,
-                    cube: 0x00bfff
-                };
-            }
-        }
-        let colors = getThemeColors();
-        renderer.setClearColor(colors.bg, 1);
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.z = 7;
-        // Tech grid
-        const grid = new THREE.GridHelper(20, 40, colors.grid, colors.grid);
-        grid.position.y = -2.5;
-        scene.add(grid);
-        // Floating cubes
-        const cubes = [];
-        for (let i = 0; i < 18; i++) {
-            const geometry = new THREE.BoxGeometry(Math.random() * 0.5 + 0.2, Math.random() * 0.5 + 0.2, Math.random() * 0.5 + 0.2);
-            const material = new THREE.MeshStandardMaterial({ color: colors.cube, metalness: 0.8, roughness: 0.25, emissive: colors.accent, emissiveIntensity: 0.3 });
-            const cube = new THREE.Mesh(geometry, material);
-            cube.position.set(
-                (Math.random() - 0.5) * 10,
-                (Math.random() - 0.5) * 5,
-                (Math.random() - 0.5) * 6
-            );
-            scene.add(cube);
-            cubes.push(cube);
+        let currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        let stars, nebula, planet, lightParticles, rays;
+
+        function createDarkBackground() {
+            // Realistic space: stars, nebula, and a planet
+            const starCount = 1500;
+            const starGeometry = new THREE.BufferGeometry();
+            const starPositions = new Float32Array(starCount * 3);
+            const starColors = new Float32Array(starCount * 3);
+            for (let i = 0; i < starCount; i++) {
+                starPositions[i * 3] = (Math.random() - 0.5) * 300;
+                starPositions[i * 3 + 1] = (Math.random() - 0.5) * 300;
+                starPositions[i * 3 + 2] = (Math.random() - 0.5) * 300;
+                // Random star colors: white, blue, yellow
+                const colorType = Math.random();
+                if (colorType < 0.7) {
+                    starColors[i * 3] = 1; starColors[i * 3 + 1] = 1; starColors[i * 3 + 2] = 1; // white
+                } else if (colorType < 0.9) {
+                    starColors[i * 3] = 0.7; starColors[i * 3 + 1] = 0.8; starColors[i * 3 + 2] = 1; // blue
+                } else {
+                    starColors[i * 3] = 1; starColors[i * 3 + 1] = 1; starColors[i * 3 + 2] = 0.8; // yellow
+                }
+            }
+            starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+            starGeometry.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
+            const starMaterial = new THREE.PointsMaterial({
+                size: 1.5,
+                transparent: true,
+                opacity: 0.9,
+                vertexColors: true
+            });
+            stars = new THREE.Points(starGeometry, starMaterial);
+            scene.add(stars);
+
+            // Nebula particles
+            const nebulaCount = 800;
+            const nebulaGeometry = new THREE.BufferGeometry();
+            const nebulaPositions = new Float32Array(nebulaCount * 3);
+            const nebulaColors = new Float32Array(nebulaCount * 3);
+            for (let i = 0; i < nebulaCount; i++) {
+                // Concentrate around center
+                const radius = Math.random() * 50 + 20;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.random() * Math.PI;
+                nebulaPositions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+                nebulaPositions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+                nebulaPositions[i * 3 + 2] = radius * Math.cos(phi);
+                // Nebula colors: purple, pink, blue
+                nebulaColors[i * 3] = 0.5 + Math.random() * 0.5; // R
+                nebulaColors[i * 3 + 1] = 0.2 + Math.random() * 0.3; // G
+                nebulaColors[i * 3 + 2] = 0.8 + Math.random() * 0.2; // B
+            }
+            nebulaGeometry.setAttribute('position', new THREE.BufferAttribute(nebulaPositions, 3));
+            nebulaGeometry.setAttribute('color', new THREE.BufferAttribute(nebulaColors, 3));
+            const nebulaMaterial = new THREE.PointsMaterial({
+                size: 3,
+                transparent: true,
+                opacity: 0.4,
+                vertexColors: true
+            });
+            const nebula = new THREE.Points(nebulaGeometry, nebulaMaterial);
+            scene.add(nebula);
+
+            // Planet
+            const planetGeometry = new THREE.SphereGeometry(5, 32, 32);
+            const planetMaterial = new THREE.MeshStandardMaterial({
+                color: 0x4a90e2,
+                roughness: 0.8,
+                metalness: 0.1
+            });
+            const planet = new THREE.Mesh(planetGeometry, planetMaterial);
+            planet.position.set(15, -5, -20);
+            scene.add(planet);
+
+            // Point light near planet
+            const planetLight = new THREE.PointLight(0x4a90e2, 0.5, 50);
+            planetLight.position.set(15, -5, -15);
+            scene.add(planetLight);
+
+            renderer.setClearColor(0x000011, 1);
         }
-        // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-        scene.add(ambientLight);
-        const accentLight = new THREE.PointLight(colors.accent, 1.2, 30);
-        accentLight.position.set(0, 5, 10);
-        scene.add(accentLight);
+
+        function createLightBackground() {
+            // Serene light theme: floating bubbles and light rays
+            const bubbleCount = 300;
+            const bubbleGeometry = new THREE.BufferGeometry();
+            const bubblePositions = new Float32Array(bubbleCount * 3);
+            const bubbleSizes = new Float32Array(bubbleCount);
+            for (let i = 0; i < bubbleCount; i++) {
+                bubblePositions[i * 3] = (Math.random() - 0.5) * 100;
+                bubblePositions[i * 3 + 1] = (Math.random() - 0.5) * 100;
+                bubblePositions[i * 3 + 2] = (Math.random() - 0.5) * 100;
+                bubbleSizes[i] = Math.random() * 2 + 0.5;
+            }
+            bubbleGeometry.setAttribute('position', new THREE.BufferAttribute(bubblePositions, 3));
+            bubbleGeometry.setAttribute('size', new THREE.BufferAttribute(bubbleSizes, 1));
+            const bubbleMaterial = new THREE.ShaderMaterial({
+                uniforms: {
+                    time: { value: 0 }
+                },
+                vertexShader: `
+                    attribute float size;
+                    varying float vSize;
+                    void main() {
+                        vSize = size;
+                        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                        gl_PointSize = size * (300.0 / -mvPosition.z);
+                        gl_Position = projectionMatrix * mvPosition;
+                    }
+                `,
+                fragmentShader: `
+                    varying float vSize;
+                    void main() {
+                        float alpha = 1.0 - length(gl_PointCoord - vec2(0.5));
+                        gl_FragColor = vec4(0.8, 0.9, 1.0, alpha * 0.6);
+                    }
+                `,
+                transparent: true,
+                blending: THREE.AdditiveBlending
+            });
+            lightParticles = new THREE.Points(bubbleGeometry, bubbleMaterial);
+            scene.add(lightParticles);
+
+            // Light rays
+            const rayCount = 50;
+            const rayGeometry = new THREE.BufferGeometry();
+            const rayPositions = new Float32Array(rayCount * 6); // lines
+            for (let i = 0; i < rayCount; i++) {
+                const angle = (i / rayCount) * Math.PI * 2;
+                const radius = 50;
+                rayPositions[i * 6] = Math.cos(angle) * radius;
+                rayPositions[i * 6 + 1] = -20;
+                rayPositions[i * 6 + 2] = Math.sin(angle) * radius;
+                rayPositions[i * 6 + 3] = Math.cos(angle) * (radius + 20);
+                rayPositions[i * 6 + 4] = 20;
+                rayPositions[i * 6 + 5] = Math.sin(angle) * (radius + 20);
+            }
+            rayGeometry.setAttribute('position', new THREE.BufferAttribute(rayPositions, 3));
+            const rayMaterial = new THREE.LineBasicMaterial({
+                color: 0xfff8dc,
+                transparent: true,
+                opacity: 0.3
+            });
+            const rays = new THREE.LineSegments(rayGeometry, rayMaterial);
+            scene.add(rays);
+
+            renderer.setClearColor(0xe6f7ff, 1); // Light blue sky
+        }
+
+        function updateBackground() {
+            // Clear scene
+            while (scene.children.length > 0) {
+                scene.remove(scene.children[0]);
+            }
+            // Add lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, currentTheme === 'lab' ? 0.8 : 0.1);
+            scene.add(ambientLight);
+            if (currentTheme === 'lab') {
+                createLightBackground();
+            } else {
+                createDarkBackground();
+            }
+        }
+
+        updateBackground();
         // Mouse movement responsiveness
         let mouseX = 0, mouseY = 0;
         window.addEventListener('mousemove', (e) => {
@@ -69,14 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         // Theme change responsiveness
         const observer = new MutationObserver(() => {
-            colors = getThemeColors();
-            renderer.setClearColor(colors.bg, 1);
-            grid.material.color.setHex(colors.grid);
-            accentLight.color.setHex(colors.accent);
-            cubes.forEach(cube => {
-                cube.material.color.setHex(colors.cube);
-                cube.material.emissive.setHex(colors.accent);
-            });
+            currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            updateBackground();
         });
         observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
         // Animate
@@ -86,12 +200,35 @@ document.addEventListener('DOMContentLoaded', () => {
             camera.position.x += (mouseX * 2 - camera.position.x) * 0.08;
             camera.position.y += (mouseY * 1.5 - camera.position.y) * 0.08;
             camera.lookAt(0, 0, 0);
-            // Animate cubes
-            cubes.forEach((cube, i) => {
-                cube.rotation.x += 0.008 + i * 0.0005;
-                cube.rotation.y += 0.01 + i * 0.0007;
-                cube.position.y += Math.sin(Date.now() * 0.001 + i) * 0.003;
-            });
+            if (currentTheme === 'lab') {
+                // Animate bubbles rising and shader
+                if (lightParticles) {
+                    lightParticles.material.uniforms.time.value += 0.01;
+                    const positions = lightParticles.geometry.attributes.position.array;
+                    for (let i = 0; i < positions.length; i += 3) {
+                        positions[i + 1] += 0.02; // Rise up
+                        if (positions[i + 1] > 50) positions[i + 1] = -50; // Reset
+                    }
+                    lightParticles.geometry.attributes.position.needsUpdate = true;
+                    lightParticles.rotation.y += 0.0005;
+                }
+                if (rays) {
+                    rays.rotation.z += 0.0002;
+                }
+            } else {
+                // Animate stars, nebula, planet
+                if (stars) {
+                    stars.rotation.x += 0.0005;
+                    stars.rotation.y += 0.0005;
+                }
+                if (nebula) {
+                    nebula.rotation.x += 0.0003;
+                    nebula.rotation.y += 0.0003;
+                }
+                if (planet) {
+                    planet.rotation.y += 0.005;
+                }
+            }
             renderer.render(scene, camera);
         }
         animate();
@@ -326,22 +463,47 @@ document.addEventListener('DOMContentLoaded', () => {
         const cursorOutline = document.querySelector('.cursor-outline');
         let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
         let dotX = mouseX, dotY = mouseY, outlineX = mouseX, outlineY = mouseY;
-        // Particle trail
-        const trailCount = 12;
+        // Comet trail
+        const trailCount = 20;
         const trail = [];
+        let currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+
+        function updateTrailStyles() {
+            trail.forEach((t, i) => {
+                if (currentTheme === 'lab') {
+                    // Light theme: sparkling particles
+                    t.el.style.width = '6px';
+                    t.el.style.height = '6px';
+                    t.el.style.borderRadius = '50%';
+                    t.el.style.background = `radial-gradient(circle, rgba(255,215,0,${0.8 - i * 0.03}), rgba(255,215,0,0))`;
+                } else {
+                    // Dark theme: comet trail
+                    t.el.style.width = `${8 - i * 0.3}px`;
+                    t.el.style.height = `${20 - i}px`;
+                    t.el.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
+                    t.el.style.background = `linear-gradient(to bottom, rgba(0,191,255,${0.8 - i * 0.03}), rgba(0,191,255,0))`;
+                }
+            });
+        }
+
         for (let i = 0; i < trailCount; i++) {
             const el = document.createElement('div');
             el.className = 'cursor-trail';
             el.style.position = 'fixed';
-            el.style.width = '6px';
-            el.style.height = '6px';
-            el.style.borderRadius = '50%';
-            el.style.background = 'rgba(0,191,255,0.5)';
             el.style.pointerEvents = 'none';
             el.style.zIndex = '9998';
+            el.style.transform = 'translate(-50%, -50%)';
             document.body.appendChild(el);
-            trail.push({el, x: mouseX, y: mouseY});
+            trail.push({el, x: mouseX, y: mouseY, vx: 0, vy: 0});
         }
+        updateTrailStyles();
+
+        // Theme change observer
+        const themeObserver = new MutationObserver(() => {
+            currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            updateTrailStyles();
+        });
+        themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
         window.addEventListener('mousemove', e => {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -359,11 +521,33 @@ document.addEventListener('DOMContentLoaded', () => {
             // Animate trail
             let prevX = dotX, prevY = dotY;
             trail.forEach((t, i) => {
-                t.x += (prevX - t.x) * 0.3;
-                t.y += (prevY - t.y) * 0.3;
-                t.el.style.left = `${t.x}px`;
-                t.el.style.top = `${t.y}px`;
-                t.el.style.opacity = `${1 - i / trailCount}`;
+                const dx = prevX - t.x;
+                const dy = prevY - t.y;
+                if (currentTheme === 'lab') {
+                    // Light theme: sparkling dots
+                    t.vx += dx * 0.05;
+                    t.vy += dy * 0.05;
+                    t.vx *= 0.95;
+                    t.vy *= 0.95;
+                    t.x += t.vx;
+                    t.y += t.vy;
+                    t.el.style.left = `${t.x}px`;
+                    t.el.style.top = `${t.y}px`;
+                    t.el.style.opacity = `${1 - i / trailCount}`;
+                    t.el.style.transform = `translate(-50%, -50%) scale(${1 + Math.sin(Date.now() * 0.01 + i) * 0.2})`;
+                } else {
+                    // Dark theme: comet trail
+                    t.vx += dx * 0.1;
+                    t.vy += dy * 0.1;
+                    t.vx *= 0.9;
+                    t.vy *= 0.9;
+                    t.x += t.vx;
+                    t.y += t.vy;
+                    t.el.style.left = `${t.x}px`;
+                    t.el.style.top = `${t.y}px`;
+                    t.el.style.opacity = `${1 - i / trailCount}`;
+                    t.el.style.transform = `translate(-50%, -50%) rotate(${Math.atan2(dy, dx) * 180 / Math.PI}deg)`;
+                }
                 prevX = t.x;
                 prevY = t.y;
             });
@@ -503,17 +687,59 @@ document.addEventListener('DOMContentLoaded', () => {
             {
                 text: "What are Ashvin Manoj’s top technical skills?",
                 followups: [
-                    "What programming languages does Ashvin use most?",
-                    "What cloud and DevOps tools is Ashvin proficient with?",
-                    "How does Ashvin use NLP in his work?"
+                    {
+                        text: "What programming languages does Ashvin use most?",
+                        followups: [
+                            "What cloud and DevOps tools is Ashvin proficient with?",
+                            "How does Ashvin use NLP in his work?",
+                            "What are Ashvin’s most notable AI/ML projects?"
+                        ]
+                    },
+                    {
+                        text: "What cloud and DevOps tools is Ashvin proficient with?",
+                        followups: [
+                            "What programming languages does Ashvin use most?",
+                            "How does Ashvin use NLP in his work?",
+                            "What are Ashvin’s top technical skills?"
+                        ]
+                    },
+                    {
+                        text: "How does Ashvin use NLP in his work?",
+                        followups: [
+                            "How has Ashvin applied deep learning in real-world scenarios?",
+                            "What cloud and DevOps tools is Ashvin proficient with?",
+                            "Can you tell me about Ashvin’s work with computer vision?"
+                        ]
+                    }
                 ]
             },
             {
                 text: "Can you describe Ashvin’s experience with robotics?",
                 followups: [
-                    "What are Ashvin’s most notable robotics projects?",
-                    "How has Ashvin applied computer vision in robotics?",
-                    "What tools does Ashvin use for robotics?"
+                    {
+                        text: "What are Ashvin’s most notable robotics projects?",
+                        followups: [
+                            "How has Ashvin applied computer vision in robotics?",
+                            "What tools does Ashvin use for robotics?",
+                            "What professional experience does Ashvin have?"
+                        ]
+                    },
+                    {
+                        text: "How has Ashvin applied computer vision in robotics?",
+                        followups: [
+                            "What are Ashvin’s most notable robotics projects?",
+                            "What tools does Ashvin use for robotics?",
+                            "Can you tell me about Ashvin’s work with computer vision?"
+                        ]
+                    },
+                    {
+                        text: "What tools does Ashvin use for robotics?",
+                        followups: [
+                            "What are Ashvin’s most notable robotics projects?",
+                            "How has Ashvin applied computer vision in robotics?",
+                            "What professional experience does Ashvin have?"
+                        ]
+                    }
                 ]
             },
             {
@@ -527,9 +753,30 @@ document.addEventListener('DOMContentLoaded', () => {
             {
                 text: "What are Ashvin’s most notable AI/ML projects?",
                 followups: [
-                    "How has Ashvin applied deep learning in real-world scenarios?",
-                    "Can you tell me about Ashvin’s work with computer vision?",
-                    "What programming languages does Ashvin use most?"
+                    {
+                        text: "How has Ashvin applied deep learning in real-world scenarios?",
+                        followups: [
+                            "What are Ashvin’s most notable AI/ML projects?",
+                            "How does Ashvin use NLP in his work?",
+                            "What cloud and DevOps tools is Ashvin proficient with?"
+                        ]
+                    },
+                    {
+                        text: "Can you tell me about Ashvin’s work with computer vision?",
+                        followups: [
+                            "How has Ashvin applied deep learning in real-world scenarios?",
+                            "What are Ashvin’s most notable AI/ML projects?",
+                            "What tools does Ashvin use for robotics?"
+                        ]
+                    },
+                    {
+                        text: "How does Ashvin use NLP in his work?",
+                        followups: [
+                            "How has Ashvin applied deep learning in real-world scenarios?",
+                            "What cloud and DevOps tools is Ashvin proficient with?",
+                            "Can you tell me about Ashvin’s work with computer vision?"
+                        ]
+                    }
                 ]
             },
             {
@@ -600,6 +847,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let qaRound = 0;
         let lastChoiceIdx = null;
+        let secondChoiceIdx = null;
         function showSuggestedQuestions(questions) {
             const container = document.createElement('div');
             container.className = 'suggested-questions';
@@ -619,16 +867,27 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.chat-body').addEventListener('click', (e) => {
             if (e.target.classList.contains('suggested-question')) {
                 const idx = e.target.dataset.idx;
-                const questionObj = qaRound === 0 ? allQuestions[idx] : allQuestions[lastChoiceIdx].followups[idx];
+                let questionObj;
+                if (qaRound === 0) {
+                    questionObj = allQuestions[idx];
+                    lastChoiceIdx = idx;
+                } else if (qaRound === 1) {
+                    questionObj = allQuestions[lastChoiceIdx].followups[idx];
+                    secondChoiceIdx = idx;
+                } else if (qaRound === 2) {
+                    questionObj = allQuestions[lastChoiceIdx].followups[secondChoiceIdx].followups[idx];
+                }
                 const questionText = questionObj.text || questionObj;
                 input.value = questionText;
                 handleChatMessage(questionText);
                 e.target.parentElement.remove();
                 qaRound++;
-                if (qaRound <= 3) {
-                    if (qaRound === 1) lastChoiceIdx = idx;
-                    // Show next 3 followups
-                    showSuggestedQuestions((qaRound === 1 ? allQuestions[lastChoiceIdx].followups : allQuestions[lastChoiceIdx].followups));
+                if (qaRound <= 2) {
+                    if (qaRound === 1) {
+                        showSuggestedQuestions(allQuestions[lastChoiceIdx].followups);
+                    } else if (qaRound === 2) {
+                        showSuggestedQuestions(allQuestions[lastChoiceIdx].followups[secondChoiceIdx].followups);
+                    }
                 }
             }
         });
@@ -666,7 +925,7 @@ document.addEventListener('DOMContentLoaded', () => {
             thinkingDiv.innerHTML = response;
             chatBody.scrollTop = chatBody.scrollHeight;
             loadingOverlay.classList.remove('active');
-        }, 1000);
+        }, 2000);
     }
 
     // --- Our Local "Knowledge Base" and Matching Logic ---
