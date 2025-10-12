@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const clock = new THREE.Clock();
         
         // --- Theme-specific objects ---
-        let nebulaParticles, starParticles, wavePlane;
+        let nebulaParticles, starParticles;
 
         // --- Dark Theme: Ethereal Cosmic Nebula ---
         function createDarkBackground() {
@@ -116,99 +116,96 @@ document.addEventListener('DOMContentLoaded', () => {
             scene.add(starParticles);
         }
 
-        // --- Light Theme: Gentle Morphing Waves ---
+        // --- Light Theme: Ethereal Nebula ---
         function createLightBackground() {
-            scene.fog = new THREE.Fog(0xF8F9FA, 5, 20);
+            scene.fog = new THREE.Fog(0xF8F9FA, 10, 30);
+
+            // Nebula Cloud
+            const nebulaGeometry = new THREE.BufferGeometry();
+            const nebulaCount = 2500;
+            const positions = new Float32Array(nebulaCount * 3);
+            const scales = new Float32Array(nebulaCount);
             
-            const waveGeometry = new THREE.PlaneGeometry(30, 30, 128, 128);
-            const waveMaterial = new THREE.ShaderMaterial({
+            for(let i = 0; i < nebulaCount; i++) {
+                positions[i*3+0] = (Math.random() - 0.5) * 15;
+                positions[i*3+1] = (Math.random() - 0.5) * 15;
+                positions[i*3+2] = (Math.random() - 0.5) * 15;
+                scales[i] = Math.random() * 2.5;
+            }
+            nebulaGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            nebulaGeometry.setAttribute('aScale', new THREE.BufferAttribute(scales, 1));
+
+            const nebulaMaterial = new THREE.ShaderMaterial({
                 uniforms: {
                     uTime: { value: 0 },
-                    uColor1: { value: new THREE.Color('#0A66C2') },
-                    uColor2: { value: new THREE.Color('#057642') }
+                    uSize: { value: 40 * renderer.getPixelRatio() },
+                    uColor1: { value: new THREE.Color('#0A66C2')}, // Accent Blue
+                    uColor2: { value: new THREE.Color('#057642')}  // Accent Green
                 },
                 vertexShader: `
                     uniform float uTime;
-                    varying float vNoise;
-
-                    // Perlin 3D Noise (from https://github.com/stegu/webgl-noise)
-                    vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-                    vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-                    vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
-                    vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
-                    float snoise(vec3 v) {
-                        const vec2 C = vec2(1.0/6.0, 1.0/3.0);
-                        const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
-                        vec3 i = floor(v + dot(v, C.yyy));
-                        vec3 x0 = v - i + dot(i, C.xxx);
-                        vec3 g = step(x0.yzx, x0.xyz);
-                        vec3 l = 1.0 - g;
-                        vec3 i1 = min(g.xyz, l.zxy);
-                        vec3 i2 = max(g.xyz, l.zxy);
-                        vec3 x1 = x0 - i1 + C.xxx;
-                        vec3 x2 = x0 - i2 + C.yyy;
-                        vec3 x3 = x0 - D.yyy;
-                        i = mod289(i);
-                        vec4 p = permute(permute(permute(
-                            i.z + vec4(0.0, i1.z, i2.z, 1.0))
-                            + i.y + vec4(0.0, i1.y, i2.y, 1.0))
-                            + i.x + vec4(0.0, i1.x, i2.x, 1.0));
-                        float n_ = 0.142857142857;
-                        vec3 ns = n_ * D.wyz - D.xzx;
-                        vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
-                        vec4 x_ = floor(j * ns.z);
-                        vec4 y_ = floor(j - 7.0 * x_);
-                        vec4 x = x_ * ns.x + ns.yyyy;
-                        vec4 y = y_ * ns.x + ns.yyyy;
-                        vec4 h = 1.0 - abs(x) - abs(y);
-                        vec4 b0 = vec4(x.xy, y.xy);
-                        vec4 b1 = vec4(x.zw, y.zw);
-                        vec4 s0 = floor(b0)*2.0 + 1.0;
-                        vec4 s1 = floor(b1)*2.0 + 1.0;
-                        vec4 sh = -step(h, vec4(0.0));
-                        vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy;
-                        vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
-                        vec3 p0 = vec3(a0.xy,h.x);
-                        vec3 p1 = vec3(a0.zw,h.y);
-                        vec3 p2 = vec3(a1.xy,h.z);
-                        vec3 p3 = vec3(a1.zw,h.w);
-                        vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));
-                        p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
-                        vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
-                        m = m * m;
-                        return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
-                    }
-
+                    uniform float uSize;
+                    attribute float aScale;
+                    
                     void main() {
-                        vec3 pos = position;
-                        float noise = snoise(vec3(pos.x * 0.1, pos.y * 0.1, uTime * 0.1));
-                        pos.z += noise * 2.0;
-                        vNoise = noise;
-                        gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+                        vec4 modelPosition = modelMatrix * vec4(position, 1.0);
+                        
+                        float angle = atan(modelPosition.x, modelPosition.z);
+                        float distanceToCenter = length(modelPosition.xz);
+                        angle += distanceToCenter * 0.1 + uTime * 0.1;
+                        modelPosition.x = cos(angle) * distanceToCenter;
+                        modelPosition.z = sin(angle) * distanceToCenter;
+                        modelPosition.y += sin(uTime + distanceToCenter * 0.5) * 0.5;
+
+                        vec4 viewPosition = viewMatrix * modelPosition;
+                        gl_Position = projectionMatrix * viewPosition;
+                        gl_PointSize = uSize * aScale / -viewPosition.z;
                     }
                 `,
                 fragmentShader: `
                     uniform vec3 uColor1;
                     uniform vec3 uColor2;
-                    varying float vNoise;
+
                     void main() {
-                        vec3 color = mix(uColor1, uColor2, (vNoise + 1.0) * 0.5);
-                        gl_FragColor = vec4(color, 0.8);
+                        float strength = distance(gl_PointCoord, vec2(0.5));
+                        strength = 1.0 - strength * 2.0;
+                        
+                        vec3 color = mix(uColor1, uColor2, smoothstep(0.0, 1.0, gl_FragCoord.z));
+
+                        gl_FragColor = vec4(color, strength * 0.5);
                     }
                 `,
                 transparent: true,
-                side: THREE.DoubleSide
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
             });
-            
-            wavePlane = new THREE.Mesh(waveGeometry, waveMaterial);
-            wavePlane.rotation.x = -Math.PI * 0.4;
-            wavePlane.position.y = -2;
-            scene.add(wavePlane);
+
+            nebulaParticles = new THREE.Points(nebulaGeometry, nebulaMaterial);
+            scene.add(nebulaParticles);
+
+            // Subtle "Starfield" (dark specks)
+            const starGeometry = new THREE.BufferGeometry();
+            const starCount = 1000;
+            const starPositions = new Float32Array(starCount * 3);
+            for(let i=0; i < starCount; i++){
+                starPositions[i*3+0] = (Math.random() - 0.5) * 50;
+                starPositions[i*3+1] = (Math.random() - 0.5) * 50;
+                starPositions[i*3+2] = (Math.random() - 0.5) * 50;
+            }
+            starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+            const starMaterial = new THREE.PointsMaterial({
+                color: 0x4A4A4A, // Dark gray color for specks
+                size: 0.05,
+                transparent: true,
+                opacity: 0.3
+            });
+            starParticles = new THREE.Points(starGeometry, starMaterial);
+            scene.add(starParticles);
         }
 
         function updateBackground() {
             while (scene.children.length > 0) scene.remove(scene.children[0]);
-            scene.fog = null; // Clear fog before rebuilding
+            scene.fog = null;
 
             if (currentTheme === 'lab') {
                 createLightBackground();
@@ -238,13 +235,12 @@ document.addEventListener('DOMContentLoaded', () => {
             camera.position.y += (mouseY * 2 - camera.position.y) * 0.05;
             camera.lookAt(scene.position);
 
-            if (currentTheme === 'dark' && nebulaParticles) {
+            // This logic now works for both themes
+            if (nebulaParticles) {
                 nebulaParticles.material.uniforms.uTime.value = elapsedTime;
-                starParticles.rotation.y += 0.0001;
             }
-            if (currentTheme === 'lab' && wavePlane) {
-                wavePlane.material.uniforms.uTime.value = elapsedTime;
-                wavePlane.rotation.z += 0.0002;
+            if (starParticles) {
+                starParticles.rotation.y += 0.0001;
             }
 
             renderer.render(scene, camera);
@@ -463,8 +459,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ringX += (mouseX - ringX) * 0.25; // Ring follows slower
             ringY += (mouseY - ringY) * 0.25;
 
-            dot.style.transform = `translate(${dotX - 4}px, ${dotY - 4}px)`;
-            ring.style.transform = `translate(${ringX - 20}px, ${ringY - 20}px)`;
+            dot.style.transform = `translate(${dotX}px, ${dotY}px)`;
+            ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
 
             requestAnimationFrame(animateCursor);
         }
