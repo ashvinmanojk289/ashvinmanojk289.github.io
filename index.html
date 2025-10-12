@@ -53,51 +53,51 @@
 </head>
 
 <body>
-    <!-- Chatbot/AI Assistant -->
-    <div id="chat-toggle-btn" class="chat-toggle-btn" title="Ask AI Assistant" aria-label="Open AI Assistant">
-    <i class="fas fa-robot" aria-hidden="true"></i>
-    </div>
-    <div id="chat-window" class="chat-window" style="display:none;" aria-modal="true" aria-label="AI Assistant Chat">
-        <div class="chat-header">
-            <span class="chat-title"><i class="fas fa-robot" aria-hidden="true"></i> AI Assistant</span>
-            <button id="chat-close-btn" class="chat-close-btn" aria-label="Close Chat" tabindex="0">&times;</button>
-        </div>
-        <div id="chat-messages" class="chat-messages"></div>
-        <form id="chat-form" class="chat-form" autocomplete="off">
-            <input type="text" id="chat-input" class="chat-input" placeholder="Ask me to navigate, answer, or help..." aria-label="Type your question" />
-            <button type="submit" class="chat-send-btn" aria-label="Send"><i class="fas fa-paper-plane" aria-hidden="true"></i></button>
-        </form>
-    </div>
-    <!-- Command Palette Modal -->
-    <div id="command-palette" class="command-palette-modal" tabindex="-1" aria-modal="true" aria-label="Command Palette" style="display:none;">
-        <div class="command-palette-container">
-            <input type="text" id="command-palette-input" class="command-palette-input" placeholder="Type a command..." autocomplete="off" aria-label="Type a command" />
-            <ul id="command-palette-list" class="command-palette-list"></ul>
-        </div>
-    </div>
-    <!-- 3D Background Canvas -->
     <canvas id="bg-canvas"></canvas>
-    <!-- three.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- Floating Action Button -->
+    <div id="chat-toggle-btn" class="chat-toggle-btn" title="Ask AI Assistant (Ctrl+B)" aria-label="Open AI Assistant">
+        <i class="fas fa-robot" aria-hidden="true"></i>
+    </div>
+    <div id="chat-window" class="chat-window" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="chat-title">
+        <div class="chat-header">
+            <span id="chat-title" class="chat-title"><i class="fas fa-robot" aria-hidden="true"></i> AI Assistant</span>
+            <button id="chat-close-btn" class="chat-close-btn" aria-label="Close Chat">&times;</button>
+        </div>
+        <div id="chat-messages" class="chat-messages">
+            </div>
+        <div id="chat-suggestions" class="chat-suggestions">
+            </div>
+        <form id="chat-form" class="chat-form" autocomplete="off">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Ask about my resume..." aria-label="Type your question" />
+            <button type="submit" id="chat-send-btn" class="chat-send-btn" aria-label="Send"><i class="fas fa-paper-plane" aria-hidden="true"></i></button>
+        </form>
+    </div>
+
+    <div id="command-palette" class="command-palette-modal" style="display:none;" tabindex="-1" role="dialog" aria-modal="true" aria-label="Command Palette">
+        <div class="command-palette-container">
+            <input type="text" id="command-palette-input" class="command-palette-input" placeholder="Type a command or search... (Ctrl+K)" autocomplete="off" aria-label="Type a command" />
+            <ul id="command-palette-list" class="command-palette-list" role="listbox"></ul>
+        </div>
+    </div>
+
     <button id="fab-contact" class="floating-action-btn" title="Contact Me" aria-label="Contact Me">
-    <i class="fas fa-paper-plane" aria-hidden="true"></i>
+        <i class="fas fa-paper-plane" aria-hidden="true"></i>
     </button>
 
     <header class="top-header">
         <nav class="navbar">
-            <a href="#home" class="nav-logo" tabindex="0" aria-label="Go to Home">AM.</a>
+            <a href="#home" class="nav-logo" aria-label="Go to Home">AM.</a>
             <ul class="nav-menu" role="menubar">
-                <li class="nav-item" role="none"><a href="#home" class="nav-link active" role="menuitem" tabindex="0" aria-label="Home">Home</a></li>
-                <li class="nav-item" role="none"><a href="#about" class="nav-link" role="menuitem" tabindex="0" aria-label="About">About</a></li>
-                <li class="nav-item" role="none"><a href="#experience" class="nav-link" role="menuitem" tabindex="0" aria-label="Experience">Experience</a></li>
-                <li class="nav-item" role="none"><a href="#featured-projects" class="nav-link" role="menuitem" tabindex="0" aria-label="Projects">Projects</a></li>
-                <li class="nav-item" role="none"><a href="#skills" class="nav-link" role="menuitem" tabindex="0" aria-label="Skills">Skills</a></li>
-                <li class="nav-item" role="none"><a href="#achievements" class="nav-link" role="menuitem" tabindex="0" aria-label="Awards">Awards</a></li>
-                <li class="nav-item" role="none"><a href="#contact" class="nav-link" role="menuitem" tabindex="0" aria-label="Contact">Contact</a></li>
+                <li role="none"><a href="#home" class="nav-link active" role="menuitem" aria-current="page">Home</a></li>
+                <li role="none"><a href="#about" class="nav-link" role="menuitem">About</a></li>
+                <li role="none"><a href="#experience" class="nav-link" role="menuitem">Experience</a></li>
+                <li role="none"><a href="#featured-projects" class="nav-link" role="menuitem">Projects</a></li>
+                <li role="none"><a href="#skills" class="nav-link" role="menuitem">Skills</a></li>
+                <li role="none"><a href="#achievements" class="nav-link" role="menuitem">Awards</a></li>
+                <li role="none"><a href="#contact" class="nav-link" role="menuitem">Contact</a></li>
             </ul>
             <div class="header-actions">
                 <div class="social-links">
@@ -107,10 +107,10 @@
                 <div class="theme-switcher">
                     <button class="theme-btn" id="theme-toggle-btn" aria-label="Toggle Light/Dark Mode">
                         <i class="fas fa-sun" id="theme-icon-sun"></i>
-                        <i class="fas fa-moon" id="theme-icon-moon" class="hidden"></i>
+                        <i class="fas fa-moon hidden" id="theme-icon-moon"></i>
                     </button>
                 </div>
-                <div class="nav-toggle" id="nav-toggle">
+                <div class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
                     <span></span><span></span><span></span>
                 </div>
             </div>
@@ -141,7 +141,7 @@
                         <p>My passion lies at the intersection of robotics and natural language processing, where I leverage hands-on skills in ROS, PyTorch, and deep learning to create machines that can perceive, understand, and interact with their environment. From developing autonomous navigation for agricultural robots to building conversational AI, I am driven by the challenge of creating practical, real-world solutions.</p>
                     </div>
                     <div class="github-stats reveal">
-                    <h3>Live from GitHub</h3>
+                        <h3>Live from GitHub</h3>
                         <div class="stats-container">
                             <div class="stat-card">
                                 <h4 id="github-repos">0</h4>
@@ -232,18 +232,9 @@
                         <h3>Multilingual News Audio Translator</h3>
                         <p class="featured-project-description">Revolutionary full-stack application using cutting-edge Wav2Vec 2.0 and mBART models for real-time audio translation across multiple languages.</p>
                         <div class="featured-project-stats">
-                            <div class="stat-item">
-                                <span class="stat-number">5+</span>
-                                <span class="stat-label">Languages</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-number">Real-time</span>
-                                <span class="stat-label">Translation</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-number">Flask</span>
-                                <span class="stat-label">Full-stack</span>
-                            </div>
+                            <div class="stat-item"><span class="stat-number">5+</span><span class="stat-label">Languages</span></div>
+                            <div class="stat-item"><span class="stat-number">Real-time</span><span class="stat-label">Translation</span></div>
+                            <div class="stat-item"><span class="stat-number">Flask</span><span class="stat-label">Full-stack</span></div>
                         </div>
                         <div class="featured-project-actions">
                             <button class="button-secondary open-modal-btn" data-modal-target="modal-translator">Case Study</button>
@@ -342,9 +333,7 @@
                 <h2 class="section-title reveal" style="margin-top: 50px;">Awards & Achievements</h2>
                 <div class="achievements-grid reveal">
                     <div class="achievement-card reveal scale-up d1">
-                        <div class="achievement-icon">
-                            <i class="fas fa-trophy"></i>
-                        </div>
+                        <div class="achievement-icon"><i class="fas fa-trophy"></i></div>
                         <h3>Academic Excellence</h3>
                         <p class="achievement-highlight">Consistent High Performance</p>
                         <ul>
@@ -353,9 +342,7 @@
                         </ul>
                     </div>
                     <div class="achievement-card reveal scale-up d2">
-                        <div class="achievement-icon">
-                            <i class="fas fa-book-open"></i>
-                        </div>
+                        <div class="achievement-icon"><i class="fas fa-book-open"></i></div>
                         <h3>Research Publication</h3>
                         <p class="achievement-highlight">IEEE Conference Publication</p>
                         <ul>
@@ -365,9 +352,7 @@
                         </ul>
                     </div>
                     <div class="achievement-card reveal scale-up d3">
-                        <div class="achievement-icon">
-                            <i class="fas fa-medal"></i>
-                        </div>
+                        <div class="achievement-icon"><i class="fas fa-medal"></i></div>
                         <h3>Professional Impact</h3>
                         <p class="achievement-highlight">Industry Recognition</p>
                         <ul>
@@ -377,9 +362,7 @@
                         </ul>
                     </div>
                     <div class="achievement-card reveal scale-up d4">
-                        <div class="achievement-icon">
-                            <i class="fas fa-certificate"></i>
-                        </div>
+                        <div class="achievement-icon"><i class="fas fa-certificate"></i></div>
                         <h3>Technical Certifications</h3>
                         <p class="achievement-highlight">Continuous Learning</p>
                         <ul>
@@ -398,7 +381,10 @@
                     <form action="https://getform.io/f/adrddnka" method="POST" class="contact-form">
                         <div class="form-group"><input type="text" name="name" placeholder="Your Name" required><input type="email" name="email" placeholder="Your Email" required></div>
                         <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
-                        <button type="submit" class="button">Send Message <i class="fas fa-paper-plane"></i></button>
+                        <div class="form-success" id="form-success-message">Your message has been sent successfully!</div>
+                        <div class="form-sending">
+                            <button type="submit" class="button">Send Message <i class="fas fa-paper-plane"></i></button>
+                        </div>
                         <a href="assets/ashvinmanoj.vcf" class="button-secondary vcard-btn" download="Ashvin_Manoj.vcf"><i class="fas fa-id-card"></i>&nbsp;Download vCard</a>
                     </form>
                 </div>
@@ -428,36 +414,7 @@
             <p>© <span id="current-year"></span> Ashvin Manoj. All Rights Reserved.</p>
         </footer>
     </div>
-
-    <div class="chat-assistant">
-        <div id="chat-loading-overlay" class="chat-loading-overlay">
-            <div class="am-symbol">AM</div>
-        </div>
-        <button class="chat-toggle-btn" aria-label="Toggle AI Assistant"><i class="fas fa-robot"></i></button>
-        <div class="chat-window">
-            <div class="chat-header"><h3>AI Assistant</h3><span>Ask me about my resume!</span></div>
-            <div class="chat-body">
-                <div class="chat-message bot">
-                    Hi there! I'm Ashvin's AI assistant. You can ask me about his work, or start with one of these questions.
-                </div>
-                <div class="suggested-questions">
-                    <button class="suggested-question">What are his top skills?</button>
-                    <button class="suggested-question">Tell me about his robotics projects.</button>
-                    <button class="suggested-question">What is his professional experience?</button>
-                </div>
-            </div>
-            <div class="chat-footer">
-                <input type="text" id="chat-input" placeholder="e.g., What are his top skills?"><button id="chat-send-btn" title="Send message"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </div>
-    </div>
-
-    <div id="command-palette-overlay" class="cmdk-overlay">
-        <div id="command-palette" class="cmdk-container">
-            <input id="cmdk-input" type="text" placeholder="Type a command or search..." /><ul id="cmdk-list"></ul>
-        </div>
-    </div>
-
+    
     <div class="modal-overlay"></div>
     <div class="modal" id="modal-translator" role="dialog" aria-modal="true" aria-labelledby="modal-translator-title"><div class="modal-content"><button class="close-modal-btn" aria-label="Close case study">&times;</button><h3 id="modal-translator-title">Case Study: Multilingual News Audio Translator</h3><h4><strong>Problem:</strong> Live news broadcasts are often inaccessible to audiences who speak different languages.</h4><p><strong>Solution:</strong> I developed a full-stack web application that translates spoken audio in near real-time. It uses a Wav2Vec 2.0 model for highly accurate speech recognition and a fine-tuned mBART model for fluent, context-aware translation between multiple languages.</p><p><strong>Tech Stack:</strong> Python, Flask, Hugging Face (Transformers, Wav2Vec 2.0, mBART), PyTorch.</p></div></div>
     <div class="modal" id="modal-robot" role="dialog" aria-modal="true" aria-labelledby="modal-robot-title"><div class="modal-content"><button class="close-modal-btn" aria-label="Close case study">&times;</button><h3 id="modal-robot-title">Case Study: Automatic Weed Detection and Spraying Robot</h3><h4><strong>Problem:</strong> Traditional herbicide application in agriculture is often imprecise, leading to environmental damage and wasted resources.</h4><p><strong>Solution:</strong> I built an AI-powered autonomous robot that uses computer vision to differentiate between crops and weeds with 97% accuracy. It navigates fields using ROS and applies herbicide directly to weeds, minimizing environmental impact. The core of the system is a custom-trained hybrid EfficientNetV2-Transformer model for robust detection.</p><p><strong>Tech Stack:</strong> Python, ROS, PyTorch, Transformers, Computer Vision (OpenCV), Embedded Systems.</p></div></div>
@@ -474,8 +431,10 @@
         <i class="fas fa-arrow-up"></i>
     </button>
     
+    <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
     <script src="script.js" defer></script>
     <script>
+        // Prevent right-clicking on images to disable saving
         document.addEventListener('contextmenu', function(e) {
             if (e.target.tagName === 'IMG') {
                 e.preventDefault();
