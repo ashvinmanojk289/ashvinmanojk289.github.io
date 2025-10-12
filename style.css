@@ -160,12 +160,12 @@ body {
 .cursor-dot {
     width: 8px;
     height: 8px;
-    background-color: var(--accent-primary);
+    background-color: var(--text-primary); /* Changed to text color */
 }
 .cursor-ring {
     width: 40px;
     height: 40px;
-    border: 2px solid var(--accent-primary);
+    border: 2px solid var(--text-primary); /* Changed to text color */
     opacity: 0.5;
 }
 .custom-cursor.interact .cursor-dot {
