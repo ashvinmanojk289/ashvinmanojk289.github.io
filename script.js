@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function init3DBackground() {
         const canvas = document.getElementById('bg-canvas');
         if (!canvas || !window.THREE) return;
+
+        // --- Basic Setup ---
         canvas.style.position = 'fixed';
         canvas.style.top = '0';
         canvas.style.left = '0';
@@ -10,169 +12,164 @@ document.addEventListener('DOMContentLoaded', () => {
         canvas.style.height = '100vh';
         canvas.style.zIndex = '0';
         canvas.style.pointerEvents = 'none';
-        // Three.js setup
-        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 7;
+        camera.position.z = 15;
+
         let currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-        let stars, nebula, planet, lightParticles, rays;
+        let mouseX = 0, mouseY = 0;
+        const clock = new THREE.Clock();
 
+        // --- Theme-specific objects ---
+        let galaxy, dust, crystals, lightDust, pointLight1, pointLight2;
+
+        // --- Dark Theme: Realistic Galaxy ---
         function createDarkBackground() {
-            // Realistic space: stars, nebula, and a planet
-            const starCount = 1500;
-            const starGeometry = new THREE.BufferGeometry();
-            const starPositions = new Float32Array(starCount * 3);
-            const starColors = new Float32Array(starCount * 3);
+            const starCount = 20000;
+            const positions = new Float32Array(starCount * 3);
+            const colors = new Float32Array(starCount * 3);
+            const sizes = new Float32Array(starCount);
+
+            const galaxyColor = new THREE.Color(0x58A6FF);
+            const coreColor = new THREE.Color(0xFFDDC1);
+
             for (let i = 0; i < starCount; i++) {
-                starPositions[i * 3] = (Math.random() - 0.5) * 300;
-                starPositions[i * 3 + 1] = (Math.random() - 0.5) * 300;
-                starPositions[i * 3 + 2] = (Math.random() - 0.5) * 300;
-                // Random star colors: white, blue, yellow
-                const colorType = Math.random();
-                if (colorType < 0.7) {
-                    starColors[i * 3] = 1; starColors[i * 3 + 1] = 1; starColors[i * 3 + 2] = 1; // white
-                } else if (colorType < 0.9) {
-                    starColors[i * 3] = 0.7; starColors[i * 3 + 1] = 0.8; starColors[i * 3 + 2] = 1; // blue
-                } else {
-                    starColors[i * 3] = 1; starColors[i * 3 + 1] = 1; starColors[i * 3 + 2] = 0.8; // yellow
-                }
+                const i3 = i * 3;
+                const radius = Math.random() * 80;
+                const spinAngle = radius * 3;
+                const branchAngle = (i % 5) / 5 * Math.PI * 2;
+                const randomX = (Math.random() - 0.5) ** 3 * (80 - radius) * 0.2;
+                const randomY = (Math.random() - 0.5) ** 3 * (80 - radius) * 0.2;
+                const randomZ = (Math.random() - 0.5) ** 3 * (80 - radius) * 0.2;
+
+                positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
+                positions[i3 + 1] = randomY;
+                positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
+
+                const mixedColor = galaxyColor.clone();
+                mixedColor.lerp(coreColor, radius / 100);
+                colors[i3] = mixedColor.r;
+                colors[i3 + 1] = mixedColor.g;
+                colors[i3 + 2] = mixedColor.b;
+                sizes[i] = Math.random() * 3 + 1;
             }
-            starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-            starGeometry.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
-            const starMaterial = new THREE.PointsMaterial({
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+            
+            const material = new THREE.PointsMaterial({
+                size: 0.1,
+                sizeAttenuation: true,
+                depthWrite: false,
+                blending: THREE.AdditiveBlending,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.9
+            });
+
+            galaxy = new THREE.Points(geometry, material);
+            scene.add(galaxy);
+
+            // Interstellar Dust
+            const dustCount = 500;
+            const dustPositions = new Float32Array(dustCount * 3);
+            for(let i = 0; i < dustCount; i++) {
+                dustPositions[i*3] = (Math.random() - 0.5) * 150;
+                dustPositions[i*3+1] = (Math.random() - 0.5) * 150;
+                dustPositions[i*3+2] = (Math.random() - 0.5) * 150;
+            }
+            const dustGeometry = new THREE.BufferGeometry();
+            dustGeometry.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
+            const dustMaterial = new THREE.PointsMaterial({
                 size: 1.5,
-                transparent: true,
-                opacity: 0.9,
-                vertexColors: true
-            });
-            stars = new THREE.Points(starGeometry, starMaterial);
-            scene.add(stars);
-
-            // Nebula particles
-            const nebulaCount = 800;
-            const nebulaGeometry = new THREE.BufferGeometry();
-            const nebulaPositions = new Float32Array(nebulaCount * 3);
-            const nebulaColors = new Float32Array(nebulaCount * 3);
-            for (let i = 0; i < nebulaCount; i++) {
-                // Concentrate around center
-                const radius = Math.random() * 50 + 20;
-                const theta = Math.random() * Math.PI * 2;
-                const phi = Math.random() * Math.PI;
-                nebulaPositions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-                nebulaPositions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-                nebulaPositions[i * 3 + 2] = radius * Math.cos(phi);
-                // Nebula colors: purple, pink, blue
-                nebulaColors[i * 3] = 0.5 + Math.random() * 0.5; // R
-                nebulaColors[i * 3 + 1] = 0.2 + Math.random() * 0.3; // G
-                nebulaColors[i * 3 + 2] = 0.8 + Math.random() * 0.2; // B
-            }
-            nebulaGeometry.setAttribute('position', new THREE.BufferAttribute(nebulaPositions, 3));
-            nebulaGeometry.setAttribute('color', new THREE.BufferAttribute(nebulaColors, 3));
-            const nebulaMaterial = new THREE.PointsMaterial({
-                size: 3,
-                transparent: true,
-                opacity: 0.4,
-                vertexColors: true
-            });
-            const nebula = new THREE.Points(nebulaGeometry, nebulaMaterial);
-            scene.add(nebula);
-
-            // Planet
-            const planetGeometry = new THREE.SphereGeometry(5, 32, 32);
-            const planetMaterial = new THREE.MeshStandardMaterial({
-                color: 0x4a90e2,
-                roughness: 0.8,
-                metalness: 0.1
-            });
-            const planet = new THREE.Mesh(planetGeometry, planetMaterial);
-            planet.position.set(15, -5, -20);
-            scene.add(planet);
-
-            // Point light near planet
-            const planetLight = new THREE.PointLight(0x4a90e2, 0.5, 50);
-            planetLight.position.set(15, -5, -15);
-            scene.add(planetLight);
-
-            renderer.setClearColor(0x000011, 1);
-        }
-
-        function createLightBackground() {
-            // Serene light theme: floating bubbles and light rays
-            const bubbleCount = 300;
-            const bubbleGeometry = new THREE.BufferGeometry();
-            const bubblePositions = new Float32Array(bubbleCount * 3);
-            const bubbleSizes = new Float32Array(bubbleCount);
-            for (let i = 0; i < bubbleCount; i++) {
-                bubblePositions[i * 3] = (Math.random() - 0.5) * 100;
-                bubblePositions[i * 3 + 1] = (Math.random() - 0.5) * 100;
-                bubblePositions[i * 3 + 2] = (Math.random() - 0.5) * 100;
-                bubbleSizes[i] = Math.random() * 2 + 0.5;
-            }
-            bubbleGeometry.setAttribute('position', new THREE.BufferAttribute(bubblePositions, 3));
-            bubbleGeometry.setAttribute('size', new THREE.BufferAttribute(bubbleSizes, 1));
-            const bubbleMaterial = new THREE.ShaderMaterial({
-                uniforms: {
-                    time: { value: 0 }
-                },
-                vertexShader: `
-                    attribute float size;
-                    varying float vSize;
-                    void main() {
-                        vSize = size;
-                        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-                        gl_PointSize = size * (300.0 / -mvPosition.z);
-                        gl_Position = projectionMatrix * mvPosition;
-                    }
-                `,
-                fragmentShader: `
-                    varying float vSize;
-                    void main() {
-                        float alpha = 1.0 - length(gl_PointCoord - vec2(0.5));
-                        gl_FragColor = vec4(0.8, 0.9, 1.0, alpha * 0.6);
-                    }
-                `,
-                transparent: true,
-                blending: THREE.AdditiveBlending
-            });
-            lightParticles = new THREE.Points(bubbleGeometry, bubbleMaterial);
-            scene.add(lightParticles);
-
-            // Light rays
-            const rayCount = 50;
-            const rayGeometry = new THREE.BufferGeometry();
-            const rayPositions = new Float32Array(rayCount * 6); // lines
-            for (let i = 0; i < rayCount; i++) {
-                const angle = (i / rayCount) * Math.PI * 2;
-                const radius = 50;
-                rayPositions[i * 6] = Math.cos(angle) * radius;
-                rayPositions[i * 6 + 1] = -20;
-                rayPositions[i * 6 + 2] = Math.sin(angle) * radius;
-                rayPositions[i * 6 + 3] = Math.cos(angle) * (radius + 20);
-                rayPositions[i * 6 + 4] = 20;
-                rayPositions[i * 6 + 5] = Math.sin(angle) * (radius + 20);
-            }
-            rayGeometry.setAttribute('position', new THREE.BufferAttribute(rayPositions, 3));
-            const rayMaterial = new THREE.LineBasicMaterial({
-                color: 0xfff8dc,
+                color: 0x21262d,
                 transparent: true,
                 opacity: 0.3
             });
-            const rays = new THREE.LineSegments(rayGeometry, rayMaterial);
-            scene.add(rays);
+            dust = new THREE.Points(dustGeometry, dustMaterial);
+            scene.add(dust);
 
-            renderer.setClearColor(0xe6f7ff, 1); // Light blue sky
+            renderer.setClearColor(0x0D1117, 1);
+        }
+
+        // --- Light Theme: Ethereal Crystals ---
+        function createLightBackground() {
+            crystals = new THREE.Group();
+            const crystalGeometry = new THREE.IcosahedronGeometry(1, 0);
+            
+            for (let i = 0; i < 50; i++) {
+                const crystalMaterial = new THREE.MeshPhysicalMaterial({
+                    color: 0xffffff,
+                    transmission: 1.0,
+                    roughness: 0.1,
+                    metalness: 0.0,
+                    ior: 1.8,
+                    thickness: 0.5,
+                    specularIntensity: 1.0,
+                    opacity: 0.7,
+                    transparent: true
+                });
+
+                const crystal = new THREE.Mesh(crystalGeometry, crystalMaterial);
+                crystal.position.set(
+                    (Math.random() - 0.5) * 40,
+                    (Math.random() - 0.5) * 40,
+                    (Math.random() - 0.5) * 40
+                );
+                crystal.rotation.set(
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI
+                );
+                const scale = Math.random() * 0.8 + 0.2;
+                crystal.scale.set(scale, scale, scale);
+                crystals.add(crystal);
+            }
+            scene.add(crystals);
+
+            // Light Dust Particles
+            const dustCount = 500;
+            const dustPositions = new Float32Array(dustCount * 3);
+            for(let i = 0; i < dustCount; i++) {
+                dustPositions[i * 3] = (Math.random() - 0.5) * 50;
+                dustPositions[i * 3 + 1] = (Math.random() - 0.5) * 50;
+                dustPositions[i * 3 + 2] = (Math.random() - 0.5) * 50;
+            }
+            const dustGeometry = new THREE.BufferGeometry();
+            dustGeometry.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
+            const dustMaterial = new THREE.PointsMaterial({
+                size: 0.1,
+                color: 0x0A66C2,
+                blending: THREE.AdditiveBlending,
+                transparent: true,
+                opacity: 0.5
+            });
+            lightDust = new THREE.Points(dustGeometry, dustMaterial);
+            scene.add(lightDust);
+
+            // Dynamic Lights
+            pointLight1 = new THREE.PointLight(0x0A66C2, 2, 100);
+            scene.add(pointLight1);
+            pointLight2 = new THREE.PointLight(0x057642, 2, 100);
+            scene.add(pointLight2);
+            
+            renderer.setClearColor(0xF8F9FA, 1);
         }
 
         function updateBackground() {
-            // Clear scene
             while (scene.children.length > 0) {
                 scene.remove(scene.children[0]);
             }
-            // Add lighting
             const ambientLight = new THREE.AmbientLight(0xffffff, currentTheme === 'lab' ? 0.8 : 0.1);
             scene.add(ambientLight);
+
             if (currentTheme === 'lab') {
                 createLightBackground();
             } else {
@@ -181,74 +178,57 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         updateBackground();
-        // Mouse movement responsiveness
-        let mouseX = 0, mouseY = 0;
+
         window.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseX = e.clientX / window.innerWidth * 2 - 1;
             mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
         });
-        // Theme change responsiveness
+
         const observer = new MutationObserver(() => {
             currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
             updateBackground();
         });
         observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-        // Animate
+
         function animate() {
             requestAnimationFrame(animate);
-            // Camera follows mouse
-            camera.position.x += (mouseX * 2 - camera.position.x) * 0.08;
-            camera.position.y += (mouseY * 1.5 - camera.position.y) * 0.08;
-            camera.lookAt(0, 0, 0);
-            if (currentTheme === 'lab') {
-                // Animate bubbles rising and shader
-                if (lightParticles) {
-                    lightParticles.material.uniforms.time.value += 0.01;
-                    const positions = lightParticles.geometry.attributes.position.array;
-                    for (let i = 0; i < positions.length; i += 3) {
-                        positions[i + 1] += 0.02; // Rise up
-                        if (positions[i + 1] > 50) positions[i + 1] = -50; // Reset
-                    }
-                    lightParticles.geometry.attributes.position.needsUpdate = true;
-                    lightParticles.rotation.y += 0.0005;
-                }
-                if (rays) {
-                    rays.rotation.z += 0.0002;
-                }
-            } else {
-                // Animate stars, nebula, planet
-                if (stars) {
-                    stars.rotation.x += 0.0005;
-                    stars.rotation.y += 0.0005;
-                }
-                if (nebula) {
-                    nebula.rotation.x += 0.0003;
-                    nebula.rotation.y += 0.0003;
-                }
-                if (planet) {
-                    planet.rotation.y += 0.005;
-                }
+            const elapsedTime = clock.getElapsedTime();
+
+            camera.position.x += (mouseX * 5 - camera.position.x) * 0.05;
+            camera.position.y += (mouseY * 5 - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            if (currentTheme === 'lab' && crystals) {
+                crystals.rotation.y += 0.0005;
+                crystals.children.forEach(c => { c.rotation.x += 0.001; c.rotation.y += 0.001; });
+                lightDust.rotation.y += 0.0008;
+                pointLight1.position.x = Math.sin(elapsedTime * 0.5) * 10;
+                pointLight1.position.y = Math.cos(elapsedTime * 0.5) * 10;
+                pointLight2.position.x = Math.cos(elapsedTime * 0.3) * 10;
+                pointLight2.position.y = Math.sin(elapsedTime * 0.3) * 10;
+            } else if (galaxy) {
+                galaxy.rotation.y = elapsedTime * 0.05;
+                dust.rotation.y = elapsedTime * 0.03;
             }
             renderer.render(scene, camera);
         }
         animate();
-        // Responsive resize
+
         window.addEventListener('resize', () => {
-            renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         });
     }
 
     init3DBackground();
+
     // --- Loading Spinner Logic ---
     const spinner = document.getElementById('loadingSpinner');
-    window.addEventListener('beforeunload', () => {
-        spinner.classList.add('active');
-    });
-    window.addEventListener('load', () => {
-        spinner.classList.remove('active');
-    });
+    window.addEventListener('beforeunload', () => spinner.classList.add('active'));
+    window.addEventListener('load', () => spinner.classList.remove('active'));
+
     // --- Scroll-to-Top Button Logic ---
     const scrollBtn = document.getElementById('scrollToTopBtn');
     window.addEventListener('scroll', () => {
@@ -258,9 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollBtn.classList.remove('visible');
         }
     });
-    scrollBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
     // --- Master Initialization ---
     initTheme();
@@ -295,37 +273,27 @@ document.addEventListener('DOMContentLoaded', () => {
             iconMoon.classList.remove('hidden');
             if (profileImg) profileImg.src = 'assets/profile-dark.jpg';
         }
-        themeBtn.addEventListener('click', function() {
-            triggerTransformersTransition();
-        });
+        themeBtn.addEventListener('click', () => triggerTransformersTransition());
     }
 
     // --- Simple Elegant Theme Transition ---
     function triggerTransformersTransition() {
         const isLab = document.documentElement.getAttribute('data-theme') === 'lab';
-        
         if (document.querySelector('.theme-transition')) return;
-        
         document.body.classList.add('theme-switching');
-        
         const transitionContainer = document.createElement('div');
         transitionContainer.className = 'theme-transition';
-        
         const curtain = document.createElement('div');
         curtain.className = 'transition-curtain';
         transitionContainer.appendChild(curtain);
-        
         const ripple = document.createElement('div');
         ripple.className = 'transition-ripple';
         transitionContainer.appendChild(ripple);
-        
         document.body.appendChild(transitionContainer);
-        
         setTimeout(() => {
             const iconSun = document.getElementById('theme-icon-sun');
             const iconMoon = document.getElementById('theme-icon-moon');
             const profileImg = document.getElementById('profile-img');
-            
             if (isLab) {
                 document.documentElement.setAttribute('data-theme', 'dark');
                 localStorage.setItem('theme', 'dark');
@@ -339,8 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 iconMoon.classList.add('hidden');
                 if (profileImg) profileImg.src = 'assets/profile-light.jpg';
             }
-        }, 400); 
-        
+        }, 400);
         setTimeout(() => {
             transitionContainer.remove();
             document.body.classList.remove('theme-switching');
@@ -358,12 +325,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const navToggle = document.getElementById('nav-toggle');
         const navMenu = document.querySelector('.nav-menu');
         const navLinks = document.querySelectorAll('.nav-menu .nav-link');
-
         navToggle.addEventListener('click', () => {
             navToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
-
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 navToggle.classList.remove('active');
@@ -376,7 +341,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function initHeaderScroll() {
         const header = document.querySelector('.top-header');
         let lastScrollY = window.scrollY;
-
         window.addEventListener('scroll', () => {
             if (lastScrollY < window.scrollY && window.scrollY > 100) {
                 header.style.top = '-80px';
@@ -384,7 +348,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 header.style.top = '0';
             }
             lastScrollY = window.scrollY;
-
             if (window.scrollY > 50) {
                 header.style.boxShadow = '0 2px 15px var(--shadow-color)';
             } else {
@@ -424,30 +387,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                     let direction = (window.scrollY > lastScrollY) ? 'down' : 'up';
-                    if (entry.target.classList.contains('fade-in')) {
-                        entry.target.classList.add(direction === 'down' ? 'fade-in-up' : 'fade-in-down');
-                    }
-                    if (entry.target.classList.contains('slide-in-left')) {
-                        entry.target.classList.add(direction === 'down' ? 'slide-in-left-up' : 'slide-in-left-down');
-                    }
-                    if (entry.target.classList.contains('slide-in-right')) {
-                        entry.target.classList.add(direction === 'down' ? 'slide-in-right-up' : 'slide-in-right-down');
-                    }
-                    if (entry.target.classList.contains('scale-up')) {
-                        entry.target.classList.add(direction === 'down' ? 'scale-up-up' : 'scale-up-down');
-                    }
-                    if (entry.target.classList.contains('shadow-pop')) {
-                        entry.target.classList.add(direction === 'down' ? 'shadow-pop-up' : 'shadow-pop-down');
-                    }
+                    if (entry.target.classList.contains('fade-in')) entry.target.classList.add(direction === 'down' ? 'fade-in-up' : 'fade-in-down');
+                    if (entry.target.classList.contains('slide-in-left')) entry.target.classList.add(direction === 'down' ? 'slide-in-left-up' : 'slide-in-left-down');
+                    if (entry.target.classList.contains('slide-in-right')) entry.target.classList.add(direction === 'down' ? 'slide-in-right-up' : 'slide-in-right-down');
+                    if (entry.target.classList.contains('scale-up')) entry.target.classList.add(direction === 'down' ? 'scale-up-up' : 'scale-up-down');
+                    if (entry.target.classList.contains('shadow-pop')) entry.target.classList.add(direction === 'down' ? 'shadow-pop-up' : 'shadow-pop-down');
                 } else {
-                    entry.target.classList.remove(
-                        'visible',
-                        'fade-in-up', 'fade-in-down',
-                        'slide-in-left-up', 'slide-in-left-down',
-                        'slide-in-right-up', 'slide-in-right-down',
-                        'scale-up-up', 'scale-up-down',
-                        'shadow-pop-up', 'shadow-pop-down'
-                    );
+                    entry.target.classList.remove('visible', 'fade-in-up', 'fade-in-down', 'slide-in-left-up', 'slide-in-left-down', 'slide-in-right-up', 'slide-in-right-down', 'scale-up-up', 'scale-up-down', 'shadow-pop-up', 'shadow-pop-down');
                 }
             });
             lastScrollY = window.scrollY;
@@ -455,108 +401,96 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     }
 
-    // --- Custom Cursor Effect ---
+    // --- NEW: Unique Liquid Cursor Effect ---
     function initCustomCursor() {
         if (window.matchMedia("(pointer: coarse)").matches) return;
 
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
+        const cursorContainer = document.createElement('div');
+        cursorContainer.className = 'cursor-container';
+        document.body.appendChild(cursorContainer);
+
+        const particleCount = 20;
+        const particles = [];
         let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-        let dotX = mouseX, dotY = mouseY, outlineX = mouseX, outlineY = mouseY;
-        // Comet trail
-        const trailCount = 20;
-        const trail = [];
         let currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
 
-        function updateTrailStyles() {
-            trail.forEach((t, i) => {
+        // Create particles
+        for (let i = 0; i < particleCount; i++) {
+            const el = document.createElement('div');
+            el.className = 'cursor-particle';
+            cursorContainer.appendChild(el);
+            particles.push({
+                el: el,
+                x: mouseX, y: mouseY, vx: 0, vy: 0,
+                size: (particleCount - i) / particleCount * 15 + 5
+            });
+        }
+
+        function updateCursorStyles() {
+            particles.forEach((p, i) => {
                 if (currentTheme === 'lab') {
-                    // Light theme: sparkling particles
-                    t.el.style.width = '6px';
-                    t.el.style.height = '6px';
-                    t.el.style.borderRadius = '50%';
-                    t.el.style.background = `radial-gradient(circle, rgba(255,215,0,${0.8 - i * 0.03}), rgba(255,215,0,0))`;
+                    // Light theme: Liquid metal
+                    p.el.style.background = `radial-gradient(circle at 30% 30%, #E1E5E9, #4A4A4A)`;
+                    p.el.style.boxShadow = `none`;
                 } else {
-                    // Dark theme: comet trail
-                    t.el.style.width = `${8 - i * 0.3}px`;
-                    t.el.style.height = `${20 - i}px`;
-                    t.el.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
-                    t.el.style.background = `linear-gradient(to bottom, rgba(0,191,255,${0.8 - i * 0.03}), rgba(0,191,255,0))`;
+                    // Dark theme: Glowing plasma
+                    p.el.style.background = `radial-gradient(circle, #58A6FF, transparent)`;
+                    p.el.style.boxShadow = `0 0 ${p.size * 0.5}px #1F6FEB`;
                 }
             });
         }
 
-        for (let i = 0; i < trailCount; i++) {
-            const el = document.createElement('div');
-            el.className = 'cursor-trail';
-            el.style.position = 'fixed';
-            el.style.pointerEvents = 'none';
-            el.style.zIndex = '9998';
-            el.style.transform = 'translate(-50%, -50%)';
-            document.body.appendChild(el);
-            trail.push({el, x: mouseX, y: mouseY, vx: 0, vy: 0});
-        }
-        updateTrailStyles();
-
+        updateCursorStyles();
+        
         // Theme change observer
         const themeObserver = new MutationObserver(() => {
             currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-            updateTrailStyles();
+            updateCursorStyles();
         });
         themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        
         window.addEventListener('mousemove', e => {
             mouseX = e.clientX;
             mouseY = e.clientY;
         });
+
         function animateCursor() {
-            // Smooth follow
-            dotX += (mouseX - dotX) * 0.3;
-            dotY += (mouseY - dotY) * 0.3;
-            outlineX += (mouseX - outlineX) * 0.15;
-            outlineY += (mouseY - outlineY) * 0.15;
-            cursorDot.style.left = `${dotX}px`;
-            cursorDot.style.top = `${dotY}px`;
-            cursorOutline.style.left = `${outlineX}px`;
-            cursorOutline.style.top = `${outlineY}px`;
-            // Animate trail
-            let prevX = dotX, prevY = dotY;
-            trail.forEach((t, i) => {
-                const dx = prevX - t.x;
-                const dy = prevY - t.y;
-                if (currentTheme === 'lab') {
-                    // Light theme: sparkling dots
-                    t.vx += dx * 0.05;
-                    t.vy += dy * 0.05;
-                    t.vx *= 0.95;
-                    t.vy *= 0.95;
-                    t.x += t.vx;
-                    t.y += t.vy;
-                    t.el.style.left = `${t.x}px`;
-                    t.el.style.top = `${t.y}px`;
-                    t.el.style.opacity = `${1 - i / trailCount}`;
-                    t.el.style.transform = `translate(-50%, -50%) scale(${1 + Math.sin(Date.now() * 0.01 + i) * 0.2})`;
-                } else {
-                    // Dark theme: comet trail
-                    t.vx += dx * 0.1;
-                    t.vy += dy * 0.1;
-                    t.vx *= 0.9;
-                    t.vy *= 0.9;
-                    t.x += t.vx;
-                    t.y += t.vy;
-                    t.el.style.left = `${t.x}px`;
-                    t.el.style.top = `${t.y}px`;
-                    t.el.style.opacity = `${1 - i / trailCount}`;
-                    t.el.style.transform = `translate(-50%, -50%) rotate(${Math.atan2(dy, dx) * 180 / Math.PI}deg)`;
-                }
-                prevX = t.x;
-                prevY = t.y;
+            // Leader particle follows mouse
+            let leader = particles[0];
+            leader.vx += (mouseX - leader.x) * 0.15;
+            leader.vy += (mouseY - leader.y) * 0.15;
+            leader.vx *= 0.8;
+            leader.vy *= 0.8;
+            leader.x += leader.vx;
+            leader.y += leader.vy;
+            
+            // Follower particles chase the one in front
+            for (let i = 1; i < particleCount; i++) {
+                const follower = particles[i];
+                const target = particles[i - 1];
+                follower.vx += (target.x - follower.x) * 0.2;
+                follower.vy += (target.y - follower.y) * 0.2;
+                follower.vx *= 0.8;
+                follower.vy *= 0.8;
+                follower.x += follower.vx;
+                follower.y += follower.vy;
+            }
+
+            // Update DOM
+            particles.forEach(p => {
+                p.el.style.transform = `translate(${p.x - p.size/2}px, ${p.y - p.size/2}px)`;
+                p.el.style.width = `${p.size}px`;
+                p.el.style.height = `${p.size}px`;
             });
+
             requestAnimationFrame(animateCursor);
         }
+
         animateCursor();
+
         document.querySelectorAll('a, button, .switch, .filter-btn, .slider, input, textarea, .project-card').forEach(el => {
-            el.addEventListener('mouseenter', () => cursorOutline.classList.add('cursor-interact'));
-            el.addEventListener('mouseleave', () => cursorOutline.classList.remove('cursor-interact'));
+            el.addEventListener('mouseenter', () => cursorContainer.classList.add('cursor-interact'));
+            el.addEventListener('mouseleave', () => cursorContainer.classList.remove('cursor-interact'));
         });
     }
 
@@ -570,7 +504,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentWord = words[wordIndex];
             target.textContent = currentWord.substring(0, charIndex);
             if (isDeleting) charIndex--; else charIndex++;
-            if (!isDeleting && charIndex === currentWord.length) { setTimeout(() => isDeleting = true, 2000); } 
+            if (!isDeleting && charIndex === currentWord.length) setTimeout(() => isDeleting = true, 2000);
             else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % words.length; }
             setTimeout(type, isDeleting ? 75 : 150);
         }
@@ -588,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('github-stars').textContent = totalStars;
             const activityList = document.getElementById('github-activity');
             activityList.innerHTML = repos.slice(0, 3).map(repo => `<li>Pushed to <strong>${repo.name}</strong></li>`).join('');
-        } catch (error) { 
+        } catch (error) {
             console.error('Failed to fetch GitHub stats:', error);
             document.getElementById('github-activity').innerHTML = '<li>Could not fetch data.</li>';
         }
@@ -635,7 +569,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const closeModalButtons = document.querySelectorAll('.close-modal-btn');
         const modalOverlay = document.querySelector('.modal-overlay');
         let activeModal = null, lastFocusedElement = null;
-
         const openModal = (modal, button) => {
             lastFocusedElement = button;
             modal.classList.add('active');
@@ -646,7 +579,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const focusableElements = activeModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
             if (focusableElements.length > 0) focusableElements[0].focus();
         };
-
         const closeModal = () => {
             if (!activeModal) return;
             activeModal.classList.remove('active');
@@ -656,7 +588,6 @@ document.addEventListener('DOMContentLoaded', () => {
             activeModal = null;
             if (lastFocusedElement) lastFocusedElement.focus();
         };
-
         const handleKeyDown = (e) => {
             if (e.key === 'Escape') closeModal();
             if (e.key !== 'Tab' || !activeModal) return;
@@ -665,7 +596,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.shiftKey && document.activeElement === first) { last.focus(); e.preventDefault(); } 
             else if (!e.shiftKey && document.activeElement === last) { first.focus(); e.preventDefault(); }
         };
-        
         openModalButtons.forEach(button => button.addEventListener('click', () => openModal(document.getElementById(button.dataset.modalTarget), button)));
         closeModalButtons.forEach(button => button.addEventListener('click', closeModal));
         modalOverlay.addEventListener('click', closeModal);
@@ -677,174 +607,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const chatWindow = document.querySelector('.chat-window');
         const sendBtn = document.getElementById('chat-send-btn');
         const input = document.getElementById('chat-input');
-        
         toggleBtn.addEventListener('click', () => chatWindow.classList.toggle('active'));
         sendBtn.addEventListener('click', () => handleChatMessage());
         input.addEventListener('keyup', (e) => { if (e.key === 'Enter') handleChatMessage(); });
-
-        // Professional Q&A logic
-        const allQuestions = [
-            {
-                text: "What are Ashvin Manoj’s top technical skills?",
-                followups: [
-                    {
-                        text: "What programming languages does Ashvin use most?",
-                        followups: [
-                            "What cloud and DevOps tools is Ashvin proficient with?",
-                            "How does Ashvin use NLP in his work?",
-                            "What are Ashvin’s most notable AI/ML projects?"
-                        ]
-                    },
-                    {
-                        text: "What cloud and DevOps tools is Ashvin proficient with?",
-                        followups: [
-                            "What programming languages does Ashvin use most?",
-                            "How does Ashvin use NLP in his work?",
-                            "What are Ashvin’s top technical skills?"
-                        ]
-                    },
-                    {
-                        text: "How does Ashvin use NLP in his work?",
-                        followups: [
-                            "How has Ashvin applied deep learning in real-world scenarios?",
-                            "What cloud and DevOps tools is Ashvin proficient with?",
-                            "Can you tell me about Ashvin’s work with computer vision?"
-                        ]
-                    }
-                ]
-            },
-            {
-                text: "Can you describe Ashvin’s experience with robotics?",
-                followups: [
-                    {
-                        text: "What are Ashvin’s most notable robotics projects?",
-                        followups: [
-                            "How has Ashvin applied computer vision in robotics?",
-                            "What tools does Ashvin use for robotics?",
-                            "What professional experience does Ashvin have?"
-                        ]
-                    },
-                    {
-                        text: "How has Ashvin applied computer vision in robotics?",
-                        followups: [
-                            "What are Ashvin’s most notable robotics projects?",
-                            "What tools does Ashvin use for robotics?",
-                            "Can you tell me about Ashvin’s work with computer vision?"
-                        ]
-                    },
-                    {
-                        text: "What tools does Ashvin use for robotics?",
-                        followups: [
-                            "What are Ashvin’s most notable robotics projects?",
-                            "How has Ashvin applied computer vision in robotics?",
-                            "What professional experience does Ashvin have?"
-                        ]
-                    }
-                ]
-            },
-            {
-                text: "What professional experience does Ashvin have?",
-                followups: [
-                    "What is Ashvin’s educational background?",
-                    "What awards or achievements has Ashvin received?",
-                    "How can I contact Ashvin or view his profiles?"
-                ]
-            },
-            {
-                text: "What are Ashvin’s most notable AI/ML projects?",
-                followups: [
-                    {
-                        text: "How has Ashvin applied deep learning in real-world scenarios?",
-                        followups: [
-                            "What are Ashvin’s most notable AI/ML projects?",
-                            "How does Ashvin use NLP in his work?",
-                            "What cloud and DevOps tools is Ashvin proficient with?"
-                        ]
-                    },
-                    {
-                        text: "Can you tell me about Ashvin’s work with computer vision?",
-                        followups: [
-                            "How has Ashvin applied deep learning in real-world scenarios?",
-                            "What are Ashvin’s most notable AI/ML projects?",
-                            "What tools does Ashvin use for robotics?"
-                        ]
-                    },
-                    {
-                        text: "How does Ashvin use NLP in his work?",
-                        followups: [
-                            "How has Ashvin applied deep learning in real-world scenarios?",
-                            "What cloud and DevOps tools is Ashvin proficient with?",
-                            "Can you tell me about Ashvin’s work with computer vision?"
-                        ]
-                    }
-                ]
-            },
-            {
-                text: "How has Ashvin applied deep learning in real-world scenarios?",
-                followups: [
-                    "What are Ashvin’s most notable AI/ML projects?",
-                    "How does Ashvin use NLP in his work?",
-                    "What cloud and DevOps tools is Ashvin proficient with?"
-                ]
-            },
-            {
-                text: "What is Ashvin’s educational background?",
-                followups: [
-                    "What awards or achievements has Ashvin received?",
-                    "What professional experience does Ashvin have?",
-                    "How can I contact Ashvin or view his profiles?"
-                ]
-            },
-            {
-                text: "What awards or achievements has Ashvin received?",
-                followups: [
-                    "What is Ashvin’s educational background?",
-                    "What professional experience does Ashvin have?",
-                    "What are Ashvin’s most notable AI/ML projects?"
-                ]
-            },
-            {
-                text: "How does Ashvin use NLP in his work?",
-                followups: [
-                    "How has Ashvin applied deep learning in real-world scenarios?",
-                    "What cloud and DevOps tools is Ashvin proficient with?",
-                    "Can you tell me about Ashvin’s work with computer vision?"
-                ]
-            },
-            {
-                text: "What cloud and DevOps tools is Ashvin proficient with?",
-                followups: [
-                    "What programming languages does Ashvin use most?",
-                    "How does Ashvin use NLP in his work?",
-                    "What are Ashvin’s top technical skills?"
-                ]
-            },
-            {
-                text: "Can you tell me about Ashvin’s work with computer vision?",
-                followups: [
-                    "How has Ashvin applied deep learning in real-world scenarios?",
-                    "What are Ashvin’s most notable AI/ML projects?",
-                    "What tools does Ashvin use for robotics?"
-                ]
-            },
-            {
-                text: "What programming languages does Ashvin use most?",
-                followups: [
-                    "What cloud and DevOps tools is Ashvin proficient with?",
-                    "What are Ashvin’s top technical skills?",
-                    "How does Ashvin use NLP in his work?"
-                ]
-            },
-            {
-                text: "How can I contact Ashvin or view his profiles?",
-                followups: [
-                    "What is Ashvin’s educational background?",
-                    "What awards or achievements has Ashvin received?",
-                    "What professional experience does Ashvin have?"
-                ]
-            }
-        ];
-
+        const allQuestions = [{ text: "What are Ashvin Manoj’s top technical skills?", followups: [{ text: "What programming languages does Ashvin use most?", followups: ["What cloud and DevOps tools is Ashvin proficient with?", "How does Ashvin use NLP in his work?", "What are Ashvin’s most notable AI/ML projects?"] }, { text: "What cloud and DevOps tools is Ashvin proficient with?", followups: ["What programming languages does Ashvin use most?", "How does Ashvin use NLP in his work?", "What are Ashvin’s top technical skills?"] }, { text: "How does Ashvin use NLP in his work?", followups: ["How has Ashvin applied deep learning in real-world scenarios?", "What cloud and DevOps tools is Ashvin proficient with?", "Can you tell me about Ashvin’s work with computer vision?"] }] }, { text: "Can you describe Ashvin’s experience with robotics?", followups: [{ text: "What are Ashvin’s most notable robotics projects?", followups: ["How has Ashvin applied computer vision in robotics?", "What tools does Ashvin use for robotics?", "What professional experience does Ashvin have?"] }, { text: "How has Ashvin applied computer vision in robotics?", followups: ["What are Ashvin’s most notable robotics projects?", "What tools does Ashvin use for robotics?", "Can you tell me about Ashvin’s work with computer vision?"] }, { text: "What tools does Ashvin use for robotics?", followups: ["What are Ashvin’s most notable robotics projects?", "How has Ashvin applied computer vision in robotics?", "What professional experience does Ashvin have?"] }] }, { text: "What professional experience does Ashvin have?", followups: ["What is Ashvin’s educational background?", "What awards or achievements has Ashvin received?", "How can I contact Ashvin or view his profiles?"] }, { text: "What are Ashvin’s most notable AI/ML projects?", followups: [{ text: "How has Ashvin applied deep learning in real-world scenarios?", followups: ["What are Ashvin’s most notable AI/ML projects?", "How does Ashvin use NLP in his work?", "What cloud and DevOps tools is Ashvin proficient with?"] }, { text: "Can you tell me about Ashvin’s work with computer vision?", followups: ["How has Ashvin applied deep learning in real-world scenarios?", "What are Ashvin’s most notable AI/ML projects?", "What tools does Ashvin use for robotics?"] }, { text: "How does Ashvin use NLP in his work?", followups: ["How has Ashvin applied deep learning in real-world scenarios?", "What cloud and DevOps tools is Ashvin proficient with?", "Can you tell me about Ashvin’s work with computer vision?"] }] }, { text: "How has Ashvin applied deep learning in real-world scenarios?", followups: ["What are Ashvin’s most notable AI/ML projects?", "How does Ashvin use NLP in his work?", "What cloud and DevOps tools is Ashvin proficient with?"] }, { text: "What is Ashvin’s educational background?", followups: ["What awards or achievements has Ashvin received?", "What professional experience does Ashvin have?", "How can I contact Ashvin or view his profiles?"] }, { text: "What awards or achievements has Ashvin received?", followups: ["What is Ashvin’s educational background?", "What professional experience does Ashvin have?", "What are Ashvin’s most notable AI/ML projects?"] }, { text: "How does Ashvin use NLP in his work?", followups: ["How has Ashvin applied deep learning in real-world scenarios?", "What cloud and DevOps tools is Ashvin proficient with?", "Can you tell me about Ashvin’s work with computer vision?"] }, { text: "What cloud and DevOps tools is Ashvin proficient with?", followups: ["What programming languages does Ashvin use most?", "How does Ashvin use NLP in his work?", "What are Ashvin’s top technical skills?"] }, { text: "Can you tell me about Ashvin’s work with computer vision?", followups: ["How has Ashvin applied deep learning in real-world scenarios?", "What are Ashvin’s most notable AI/ML projects?", "What tools does Ashvin use for robotics?"] }, { text: "What programming languages does Ashvin use most?", followups: ["What cloud and DevOps tools is Ashvin proficient with?", "What are Ashvin’s top technical skills?", "How does Ashvin use NLP in his work?"] }, { text: "How can I contact Ashvin or view his profiles?", followups: ["What is Ashvin’s educational background?", "What awards or achievements has Ashvin received?", "What professional experience does Ashvin have?"] }];
         let qaRound = 0;
         let lastChoiceIdx = null;
         let secondChoiceIdx = null;
@@ -860,34 +626,22 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             document.querySelector('.chat-body').appendChild(container);
         }
-
-        // Initial 3 questions
         showSuggestedQuestions(allQuestions.slice(0, 3));
-
         document.querySelector('.chat-body').addEventListener('click', (e) => {
             if (e.target.classList.contains('suggested-question')) {
                 const idx = e.target.dataset.idx;
                 let questionObj;
-                if (qaRound === 0) {
-                    questionObj = allQuestions[idx];
-                    lastChoiceIdx = idx;
-                } else if (qaRound === 1) {
-                    questionObj = allQuestions[lastChoiceIdx].followups[idx];
-                    secondChoiceIdx = idx;
-                } else if (qaRound === 2) {
-                    questionObj = allQuestions[lastChoiceIdx].followups[secondChoiceIdx].followups[idx];
-                }
+                if (qaRound === 0) { questionObj = allQuestions[idx]; lastChoiceIdx = idx; } 
+                else if (qaRound === 1) { questionObj = allQuestions[lastChoiceIdx].followups[idx]; secondChoiceIdx = idx; } 
+                else if (qaRound === 2) { questionObj = allQuestions[lastChoiceIdx].followups[secondChoiceIdx].followups[idx]; }
                 const questionText = questionObj.text || questionObj;
                 input.value = questionText;
                 handleChatMessage(questionText);
                 e.target.parentElement.remove();
                 qaRound++;
                 if (qaRound <= 2) {
-                    if (qaRound === 1) {
-                        showSuggestedQuestions(allQuestions[lastChoiceIdx].followups);
-                    } else if (qaRound === 2) {
-                        showSuggestedQuestions(allQuestions[lastChoiceIdx].followups[secondChoiceIdx].followups);
-                    }
+                    if (qaRound === 1) showSuggestedQuestions(allQuestions[lastChoiceIdx].followups);
+                    else if (qaRound === 2) showSuggestedQuestions(allQuestions[lastChoiceIdx].followups[secondChoiceIdx].followups);
                 }
             }
         });
@@ -898,28 +652,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const input = document.getElementById('chat-input');
         const message = predefinedMessage || input.value.trim();
         if (!message) return;
-
         const chatBody = document.querySelector('.chat-body');
-        
-        // 1. Display User's Message
         const userMessageDiv = document.createElement('div');
         userMessageDiv.className = 'chat-message user';
         userMessageDiv.textContent = message;
         chatBody.appendChild(userMessageDiv);
         input.value = '';
         chatBody.scrollTop = chatBody.scrollHeight;
-
-        // 2. Show custom loading overlay
         const loadingOverlay = document.getElementById('chat-loading-overlay');
         loadingOverlay.classList.add('active');
-        // Also show a thinking indicator in chat
         const thinkingDiv = document.createElement('div');
         thinkingDiv.className = 'chat-message bot';
         thinkingDiv.innerHTML = '<span class="thinking-indicator"></span>';
         chatBody.appendChild(thinkingDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
-
-        // 3. Find a response from our local knowledge base
         setTimeout(() => {
             const response = findResponse(message);
             thinkingDiv.innerHTML = response;
@@ -931,63 +677,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Our Local "Knowledge Base" and Matching Logic ---
     function findResponse(userMessage) {
         const lowerCaseMessage = userMessage.toLowerCase();
+        const knowledgeBase = { greeting: { keywords: ['hello', 'hi', 'hey'], answer: "Hello! How can I assist you with information about Ashvin Manoj's professional journey, skills, and achievements?" }, skills: { keywords: ['skills', 'tech', 'technologies', 'proficient', 'stack'], answer: "Ashvin Manoj’s top technical skills include Python, PyTorch, TensorFlow, and ROS for robotics. He is also highly proficient in cloud platforms (AWS), Docker, Git, and advanced deep learning frameworks." }, projects: { keywords: ['projects', 'work', 'built'], answer: "Ashvin has led and contributed to several impactful projects, such as a Multilingual News Audio Translator, an autonomous Weed Detection and Spraying Robot, and a PDF Query Application powered by Generative AI. Each project demonstrates his expertise in AI, ML, and robotics." }, robotics: { keywords: ['robotics', 'robot'], answer: "Ashvin’s robotics experience includes developing an autonomous robot for weed detection and spraying in agriculture, integrating computer vision and ROS, and building a Quadruped Emoji Bot with Arduino and Bluetooth control." }, experience: { keywords: ['experience', 'intern', 'job', 'work'], answer: "Ashvin’s professional experience spans AI/ML engineering, research internships, and hands-on robotics development. He has worked on both academic and industry projects, consistently delivering innovative solutions." }, education: { keywords: ['education', 'degree', 'mtech', 'school', 'rajagiri'], answer: "Ashvin is currently pursuing an M.Tech at Rajagiri School of Engineering and Technology, specializing in artificial intelligence, machine learning, and robotics." }, awards: { keywords: ['award', 'achievement', 'recognition'], answer: "Ashvin has received multiple awards for his work in AI and robotics, including recognition for his autonomous weed detection robot and multilingual news translator. His projects have been celebrated for innovation and real-world impact." }, nlp: { keywords: ['nlp', 'natural language'], answer: "Ashvin applies NLP in projects like the Multilingual News Audio Translator and PDF Query Application, utilizing models such as Wav2Vec 2.0 and mBART for speech recognition and translation, enabling seamless multilingual communication." }, cloud: { keywords: ['cloud', 'aws', 'docker', 'git', 'devops'], answer: "He is skilled in cloud computing (AWS), containerization (Docker), and version control (Git), ensuring scalable, secure, and efficient AI/ML deployments in production environments." }, vision: { keywords: ['vision', 'computer vision'], answer: "Ashvin’s computer vision expertise is showcased in his weed detection robot, which uses EfficientNetV2 and Transformer architectures for high-accuracy image analysis and autonomous decision-making." }, languages: { keywords: ['language', 'python', 'programming'], answer: "His primary programming language is Python, used for AI, ML, and robotics. He also works with C++ for embedded systems and robotics, and has experience with JavaScript for web development." }, contact: { keywords: ['contact', 'linkedin', 'github', 'email'], answer: "You can reach Ashvin at ashvinmanojk@gmail.com, or connect via LinkedIn (linkedin.com/in/ashvinmanojk289) and GitHub (github.com/ashvinmanojk289) for professional inquiries." } };
+        for (const key in knowledgeBase) {
+            if (knowledgeBase[key].keywords.some(k => lowerCaseMessage.includes(k))) return knowledgeBase[key].answer;
+        }
+        return "I'm sorry, I don't have information on that topic. Please try asking about Ashvin's skills, projects, or experience.";
+    }
 
-        const knowledgeBase = {
-            greeting: {
-                keywords: ['hello', 'hi', 'hey'],
-                answer: "Hello! How can I assist you with information about Ashvin Manoj's professional journey, skills, and achievements?"
-            },
-            skills: {
-                keywords: ['skills', 'tech', 'technologies', 'proficient', 'stack'],
-                answer: "Ashvin Manoj’s top technical skills include Python, PyTorch, TensorFlow, and ROS for robotics. He is also highly proficient in cloud platforms (AWS), Docker, Git, and advanced deep learning frameworks."
-            },
-            projects: {
-                keywords: ['projects', 'work', 'built'],
-                answer: "Ashvin has led and contributed to several impactful projects, such as a Multilingual News Audio Translator, an autonomous Weed Detection and Spraying Robot, and a PDF Query Application powered by Generative AI. Each project demonstrates his expertise in AI, ML, and robotics."
-            },
-            robotics: {
-                keywords: ['robotics', 'robot'],
-                answer: "Ashvin’s robotics experience includes developing an autonomous robot for weed detection and spraying in agriculture, integrating computer vision and ROS, and building a Quadruped Emoji Bot with Arduino and Bluetooth control."
-            },
-            experience: {
-                keywords: ['experience', 'intern', 'job', 'work'],
-                answer: "Ashvin’s professional experience spans AI/ML engineering, research internships, and hands-on robotics development. He has worked on both academic and industry projects, consistently delivering innovative solutions."
-            },
-            education: {
-                keywords: ['education', 'degree', 'mtech', 'school', 'rajagiri'],
-                answer: "Ashvin is currently pursuing an M.Tech at Rajagiri School of Engineering and Technology, specializing in artificial intelligence, machine learning, and robotics."
-            },
-            awards: {
-                keywords: ['award', 'achievement', 'recognition'],
-                answer: "Ashvin has received multiple awards for his work in AI and robotics, including recognition for his autonomous weed detection robot and multilingual news translator. His projects have been celebrated for innovation and real-world impact."
-            },
-            nlp: {
-                keywords: ['nlp', 'natural language'],
-                answer: "Ashvin applies NLP in projects like the Multilingual News Audio Translator and PDF Query Application, utilizing models such as Wav2Vec 2.0 and mBART for speech recognition and translation, enabling seamless multilingual communication."
-            },
-            cloud: {
-                keywords: ['cloud', 'aws', 'docker', 'git', 'devops'],
-                answer: "He is skilled in cloud computing (AWS), containerization (Docker), and version control (Git), ensuring scalable, secure, and efficient AI/ML deployments in production environments."
-            },
-            vision: {
-                keywords: ['vision', 'computer vision'],
-                answer: "Ashvin’s computer vision expertise is showcased in his weed detection robot, which uses EfficientNetV2 and Transformer architectures for high-accuracy image analysis and autonomous decision-making."
-            },
-            languages: {
-                keywords: ['language', 'python', 'programming'],
-                answer: "His primary programming language is Python, used for AI, ML, and robotics. He also works with C++ for embedded systems and robotics, and has experience with JavaScript for web development."
-            },
-            contact: {
-                keywords: ['contact', 'linkedin', 'github', 'email'],
-                answer: "You can reach Ashvin at ashvinmanojk@gmail.com, or connect via LinkedIn (linkedin.com/in/ashvinmanojk289) and GitHub (github.com/ashvinmanojk289) for professional inquiries."
-            }
-        };
+    // --- Command Palette ---
+    function initCommandPalette() {
+        const overlay = document.getElementById('command-palette-overlay');
+        const input = document.getElementById('cmdk-input');
 
         const togglePalette = (show) => {
             if (show) {
                 overlay.classList.add('active');
                 input.focus();
-                renderCommands();
+                // renderCommands(); // Assuming a renderCommands function exists
             } else {
                 overlay.classList.remove('active');
                 input.value = '';
@@ -1004,6 +710,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         overlay.addEventListener('click', (e) => { if (e.target === overlay) togglePalette(false); });
-        input.addEventListener('input', () => renderCommands(input.value));
+        // input.addEventListener('input', () => renderCommands(input.value)); // Assuming a renderCommands function exists
     }
 });
