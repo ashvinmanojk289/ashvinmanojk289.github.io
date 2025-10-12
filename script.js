@@ -18,157 +18,197 @@ document.addEventListener('DOMContentLoaded', () => {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 15;
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.z = 5;
 
         let currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
         let mouseX = 0, mouseY = 0;
         const clock = new THREE.Clock();
-
+        
         // --- Theme-specific objects ---
-        let galaxy, dust, crystals, lightDust, pointLight1, pointLight2;
+        let nebulaParticles, starParticles, wavePlane;
 
-        // --- Dark Theme: Realistic Galaxy ---
+        // --- Dark Theme: Ethereal Cosmic Nebula ---
         function createDarkBackground() {
-            const starCount = 20000;
-            const positions = new Float32Array(starCount * 3);
-            const colors = new Float32Array(starCount * 3);
-            const sizes = new Float32Array(starCount);
-
-            const galaxyColor = new THREE.Color(0x58A6FF);
-            const coreColor = new THREE.Color(0xFFDDC1);
-
-            for (let i = 0; i < starCount; i++) {
-                const i3 = i * 3;
-                const radius = Math.random() * 80;
-                const spinAngle = radius * 3;
-                const branchAngle = (i % 5) / 5 * Math.PI * 2;
-                const randomX = (Math.random() - 0.5) ** 3 * (80 - radius) * 0.2;
-                const randomY = (Math.random() - 0.5) ** 3 * (80 - radius) * 0.2;
-                const randomZ = (Math.random() - 0.5) ** 3 * (80 - radius) * 0.2;
-
-                positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
-                positions[i3 + 1] = randomY;
-                positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
-
-                const mixedColor = galaxyColor.clone();
-                mixedColor.lerp(coreColor, radius / 100);
-                colors[i3] = mixedColor.r;
-                colors[i3 + 1] = mixedColor.g;
-                colors[i3 + 2] = mixedColor.b;
-                sizes[i] = Math.random() * 3 + 1;
-            }
-
-            const geometry = new THREE.BufferGeometry();
-            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-            geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+            scene.fog = new THREE.Fog(0x0D1117, 10, 30);
             
-            const material = new THREE.PointsMaterial({
-                size: 0.1,
-                sizeAttenuation: true,
-                depthWrite: false,
-                blending: THREE.AdditiveBlending,
-                vertexColors: true,
-                transparent: true,
-                opacity: 0.9
-            });
-
-            galaxy = new THREE.Points(geometry, material);
-            scene.add(galaxy);
-
-            // Interstellar Dust
-            const dustCount = 500;
-            const dustPositions = new Float32Array(dustCount * 3);
-            for(let i = 0; i < dustCount; i++) {
-                dustPositions[i*3] = (Math.random() - 0.5) * 150;
-                dustPositions[i*3+1] = (Math.random() - 0.5) * 150;
-                dustPositions[i*3+2] = (Math.random() - 0.5) * 150;
+            // Nebula Cloud
+            const nebulaGeometry = new THREE.BufferGeometry();
+            const nebulaCount = 3000;
+            const positions = new Float32Array(nebulaCount * 3);
+            const scales = new Float32Array(nebulaCount);
+            
+            for(let i = 0; i < nebulaCount; i++) {
+                positions[i*3+0] = (Math.random() - 0.5) * 15;
+                positions[i*3+1] = (Math.random() - 0.5) * 15;
+                positions[i*3+2] = (Math.random() - 0.5) * 15;
+                scales[i] = Math.random() * 2;
             }
-            const dustGeometry = new THREE.BufferGeometry();
-            dustGeometry.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
-            const dustMaterial = new THREE.PointsMaterial({
-                size: 1.5,
-                color: 0x21262d,
-                transparent: true,
-                opacity: 0.3
-            });
-            dust = new THREE.Points(dustGeometry, dustMaterial);
-            scene.add(dust);
+            nebulaGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            nebulaGeometry.setAttribute('aScale', new THREE.BufferAttribute(scales, 1));
 
-            renderer.setClearColor(0x0D1117, 1);
+            const nebulaMaterial = new THREE.ShaderMaterial({
+                uniforms: {
+                    uTime: { value: 0 },
+                    uSize: { value: 30 * renderer.getPixelRatio() },
+                    uColor1: { value: new THREE.Color('#58A6FF')},
+                    uColor2: { value: new THREE.Color('#3f32a8')}
+                },
+                vertexShader: `
+                    uniform float uTime;
+                    uniform float uSize;
+                    attribute float aScale;
+                    
+                    void main() {
+                        vec4 modelPosition = modelMatrix * vec4(position, 1.0);
+                        
+                        // Swirling animation
+                        float angle = atan(modelPosition.x, modelPosition.z);
+                        float distanceToCenter = length(modelPosition.xz);
+                        angle += distanceToCenter * 0.1 + uTime * 0.1;
+                        modelPosition.x = cos(angle) * distanceToCenter;
+                        modelPosition.z = sin(angle) * distanceToCenter;
+                        modelPosition.y += sin(uTime + distanceToCenter * 0.5) * 0.5;
+
+                        vec4 viewPosition = viewMatrix * modelPosition;
+                        gl_Position = projectionMatrix * viewPosition;
+                        gl_PointSize = uSize * aScale / -viewPosition.z;
+                    }
+                `,
+                fragmentShader: `
+                    uniform vec3 uColor1;
+                    uniform vec3 uColor2;
+
+                    void main() {
+                        float strength = distance(gl_PointCoord, vec2(0.5));
+                        strength = 1.0 - strength * 2.0;
+                        
+                        vec3 color = mix(uColor1, uColor2, smoothstep(0.0, 1.0, gl_FragCoord.z));
+
+                        gl_FragColor = vec4(color, strength * 0.3);
+                    }
+                `,
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+
+            nebulaParticles = new THREE.Points(nebulaGeometry, nebulaMaterial);
+            scene.add(nebulaParticles);
+
+            // Subtle Starfield
+            const starGeometry = new THREE.BufferGeometry();
+            const starCount = 2000;
+            const starPositions = new Float32Array(starCount * 3);
+            for(let i=0; i < starCount; i++){
+                starPositions[i*3+0] = (Math.random() - 0.5) * 50;
+                starPositions[i*3+1] = (Math.random() - 0.5) * 50;
+                starPositions[i*3+2] = (Math.random() - 0.5) * 50;
+            }
+            starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+            const starMaterial = new THREE.PointsMaterial({
+                color: 0xffffff,
+                size: 0.05,
+                transparent: true,
+                opacity: 0.8
+            });
+            starParticles = new THREE.Points(starGeometry, starMaterial);
+            scene.add(starParticles);
         }
 
-        // --- Light Theme: Ethereal Crystals ---
+        // --- Light Theme: Gentle Morphing Waves ---
         function createLightBackground() {
-            crystals = new THREE.Group();
-            const crystalGeometry = new THREE.IcosahedronGeometry(1, 0);
+            scene.fog = new THREE.Fog(0xF8F9FA, 5, 20);
             
-            for (let i = 0; i < 50; i++) {
-                const crystalMaterial = new THREE.MeshPhysicalMaterial({
-                    color: 0xffffff,
-                    transmission: 1.0,
-                    roughness: 0.1,
-                    metalness: 0.0,
-                    ior: 1.8,
-                    thickness: 0.5,
-                    specularIntensity: 1.0,
-                    opacity: 0.7,
-                    transparent: true
-                });
+            const waveGeometry = new THREE.PlaneGeometry(30, 30, 128, 128);
+            const waveMaterial = new THREE.ShaderMaterial({
+                uniforms: {
+                    uTime: { value: 0 },
+                    uColor1: { value: new THREE.Color('#0A66C2') },
+                    uColor2: { value: new THREE.Color('#057642') }
+                },
+                vertexShader: `
+                    uniform float uTime;
+                    varying float vNoise;
 
-                const crystal = new THREE.Mesh(crystalGeometry, crystalMaterial);
-                crystal.position.set(
-                    (Math.random() - 0.5) * 40,
-                    (Math.random() - 0.5) * 40,
-                    (Math.random() - 0.5) * 40
-                );
-                crystal.rotation.set(
-                    Math.random() * Math.PI,
-                    Math.random() * Math.PI,
-                    Math.random() * Math.PI
-                );
-                const scale = Math.random() * 0.8 + 0.2;
-                crystal.scale.set(scale, scale, scale);
-                crystals.add(crystal);
-            }
-            scene.add(crystals);
+                    // Perlin 3D Noise
+                    vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+                    vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+                    vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
+                    vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+                    float snoise(vec3 v) {
+                        const vec2 C = vec2(1.0/6.0, 1.0/3.0);
+                        const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+                        vec3 i = floor(v + dot(v, C.yyy));
+                        vec3 x0 = v - i + dot(i, C.xxx);
+                        vec3 g = step(x0.yzx, x0.xyz);
+                        vec3 l = 1.0 - g;
+                        vec3 i1 = min(g.xyz, l.zxy);
+                        vec3 i2 = max(g.xyz, l.zxy);
+                        vec3 x1 = x0 - i1 + C.xxx;
+                        vec3 x2 = x0 - i2 + C.yyy;
+                        vec3 x3 = x0 - D.yyy;
+                        i = mod289(i);
+                        vec4 p = permute(permute(permute(
+                            i.z + vec4(0.0, i1.z, i2.z, 1.0))
+                            + i.y + vec4(0.0, i1.y, i2.y, 1.0))
+                            + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+                        float n_ = 0.142857142857;
+                        vec3 ns = n_ * D.wyz - D.xzx;
+                        vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+                        vec4 x_ = floor(j * ns.z);
+                        vec4 y_ = floor(j - 7.0 * x_);
+                        vec4 x = x_ * ns.x + ns.yyyy;
+                        vec4 y = y_ * ns.x + ns.yyyy;
+                        vec4 h = 1.0 - abs(x) - abs(y);
+                        vec4 b0 = vec4(x.xy, y.xy);
+                        vec4 b1 = vec4(x.zw, y.zw);
+                        vec4 s0 = floor(b0)*2.0 + 1.0;
+                        vec4 s1 = floor(b1)*2.0 + 1.0;
+                        vec4 sh = -step(h, vec4(0.0));
+                        vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy;
+                        vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
+                        vec3 p0 = vec3(a0.xy,h.x);
+                        vec3 p1 = vec3(a0.zw,h.y);
+                        vec3 p2 = vec3(a1.xy,h.z);
+                        vec3 p3 = vec3(a1.zw,h.w);
+                        vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));
+                        p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
+                        vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+                        m = m * m;
+                        return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
+                    }
 
-            // Light Dust Particles
-            const dustCount = 500;
-            const dustPositions = new Float32Array(dustCount * 3);
-            for(let i = 0; i < dustCount; i++) {
-                dustPositions[i * 3] = (Math.random() - 0.5) * 50;
-                dustPositions[i * 3 + 1] = (Math.random() - 0.5) * 50;
-                dustPositions[i * 3 + 2] = (Math.random() - 0.5) * 50;
-            }
-            const dustGeometry = new THREE.BufferGeometry();
-            dustGeometry.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
-            const dustMaterial = new THREE.PointsMaterial({
-                size: 0.1,
-                color: 0x0A66C2,
-                blending: THREE.AdditiveBlending,
+                    void main() {
+                        vec3 pos = position;
+                        float noise = snoise(vec3(pos.x * 0.1, pos.y * 0.1, uTime * 0.1));
+                        pos.z += noise * 2.0;
+                        vNoise = noise;
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    uniform vec3 uColor1;
+                    uniform vec3 uColor2;
+                    varying float vNoise;
+                    void main() {
+                        vec3 color = mix(uColor1, uColor2, (vNoise + 1.0) * 0.5);
+                        gl_FragColor = vec4(color, 0.8);
+                    }
+                `,
                 transparent: true,
-                opacity: 0.5
+                side: THREE.DoubleSide
             });
-            lightDust = new THREE.Points(dustGeometry, dustMaterial);
-            scene.add(lightDust);
-
-            // Dynamic Lights
-            pointLight1 = new THREE.PointLight(0x0A66C2, 2, 100);
-            scene.add(pointLight1);
-            pointLight2 = new THREE.PointLight(0x057642, 2, 100);
-            scene.add(pointLight2);
             
-            renderer.setClearColor(0xF8F9FA, 1);
+            wavePlane = new THREE.Mesh(waveGeometry, waveMaterial);
+            wavePlane.rotation.x = -Math.PI * 0.4;
+            wavePlane.position.y = -2;
+            scene.add(wavePlane);
         }
 
         function updateBackground() {
-            while (scene.children.length > 0) {
-                scene.remove(scene.children[0]);
-            }
-            const ambientLight = new THREE.AmbientLight(0xffffff, currentTheme === 'lab' ? 0.8 : 0.1);
-            scene.add(ambientLight);
+            while (scene.children.length > 0) scene.remove(scene.children[0]);
+            scene.fog = null; // Clear fog before rebuilding
 
             if (currentTheme === 'lab') {
                 createLightBackground();
@@ -194,22 +234,19 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(animate);
             const elapsedTime = clock.getElapsedTime();
 
-            camera.position.x += (mouseX * 5 - camera.position.x) * 0.05;
-            camera.position.y += (mouseY * 5 - camera.position.y) * 0.05;
+            camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
+            camera.position.y += (mouseY * 2 - camera.position.y) * 0.05;
             camera.lookAt(scene.position);
 
-            if (currentTheme === 'lab' && crystals) {
-                crystals.rotation.y += 0.0005;
-                crystals.children.forEach(c => { c.rotation.x += 0.001; c.rotation.y += 0.001; });
-                lightDust.rotation.y += 0.0008;
-                pointLight1.position.x = Math.sin(elapsedTime * 0.5) * 10;
-                pointLight1.position.y = Math.cos(elapsedTime * 0.5) * 10;
-                pointLight2.position.x = Math.cos(elapsedTime * 0.3) * 10;
-                pointLight2.position.y = Math.sin(elapsedTime * 0.3) * 10;
-            } else if (galaxy) {
-                galaxy.rotation.y = elapsedTime * 0.05;
-                dust.rotation.y = elapsedTime * 0.03;
+            if (currentTheme === 'dark' && nebulaParticles) {
+                nebulaParticles.material.uniforms.uTime.value = elapsedTime;
+                starParticles.rotation.y += 0.0001;
             }
+            if (currentTheme === 'lab' && wavePlane) {
+                wavePlane.material.uniforms.uTime.value = elapsedTime;
+                wavePlane.rotation.z += 0.0002;
+            }
+
             renderer.render(scene, camera);
         }
         animate();
@@ -223,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     init3DBackground();
-
+    
     // --- Loading Spinner Logic ---
     const spinner = document.getElementById('loadingSpinner');
     window.addEventListener('beforeunload', () => spinner.classList.add('active'));
@@ -401,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     }
 
-    // --- NEW: Unique Liquid Cursor Effect ---
+    // --- Unique Liquid Cursor Effect ---
     function initCustomCursor() {
         if (window.matchMedia("(pointer: coarse)").matches) return;
 
@@ -414,7 +451,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
         let currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
 
-        // Create particles
         for (let i = 0; i < particleCount; i++) {
             const el = document.createElement('div');
             el.className = 'cursor-particle';
@@ -429,11 +465,9 @@ document.addEventListener('DOMContentLoaded', () => {
         function updateCursorStyles() {
             particles.forEach((p, i) => {
                 if (currentTheme === 'lab') {
-                    // Light theme: Liquid metal
                     p.el.style.background = `radial-gradient(circle at 30% 30%, #E1E5E9, #4A4A4A)`;
                     p.el.style.boxShadow = `none`;
                 } else {
-                    // Dark theme: Glowing plasma
                     p.el.style.background = `radial-gradient(circle, #58A6FF, transparent)`;
                     p.el.style.boxShadow = `0 0 ${p.size * 0.5}px #1F6FEB`;
                 }
@@ -442,7 +476,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateCursorStyles();
         
-        // Theme change observer
         const themeObserver = new MutationObserver(() => {
             currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
             updateCursorStyles();
@@ -455,7 +488,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         function animateCursor() {
-            // Leader particle follows mouse
             let leader = particles[0];
             leader.vx += (mouseX - leader.x) * 0.15;
             leader.vy += (mouseY - leader.y) * 0.15;
@@ -464,7 +496,6 @@ document.addEventListener('DOMContentLoaded', () => {
             leader.x += leader.vx;
             leader.y += leader.vy;
             
-            // Follower particles chase the one in front
             for (let i = 1; i < particleCount; i++) {
                 const follower = particles[i];
                 const target = particles[i - 1];
@@ -476,7 +507,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 follower.y += follower.vy;
             }
 
-            // Update DOM
             particles.forEach(p => {
                 p.el.style.transform = `translate(${p.x - p.size/2}px, ${p.y - p.size/2}px)`;
                 p.el.style.width = `${p.size}px`;
@@ -693,7 +723,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (show) {
                 overlay.classList.add('active');
                 input.focus();
-                // renderCommands(); // Assuming a renderCommands function exists
             } else {
                 overlay.classList.remove('active');
                 input.value = '';
@@ -710,6 +739,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         overlay.addEventListener('click', (e) => { if (e.target === overlay) togglePalette(false); });
-        // input.addEventListener('input', () => renderCommands(input.value)); // Assuming a renderCommands function exists
     }
 });
