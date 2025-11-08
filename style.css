@@ -230,6 +230,10 @@ body {
 .timeline-btn ion-icon { font-size: 14px; }
 
 /*-----------------------------------*\
+ * #MODAL (REMOVED)
+\*-----------------------------------*/
+
+/*-----------------------------------*\
  * #MAIN LAYOUT
 \*-----------------------------------*/
 
@@ -619,8 +623,19 @@ main {
   border-radius: 16px;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-1);
-  transition: var(--transition-2);
+  transition: all 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
 }
+.project-item-no-img.hidden {
+  opacity: 0;
+  transform: translateY(10px);
+  /* height: 0; */
+  /* padding: 0; */
+  /* margin-bottom: 0; */
+  /* overflow: hidden; */
+}
+
 .project-item-no-img:hover {
   border-color: var(--color-accent);
 }
@@ -698,9 +713,13 @@ main {
   padding: 15px;
   border-radius: 12px;
   border: 1px solid var(--border-color);
+  transition: var(--transition-2);
 }
 .form-input::placeholder { color: var(--text-tertiary); }
-.form-input:focus { border-color: var(--color-accent); }
+.form-input:focus { 
+  border-color: var(--color-accent); 
+  box-shadow: 0 0 0 2px hsla(var(--color-accent), 0.2);
+}
 textarea.form-input {
   min-height: 140px;
   height: 140px;
@@ -954,4 +973,5 @@ textarea.form-input {
 .hidden {
   display: none !important;
   opacity: 0;
+  transition: all 0.3s ease;
 }

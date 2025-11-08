@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Initialize all features ---
     initPageNavigation();
-    initPortfolioModals(); // This won't run, but is safe to leave
+    // initPortfolioModals(); // REMOVED - No longer needed
     initProjectFilter(); 
     
     initLoadingSpinner();
@@ -429,20 +429,9 @@ function initPageNavigation() {
     }
 }
 
-// --- Feature 9: Portfolio Modals (No longer used) ---
+// --- Feature 9: Portfolio Modals (REMOVED) ---
 function initPortfolioModals() {
-    // This function is no longer used by the new project items
-    // but is kept to prevent errors if old items were added.
-    const projectItems = document.querySelectorAll(".project-item");
-    if (!projectItems.length) return;
-
-    const modalContainer = document.querySelector("[data-modal-container]");
-    const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
-    const overlay = document.querySelector("[data-overlay]");
-
-    if (!modalContainer || !modalCloseBtn || !overlay) return;
-
-    // ... (original modal logic)
+    // This function is no longer used
 }
 
 // --- Feature 10: Project Filtering (MODIFIED) ---
@@ -466,13 +455,11 @@ function initProjectFilter() {
         
         if (filterValue === "all" || itemCategories.includes(filterValue)) {
           item.style.display = 'block';
-          // Use a timeout to allow the 'display' to apply before adding animation class
           setTimeout(() => {
             item.classList.remove("hidden");
           }, 0);
         } else {
           item.classList.add("hidden");
-          // Wait for animation to finish before setting display: none
           setTimeout(() => {
             item.style.display = 'none';
           }, 300); // Match this to animation duration in CSS
