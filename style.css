@@ -439,6 +439,7 @@ main {
   padding: 8px 12px; /* Adjusted padding for mobile */
   transition: var(--transition-1);
   position: relative;
+  text-align: center; /* <<< THIS IS THE FIX >>> */
 }
 .navbar-link:hover { color: var(--text-primary); }
 .navbar-link.active { color: var(--color-accent); }
@@ -800,10 +801,10 @@ textarea.form-input {
 
   /* ADDED: Fix for navbar overlap */
   .main-content article {
-    margin-top: 45px;
+    margin-top: 45px; /* Pushes content down */
   }
   .main-content article.about {
-    margin-top: 0; /* 'About' page is fine, as navbar is next to title */
+    margin-top: 0; /* 'About' page is fine */
   }
   .main-content article.about header {
     padding-top: 30px; /* Add space for the navbar */
