@@ -10,6 +10,8 @@
   <meta name="description" content="Personal portfolio of Ashvin Manoj, an AI & ML engineer specializing in deep learning, NLP, and robotics.">
   <meta name="keywords" content="Ashvin Manoj, AI, ML, Artificial Intelligence, Machine Learning, Robotics, NLP, Portfolio">
   <meta name="author" content="Ashvin Manoj">
+  
+  <link rel="icon" type="image/png" href="assets/favicon.png">
 
   <link rel="stylesheet" href="style.css">
 
@@ -38,7 +40,7 @@
       <div class="sidebar-info">
 
         <figure class="avatar-box">
-          <img src="assets/profile-light.jpg" alt="Ashvin Manoj" width="80">
+          <img src="assets/profile-light.jpg" alt="Ashvin Manoj" width="80" id="avatar-img">
         </figure>
 
         <div class="info-content">
@@ -48,7 +50,6 @@
 
         </div>
 
-        <!-- Quick visible contacts (added so email/phone appear without opening the contacts panel) -->
         <div class="quick-contacts">
           <div class="contact-inline">
             <ion-icon name="mail-outline"></ion-icon>
@@ -57,6 +58,14 @@
           <div class="contact-inline">
             <ion-icon name="call-outline"></ion-icon>
             <a href="tel:+918848236253" class="contact-link">(+91) 88482 36253</a>
+          </div>
+          <div class="contact-inline">
+            <ion-icon name="logo-linkedin"></ion-icon>
+            <a href="https://www.linkedin.com/in/ashvinmanojk289" target="_blank" class="contact-link">LinkedIn</a>
+          </div>
+          <div class="contact-inline">
+            <ion-icon name="logo-github"></ion-icon>
+            <a href="https://github.com/ashvinmanojk289" target="_blank" class="contact-link">GitHub</a>
           </div>
         </div>
 
@@ -72,26 +81,6 @@
         <div class="separator"></div>
 
         <ul class="contacts-list">
-
-          <li class="contact-item">
-            <div class="icon-box">
-              <ion-icon name="mail-outline"></ion-icon>
-            </div>
-            <div class="contact-info">
-              <p class="contact-title">Email</p>
-              <a href="mailto:ashvinmanojk@gmail.com" class="contact-link">ashvinmanojk@gmail.com</a>
-            </div>
-          </li>
-
-          <li class="contact-item">
-            <div class="icon-box">
-              <ion-icon name="call-outline"></ion-icon>
-            </div>
-            <div class="contact-info">
-              <p class="contact-title">Phone</p>
-              <a href="tel:+918848236253" class="contact-link">(+91) 88482 36253</a>
-            </div>
-          </li>
 
           <li class="contact-item">
             <div class="icon-box">
@@ -119,26 +108,11 @@
 
         <p class="copyright">&copy; <span id="current-year"></span> Ashvin Manoj. All Rights Reserved.</p>
 
-        <ul class="social-list">
-
-          <li class="social-item">
-            <a href="https://www.linkedin.com/in/ashvinmanojk289" class="social-link" target="_blank">
-              <ion-icon name="logo-linkedin"></ion-icon>
-            </a>
-          </li>
-
-          <li class="social-item">
-            <a href="https://github.com/ashvinmanojk289" class="social-link" target="_blank">
-              <ion-icon name="logo-github"></ion-icon>
-            </a>
-          </li>
-
-        </ul>
-        
         <div class="theme-switcher">
-          <button class="theme-btn" id="theme-toggle-btn" aria-label="Toggle Light/Dark Mode">
-            <ion-icon name="sunny-outline" class="theme-icon-sun"></ion-icon>
-            <ion-icon name="moon-outline" class="theme-icon-moon hidden"></ion-icon>
+          <button class="theme-btn" id="theme-toggle-btn" aria-label="Toggle Theme">
+            <ion-icon name="sunny-outline" class="theme-icon theme-icon-sun"></ion-icon>
+            <ion-icon name="moon-outline" class="theme-icon theme-icon-moon hidden"></ion-icon>
+            <ion-icon name="desktop-outline" class="theme-icon theme-icon-auto hidden"></ion-icon>
           </button>
         </div>
 
@@ -311,25 +285,15 @@
           <h2 class="h2 article-title">Resume</h2>
         </header>
 
-        <!-- Resume preview and download (new) -->
         <section class="resume-download content-card">
           <div class="resume-download-inner">
-            <div class="resume-preview">
-              <!-- Use profile image as a temporary preview; replace with assets/resume-preview.jpg if available -->
-              <img src="assets/profile-light.jpg" alt="Resume preview" width="220">
+            <img src="assets/resume.jpg" alt="Resume preview" class="resume-preview-img">
+            
+            <a href="assets/resume.pdf" class="form-btn" download aria-label="Download Resume PDF">
+              <ion-icon name="download-outline"></ion-icon>
+              <span>Download Resume (PDF)</span>
+            </a>
             </div>
-            <div class="resume-actions">
-              <a href="assets/Ashvin_Resume.pdf" class="form-btn" download aria-label="Download Resume PDF">
-                <ion-icon name="download-outline"></ion-icon>
-                <span>Download Resume (PDF)</span>
-              </a>
-              <button class="form-btn resume-preview-btn" aria-label="Preview Resume">
-                <ion-icon name="eye-outline"></ion-icon>
-                <span>Preview Resume</span>
-              </button>
-              <p class="note">Place your resume PDF at <code>assets/Ashvin_Resume.pdf</code> to enable direct download. The preview image can be replaced at <code>assets/resume-preview.jpg</code>.</p>
-            </div>
-          </div>
         </section>
 
         <section class="timeline">
@@ -341,19 +305,16 @@
           </div>
 
           <ol class="timeline-list">
-
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">Rajagiri School of Engineering and Technology</h4>
               <span>MTech in Computer Science and Engineering (AI/ML)</span>
               <p class="timeline-text">Aug 2024 - Present | CGPA: 9.49</p>
             </li>
-
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">Adi Shankara Institute of Engineering and Technology</h4>
               <span>BTech (Honours) in Robotics and Automation</span>
               <p class="timeline-text">Oct 2020 - Jun 2024 | CGPA: 9.54</p>
             </li>
-
           </ol>
         </section>
 
@@ -366,7 +327,6 @@
           </div>
 
           <ol class="timeline-list">
-
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">Data Science Intern, Mastermine Technologies</h4>
               <span>Aug 2025 - Present</span>
@@ -375,7 +335,6 @@
                 <li class="timeline-item-bullet">Designing a multi-agent LLM framework to automate data analysis and generate insights.</li>
               </ul>
             </li>
-
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">Hardware Systems Intern, Sunlux Technovations</h4>
               <span>Feb 2024 - April 2024</span>
@@ -384,39 +343,51 @@
                 <li class="timeline-item-bullet">Collaborated with engineers to design and implement real-world embedded solutions.</li>
               </ul>
             </li>
-
           </ol>
         </section>
 
+        <section class="timeline">
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="newspaper-outline"></ion-icon>
+            </div>
+            <h3 class="h3">Publications</h3>
+          </div>
+          <ol class="timeline-list">
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">A Hybrid Transformer Model Approach for Precision Weed Detection</h4>
+              <p class="timeline-text">
+                S. Krishnan, M. Karuppasamypandiyan, and <strong>A. Manoj</strong>, in <em>2025 4th International Conference on Advances in Computing, Communication, Embedded and Secure Systems (ACCESS)</em>, Ernakulam, India, 2025, pp. 1-7.
+              </p>
+              <p class="timeline-text" style="margin-top: 5px;">
+                DOI: 10.1109/ACCESS65134.2025.11135583
+              </p>
+            </li>
+          </ol>
+        </section>
+        
         <section class="skill">
-
           <h3 class="h3 skills-title">Technical Skills</h3>
-
           <ul class="skills-list content-card">
-            
             <li class="skills-item">
               <div class="title-wrapper">
                 <h5 class="h5">Languages & Databases</h5>
               </div>
               <p class="skills-text">Python, C++, C, SQL, R</p>
             </li>
-            
             <li class="skills-item">
               <div class="title-wrapper">
                 <h5 class="h5">AI/ML Frameworks</h5>
               </div>
               <p class="skills-text">TensorFlow, PyTorch, Scikit-learn, Transformers, Pandas, NumPy</p>
             </li>
-
             <li class="skills-item">
               <div class="title-wrapper">
                 <h5 class="h5">Tools & Platforms</h5>
               </div>
               <p class="skills-text">ROS, Arduino, Git, Streamlit, Flask, MATLAB, Linux</p>
             </li>
-
           </ul>
-
         </section>
 
       </article>
@@ -436,11 +407,13 @@
           <ul class="project-list">
             
             <li class="project-item content-card">
-              <a href="#" data-project-id="1"> <figure class="project-img">
+              <a href="#">
+                <figure class="project-img">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
-                  </figure>
+                  <img src="assets/favicon.png" alt="Multilingual News Audio Translator" class="project-img-placeholder">
+                </figure>
                 <h3 class="h3 project-title">Multilingual News Audio Translator</h3>
                 <p class="project-category">Full-stack Audio App</p>
                 <div class="project-modal-description" style="display: none;">
@@ -450,12 +423,13 @@
             </li>
 
             <li class="project-item content-card">
-              <a href="#" data-project-id="2">
+              <a href="#">
                 <figure class="project-img">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
-                  </figure>
+                  <img src="assets/favicon.png" alt="PDF Query Application" class="project-img-placeholder">
+                </figure>
                 <h3 class="h3 project-title">PDF Query Application</h3>
                 <p class="project-category">GenAI / NLP</p>
                 <div class="project-modal-description" style="display: none;">
@@ -465,12 +439,13 @@
             </li>
 
             <li class="project-item content-card">
-              <a href="#" data-project-id="3">
+              <a href="#">
                 <figure class="project-img">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
-                  </figure>
+                  <img src="assets/favicon.png" alt="Automatic Weed Detection and Spraying Robot" class="project-img-placeholder">
+                </figure>
                 <h3 class="h3 project-title">Automatic Weed Detection and Spraying Robot</h3>
                 <p class="project-category">Robotics / AI</p>
                 <div class="project-modal-description" style="display: none;">
@@ -497,19 +472,15 @@
           <h3 class="h3">Contact Form</h3>
           
           <form action="https://getform.io/f/adrddnka" method="POST" class="form" data-form>
-
             <div class="input-wrapper">
               <input type="text" name="name" class="form-input" placeholder="Full name" required data-form-input>
               <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
             </div>
-
             <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
-
             <button class="form-btn" type="submit">
               <ion-icon name="paper-plane"></ion-icon>
               <span>Send Message</span>
             </button>
-
           </form>
 
         </section>
@@ -528,40 +499,31 @@
     <div class="chat-window">
       <div class="chat-header">
         <h3>AI Assistant</h3>
-        <span id="ai-status">Loading AI...</span>
+        <span id="ai-status">Loading...</span>
       </div>
       <div class="chat-body">
         <div class="chat-message bot">
-          Hi there! I'm Ashvin's AI assistant. Ask me about skills, projects, and more!
+          Hi there! I'm Ashvin's AI assistant. Please select a topic to learn more.
         </div>
         <div class="suggested-questions">
-          <button class="suggested-question">What are his top skills?</button>
-          <button class="suggested-question">Tell me about his robotics projects.</button>
-          <button class="suggested-question">What is his professional experience?</button>
-        </div>
+          </div>
       </div>
       </div>
   </div>
 
 
   <div class="modal-container" data-modal-container data-overlay>
-
     <div class="modal-content">
-
       <button class="modal-close-btn" data-modal-close-btn>
         <ion-icon name="close-outline"></ion-icon>
       </button>
-
       <div class="modal-img-wrapper">
         </div>
-
       <div class="modal-body">
         <h3 class="h3 modal-title">Project Title</h3>
-        <p></p>
+        <p></p> 
       </div>
-
     </div>
-
   </div>
 
 

@@ -7,13 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initPageNavigation();
     initSidebarToggle();
     initPortfolioModals();
-    initResumePreview();
+    // initResumePreview(); // REMOVED as requested
     
     initLoadingSpinner();
     initCustomCursor();
     initTypingEffect();
     initCurrentYear();
-    initThemeSwitcher();
+    initThemeSwitcher(); // MODIFIED
     
     fetchGitHubStats(); // This is async, fine to call here
     initChatAssistant(); // This is also self-contained
@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
 function initLoadingSpinner() {
     const spinner = document.getElementById('loadingSpinner');
     if (spinner) {
-        // Hide spinner once the main content is loaded
         window.addEventListener('load', () => {
             spinner.classList.add('hidden');
         });
@@ -33,7 +32,7 @@ function initLoadingSpinner() {
 
 // --- Feature 2: Custom Cursor (New) ---
 function initCustomCursor() {
-    if (window.matchMedia("(pointer: coarse)").matches) return; // No cursor on touch devices
+    if (window.matchMedia("(pointer: coarse)").matches) return; 
 
     const cursorContainer = document.querySelector('.custom-cursor');
     const dot = document.querySelector('.cursor-dot');
@@ -60,7 +59,6 @@ function initCustomCursor() {
     }
     animateCursor();
 
-    // Select all interactive elements
     document.querySelectorAll('a, button, [data-nav-link], [data-sidebar-btn], .project-item, .social-link, .chat-toggle-btn, .suggested-question').forEach(el => {
         el.addEventListener('mouseenter', () => cursorContainer.classList.add('interact'));
         el.addEventListener('mouseleave', () => cursorContainer.classList.remove('interact'));
@@ -72,12 +70,11 @@ function initTypingEffect() {
     const target = document.querySelector('.typing-effect');
     if (!target) return;
     
-    // Words from your original site, slightly adapted
     const words = ["AI/ML Engineer", "Robotics Enthusiast", "Deep Learning Dev", "PG Student"];
     let wordIndex = 0, charIndex = 0, isDeleting = false;
 
     function type() {
-        if (!target) return; // Safeguard
+        if (!target) return;
         const currentWord = words[wordIndex];
         target.textContent = currentWord.substring(0, charIndex);
         
@@ -101,41 +98,81 @@ function initCurrentYear() {
     if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 }
 
-// --- Feature 5: Theme Switcher (New) ---
+// --- Feature 5: Theme Switcher (MODIFIED for 3-state) ---
 function initThemeSwitcher() {
     const themeBtn = document.getElementById('theme-toggle-btn');
     if (!themeBtn) return;
 
     const sunIcon = document.querySelector('.theme-icon-sun');
     const moonIcon = document.querySelector('.theme-icon-moon');
+    const autoIcon = document.querySelector('.theme-icon-auto');
+    const avatarImg = document.getElementById('avatar-img'); // Get avatar
     
-    if (!sunIcon || !moonIcon) return;
+    if (!sunIcon || !moonIcon || !autoIcon) return;
 
-    // Helper function to apply the theme and update icons/storage
+    const themes = ['light', 'dark', 'auto'];
+    let currentTheme = localStorage.getItem('theme') || 'auto';
+    
+    // Media query for system preference
+    const systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+
     function applyTheme(theme) {
-        if (theme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
+        let themeToApply = theme;
+        
+        if (theme === 'auto') {
+            // Check system preference
+            themeToApply = systemDarkMode.matches ? 'dark' : 'light';
+            // Show auto icon
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.add('hidden');
+            autoIcon.classList.remove('hidden');
+        } else if (theme === 'dark') {
+            themeToApply = 'dark';
+            // Show moon icon
             sunIcon.classList.add('hidden');
             moonIcon.classList.remove('hidden');
+            autoIcon.classList.add('hidden');
         } else {
-            document.documentElement.setAttribute('data-theme', 'light');
+            themeToApply = 'light';
+            // Show sun icon
             sunIcon.classList.remove('hidden');
             moonIcon.classList.add('hidden');
+            autoIcon.classList.add('hidden');
         }
-        // Save the user's preference
+
+        // Apply theme to HTML tag
+        document.documentElement.setAttribute('data-theme', themeToApply);
+        
+        // Update avatar image based on final theme
+        if (avatarImg) {
+            if (themeToApply === 'dark') {
+                avatarImg.src = 'assets/profile-dark.jpg';
+            } else {
+                avatarImg.src = 'assets/profile-light.jpg';
+            }
+        }
+        
+        // Save user's explicit choice (light, dark, or auto)
         localStorage.setItem('theme', theme);
     }
 
     // Event listener for the toggle button
     themeBtn.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = (currentTheme === 'dark') ? 'light' : 'dark';
-        applyTheme(newTheme);
+        const currentIndex = themes.indexOf(currentTheme);
+        const nextIndex = (currentIndex + 1) % themes.length;
+        currentTheme = themes[nextIndex];
+        applyTheme(currentTheme);
     });
 
-    // On page load, check for a saved theme in localStorage
-    const savedTheme = localStorage.getItem('theme') || 'light'; // Default to light
-    applyTheme(savedTheme);
+    // Listen for changes in system preference
+    systemDarkMode.addEventListener('change', (e) => {
+        if (currentTheme === 'auto') {
+            applyTheme('auto');
+        }
+    });
+
+    // Apply the saved theme on page load
+    applyTheme(currentTheme);
 }
 
 
@@ -152,7 +189,7 @@ async function fetchGitHubStats() {
 
     const allReposResponse = await fetch(userData.repos_url + '?per_page=100');
     if (!allReposResponse.ok) throw new Error('GitHub API all repos request failed');
-    const allRepos = await allReposResponse.json();
+    const allRepos = await allRepos.json();
 
     const reposEl = document.getElementById('github-repos');
     const starsEl = document.getElementById('github-stars');
@@ -185,6 +222,7 @@ function initChatAssistant() {
         return;
     }
 
+    // (Fixed typo in 'Back to start')
     const conversationTree = {
         'root': {
             'isAnswer': false,
@@ -423,30 +461,31 @@ function initPortfolioModals() {
 
     if (!modalContainer || !modalCloseBtn || !overlay || !projectItems.length) return;
 
+    const modalTitle = modalContainer.querySelector(".modal-title");
+    const modalText = modalContainer.querySelector('.modal-content p');
+    const imgWrapper = modalContainer.querySelector('.modal-img-wrapper');
+
     const portfolioModalFunc = function () {
       modalContainer.classList.toggle("active");
       overlay.classList.toggle("active");
+      
+      // Clear modal content on close
+      if (!modalContainer.classList.contains('active')) {
+          if (imgWrapper) imgWrapper.innerHTML = '';
+          if (modalText) modalText.innerHTML = '';
+      }
     }
 
     projectItems.forEach(item => {
       item.addEventListener("click", function (e) {
-        e.preventDefault(); // Stop link behavior
+        e.preventDefault(); 
         
         const title = item.querySelector(".project-title").innerText;
         const category = item.querySelector(".project-category").innerText;
         const description = item.querySelector(".project-modal-description").innerHTML;
         
-        const modalTitle = modalContainer.querySelector(".modal-title");
-        let modalTextElement = modalContainer.querySelector('.modal-content p');
-        
         if (modalTitle) modalTitle.innerText = title;
-
-        if (!modalTextElement) {
-            modalTextElement = document.createElement('p');
-            if (modalTitle) modalTitle.after(modalTextElement);
-        }
-        
-        modalTextElement.innerHTML = `<strong>${category}</strong><br><br>${description}`;
+        if (modalText) modalText.innerHTML = `<strong>${category}</strong><br><br>${description}`;
 
         portfolioModalFunc();
       });
@@ -454,48 +493,4 @@ function initPortfolioModals() {
 
     modalCloseBtn.addEventListener("click", portfolioModalFunc);
     overlay.addEventListener("click", portfolioModalFunc);
-}
-
-// --- Feature 11: Resume Preview in Modal ---
-function initResumePreview() {
-    const previewBtn = document.querySelector('.resume-preview-btn');
-    const modalContainer = document.querySelector('[data-modal-container]');
-    const modalCloseBtn = document.querySelector('[data-modal-close-btn]');
-
-    if (!previewBtn || !modalContainer || !modalCloseBtn) return;
-
-    const imgWrapper = modalContainer.querySelector('.modal-img-wrapper');
-    const modalTitle = modalContainer.querySelector('.modal-title');
-
-    previewBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        // Set title
-        if (modalTitle) modalTitle.innerText = 'Resume Preview';
-
-        // Remove any existing text paragraph
-        const existingP = modalContainer.querySelector('.modal-content p');
-        if (existingP) existingP.remove();
-
-        // Insert iframe pointing to the resume PDF (place your PDF at assets/Ashvin_Resume.pdf)
-        if (imgWrapper) {
-            imgWrapper.innerHTML = `<iframe src="assets/Ashvin_Resume.pdf" class="modal-iframe" aria-label="Resume preview"></iframe>`;
-        }
-
-        // Show modal
-        modalContainer.classList.add('active');
-    });
-
-    // cleanup when modal closed
-    modalCloseBtn.addEventListener('click', () => {
-        if (imgWrapper) imgWrapper.innerHTML = '';
-        modalContainer.classList.remove('active');
-    });
-
-    // also remove iframe if clicked outside modal (overlay click)
-    modalContainer.addEventListener('click', (e) => {
-        if (e.target === modalContainer) {
-            if (imgWrapper) imgWrapper.innerHTML = '';
-            modalContainer.classList.remove('active');
-        }
-    });
 }
