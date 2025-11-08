@@ -408,7 +408,7 @@ main {
   z-index: 0;
   transition: background 0.3s;
   border: 1px solid var(--border-color);
-  overflow: hidden; /* ADDED: This clips the navbar corner */
+  overflow: hidden; /* Clips the navbar corner */
 }
 
 /*-----------------------------------*\
@@ -416,7 +416,7 @@ main {
 \*-----------------------------------*/
 
 .navbar {
-  /* This is the mobile-first style */
+  /* Mobile-first style */
   position: static;
   width: 100%;
   border: none;
@@ -720,7 +720,6 @@ textarea.form-input {
   resize: vertical;
 }
 
-/* IMPROVED Button */
 .form-btn {
   display: inline-flex;
   align-items: center;
@@ -741,7 +740,6 @@ textarea.form-input {
 .form-btn:hover {
   background: var(--color-accent);
   opacity: 0.9;
-  /* Add lift */
   transform: translateY(-2px);
   box-shadow: var(--shadow-2);
 }
@@ -798,6 +796,17 @@ textarea.form-input {
   .navbar-link.active::after {
     left: 18px;
     right: 18px;
+  }
+
+  /* ADDED: Fix for navbar overlap */
+  .main-content article {
+    margin-top: 45px;
+  }
+  .main-content article.about {
+    margin-top: 0; /* 'About' page is fine, as navbar is next to title */
+  }
+  .main-content article.about header {
+    padding-top: 30px; /* Add space for the navbar */
   }
   
   .input-wrapper { grid-template-columns: 1fr 1fr; }
@@ -961,7 +970,7 @@ textarea.form-input {
 @media (pointer: fine) {
   html { cursor: none; }
   .custom-cursor { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99999; }
-  .cursor-dot, .cursor-ring {
+  .cursor-dot {
     position: fixed;
     top: 0;
     left: 0;
@@ -969,11 +978,12 @@ textarea.form-input {
     border-radius: 50%;
     pointer-events: none;
     transition: transform 0.2s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.3s;
+    width: 8px; 
+    height: 8px; 
+    background-color: var(--color-accent);
   }
-  .cursor-dot { width: 8px; height: 8px; background-color: var(--color-accent); }
   .cursor-ring { display: none; } /* REMOVED */
   .custom-cursor.interact .cursor-dot { transform: translate(-50%, -50%) scale(1.5); opacity: 0.5; } /* MODIFIED */
-  .custom-cursor.interact .cursor-ring { display: none; } /* REMOVED */
 }
 
 /* SIDEBAR EXTRAS */
