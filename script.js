@@ -5,14 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Initialize all features ---
     initPageNavigation();
-    // initPortfolioModals(); // REMOVED - No longer needed
+    // initPortfolioModals(); // REMOVED
     initProjectFilter(); 
     
     initLoadingSpinner();
-    initCustomCursor();
+    initCustomCursor(); // Modified
     initTypingEffect();
     initCurrentYear();
-    initThemeSwitcher();
+    initThemeSwitcher(); // Modified
     
     fetchGitHubStats();
     initChatAssistant();
@@ -29,29 +29,29 @@ function initLoadingSpinner() {
     }
 }
 
-// --- Feature 2: Custom Cursor ---
+// --- Feature 2: Custom Cursor (MODIFIED) ---
 function initCustomCursor() {
     if (window.matchMedia("(pointer: coarse)").matches) return; 
 
     const cursorContainer = document.querySelector('.custom-cursor');
     const dot = document.querySelector('.cursor-dot');
-    const ring = document.querySelector('.cursor-ring');
+    // const ring = document.querySelector('.cursor-ring'); // REMOVED
 
-    if (!cursorContainer || !dot || !ring) return;
+    if (!cursorContainer || !dot) return; // Modified
 
     let mouseX = -100, mouseY = -100;
     let dotX = -100, dotY = -100;
-    let ringX = -100, ringY = -100;
+    // let ringX = -100, ringY = -100; // REMOVED
 
     window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
 
     function animateCursor() {
         dotX += (mouseX - dotX) * 0.9; dotY += (mouseY - dotY) * 0.9;
-        ringX += (mouseX - ringX) * 0.25; ringY += (mouseY - ringY) * 0.25;
+        // ringX += (mouseX - ringX) * 0.25; ringY += (mouseY - ringY) * 0.25; // REMOVED
 
-        if (dot && ring) {
+        if (dot) { // Modified
           dot.style.transform = `translate(${dotX}px, ${dotY}px)`;
-          ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
+          // ring.style.transform = `translate(${ringX}px, ${ringY}px)`; // REMOVED
         }
         
         requestAnimationFrame(animateCursor);
@@ -97,87 +97,61 @@ function initCurrentYear() {
     if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 }
 
-// --- Feature 5: Theme Switcher (3-state) ---
+// --- Feature 5: Theme Switcher (MODIFIED for 2-state) ---
 function initThemeSwitcher() {
     const themeBtn = document.getElementById('theme-toggle-btn');
     if (!themeBtn) return;
 
     const sunIcon = document.querySelector('.theme-icon-sun');
     const moonIcon = document.querySelector('.theme-icon-moon');
-    const autoIcon = document.querySelector('.theme-icon-auto');
+    // const autoIcon = document.querySelector('.theme-icon-auto'); // REMOVED
     const avatarImg = document.getElementById('avatar-img');
     
-    if (!sunIcon || !moonIcon || !autoIcon) return;
+    if (!sunIcon || !moonIcon) return; // Modified
 
-    const themes = ['dark', 'light', 'auto']; // Cycle order
     let currentTheme = localStorage.getItem('theme') || 'dark'; // Default to dark
     
-    const systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
-
     function applyTheme(theme) {
-        let themeToApply = theme;
-        
-        if (theme === 'auto') {
-            themeToApply = systemDarkMode.matches ? 'dark' : 'light';
-            sunIcon.classList.add('hidden');
-            moonIcon.classList.add('hidden');
-            autoIcon.classList.remove('hidden');
-        } else if (theme === 'dark') {
-            themeToApply = 'dark';
+        if (theme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
             sunIcon.classList.add('hidden');
             moonIcon.classList.remove('hidden');
-            autoIcon.classList.add('hidden');
+            if (avatarImg) avatarImg.src = 'assets/profile-dark.jpg';
         } else {
-            themeToApply = 'light';
+            document.documentElement.setAttribute('data-theme', 'light');
             sunIcon.classList.remove('hidden');
             moonIcon.classList.add('hidden');
-            autoIcon.classList.add('hidden');
+            if (avatarImg) avatarImg.src = 'assets/profile-light.jpg';
         }
-
-        document.documentElement.setAttribute('data-theme', themeToApply);
-        
-        if (avatarImg) {
-            avatarImg.src = themeToApply === 'dark' ? 'assets/profile-dark.jpg' : 'assets/profile-light.jpg';
-        }
-        
         localStorage.setItem('theme', theme);
     }
 
     themeBtn.addEventListener('click', () => {
-        const currentIndex = themes.indexOf(currentTheme);
-        const nextIndex = (currentIndex + 1) % themes.length;
-        currentTheme = themes[nextIndex];
-        applyTheme(currentTheme);
+        const newTheme = (currentTheme === 'dark') ? 'light' : 'dark';
+        currentTheme = newTheme;
+        applyTheme(newTheme);
     });
 
-    systemDarkMode.addEventListener('change', (e) => {
-        if (currentTheme === 'auto') {
-            applyTheme('auto');
-        }
-    });
-
+    // Apply the saved theme on page load
     applyTheme(currentTheme);
 }
 
 
-// --- Feature 6: GitHub Stats (MODIFIED FOR RELIABILITY) ---
+// --- Feature 6: GitHub Stats ---
 async function fetchGitHubStats() {
   const reposEl = document.getElementById('github-repos');
   const starsEl = document.getElementById('github-stars');
   const activityList = document.getElementById('github-activity');
   
-  // Find the parent 'service-item' for the stars element to hide it
   const starsItemEl = starsEl ? starsEl.closest('.service-item') : null;
 
   try {
-    // --- Call 1: Get user data (for public repo count) ---
     const userResponse = await fetch(`https://api.github.com/users/ashvinmanojk289`);
     if (!userResponse.ok) throw new Error('GitHub user API request failed');
     const userData = await userResponse.json();
     
     if (reposEl) reposEl.textContent = userData.public_repos || 0;
 
-    // --- Call 2: Get recent activity ---
     const reposResponse = await fetch(`https://api.github.com/users/ashvinmanojk289/repos?sort=pushed&per_page=3`);
     if (!reposResponse.ok) throw new Error('GitHub repos API request failed');
     const repos = await reposResponse.json();
@@ -190,9 +164,6 @@ async function fetchGitHubStats() {
         }
     }
 
-    // --- Handle Stars ---
-    // The total star count is too unreliable for a public site (rate-limiting).
-    // We will hide the "Stars Earned" box.
     if (starsItemEl) {
         starsItemEl.style.display = 'none';
     }
@@ -204,7 +175,7 @@ async function fetchGitHubStats() {
     }
     if (reposEl) reposEl.textContent = 'N/A';
     if (starsItemEl) {
-        starsItemEl.style.display = 'none'; // Hide on error too
+        starsItemEl.style.display = 'none';
     }
   }
 }
