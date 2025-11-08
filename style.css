@@ -230,10 +230,6 @@ body {
 .timeline-btn ion-icon { font-size: 14px; }
 
 /*-----------------------------------*\
- * #MODAL (REMOVED)
-\*-----------------------------------*/
-
-/*-----------------------------------*\
  * #MAIN LAYOUT
 \*-----------------------------------*/
 
@@ -781,9 +777,16 @@ textarea.form-input {
   main { display: flex; gap: 30px; }
   .main-content { width: 100%; min-width: 0; }
   .navbar { position: absolute; }
-  .project-grid { grid-template-columns: 1fr 1fr; }
+  /* .project-grid { grid-template-columns: 1fr 1fr; } */ /* MOVED */
   .input-wrapper { grid-template-columns: 1fr 1fr; }
   .github-activity-item { grid-column: 1 / -1; }
+}
+
+@media (min-width: 768px) {
+  .timeline-list { margin-left: 35px; }
+  .skills-list { margin-bottom: -25px; }
+  .skills-item:not(:last-child) { margin-bottom: 25px; }
+  .project-grid { grid-template-columns: 1fr 1fr; } /* MOVED HERE */
 }
 
 @media (min-width: 1024px) {
@@ -802,7 +805,7 @@ textarea.form-input {
 
 @media (min-width: 1250px) {
   main { max-width: 1200px; }
-  .project-grid { grid-template-columns: 1fr 1fr; }
+  .project-grid { grid-template-columns: 1fr 1fr; } /* Stays 2-col */
 }
 
 
