@@ -160,36 +160,51 @@ function initThemeSwitcher() {
 }
 
 
-// --- Feature 6: GitHub Stats ---
+// --- Feature 6: GitHub Stats (MODIFIED FOR RELIABILITY) ---
 async function fetchGitHubStats() {
+  const reposEl = document.getElementById('github-repos');
+  const starsEl = document.getElementById('github-stars');
+  const activityList = document.getElementById('github-activity');
+  
+  // Find the parent 'service-item' for the stars element to hide it
+  const starsItemEl = starsEl ? starsEl.closest('.service-item') : null;
+
   try {
-    const response = await fetch(`https://api.github.com/users/ashvinmanojk289/repos?sort=pushed&per_page=5`);
-    if (!response.ok) throw new Error('GitHub API repo request failed');
-    const repos = await response.json();
-
+    // --- Call 1: Get user data (for public repo count) ---
     const userResponse = await fetch(`https://api.github.com/users/ashvinmanojk289`);
-    if (!userResponse.ok) throw new Error('GitHub API user request failed');
+    if (!userResponse.ok) throw new Error('GitHub user API request failed');
     const userData = await userResponse.json();
-
-    const allReposResponse = await fetch(userData.repos_url + '?per_page=100');
-    if (!allReposResponse.ok) throw new Error('GitHub API all repos request failed');
-    const allRepos = await allRepos.json();
-
-    const reposEl = document.getElementById('github-repos');
-    const starsEl = document.getElementById('github-stars');
-    const activityList = document.getElementById('github-activity');
-
+    
     if (reposEl) reposEl.textContent = userData.public_repos || 0;
-    if (starsEl) starsEl.textContent = allRepos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
+
+    // --- Call 2: Get recent activity ---
+    const reposResponse = await fetch(`https://api.github.com/users/ashvinmanojk289/repos?sort=pushed&per_page=3`);
+    if (!reposResponse.ok) throw new Error('GitHub repos API request failed');
+    const repos = await reposResponse.json();
 
     if (activityList) {
-        activityList.innerHTML = repos.slice(0, 3).map(repo => `<li>Pushed to <strong>${repo.name}</strong></li>`).join('');
+        if (repos.length > 0) {
+            activityList.innerHTML = repos.map(repo => `<li>Pushed to <strong>${repo.name}</strong></li>`).join('');
+        } else {
+            activityList.innerHTML = '<li>No recent activity.</li>';
+        }
     }
+
+    // --- Handle Stars ---
+    // The total star count is too unreliable for a public site (rate-limiting).
+    // We will hide the "Stars Earned" box.
+    if (starsItemEl) {
+        starsItemEl.style.display = 'none';
+    }
+
   } catch (error) {
     console.error('Failed to fetch GitHub stats:', error);
-    const activityList = document.getElementById('github-activity');
     if(activityList) {
         activityList.innerHTML = '<li>Could not fetch data.</li>';
+    }
+    if (reposEl) reposEl.textContent = 'N/A';
+    if (starsItemEl) {
+        starsItemEl.style.display = 'none'; // Hide on error too
     }
   }
 }
