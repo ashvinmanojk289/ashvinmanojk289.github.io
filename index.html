@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 
 <head>
   <meta charset="UTF-8">
@@ -17,7 +17,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 </head>
 
@@ -32,134 +32,112 @@
     <div class="cursor-ring"></div>
   </div>
 
-
   <main>
 
-    <aside class="sidebar" data-sidebar>
+    <aside class="sidebar">
 
       <div class="sidebar-info">
 
         <figure class="avatar-box">
-          <img src="assets/profile-light.jpg" alt="Ashvin Manoj" width="80" id="avatar-img">
+          <img src="assets/profile-dark.jpg" alt="Ashvin Manoj" width="150" id="avatar-img">
         </figure>
 
         <div class="info-content">
           <h1 class="name" title="Ashvin Manoj">Ashvin Manoj</h1>
-          
-          <p class="title"><span class="typing-effect"></span></p>
-
+          <p class="title">AI/ML <span class="typing-effect"></span></p>
         </div>
+      </div>
 
+      <div class="sidebar-content">
         <div class="quick-contacts">
           <div class="contact-inline">
             <ion-icon name="mail-outline"></ion-icon>
-            <a href="mailto:ashvinmanojk@gmail.com" class="contact-link">ashvinmanojk@gmail.com</a>
+            <div class="contact-data">
+              <span>Email</span>
+              <a href="mailto:ashvinmanojk@gmail.com" class="contact-link">ashvinmanojk@gmail.com</a>
+            </div>
           </div>
           <div class="contact-inline">
             <ion-icon name="call-outline"></ion-icon>
-            <a href="tel:+918848236253" class="contact-link">(+91) 88482 36253</a>
-          </div>
-          <div class="contact-inline">
-            <ion-icon name="logo-linkedin"></ion-icon>
-            <a href="https://www.linkedin.com/in/ashvinmanojk289" target="_blank" class="contact-link">LinkedIn</a>
-          </div>
-          <div class="contact-inline">
-            <ion-icon name="logo-github"></ion-icon>
-            <a href="https://github.com/ashvinmanojk289" target="_blank" class="contact-link">GitHub</a>
-          </div>
-        </div>
-
-        <button class="info_more-btn" data-sidebar-btn>
-          <span>Show Contacts</span>
-          <ion-icon name="chevron-down"></ion-icon>
-        </button>
-
-      </div>
-
-      <div class="sidebar-info_more">
-
-        <div class="separator"></div>
-
-        <ul class="contacts-list">
-
-          <li class="contact-item">
-            <div class="icon-box">
-              <ion-icon name="location-outline"></ion-icon>
+            <div class="contact-data">
+              <span>Phone</span>
+              <a href="tel:+918848236253" class="contact-link">(+91) 88482 36253</a>
             </div>
-            <div class="contact-info">
-              <p class="contact-title">Location</p>
+          </div>
+          <div class="contact-inline">
+            <ion-icon name="location-outline"></ion-icon>
+            <div class="contact-data">
+              <span>Location</span>
               <address>Ernakulam, Kerala, India</address>
             </div>
-          </li>
-          
-          <li class="contact-item">
-            <div class="icon-box">
-                <ion-icon name="download-outline"></ion-icon>
+          </div>
+          <div class="contact-inline">
+            <ion-icon name="document-text-outline"></ion-icon>
+             <div class="contact-data">
+              <span>vCard</span>
+              <a href="assets/ashvinmanoj.vcf" class="contact-link" download="Ashvin_Manoj.vcf">Download Contact</a>
             </div>
-            <div class="contact-info">
-                <p class="contact-title">vCard</p>
-                <a href="assets/ashvinmanoj.vcf" class="contact-link" download="Ashvin_Manoj.vcf">Download Contact</a>
-            </div>
-          </li>
-
-        </ul>
+          </div>
+        </div>
 
         <div class="separator"></div>
 
-        <p class="copyright">&copy; <span id="current-year"></span> Ashvin Manoj. All Rights Reserved.</p>
+        <ul class="social-list">
+          <li class="social-item">
+            <a href="https://www.linkedin.com/in/ashvinmanojk289" target="_blank" class="social-link" aria-label="LinkedIn">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a>
+          </li>
+          <li class="social-item">
+            <a href="https://github.com/ashvinmanojk289" target="_blank" class="social-link" aria-label="GitHub">
+              <ion-icon name="logo-github"></ion-icon>
+            </a>
+          </li>
+          <li class="social-item">
+             <a href="#" target="_blank" class="social-link" aria-label="Twitter">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+          </li>
+        </ul>
+      </div>
 
-        <div class="theme-switcher">
-          <button class="theme-btn" id="theme-toggle-btn" aria-label="Toggle Theme">
-            <ion-icon name="sunny-outline" class="theme-icon theme-icon-sun"></ion-icon>
-            <ion-icon name="moon-outline" class="theme-icon theme-icon-moon hidden"></ion-icon>
-            <ion-icon name="desktop-outline" class="theme-icon theme-icon-auto hidden"></ion-icon>
-          </button>
-        </div>
-
+      <div class="theme-switcher">
+        <button class="theme-btn" id="theme-toggle-btn" aria-label="Toggle Theme">
+          <ion-icon name="sunny-outline" class="theme-icon theme-icon-sun hidden"></ion-icon>
+          <ion-icon name="moon-outline" class="theme-icon theme-icon-moon"></ion-icon>
+          <ion-icon name="desktop-outline" class="theme-icon theme-icon-auto hidden"></ion-icon>
+        </button>
       </div>
 
     </aside>
 
 
-
-
-
     <div class="main-content">
 
       <nav class="navbar">
-
         <ul class="navbar-list">
-
           <li class="navbar-item">
             <button class="navbar-link active" data-nav-link>About</button>
           </li>
-
           <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Resume</button>
           </li>
-
           <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Portfolio</button>
           </li>
-
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Blog</button>
+          </li>
           <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Contact</button>
           </li>
-
         </ul>
-
       </nav>
 
-
-
-
-
       <article class="about active" data-page="about">
-
         <header>
           <h2 class="h2 article-title">About Me</h2>
         </header>
-
         <section class="about-text">
           <p>
             A results-oriented AI/ML Engineer with a strong foundation in deep learning, NLP, and computer vision.
@@ -174,11 +152,8 @@
         </section>
 
         <section class="service">
-
-          <h3 class="h3 service-title">What I'm good at</h3>
-
+          <h3 class="h3 title-box-text">My Skills</h3>
           <ul class="service-list">
-
             <li class="service-item">
               <div class="service-icon-box">
                 <ion-icon name="analytics-outline"></ion-icon>
@@ -190,10 +165,9 @@
                 </p>
               </div>
             </li>
-
             <li class="service-item">
               <div class="service-icon-box">
-                <ion-icon name="git-branch-outline"></ion-icon>
+                <ion-icon name="color-palette-outline"></ion-icon>
               </div>
               <div class="service-content-box">
                 <h4 class="h4 service-item-title">AI/ML Frameworks</h4>
@@ -202,10 +176,9 @@
                 </p>
               </div>
             </li>
-
             <li class="service-item">
               <div class="service-icon-box">
-                <ion-icon name="hardware-chip-outline"></ion-icon>
+                <ion-icon name="hammer-outline"></ion-icon>
               </div>
               <div class="service-content-box">
                 <h4 class="h4 service-item-title">Platforms & Tools</h4>
@@ -214,7 +187,6 @@
                 </p>
               </div>
             </li>
-
             <li class="service-item">
               <div class="service-icon-box">
                 <ion-icon name="code-slash-outline"></ion-icon>
@@ -226,17 +198,12 @@
                 </p>
               </div>
             </li>
-
           </ul>
-
         </section>
-        
+
         <section class="github-stats">
-
-          <h3 class="h3 service-title">Live from GitHub</h3>
-
+          <h3 class="h3 title-box-text">Live from GitHub</h3>
           <ul class="service-list">
-
             <li class="service-item">
               <div class="service-icon-box">
                 <ion-icon name="git-branch-outline"></ion-icon>
@@ -246,7 +213,6 @@
                 <p class="service-item-text">Public Repos</p>
               </div>
             </li>
-
             <li class="service-item">
               <div class="service-icon-box">
                 <ion-icon name="star-outline"></ion-icon>
@@ -256,44 +222,33 @@
                 <p class="service-item-text">Stars Earned</p>
               </div>
             </li>
-            
-            <li class="service-item" style="grid-column: 1 / -1;">
+            <li class="service-item github-activity-item">
               <div class="service-icon-box">
                 <ion-icon name="git-commit-outline"></ion-icon>
               </div>
               <div class="service-content-box">
                 <h4 class="h4 service-item-title">Recent Activity</h4>
-                <ul id="github-activity" class="timeline-item-list" style="padding-left: 0;">
-                  <li class="timeline-item-bullet">Fetching latest commits...</li>
+                <ul id="github-activity" class="github-activity-list">
+                  <li>Fetching latest commits...</li>
                 </ul>
               </div>
             </li>
-
           </ul>
-
         </section>
-
       </article>
 
-
-
-
-
       <article class="resume" data-page="resume">
-
         <header>
           <h2 class="h2 article-title">Resume</h2>
         </header>
-
         <section class="resume-download content-card">
           <div class="resume-download-inner">
             <img src="assets/resume.jpg" alt="Resume preview" class="resume-preview-img">
-            
             <a href="assets/resume.pdf" class="form-btn" download aria-label="Download Resume PDF">
               <ion-icon name="download-outline"></ion-icon>
               <span>Download Resume (PDF)</span>
             </a>
-            </div>
+          </div>
         </section>
 
         <section class="timeline">
@@ -303,7 +258,6 @@
             </div>
             <h3 class="h3">Education</h3>
           </div>
-
           <ol class="timeline-list">
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">Rajagiri School of Engineering and Technology</h4>
@@ -325,22 +279,21 @@
             </div>
             <h3 class="h3">Experience</h3>
           </div>
-
           <ol class="timeline-list">
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">Data Science Intern, Mastermine Technologies</h4>
               <span>Aug 2025 - Present</span>
               <ul class="timeline-item-list">
-                <li class="timeline-item-bullet">Engineering a full-stack desktop application for photographers using Java, React.js, and Electron.js.</li>
-                <li class="timeline-item-bullet">Designing a multi-agent LLM framework to automate data analysis and generate insights.</li>
+                <li>Engineering a full-stack desktop application for photographers.</li>
+                <li>Designing a multi-agent LLM framework for data analysis.</li>
               </ul>
             </li>
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">Hardware Systems Intern, Sunlux Technovations</h4>
               <span>Feb 2024 - April 2024</span>
               <ul class="timeline-item-list">
-                <li class="timeline-item-bullet">Developed and debugged microprocessor programs in Assembly for industrial automation systems.</li>
-                <li class="timeline-item-bullet">Collaborated with engineers to design and implement real-world embedded solutions.</li>
+                <li>Developed and debugged microprocessor programs in Assembly.</li>
+                <li>Collaborated with engineers on embedded solutions.</li>
               </ul>
             </li>
           </ol>
@@ -357,7 +310,7 @@
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">A Hybrid Transformer Model Approach for Precision Weed Detection</h4>
               <p class="timeline-text">
-                S. Krishnan, M. Karuppasamypandiyan, and <strong>A. Manoj</strong>, in <em>2025 4th International Conference on Advances in Computing, Communication, Embedded and Secure Systems (ACCESS)</em>, Ernakulam, India, 2025, pp. 1-7.
+                Published in <em>2025 4th International Conference on Advances in Computing, Communication, Embedded and Secure Systems (ACCESS)</em>.
               </p>
               <p class="timeline-text" style="margin-top: 5px;">
                 DOI: 10.1109/ACCESS65134.2025.11135583
@@ -365,112 +318,95 @@
             </li>
           </ol>
         </section>
-        
-        <section class="skill">
-          <h3 class="h3 skills-title">Technical Skills</h3>
-          <ul class="skills-list content-card">
-            <li class="skills-item">
-              <div class="title-wrapper">
-                <h5 class="h5">Languages & Databases</h5>
-              </div>
-              <p class="skills-text">Python, C++, C, SQL, R</p>
-            </li>
-            <li class="skills-item">
-              <div class="title-wrapper">
-                <h5 class="h5">AI/ML Frameworks</h5>
-              </div>
-              <p class="skills-text">TensorFlow, PyTorch, Scikit-learn, Transformers, Pandas, NumPy</p>
-            </li>
-            <li class="skills-item">
-              <div class="title-wrapper">
-                <h5 class="h5">Tools & Platforms</h5>
-              </div>
-              <p class="skills-text">ROS, Arduino, Git, Streamlit, Flask, MATLAB, Linux</p>
-            </li>
-          </ul>
-        </section>
-
       </article>
 
-
-
-
-
       <article class="portfolio" data-page="portfolio">
-
         <header>
-          <h2 class="h2 article-title">Projects</h2>
+          <h2 class="h2 article-title">Portfolio</h2>
         </header>
-
         <section class="projects">
+          <ul class="filter-list">
+            <li class="filter-item">
+              <button class="filter-btn active" data-filter="all">All</button>
+            </li>
+            <li class="filter-item">
+              <button class="filter-btn" data-filter="ai/ml">AI/ML</button>
+            </li>
+            <li class="filter-item">
+              <button class="filter-btn" data-filter="full-stack">Full-stack</button>
+            </li>
+            <li class="filter-item">
+              <button class="filter-btn" data-filter="robotics">Robotics</button>
+            </li>
+          </ul>
 
-          <ul class="project-list">
-            
-            <li class="project-item content-card">
+          <ul class="project-grid">
+            <li class="project-item" data-category="ai/ml full-stack">
               <a href="#">
                 <figure class="project-img">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
-                  <img src="assets/favicon.png" alt="Multilingual News Audio Translator" class="project-img-placeholder">
+                  <img src="assets/favicon.png" alt="Multilingual News Audio Translator" class="project-img-cover">
                 </figure>
                 <h3 class="h3 project-title">Multilingual News Audio Translator</h3>
                 <p class="project-category">Full-stack Audio App</p>
-                <div class="project-modal-description" style="display: none;">
+                <div class="project-modal-description">
                   <p>Developed a full-stack audio translation app using Wav2Vec 2.0 for speech recognition (92% accuracy) and an mBART model, fine-tuned with reinforcement learning for fluent translation.</p>
                 </div>
               </a>
             </li>
-
-            <li class="project-item content-card">
+            <li class="project-item" data-category="ai/ml">
               <a href="#">
                 <figure class="project-img">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
-                  <img src="assets/favicon.png" alt="PDF Query Application" class="project-img-placeholder">
+                  <img src="assets/favicon.png" alt="PDF Query Application" class="project-img-cover">
                 </figure>
                 <h3 class="h3 project-title">PDF Query Application</h3>
                 <p class="project-category">GenAI / NLP</p>
-                <div class="project-modal-description" style="display: none;">
+                <div class="project-modal-description">
                   <p>Developed a scalable, voice-enabled PDF query system using NLP and Streamlit, transforming static documents into conversational hubs and reducing information retrieval time by over 89%.</p>
                 </div>
               </a>
             </li>
-
-            <li class="project-item content-card">
+            <li class="project-item" data-category="ai/ml robotics">
               <a href="#">
                 <figure class="project-img">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
-                  <img src="assets/favicon.png" alt="Automatic Weed Detection and Spraying Robot" class="project-img-placeholder">
+                  <img src="assets/favicon.png" alt="Automatic Weed Detection and Spraying Robot" class="project-img-cover">
                 </figure>
                 <h3 class="h3 project-title">Automatic Weed Detection and Spraying Robot</h3>
                 <p class="project-category">Robotics / AI</p>
-                <div class="project-modal-description" style="display: none;">
+                <div class="project-modal-description">
                   <p>Revolutionizing precision agriculture with an AI-powered weed detection robot using ROS and a custom hybrid EfficientNetV2 - Transformer models (97% Accuracy) for an eco-friendly herbicide application.</p>
                 </div>
               </a>
             </li>
-
           </ul>
-
         </section>
-
       </article>
 
+      <article class="blog" data-page="blog">
+        <header>
+          <h2 class="h2 article-title">Blog</h2>
+        </header>
+        <section class="blog-posts">
+          <p class="placeholder-text">
+            No blog posts yet. Check back soon!
+          </p>
+        </section>
+      </article>
 
       <article class="contact" data-page="contact">
-
         <header>
           <h2 class="h2 article-title">Get In Touch</h2>
         </header>
-
         <section class="contact-form-box">
-          
           <h3 class="h3">Contact Form</h3>
-          
           <form action="https://getform.io/f/adrddnka" method="POST" class="form" data-form>
             <div class="input-wrapper">
               <input type="text" name="name" class="form-input" placeholder="Full name" required data-form-input>
@@ -482,13 +418,10 @@
               <span>Send Message</span>
             </button>
           </form>
-
         </section>
-
       </article>
 
     </div>
-
   </main>
   
   
@@ -508,9 +441,8 @@
         <div class="suggested-questions">
           </div>
       </div>
-      </div>
+    </div>
   </div>
-
 
   <div class="modal-container" data-modal-container data-overlay>
     <div class="modal-content">
@@ -526,12 +458,9 @@
     </div>
   </div>
 
-
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
   <script src="script.js"></script>
 
 </body>
-
 </html>

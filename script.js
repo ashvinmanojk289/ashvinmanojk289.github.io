@@ -5,22 +5,21 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Initialize all features ---
     initPageNavigation();
-    initSidebarToggle();
     initPortfolioModals();
-    // initResumePreview(); // REMOVED as requested
+    initProjectFilter(); // Added for portfolio
     
     initLoadingSpinner();
     initCustomCursor();
-    initTypingEffect();
+    initTypingEffect(); // Modified for new title
     initCurrentYear();
-    initThemeSwitcher(); // MODIFIED
+    initThemeSwitcher();
     
-    fetchGitHubStats(); // This is async, fine to call here
-    initChatAssistant(); // This is also self-contained
+    fetchGitHubStats();
+    initChatAssistant();
 });
 
 
-// --- Feature 1: Loading Spinner (New) ---
+// --- Feature 1: Loading Spinner ---
 function initLoadingSpinner() {
     const spinner = document.getElementById('loadingSpinner');
     if (spinner) {
@@ -30,7 +29,7 @@ function initLoadingSpinner() {
     }
 }
 
-// --- Feature 2: Custom Cursor (New) ---
+// --- Feature 2: Custom Cursor ---
 function initCustomCursor() {
     if (window.matchMedia("(pointer: coarse)").matches) return; 
 
@@ -59,18 +58,19 @@ function initCustomCursor() {
     }
     animateCursor();
 
-    document.querySelectorAll('a, button, [data-nav-link], [data-sidebar-btn], .project-item, .social-link, .chat-toggle-btn, .suggested-question').forEach(el => {
+    document.querySelectorAll('a, button, [data-nav-link], .project-item, .social-link, .chat-toggle-btn, .suggested-question').forEach(el => {
         el.addEventListener('mouseenter', () => cursorContainer.classList.add('interact'));
         el.addEventListener('mouseleave', () => cursorContainer.classList.remove('interact'));
     });
 }
 
-// --- Feature 3: Typing Effect (New) ---
+// --- Feature 3: Typing Effect (MODIFIED) ---
 function initTypingEffect() {
     const target = document.querySelector('.typing-effect');
     if (!target) return;
     
-    const words = ["AI/ML Engineer", "Robotics Enthusiast", "Deep Learning Dev", "PG Student"];
+    // Updated words to fit the "AI/ML ____" title
+    const words = ["Developer", "Engineer", "Enthusiast", "Student"];
     let wordIndex = 0, charIndex = 0, isDeleting = false;
 
     function type() {
@@ -92,13 +92,13 @@ function initTypingEffect() {
     type();
 }
 
-// --- Feature 4: Current Year (New) ---
+// --- Feature 4: Current Year ---
 function initCurrentYear() {
     const yearSpan = document.getElementById('current-year');
     if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 }
 
-// --- Feature 5: Theme Switcher (MODIFIED for 3-state) ---
+// --- Feature 5: Theme Switcher (3-state) ---
 function initThemeSwitcher() {
     const themeBtn = document.getElementById('theme-toggle-btn');
     if (!themeBtn) return;
@@ -106,57 +106,44 @@ function initThemeSwitcher() {
     const sunIcon = document.querySelector('.theme-icon-sun');
     const moonIcon = document.querySelector('.theme-icon-moon');
     const autoIcon = document.querySelector('.theme-icon-auto');
-    const avatarImg = document.getElementById('avatar-img'); // Get avatar
+    const avatarImg = document.getElementById('avatar-img');
     
     if (!sunIcon || !moonIcon || !autoIcon) return;
 
-    const themes = ['light', 'dark', 'auto'];
-    let currentTheme = localStorage.getItem('theme') || 'auto';
+    const themes = ['dark', 'light', 'auto']; // Cycle order
+    let currentTheme = localStorage.getItem('theme') || 'dark'; // Default to dark
     
-    // Media query for system preference
     const systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
 
     function applyTheme(theme) {
         let themeToApply = theme;
         
         if (theme === 'auto') {
-            // Check system preference
             themeToApply = systemDarkMode.matches ? 'dark' : 'light';
-            // Show auto icon
             sunIcon.classList.add('hidden');
             moonIcon.classList.add('hidden');
             autoIcon.classList.remove('hidden');
         } else if (theme === 'dark') {
             themeToApply = 'dark';
-            // Show moon icon
             sunIcon.classList.add('hidden');
             moonIcon.classList.remove('hidden');
             autoIcon.classList.add('hidden');
         } else {
             themeToApply = 'light';
-            // Show sun icon
             sunIcon.classList.remove('hidden');
             moonIcon.classList.add('hidden');
             autoIcon.classList.add('hidden');
         }
 
-        // Apply theme to HTML tag
         document.documentElement.setAttribute('data-theme', themeToApply);
         
-        // Update avatar image based on final theme
         if (avatarImg) {
-            if (themeToApply === 'dark') {
-                avatarImg.src = 'assets/profile-dark.jpg';
-            } else {
-                avatarImg.src = 'assets/profile-light.jpg';
-            }
+            avatarImg.src = themeToApply === 'dark' ? 'assets/profile-dark.jpg' : 'assets/profile-light.jpg';
         }
         
-        // Save user's explicit choice (light, dark, or auto)
         localStorage.setItem('theme', theme);
     }
 
-    // Event listener for the toggle button
     themeBtn.addEventListener('click', () => {
         const currentIndex = themes.indexOf(currentTheme);
         const nextIndex = (currentIndex + 1) % themes.length;
@@ -164,19 +151,16 @@ function initThemeSwitcher() {
         applyTheme(currentTheme);
     });
 
-    // Listen for changes in system preference
     systemDarkMode.addEventListener('change', (e) => {
         if (currentTheme === 'auto') {
             applyTheme('auto');
         }
     });
 
-    // Apply the saved theme on page load
     applyTheme(currentTheme);
 }
 
-
-// --- Feature 6: (Existing) GitHub Stats ---
+// --- Feature 6: GitHub Stats ---
 async function fetchGitHubStats() {
   try {
     const response = await fetch(`https://api.github.com/users/ashvinmanojk289/repos?sort=pushed&per_page=5`);
@@ -199,18 +183,18 @@ async function fetchGitHubStats() {
     if (starsEl) starsEl.textContent = allRepos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
 
     if (activityList) {
-        activityList.innerHTML = repos.slice(0, 3).map(repo => `<li class="timeline-item-bullet">Pushed to <strong>${repo.name}</strong></li>`).join('');
+        activityList.innerHTML = repos.slice(0, 3).map(repo => `<li>Pushed to <strong>${repo.name}</strong></li>`).join('');
     }
   } catch (error) {
     console.error('Failed to fetch GitHub stats:', error);
     const activityList = document.getElementById('github-activity');
     if(activityList) {
-        activityList.innerHTML = '<li class="timeline-item-bullet">Could not fetch data.</li>';
+        activityList.innerHTML = '<li>Could not fetch data.</li>';
     }
   }
 }
 
-// --- Feature 7: (Existing) Chat Assistant ---
+// --- Feature 7: Chat Assistant ---
 function initChatAssistant() {
     const toggleBtn = document.querySelector('.chat-toggle-btn');
     const chatWindow = document.querySelector('.chat-window');
@@ -222,7 +206,6 @@ function initChatAssistant() {
         return;
     }
 
-    // (Fixed typo in 'Back to start')
     const conversationTree = {
         'root': {
             'isAnswer': false,
@@ -416,7 +399,7 @@ function initChatAssistant() {
     });
 }
 
-// --- Feature 8: (Original vcard) Page Navigation ---
+// --- Feature 8: Page Navigation (MODIFIED) ---
 function initPageNavigation() {
     const navigationLinks = document.querySelectorAll("[data-nav-link]");
     const pages = document.querySelectorAll("[data-page]");
@@ -425,34 +408,35 @@ function initPageNavigation() {
 
     for (let i = 0; i < navigationLinks.length; i++) {
       navigationLinks[i].addEventListener("click", function () {
-
+        
+        let clickedPage = navigationLinks[i].innerHTML.toLowerCase();
+        
         for (let j = 0; j < pages.length; j++) {
-          if (navigationLinks[i].innerHTML.toLowerCase() === pages[j].dataset.page) {
+          if (clickedPage === pages[j].dataset.page) {
             pages[j].classList.add("active");
             navigationLinks[i].classList.add("active");
             window.scrollTo(0, 0);
           } else {
             pages[j].classList.remove("active");
-            navigationLinks[i].classList.remove("active");
+            // Check all nav links, not just index j
+            navigationLinks.forEach(link => {
+              if (link.innerHTML.toLowerCase() === pages[j].dataset.page) {
+                link.classList.remove("active");
+              }
+            });
           }
         }
+        
+        // Ensure the clicked link is active (even if others share its name, which they shouldn't)
+        navigationLinks.forEach(link => link.classList.remove('active'));
+        this.classList.add('active');
+
       });
     }
 }
 
-// --- Feature 9: (Original vcard) Sidebar Toggle ---
-function initSidebarToggle() {
-    const sidebar = document.querySelector("[data-sidebar]");
-    const sidebarBtn = document.querySelector("[data-sidebar-btn]");
-    
-    if (sidebar && sidebarBtn) {
-        sidebarBtn.addEventListener("click", function () { 
-            sidebar.classList.toggle("active"); 
-        });
-    }
-}
 
-// --- Feature 10: (Original vcard) Portfolio Modals ---
+// --- Feature 9: Portfolio Modals ---
 function initPortfolioModals() {
     const projectItems = document.querySelectorAll(".project-item");
     const modalContainer = document.querySelector("[data-modal-container]");
@@ -469,7 +453,6 @@ function initPortfolioModals() {
       modalContainer.classList.toggle("active");
       overlay.classList.toggle("active");
       
-      // Clear modal content on close
       if (!modalContainer.classList.contains('active')) {
           if (imgWrapper) imgWrapper.innerHTML = '';
           if (modalText) modalText.innerHTML = '';
@@ -483,9 +466,14 @@ function initPortfolioModals() {
         const title = item.querySelector(".project-title").innerText;
         const category = item.querySelector(".project-category").innerText;
         const description = item.querySelector(".project-modal-description").innerHTML;
+        const imgSrc = item.querySelector(".project-img-cover")?.src;
         
         if (modalTitle) modalTitle.innerText = title;
         if (modalText) modalText.innerHTML = `<strong>${category}</strong><br><br>${description}`;
+        if (imgWrapper && imgSrc) {
+            imgWrapper.innerHTML = `<img src="${imgSrc}" alt="${title}" style="width: 100%; height: auto; border-radius: 8px;">`;
+        }
+
 
         portfolioModalFunc();
       });
@@ -493,4 +481,35 @@ function initPortfolioModals() {
 
     modalCloseBtn.addEventListener("click", portfolioModalFunc);
     overlay.addEventListener("click", portfolioModalFunc);
+}
+
+// --- Feature 10: Project Filtering (NEW) ---
+function initProjectFilter() {
+  const filterBtns = document.querySelectorAll("[data-filter]");
+  const projectItems = document.querySelectorAll(".project-item[data-category]");
+
+  if (!filterBtns.length || !projectItems.length) return;
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", function() {
+      // Deactivate all buttons
+      filterBtns.forEach(b => b.classList.remove("active"));
+      // Activate clicked button
+      this.classList.add("active");
+
+      const filterValue = this.dataset.filter;
+
+      projectItems.forEach(item => {
+        const itemCategories = item.dataset.category.split(' ');
+        
+        if (filterValue === "all" || itemCategories.includes(filterValue)) {
+          item.classList.remove("hidden");
+          item.style.display = 'block'; // Or 'grid', 'flex' etc.
+        } else {
+          item.classList.add("hidden");
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
 }
