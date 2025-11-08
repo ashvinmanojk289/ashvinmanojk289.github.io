@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Initialize all features ---
     initPageNavigation();
-    initPortfolioModals();
-    initProjectFilter(); // Modified
+    initPortfolioModals(); // This won't run, but is safe to leave
+    initProjectFilter(); 
     
     initLoadingSpinner();
     initCustomCursor();
@@ -158,6 +158,7 @@ function initThemeSwitcher() {
 
     applyTheme(currentTheme);
 }
+
 
 // --- Feature 6: GitHub Stats ---
 async function fetchGitHubStats() {
@@ -428,16 +429,20 @@ function initPageNavigation() {
     }
 }
 
-// --- Feature 9: Portfolio Modals (No change) ---
+// --- Feature 9: Portfolio Modals (No longer used) ---
 function initPortfolioModals() {
-    // This function is no longer used since projects are not in modals
-    // but we leave it in case you want to add modals back later.
-    // We will, however, prevent it from running on the new items.
-    const projectItems = document.querySelectorAll(".project-item"); // This won't find the new items
-    if (!projectItems.length) return; // Exit if no old-style projects
+    // This function is no longer used by the new project items
+    // but is kept to prevent errors if old items were added.
+    const projectItems = document.querySelectorAll(".project-item");
+    if (!projectItems.length) return;
 
     const modalContainer = document.querySelector("[data-modal-container]");
-    // ... (rest of the original modal logic)
+    const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
+    const overlay = document.querySelector("[data-overlay]");
+
+    if (!modalContainer || !modalCloseBtn || !overlay) return;
+
+    // ... (original modal logic)
 }
 
 // --- Feature 10: Project Filtering (MODIFIED) ---
@@ -460,11 +465,17 @@ function initProjectFilter() {
         const itemCategories = item.dataset.category.split(' ');
         
         if (filterValue === "all" || itemCategories.includes(filterValue)) {
-          item.classList.remove("hidden");
           item.style.display = 'block';
+          // Use a timeout to allow the 'display' to apply before adding animation class
+          setTimeout(() => {
+            item.classList.remove("hidden");
+          }, 0);
         } else {
           item.classList.add("hidden");
-          item.style.display = 'none';
+          // Wait for animation to finish before setting display: none
+          setTimeout(() => {
+            item.style.display = 'none';
+          }, 300); // Match this to animation duration in CSS
         }
       });
     });

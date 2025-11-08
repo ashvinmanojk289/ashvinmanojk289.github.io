@@ -208,7 +208,6 @@ body {
 
 .timeline-text { color: var(--text-secondary); }
 
-/* ADDED: Button for timeline items */
 .timeline-btn {
   display: inline-flex;
   align-items: center;
@@ -544,11 +543,28 @@ main {
   border: 1px solid var(--border-color);
 }
 .download-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   width: 100%;
   max-width: 400px;
-  justify-content: center;
-  font-size: var(--fs-4);
   padding: 15px 20px;
+  border-radius: 12px;
+  background: var(--color-accent);
+  color: var(--bg-main);
+  font-weight: var(--fw-500);
+  font-size: var(--fs-4);
+  box-shadow: var(--shadow-1);
+  transition: var(--transition-2);
+}
+.download-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-2);
+}
+.download-btn:active {
+  transform: translateY(0);
 }
 
 .skills-list {
@@ -597,14 +613,18 @@ main {
   gap: 30px;
 }
 
-/* MODIFIED: Project Item without image */
 .project-item-no-img {
   padding: 25px;
   background: var(--bg-content-light);
   border-radius: 16px;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-1);
+  transition: var(--transition-2);
 }
+.project-item-no-img:hover {
+  border-color: var(--color-accent);
+}
+
 .project-title {
   font-size: var(--fs-3);
   font-weight: var(--fw-500);
@@ -687,20 +707,41 @@ textarea.form-input {
   max-height: 200px;
   resize: vertical;
 }
+
+/* IMPROVED Button */
 .form-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px 20px;
+  border-radius: 12px;
+
   background: var(--color-accent);
   color: var(--bg-main);
   font-weight: var(--fw-500);
   font-size: var(--fs-5);
-  width: 100%;
-  justify-content: center;
+  
+  transition: var(--transition-2);
+  box-shadow: var(--shadow-1);
 }
-.form-btn:hover { background: var(--color-accent); opacity: 0.9; }
+.form-btn:hover {
+  background: var(--color-accent);
+  opacity: 0.9;
+  /* Add lift */
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-2);
+}
+.form-btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-1);
+}
 .form-btn ion-icon {
   transition: var(--transition-2);
 }
 .form-btn:hover ion-icon {
-  transform: translateX(5px);
+  transform: translateX(3px);
 }
 
 /*-----------------------------------*\
@@ -710,7 +751,14 @@ textarea.form-input {
 @media (min-width: 580px) {
   :root { --fs-1: 36px; --fs-2: 28px; --fs-3: 22px; --fs-4: 18px; }
   main { margin: 30px; }
-  .sidebar { width: 300px; margin-bottom: 0; flex-shrink: 0; align-self: flex-start; }
+  .sidebar { 
+    width: 300px; 
+    margin-bottom: 0; 
+    flex-shrink: 0; 
+    align-self: flex-start;
+    position: sticky;
+    top: 30px;
+  }
   main { display: flex; gap: 30px; }
   .main-content { width: 100%; min-width: 0; }
   .navbar { position: absolute; }
@@ -722,7 +770,11 @@ textarea.form-input {
 @media (min-width: 1024px) {
   :root { --fs-1: 42px; --fs-2: 30px; --fs-3: 24px; --fs-4: 18px; }
   main { margin: 60px 30px; max-width: 1200px; margin-inline: auto; gap: 40px; }
-  .sidebar { width: 350px; padding: 40px; position: sticky; top: 60px; }
+  .sidebar { 
+    width: 350px; 
+    padding: 40px; 
+    top: 60px; /* Sticky position */
+  }
   .avatar-box { width: 150px; height: 150px; }
   .main-content { padding: 40px; }
   .service-list { grid-template-columns: 1fr 1fr; }
@@ -731,6 +783,7 @@ textarea.form-input {
 
 @media (min-width: 1250px) {
   main { max-width: 1200px; }
+  .project-grid { grid-template-columns: 1fr 1fr; }
 }
 
 
