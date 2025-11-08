@@ -48,6 +48,18 @@
 
         </div>
 
+        <!-- Quick visible contacts (added so email/phone appear without opening the contacts panel) -->
+        <div class="quick-contacts">
+          <div class="contact-inline">
+            <ion-icon name="mail-outline"></ion-icon>
+            <a href="mailto:ashvinmanojk@gmail.com" class="contact-link">ashvinmanojk@gmail.com</a>
+          </div>
+          <div class="contact-inline">
+            <ion-icon name="call-outline"></ion-icon>
+            <a href="tel:+918848236253" class="contact-link">(+91) 88482 36253</a>
+          </div>
+        </div>
+
         <button class="info_more-btn" data-sidebar-btn>
           <span>Show Contacts</span>
           <ion-icon name="chevron-down"></ion-icon>
@@ -298,6 +310,27 @@
         <header>
           <h2 class="h2 article-title">Resume</h2>
         </header>
+
+        <!-- Resume preview and download (new) -->
+        <section class="resume-download content-card">
+          <div class="resume-download-inner">
+            <div class="resume-preview">
+              <!-- Use profile image as a temporary preview; replace with assets/resume-preview.jpg if available -->
+              <img src="assets/profile-light.jpg" alt="Resume preview" width="220">
+            </div>
+            <div class="resume-actions">
+              <a href="assets/Ashvin_Resume.pdf" class="form-btn" download aria-label="Download Resume PDF">
+                <ion-icon name="download-outline"></ion-icon>
+                <span>Download Resume (PDF)</span>
+              </a>
+              <button class="form-btn resume-preview-btn" aria-label="Preview Resume">
+                <ion-icon name="eye-outline"></ion-icon>
+                <span>Preview Resume</span>
+              </button>
+              <p class="note">Place your resume PDF at <code>assets/Ashvin_Resume.pdf</code> to enable direct download. The preview image can be replaced at <code>assets/resume-preview.jpg</code>.</p>
+            </div>
+          </div>
+        </section>
 
         <section class="timeline">
           <div class="title-wrapper">

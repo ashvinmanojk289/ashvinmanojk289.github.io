@@ -506,6 +506,16 @@ textarea.form-input {
   line-height: 1.6;
 }
 
+/* Modal iframe for PDF preview */
+.modal-img-wrapper { margin-bottom: 12px; }
+.modal-iframe {
+  width: 100%;
+  height: 60vh;
+  border: none;
+  border-radius: 8px;
+  box-shadow: var(--shadow-2);
+}
+
 
 
 
@@ -669,6 +679,45 @@ main {
 }
 
 .social-item .social-link:hover { color: var(--silver); }
+
+/* Quick contacts visible on sidebar */
+.quick-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.quick-contacts .contact-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-6);
+  color: var(--davys-gray);
+}
+
+.quick-contacts ion-icon { color: var(--deep-aquamarine); font-size: 18px; }
+
+/* Resume download preview */
+.resume-download-inner {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.resume-preview img {
+  width: 220px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: var(--shadow-2);
+}
+
+.resume-actions .note {
+  margin-top: 10px;
+  color: var(--davys-gray);
+  font-size: var(--fs-6);
+}
 
 
 

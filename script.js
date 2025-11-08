@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPageNavigation();
     initSidebarToggle();
     initPortfolioModals();
+    initResumePreview();
     
     initLoadingSpinner();
     initCustomCursor();
@@ -453,4 +454,48 @@ function initPortfolioModals() {
 
     modalCloseBtn.addEventListener("click", portfolioModalFunc);
     overlay.addEventListener("click", portfolioModalFunc);
+}
+
+// --- Feature 11: Resume Preview in Modal ---
+function initResumePreview() {
+    const previewBtn = document.querySelector('.resume-preview-btn');
+    const modalContainer = document.querySelector('[data-modal-container]');
+    const modalCloseBtn = document.querySelector('[data-modal-close-btn]');
+
+    if (!previewBtn || !modalContainer || !modalCloseBtn) return;
+
+    const imgWrapper = modalContainer.querySelector('.modal-img-wrapper');
+    const modalTitle = modalContainer.querySelector('.modal-title');
+
+    previewBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Set title
+        if (modalTitle) modalTitle.innerText = 'Resume Preview';
+
+        // Remove any existing text paragraph
+        const existingP = modalContainer.querySelector('.modal-content p');
+        if (existingP) existingP.remove();
+
+        // Insert iframe pointing to the resume PDF (place your PDF at assets/Ashvin_Resume.pdf)
+        if (imgWrapper) {
+            imgWrapper.innerHTML = `<iframe src="assets/Ashvin_Resume.pdf" class="modal-iframe" aria-label="Resume preview"></iframe>`;
+        }
+
+        // Show modal
+        modalContainer.classList.add('active');
+    });
+
+    // cleanup when modal closed
+    modalCloseBtn.addEventListener('click', () => {
+        if (imgWrapper) imgWrapper.innerHTML = '';
+        modalContainer.classList.remove('active');
+    });
+
+    // also remove iframe if clicked outside modal (overlay click)
+    modalContainer.addEventListener('click', (e) => {
+        if (e.target === modalContainer) {
+            if (imgWrapper) imgWrapper.innerHTML = '';
+            modalContainer.classList.remove('active');
+        }
+    });
 }
