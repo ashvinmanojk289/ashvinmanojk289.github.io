@@ -5,14 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Initialize all features ---
     initPageNavigation();
-    // initPortfolioModals(); // REMOVED
+    initCaseStudyModal(); // RE-ADDED
     initProjectFilter(); 
     
     initLoadingSpinner();
-    initCustomCursor(); // Modified
+    initCustomCursor(); 
     initTypingEffect();
     initCurrentYear();
-    initThemeSwitcher(); // Modified
+    initThemeSwitcher(); 
     
     fetchGitHubStats();
     initChatAssistant();
@@ -29,29 +29,25 @@ function initLoadingSpinner() {
     }
 }
 
-// --- Feature 2: Custom Cursor (MODIFIED) ---
+// --- Feature 2: Custom Cursor ---
 function initCustomCursor() {
     if (window.matchMedia("(pointer: coarse)").matches) return; 
 
     const cursorContainer = document.querySelector('.custom-cursor');
     const dot = document.querySelector('.cursor-dot');
-    // const ring = document.querySelector('.cursor-ring'); // REMOVED
 
-    if (!cursorContainer || !dot) return; // Modified
+    if (!cursorContainer || !dot) return;
 
     let mouseX = -100, mouseY = -100;
     let dotX = -100, dotY = -100;
-    // let ringX = -100, ringY = -100; // REMOVED
 
     window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
 
     function animateCursor() {
         dotX += (mouseX - dotX) * 0.9; dotY += (mouseY - dotY) * 0.9;
-        // ringX += (mouseX - ringX) * 0.25; ringY += (mouseY - ringY) * 0.25; // REMOVED
 
-        if (dot) { // Modified
+        if (dot) {
           dot.style.transform = `translate(${dotX}px, ${dotY}px)`;
-          // ring.style.transform = `translate(${ringX}px, ${ringY}px)`; // REMOVED
         }
         
         requestAnimationFrame(animateCursor);
@@ -97,17 +93,16 @@ function initCurrentYear() {
     if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 }
 
-// --- Feature 5: Theme Switcher (MODIFIED for 2-state) ---
+// --- Feature 5: Theme Switcher (2-state) ---
 function initThemeSwitcher() {
     const themeBtn = document.getElementById('theme-toggle-btn');
     if (!themeBtn) return;
 
     const sunIcon = document.querySelector('.theme-icon-sun');
     const moonIcon = document.querySelector('.theme-icon-moon');
-    // const autoIcon = document.querySelector('.theme-icon-auto'); // REMOVED
     const avatarImg = document.getElementById('avatar-img');
     
-    if (!sunIcon || !moonIcon) return; // Modified
+    if (!sunIcon || !moonIcon) return;
 
     let currentTheme = localStorage.getItem('theme') || 'dark'; // Default to dark
     
@@ -132,7 +127,6 @@ function initThemeSwitcher() {
         applyTheme(newTheme);
     });
 
-    // Apply the saved theme on page load
     applyTheme(currentTheme);
 }
 
@@ -158,7 +152,7 @@ async function fetchGitHubStats() {
 
     if (activityList) {
         if (repos.length > 0) {
-            activityList.innerHTML = repos.map(repo => `<li>Pushed to <strong>${repo.name}</strong></li>`).join('');
+            activityList.innerHTML = repos.slice(0, 3).map(repo => `<li>Pushed to <strong>${repo.name}</strong></li>`).join('');
         } else {
             activityList.innerHTML = '<li>No recent activity.</li>';
         }
@@ -415,12 +409,50 @@ function initPageNavigation() {
     }
 }
 
-// --- Feature 9: Portfolio Modals (REMOVED) ---
-function initPortfolioModals() {
-    // This function is no longer used
+// --- Feature 9: Case Study Modal (RE-ADDED) ---
+function initCaseStudyModal() {
+    const caseStudyBtns = document.querySelectorAll(".case-study-btn");
+    const modalContainer = document.querySelector("[data-modal-container]");
+    const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
+    const overlay = document.querySelector("[data-overlay]");
+
+    if (!modalContainer || !modalCloseBtn || !overlay || !caseStudyBtns.length) return;
+
+    const modalTitle = modalContainer.querySelector(".modal-title");
+    const modalCategory = modalContainer.querySelector(".modal-category");
+    const modalText = modalContainer.querySelector(".modal-text-content");
+
+    const toggleModal = function () {
+      modalContainer.classList.toggle("active");
+      overlay.classList.toggle("active");
+    }
+
+    caseStudyBtns.forEach(btn => {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault(); 
+        
+        // Find the parent project item
+        const projectItem = this.closest('.project-item-no-img');
+        
+        // Get content from the project item
+        const title = projectItem.querySelector(".project-title").innerText;
+        const category = projectItem.querySelector(".project-category").innerText;
+        const description = projectItem.querySelector(".project-description").innerHTML;
+        
+        // Populate the modal
+        if (modalTitle) modalTitle.innerText = title;
+        if (modalCategory) modalCategory.innerText = category;
+        if (modalText) modalText.innerHTML = description;
+
+        toggleModal();
+      });
+    });
+
+    modalCloseBtn.addEventListener("click", toggleModal);
+    overlay.addEventListener("click", toggleModal);
 }
 
-// --- Feature 10: Project Filtering (MODIFIED) ---
+// --- Feature 10: Project Filtering ---
 function initProjectFilter() {
   const filterBtns = document.querySelectorAll(".filter-list .filter-btn");
   const projectItems = document.querySelectorAll(".project-grid .project-item-no-img");

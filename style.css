@@ -115,7 +115,6 @@ body {
   font-weight: var(--fw-300);
   transition: background 0.3s, color 0.3s;
 
-  /* ADDED: Disable Text Selection */
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Standard */
@@ -233,6 +232,87 @@ body {
   border-color: var(--color-accent);
 }
 .timeline-btn ion-icon { font-size: 14px; }
+
+/*-----------------------------------*\
+ * #MODAL
+\*-----------------------------------*/
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: hsla(0, 0%, 0%, 0.7);
+  padding: 15px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 10000;
+  transition: var(--transition-2);
+}
+
+.modal-container.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+.modal-content {
+  background: var(--bg-content);
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-2);
+  border: 1px solid var(--border-color);
+  position: relative;
+  transform: scale(0.9);
+  opacity: 0;
+  transition: var(--transition-2);
+}
+
+.modal-container.active .modal-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--bg-content-light);
+  color: var(--text-secondary);
+  font-size: 16px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  z-index: 1;
+}
+
+.modal-close-btn:hover { color: var(--text-primary); }
+.modal-close-btn ion-icon { --ionicon-stroke-width: 50px; }
+
+.modal-title { 
+  font-size: var(--fs-2); 
+  font-weight: var(--fw-600); 
+  margin-bottom: 5px; 
+}
+.modal-category {
+  font-size: var(--fs-6);
+  color: var(--color-accent);
+  margin-bottom: 20px;
+  font-weight: var(--fw-400);
+}
+.modal-text-content p {
+  color: var(--text-secondary);
+  font-size: var(--fs-5);
+  font-weight: var(--fw-300);
+  line-height: 1.6;
+}
 
 /*-----------------------------------*\
  * #MAIN LAYOUT
@@ -444,7 +524,7 @@ main {
   padding: 8px 12px; /* Adjusted padding for mobile */
   transition: var(--transition-1);
   position: relative;
-  text-align: center; /* <<< THIS IS THE FIX >>> */
+  text-align: center;
 }
 .navbar-link:hover { color: var(--text-primary); }
 .navbar-link.active { color: var(--color-accent); }
@@ -513,6 +593,9 @@ main {
   line-height: 1.6;
 }
 
+.github-stats {
+  margin-top: 30px; /* <<< THIS IS THE FIX >>> */
+}
 .github-stats .service-list {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
@@ -673,6 +756,7 @@ main {
   padding: 6px 12px;
   border-radius: 8px;
   transition: var(--transition-2);
+  font-family: var(--ff-poppins); /* Ensure button font matches */
 }
 .project-link-btn:hover {
   background: var(--color-accent);
@@ -804,7 +888,7 @@ textarea.form-input {
     right: 18px;
   }
 
-  /* ADDED: Fix for navbar overlap */
+  /* Fix for navbar overlap */
   .main-content article {
     margin-top: 45px; /* Pushes content down */
   }
