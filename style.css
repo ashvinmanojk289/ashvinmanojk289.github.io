@@ -1113,7 +1113,44 @@ textarea.form-input {
   transition: all 0.3s ease;
 }
 
-/* Fix for case study modal content */
+/* --- NEW: Case Study Accordion Styles --- */
+
 .project-case-study-content {
-  display: none;
+  /* Use max-height for slide-down animation */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out, margin-top 0.4s ease-out;
+  margin-top: 0;
+  clear: both; 
+}
+
+/* This class is toggled by JS to add margin when open */
+.project-case-study-content.active {
+    margin-top: 25px; /* Adds space between button and content */
+}
+
+/* Style the content inside (repurposed from modal styles) */
+.project-case-study-content h4 {
+  color: var(--color-accent);
+  font-size: var(--fs-4);
+  font-weight: var(--fw-500);
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+.project-case-study-content p {
+  color: var(--text-secondary);
+  font-size: var(--fs-5);
+  font-weight: var(--fw-300);
+  line-height: 1.6;
+}
+.project-case-study-content h4:first-of-type {
+  margin-top: 0;
+}
+
+/* Animate the button icon to rotate */
+.case-study-btn ion-icon {
+  transition: transform 0.3s ease;
+}
+.case-study-btn.active ion-icon {
+  transform: rotate(180deg);
 }

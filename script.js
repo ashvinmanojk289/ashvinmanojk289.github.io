@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Initialize all features ---
     initPageNavigation();
-    initCaseStudyModal(); // This will now work
+    initCaseStudyAccordion(); // <-- MODIFIED: Was initCaseStudyModal()
     initProjectFilter(); 
     
     initLoadingSpinner();
@@ -409,73 +409,50 @@ function initPageNavigation() {
     }
 }
 
-// --- Feature 9: Case Study Modal (MODIFIED) ---
-function initCaseStudyModal() {
-        const caseStudyBtns = document.querySelectorAll(".case-study-btn");
-        const modalContainer = document.querySelector("[data-modal-container]");
-        const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
-        const overlay = document.querySelector("[data-overlay]");
+// --- Feature 9: Case Study Accordion (REPLACED MODAL) ---
+function initCaseStudyAccordion() {
+  const caseStudyBtns = document.querySelectorAll(".case-study-btn");
 
-        if (!modalContainer || !modalCloseBtn || !caseStudyBtns.length) {
-            console.log("Modal elements not found or no case study buttons; skipping init.");
-            return;
-        }
+  if (!caseStudyBtns.length) {
+    console.log("No case study buttons found; skipping accordion init.");
+    return;
+  }
 
-        const modalTitle = modalContainer.querySelector(".modal-title");
-        const modalCategory = modalContainer.querySelector(".modal-category");
-        const modalText = modalContainer.querySelector(".modal-text-content");
+  caseStudyBtns.forEach(btn => {
+    // Find the content panel
+    const projectItem = btn.closest('.project-item-no-img');
+    if (!projectItem) return;
+    
+    const caseStudyContent = projectItem.querySelector(".project-case-study-content");
+    if (!caseStudyContent) return;
 
-        const toggleModal = function () {
-            modalContainer.classList.toggle("active");
-            if (overlay) overlay.classList.toggle("active");
-        }
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
 
-        caseStudyBtns.forEach(btn => {
-            btn.addEventListener("click", function (e) {
-                // Prevent accidental default and stop propagation so the click
-                // doesn't bubble to other handlers that might close the modal.
-                e.preventDefault();
-                e.stopPropagation();
+      // Toggle active class on button
+      this.classList.toggle('active');
+      
+      // Toggle active class on content (for margin)
+      caseStudyContent.classList.toggle('active');
 
-                // Find the parent project item (guard in case structure changes)
-                const projectItem = this.closest('.project-item-no-img');
-                if (!projectItem) {
-                    console.warn('Case study button clicked but project item container not found.');
-                    return;
-                }
+      // Get the button text span
+      const btnText = this.querySelector('span');
 
-                // Safely read content with fallbacks
-                const titleEl = projectItem.querySelector(".project-title");
-                const categoryEl = projectItem.querySelector(".project-category");
-                const caseStudyContent = projectItem.querySelector(".project-case-study-content");
-                const descriptionEl = projectItem.querySelector(".project-description");
-
-                const title = titleEl ? titleEl.innerText : 'Project';
-                const category = categoryEl ? categoryEl.innerText : '';
-
-                if (modalTitle) modalTitle.innerText = title;
-                if (modalCategory) modalCategory.innerText = category;
-
-                if (caseStudyContent && modalText) {
-                    modalText.innerHTML = caseStudyContent.innerHTML;
-                } else if (modalText && descriptionEl) {
-                    modalText.innerHTML = `<p>${descriptionEl.innerHTML}</p>`;
-                } else if (modalText) {
-                    modalText.innerHTML = `<p>No additional details available.</p>`;
-                }
-
-                toggleModal();
-            });
-        });
-
-        // Close handlers: close only when clicking backdrop (overlay) or close button
-        modalCloseBtn.addEventListener("click", (e) => { e.stopPropagation(); toggleModal(); });
-        if (overlay) {
-            overlay.addEventListener("click", (e) => {
-                // Only close if the backdrop itself was clicked (not clicks inside modal-content)
-                if (e.target === overlay) toggleModal();
-            });
-        }
+      // Check if active
+      if (this.classList.contains('active')) {
+        // Set text to 'Hide Details'
+        if (btnText) btnText.textContent = 'Hide Details';
+        // Set max-height to its scrollHeight for a smooth slide-open
+        caseStudyContent.style.maxHeight = caseStudyContent.scrollHeight + "px";
+      } else {
+        // Set text back to 'Case Study'
+        if (btnText) btnText.textContent = 'Case Study';
+        // Set max-height to 0 for a smooth slide-close
+        caseStudyContent.style.maxHeight = '0px';
+      }
+    });
+  });
 }
 
 // --- Feature 10: Project Filtering ---
