@@ -164,7 +164,7 @@ function initChatAssistant() {
         },
         'projects_1': {
             'isAnswer': true,
-            'answer': "He has built a Multilingual News Audio Translator (92% accuracy), a GenAI-powered PDF Query app, and an autonomous Weed Detection Robot (97% accuracy).",
+            'answer': "He has built a Multilingual News Audio Translator (92% accuracy) [cite: 497], a GenAI-powered PDF Query app (89% time reduction) [cite: 499], and an autonomous Weed Detection Robot (97% accuracy)[cite: 501].", // <-- UPDATED with citations
             'questions': [
                 { 'text': "How does the Weed Robot work?", 'next': 'projects_2_robot' },
                 { 'text': "Tell me about the PDF Query app.", 'next': 'projects_2_pdf' },
@@ -173,7 +173,7 @@ function initChatAssistant() {
         },
         'experience_1': {
             'isAnswer': true,
-            'answer': "He's a Data Science Intern at Mastermine (Aug 2025-Present) and was a Hardware Systems Intern at Sunlux (Feb-Apr 2024).",
+            'answer': "He's a Data Science Intern at Mastermine (Aug 2025-Present) [cite: 487, 488] and was a Hardware Systems Intern at Sunlux (Feb-Apr 2024)[cite: 491, 492].", // <-- UPDATED with citations
             'questions': [
                 { 'text': "What does he do at Mastermine?", 'next': 'experience_2_mastermine' },
                 { 'text': "What did he do at Sunlux?", 'next': 'experience_2_sunlux' },
@@ -182,7 +182,7 @@ function initChatAssistant() {
         },
         'skills_2_ml': {
             'isAnswer': true,
-            'answer': "He's proficient with AI frameworks like PyTorch, TensorFlow, and Scikit-learn, as well as the Transformers library for NLP.",
+            'answer': "He's proficient with AI frameworks like PyTorch, TensorFlow, Scikit-learn, Pandas, and NumPy, as well as the Transformers library for NLP[cite: 480].", // <-- UPDATED (added Pandas, NumPy)
             'questions': [
                 { 'text': "See other skills", 'next': 'skills_1' },
                 { 'text': "View all projects", 'next': 'projects_1' },
@@ -191,7 +191,7 @@ function initChatAssistant() {
         },
         'skills_2_lang': {
             'isAnswer': true,
-            'answer': "His main languages are Python, C++, C, SQL, and R.",
+            'answer': "His main languages are Python, C++, C, SQL, and R[cite: 479].", // <-- UPDATED with citation
             'questions': [
                 { 'text': "See other skills", 'next': 'skills_1' },
                 { 'text': "View all projects", 'next': 'projects_1' },
@@ -200,7 +200,7 @@ function initChatAssistant() {
         },
         'achievements_1': {
             'isAnswer': true,
-            'answer': "He co-authored 'A Hybrid Transformer Model Approach for Precision Weed Detection' (2025 ACCESS conference) and has certifications from Google, NPTEL, and Infosys.",
+            'answer': "He co-authored 'A Hybrid Transformer Model Approach for Precision Weed Detection' (2025 ACCESS conference) [cite: 503] and has certifications from NPTEL, Infosys, and Coursera (including Google Data Analytics)[cite: 505].", // <-- UPDATED (added Coursera/Google)
             'questions': [
                 { 'text': "What are his skills?", 'next': 'skills_1' },
                 { 'text': "View all projects", 'next': 'projects_1' },
@@ -209,7 +209,7 @@ function initChatAssistant() {
         },
         'projects_2_robot': {
             'isAnswer': true,
-            'answer': "It's an AI-powered robot using ROS and a custom EfficientNetV2-Transformer hybrid model (97% accuracy) for eco-friendly herbicide application.",
+            'answer': "It's an AI-powered robot using ROS and a custom EfficientNetV2-Transformer hybrid model (97% accuracy) for eco-friendly herbicide application[cite: 501].", // <-- UPDATED with citation
             'questions': [
                 { 'text': "See other projects", 'next': 'projects_1' },
                 { 'text': "What's his experience?", 'next': 'experience_1' },
@@ -218,7 +218,7 @@ function initChatAssistant() {
         },
         'projects_2_pdf': {
             'isAnswer': true,
-            'answer': "It's a scalable, voice-enabled PDF query system using NLP and Streamlit, which reduced information retrieval time by over 89%.",
+            'answer': "It's a scalable, voice-enabled PDF query system using NLP and Streamlit, which reduced information retrieval time by over 89%[cite: 499].", // <-- UPDATED with citation
             'questions': [
                 { 'text': "See other projects", 'next': 'projects_1' },
                 { 'text': "What's his experience?", 'next': 'experience_1' },
@@ -227,7 +227,7 @@ function initChatAssistant() {
         },
         'projects_2_audio': {
             'isAnswer': true,
-            'answer': "A full-stack app using Wav2Vec 2.0 (92% accuracy) for speech recognition and a fine-tuned mBART model for fluent translation.",
+            'answer': "A full-stack app using Wav2Vec 2.0 (92% accuracy) for speech recognition and a fine-tuned mBART model for fluent translation[cite: 497].", // <-- UPDATED with citation
             'questions': [
                 { 'text': "See other projects", 'next': 'projects_1' },
                 { 'text': "What's his experience?", 'next': 'experience_1' },
@@ -236,7 +236,7 @@ function initChatAssistant() {
         },
         'experience_2_mastermine': {
             'isAnswer': true,
-            'answer': "At Mastermine, he's engineering a full-stack desktop app for photographers (Java, React, Electron.js) and designing a multi-agent LLM framework for data analysis.",
+            'answer': "At Mastermine, he's engineering a full-stack desktop app for photographers (Java, React, Electron.js) [cite: 489] and designing a multi-agent LLM framework for data analysis[cite: 490].", // <-- UPDATED with citations
             'questions': [
                 { 'text': "See other experience", 'next': 'experience_1' },
                 { 'text': "What are his skills?", 'next': 'skills_1' },
@@ -245,7 +245,7 @@ function initChatAssistant() {
         },
         'experience_2_sunlux': {
             'isAnswer': true,
-            'answer': "At Sunlux, he developed and debugged microprocessor programs in Assembly for industrial automation, improving process efficiency by 15%.",
+            'answer': "At Sunlux, he developed and debugged microprocessor programs in Assembly for industrial automation, improving process efficiency by 15%[cite: 493].", // <-- UPDATED with citation
             'questions': [
                 { 'text': "See other experience", 'next': 'experience_1' },
                 { 'text': "What are his skills?", 'next': 'skills_1' },
@@ -254,7 +254,7 @@ function initChatAssistant() {
         },
         'education_1': {
             'isAnswer': true,
-            'answer': "He's pursuing an M.Tech in AI/ML from Rajagiri (CGPA 9.49) and holds a B.Tech in Robotics from Adi Shankara (CGPA 9.54).",
+            'answer': "He's pursuing an M.Tech in AI/ML from Rajagiri (CGPA 9.49) [cite: 482, 483] and holds a B.Tech in Robotics from Adi Shankara (CGPA 9.54)[cite: 484, 485].", // <-- UPDATED with citations
             'questions': [
                 { 'text': "What's his experience?", 'next': 'experience_1' },
                 { 'text': "What are his skills?", 'next': 'skills_1' },
@@ -262,20 +262,19 @@ function initChatAssistant() {
             ]
         }
     };
-
     aiStatus.textContent = "Ready";
-
     function renderNode(nodeId) {
         const node = conversationTree[nodeId];
         if (!node) { console.error(`No node found for ID: ${nodeId}`); return; }
         if (node.isAnswer) {
             const thinkingDiv = document.createElement('div');
             thinkingDiv.className = 'chat-message bot';
-            thinkingDiv.innerHTML = '<span class="thinking-indicator"></span>';
+            thinkingDiv.innerHTML = '<div class="chat-spinner"></div>'; 
             chatBody.appendChild(thinkingDiv);
             chatBody.scrollTop = chatBody.scrollHeight;
             setTimeout(() => {
                 thinkingDiv.innerHTML = node.answer;
+                thinkingDiv.innerHTML = thinkingDiv.innerHTML.replace(/\[cite:\s*([^\]]+)\]/g, '<sup class="chat-citation">[cite: $1]</sup>');
                 chatBody.scrollTop = chatBody.scrollHeight;
                 showQuestions(node.questions);
             }, 1000); 
@@ -283,7 +282,6 @@ function initChatAssistant() {
             showQuestions(node.questions);
         }
     }
-    
     function showQuestions(questions) {
         const oldQuestions = chatBody.querySelector('.suggested-questions');
         if(oldQuestions) oldQuestions.remove();
@@ -299,27 +297,22 @@ function initChatAssistant() {
         chatBody.appendChild(questionsDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
     }
-
     chatBody.addEventListener('click', (e) => {
         if (e.target.classList.contains('suggested-question')) {
             const nextNodeId = e.target.dataset.next;
             const questionText = e.target.textContent;
-
             const oldQuestions = chatBody.querySelector('.suggested-questions');
             if(oldQuestions) oldQuestions.remove();
-            
             const userMessageDiv = document.createElement('div');
             userMessageDiv.className = 'chat-message user';
             userMessageDiv.textContent = questionText;
             chatBody.appendChild(userMessageDiv);
             chatBody.scrollTop = chatBody.scrollHeight;
-
             renderNode(nextNodeId);
         }
     });
-
     toggleBtn.addEventListener('click', () => {
-        chatWindow.classList.toggle('active');    
+        chatWindow.classList.toggle('active'); 
         if (chatWindow.classList.contains('active')) {
             chatBody.innerHTML = `
               <div class="chat-message bot">
@@ -389,8 +382,8 @@ function initProjectFilter() {
       filterBtns.forEach(b => b.classList.remove("active"));
       this.classList.add("active");
       const filterValue = this.dataset.filter;
-      projectItems.forEach(item => {
-        const itemCategories = item.dataset.category.split(' ');
+            projectItems.forEach(item => {
+                const itemCategories = (item.dataset.category || '').split(/\s+/);
         if (filterValue === "all" || itemCategories.includes(filterValue)) {
           item.style.display = 'block';
           setTimeout(() => {

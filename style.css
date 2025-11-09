@@ -931,17 +931,24 @@ textarea.form-input {
   border-color: var(--color-accent);
   color: var(--text-primary);
 }
-.thinking-indicator::after {
-  content: '.';
-  animation: dots 1s steps(5, end) infinite;
-  font-size: 2em;
+
+.chat-spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 5px; 
+}
+
+.chat-citation {
+  font-size: 0.7rem;
   color: var(--text-tertiary);
+  margin-left: 2px;
+  vertical-align: super;
 }
-@keyframes dots {
-  0%, 20% { text-shadow: .25em 0 0 transparent, .5em 0 0 transparent; }
-  40% { text-shadow: .25em 0 0, .5em 0 0 transparent; }
-  60% { text-shadow: .25em 0 0, .5em 0 0; }
-}
+
 @media (max-width: 450px) {
   .chat-window { width: calc(100% - 20px); right: 10px; bottom: 90px; }
   .chat-toggle-btn { right: 15px; bottom: 15px; }
