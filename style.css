@@ -1112,3 +1112,8 @@ textarea.form-input {
   opacity: 0;
   transition: all 0.3s ease;
 }
+
+/* Fix for case study modal content */
+.project-case-study-content {
+  display: none;
+}
