@@ -411,57 +411,71 @@ function initPageNavigation() {
 
 // --- Feature 9: Case Study Modal (MODIFIED) ---
 function initCaseStudyModal() {
-    const caseStudyBtns = document.querySelectorAll(".case-study-btn");
-    const modalContainer = document.querySelector("[data-modal-container]");
-    const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
-    const overlay = document.querySelector("[data-overlay]");
+        const caseStudyBtns = document.querySelectorAll(".case-study-btn");
+        const modalContainer = document.querySelector("[data-modal-container]");
+        const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
+        const overlay = document.querySelector("[data-overlay]");
 
-    if (!modalContainer || !modalCloseBtn || !overlay || !caseStudyBtns.length) {
-      console.log("Modal elements not found, skipping init.");
-      return;
-    }
-
-    const modalTitle = modalContainer.querySelector(".modal-title");
-    const modalCategory = modalContainer.querySelector(".modal-category");
-    const modalText = modalContainer.querySelector(".modal-text-content");
-
-    const toggleModal = function () {
-      modalContainer.classList.toggle("active");
-      overlay.classList.toggle("active");
-    }
-
-    caseStudyBtns.forEach(btn => {
-      btn.addEventListener("click", function (e) {
-        e.preventDefault(); 
-        
-        // Find the parent project item
-        const projectItem = this.closest('.project-item-no-img');
-        
-        // Get primary content
-        const title = projectItem.querySelector(".project-title").innerText;
-        const category = projectItem.querySelector(".project-category").innerText;
-        
-        // Get the NEW case study content
-        const caseStudyContent = projectItem.querySelector(".project-case-study-content");
-        
-        if (modalTitle) modalTitle.innerText = title;
-        if (modalCategory) modalCategory.innerText = category;
-        
-        // Check if the new content exists
-        if (caseStudyContent && modalText) {
-          modalText.innerHTML = caseStudyContent.innerHTML;
-        } else if (modalText) {
-          // Fallback to the description if no case study content is found
-          const description = projectItem.querySelector(".project-description").innerHTML;
-          modalText.innerHTML = `<p>${description}</p>`;
+        if (!modalContainer || !modalCloseBtn || !caseStudyBtns.length) {
+            console.log("Modal elements not found or no case study buttons; skipping init.");
+            return;
         }
 
-        toggleModal();
-      });
-    });
+        const modalTitle = modalContainer.querySelector(".modal-title");
+        const modalCategory = modalContainer.querySelector(".modal-category");
+        const modalText = modalContainer.querySelector(".modal-text-content");
 
-    modalCloseBtn.addEventListener("click", toggleModal);
-    overlay.addEventListener("click", toggleModal);
+        const toggleModal = function () {
+            modalContainer.classList.toggle("active");
+            if (overlay) overlay.classList.toggle("active");
+        }
+
+        caseStudyBtns.forEach(btn => {
+            btn.addEventListener("click", function (e) {
+                // Prevent accidental default and stop propagation so the click
+                // doesn't bubble to other handlers that might close the modal.
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Find the parent project item (guard in case structure changes)
+                const projectItem = this.closest('.project-item-no-img');
+                if (!projectItem) {
+                    console.warn('Case study button clicked but project item container not found.');
+                    return;
+                }
+
+                // Safely read content with fallbacks
+                const titleEl = projectItem.querySelector(".project-title");
+                const categoryEl = projectItem.querySelector(".project-category");
+                const caseStudyContent = projectItem.querySelector(".project-case-study-content");
+                const descriptionEl = projectItem.querySelector(".project-description");
+
+                const title = titleEl ? titleEl.innerText : 'Project';
+                const category = categoryEl ? categoryEl.innerText : '';
+
+                if (modalTitle) modalTitle.innerText = title;
+                if (modalCategory) modalCategory.innerText = category;
+
+                if (caseStudyContent && modalText) {
+                    modalText.innerHTML = caseStudyContent.innerHTML;
+                } else if (modalText && descriptionEl) {
+                    modalText.innerHTML = `<p>${descriptionEl.innerHTML}</p>`;
+                } else if (modalText) {
+                    modalText.innerHTML = `<p>No additional details available.</p>`;
+                }
+
+                toggleModal();
+            });
+        });
+
+        // Close handlers: close only when clicking backdrop (overlay) or close button
+        modalCloseBtn.addEventListener("click", (e) => { e.stopPropagation(); toggleModal(); });
+        if (overlay) {
+            overlay.addEventListener("click", (e) => {
+                // Only close if the backdrop itself was clicked (not clicks inside modal-content)
+                if (e.target === overlay) toggleModal();
+            });
+        }
 }
 
 // --- Feature 10: Project Filtering ---
