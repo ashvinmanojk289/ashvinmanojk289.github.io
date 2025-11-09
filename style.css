@@ -307,12 +307,7 @@ body {
   margin-bottom: 20px;
   font-weight: var(--fw-400);
 }
-.modal-text-content p {
-  color: var(--text-secondary);
-  font-size: var(--fs-5);
-  font-weight: var(--fw-300);
-  line-height: 1.6;
-}
+/* ADDED: Styles for modal problem/solution */
 .modal-text-content h4 {
   color: var(--color-accent);
   font-size: var(--fs-4);
@@ -320,7 +315,13 @@ body {
   margin-top: 15px;
   margin-bottom: 5px;
 }
-.modal-text-content p:first-of-type {
+.modal-text-content p {
+  color: var(--text-secondary);
+  font-size: var(--fs-5);
+  font-weight: var(--fw-300);
+  line-height: 1.6;
+}
+.modal-text-content h4:first-of-type {
   margin-top: 0;
 }
 

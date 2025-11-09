@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Initialize all features ---
     initPageNavigation();
-    initCaseStudyModal(); // This now finds and uses the new content
+    initCaseStudyModal(); // This will now work
     initProjectFilter(); 
     
     initLoadingSpinner();
@@ -434,6 +434,7 @@ function initCaseStudyModal() {
       btn.addEventListener("click", function (e) {
         e.preventDefault(); 
         
+        // Find the parent project item
         const projectItem = this.closest('.project-item-no-img');
         
         // Get primary content
