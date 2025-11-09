@@ -1,90 +1,56 @@
-/*
- * #STYLE.CSS
- *
- * (Base content from vcard, but completely restyled to match the new design)
-*/
-
-/*-----------------------------------*\
- * #CUSTOM PROPERTY (VARIABLES)
-\*-----------------------------------*/
-
 :root {
-  /* Font */
   --ff-poppins: "Poppins", sans-serif;
   --ff-roboto: "Roboto", sans-serif;
-
-  /* Font Size */
-  --fs-1: 32px; /* H1 name */
-  --fs-2: 26px; /* H2 article titles */
-  --fs-3: 20px; /* H3 section titles */
-  --fs-4: 16px; /* H4 sub-titles, navbar links */
-  --fs-5: 14px; /* Default text, small titles */
-  --fs-6: 12px; /* Smallest text, categories */
-
-  /* Font Weight */
+  --fs-1: 32px; 
+  --fs-2: 26px; 
+  --fs-3: 20px; 
+  --fs-4: 16px; 
+  --fs-5: 14px; 
+  --fs-6: 12px; 
   --fw-700: 700;
   --fw-600: 600;
   --fw-500: 500;
   --fw-400: 400;
   --fw-300: 300;
-
-  /* Transition */
   --transition-1: 0.15s ease;
   --transition-2: 0.25s ease-in-out;
 }
 
-/* Dark Mode (Default) */
 html[data-theme="dark"] {
   --bg-main: hsl(240, 9%, 17%);
   --bg-sidebar: hsl(240, 8%, 20%);
   --bg-content: hsl(240, 8%, 22%);
   --bg-content-light: hsl(240, 7%, 27%);
   --bg-content-hover: hsl(240, 7%, 30%);
-
   --text-primary: hsl(0, 0%, 100%);
   --text-secondary: hsl(0, 0%, 84%);
   --text-tertiary: hsl(0, 0%, 50%);
-  
-  --color-accent: hsl(45, 100%, 72%); /* Yellow/Gold Accent */
-  
+  --color-accent: hsl(45, 100%, 72%);
   --border-color: hsl(240, 6%, 30%);
   --border-gradient: linear-gradient(90deg, var(--color-accent) 0%, hsla(45, 100%, 72%, 0) 100%);
-  
   --shadow-1: 0 4px 8px hsla(0, 0%, 0%, 0.1);
   --shadow-2: 0 8px 16px hsla(0, 0%, 0%, 0.15);
-  
   --avatar-border-color: hsl(240, 6%, 30%);
   --avatar-bg-color: hsl(240, 7%, 27%);
 }
 
-/* Light Mode */
 html[data-theme="light"] {
   --bg-main: hsl(0, 0%, 94%);
   --bg-sidebar: hsl(0, 0%, 100%);
   --bg-content: hsl(0, 0%, 100%);
   --bg-content-light: hsl(0, 0%, 96%);
   --bg-content-hover: hsl(0, 0%, 92%);
-
   --text-primary: hsl(240, 8%, 15%);
   --text-secondary: hsl(240, 8%, 35%);
   --text-tertiary: hsl(0, 0%, 50%);
-  
-  --color-accent: hsl(45, 100%, 51%); /* Darker yellow for light mode */
-  
+  --color-accent: hsl(45, 100%, 51%); 
   --border-color: hsl(0, 0%, 88%);
   --border-gradient: linear-gradient(90deg, var(--color-accent) 0%, hsla(45, 100%, 51%, 0) 100%);
-  
   --shadow-1: 0 4px 8px hsla(0, 0%, 0%, 0.05);
   --shadow-2: 0 8px 16px hsla(0, 0%, 0%, 0.08);
-  
   --avatar-border-color: hsl(0, 0%, 88%);
   --avatar-bg-color: hsl(0, 0%, 96%);
 }
-
-
-/*-----------------------------------*\
- * #RESET
-\*-----------------------------------*/
 
 *,
 *::before,
@@ -114,19 +80,14 @@ body {
   line-height: 1.6;
   font-weight: var(--fw-300);
   transition: background 0.3s, color 0.3s;
-  
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Standard */
+  -webkit-user-select: none; 
+  -ms-user-select: none;
+  user-select: none; 
 }
 
 ::-webkit-scrollbar { width: 8px; border-radius: 10px; }
 ::-webkit-scrollbar-track { background: var(--bg-main); }
 ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 10px; }
-
-/*-----------------------------------*\
- * #REUSED STYLES
-\*-----------------------------------*/
 
 .h2, .h3, .h4, .h5 {
   color: var(--text-primary);
@@ -233,10 +194,6 @@ body {
 }
 .timeline-btn ion-icon { font-size: 14px; }
 
-/*-----------------------------------*\
- * #MODAL
-\*-----------------------------------*/
-
 .modal-container {
   position: fixed;
   top: 0;
@@ -307,7 +264,7 @@ body {
   margin-bottom: 20px;
   font-weight: var(--fw-400);
 }
-/* ADDED: Styles for modal problem/solution */
+
 .modal-text-content h4 {
   color: var(--color-accent);
   font-size: var(--fs-4);
@@ -325,19 +282,10 @@ body {
   margin-top: 0;
 }
 
-
-/*-----------------------------------*\
- * #MAIN LAYOUT
-\*-----------------------------------*/
-
 main {
   margin: 15px;
   min-width: 270px;
 }
-
-/*-----------------------------------*\
- * #SIDEBAR
-\*-----------------------------------*/
 
 .sidebar {
   background: var(--bg-sidebar);
@@ -491,10 +439,6 @@ main {
   position: absolute;
 }
 
-/*-----------------------------------*\
- * #MAIN CONTENT
-\*-----------------------------------*/
-
 .main-content {
   background: var(--bg-content);
   min-width: 100%;
@@ -505,15 +449,10 @@ main {
   z-index: 0;
   transition: background 0.3s;
   border: 1px solid var(--border-color);
-  overflow: hidden; /* Clips the navbar corner */
+  overflow: hidden; 
 }
 
-/*-----------------------------------*\
- * #NAVBAR
-\*-----------------------------------*/
-
 .navbar {
-  /* Mobile-first style */
   position: static;
   width: 100%;
   border: none;
@@ -526,14 +465,14 @@ main {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 5px; /* Added gap for wrapping */
+  gap: 5px; 
 }
 .navbar-link {
   color: var(--text-secondary);
   font-family: var(--ff-poppins);
   font-size: var(--fs-5);
   font-weight: var(--fw-400);
-  padding: 8px 12px; /* Adjusted padding for mobile */
+  padding: 8px 12px; 
   transition: var(--transition-1);
   position: relative;
   text-align: center;
@@ -544,16 +483,12 @@ main {
   content: "";
   position: absolute;
   bottom: 0;
-  left: 12px; /* Adjusted */
-  right: 12px; /* Adjusted */
+  left: 12px; 
+  right: 12px; 
   height: 3px;
   background: var(--color-accent);
   border-radius: 3px 3px 0 0;
 }
-
-/*-----------------------------------*\
- * #ABOUT
-\*-----------------------------------*/
 
 .about article { margin-top: 30px; }
 .about-text {
@@ -624,11 +559,6 @@ main {
 .github-activity-list li { margin-bottom: 5px; }
 .github-activity-list strong { color: var(--text-primary); font-weight: var(--fw-400); }
 
-
-/*-----------------------------------*\
- * #RESUME
-\*-----------------------------------*/
-
 .resume-download-inner {
   display: flex;
   flex-direction: column;
@@ -679,10 +609,6 @@ main {
 .skills-item .title-wrapper { margin-bottom: 10px; }
 .skills-item .title-wrapper .h5 { font-size: var(--fs-4); font-weight: var(--fw-400); }
 .skills-text { font-size: var(--fs-5); font-weight: var(--fw-300); }
-
-/*-----------------------------------*\
- * #PORTFOLIO
-\*-----------------------------------*/
 
 .filter-list {
   display: flex;
@@ -768,7 +694,7 @@ main {
   padding: 6px 12px;
   border-radius: 8px;
   transition: var(--transition-2);
-  font-family: var(--ff-poppins); /* Ensure button font matches */
+  font-family: var(--ff-poppins); 
 }
 .project-link-btn:hover {
   background: var(--color-accent);
@@ -778,20 +704,12 @@ main {
   font-size: 14px;
 }
 
-
-/*-----------------------------------*\
- * #BLOG
-\*-----------------------------------*/
 .placeholder-text {
   text-align: center;
   color: var(--text-tertiary);
   margin-top: 50px;
   font-size: var(--fs-4);
 }
-
-/*-----------------------------------*\
- * #CONTACT
-\*-----------------------------------*/
 
 .contact-form-box { margin-top: 30px; }
 .input-wrapper {
@@ -857,10 +775,6 @@ textarea.form-input {
   transform: translateX(3px);
 }
 
-/*-----------------------------------*\
- * #RESPONSIVE
-\*-----------------------------------*/
-
 @media (min-width: 580px) {
   :root { --fs-1: 36px; --fs-2: 28px; --fs-3: 22px; --fs-4: 18px; }
   main { margin: 30px; }
@@ -875,7 +789,6 @@ textarea.form-input {
   main { display: flex; gap: 30px; }
   .main-content { width: 100%; min-width: 0; }
   
-  /* NAVBAR: Desktop style */
   .navbar { 
     position: absolute;
     top: 0;
@@ -886,30 +799,28 @@ textarea.form-input {
     border-radius: 0 18px 0 18px;
     padding: 0 10px;
     z-index: 2;
-    /* Reset mobile styles */
     width: auto;
     margin-bottom: 0;
   }
   .navbar-list {
-    flex-wrap: nowrap; /* No wrapping on desktop */
+    flex-wrap: nowrap; 
   }
   .navbar-link {
-    padding: 12px 18px; /* Restore desktop padding */
+    padding: 12px 18px;
   }
   .navbar-link.active::after {
     left: 18px;
     right: 18px;
   }
 
-  /* Fix for navbar overlap */
   .main-content article {
-    margin-top: 45px; /* Pushes content down */
+    margin-top: 45px; 
   }
   .main-content article.about {
-    margin-top: 0; /* 'About' page is fine */
+    margin-top: 0; 
   }
   .main-content article.about header {
-    padding-top: 30px; /* Add space for the navbar */
+    padding-top: 30px; 
   }
   
   .input-wrapper { grid-template-columns: 1fr 1fr; }
@@ -929,7 +840,7 @@ textarea.form-input {
   .sidebar { 
     width: 350px; 
     padding: 40px; 
-    top: 60px; /* Sticky position */
+    top: 60px; 
   }
   .avatar-box { width: 150px; height: 150px; }
   .main-content { padding: 40px; }
@@ -939,15 +850,9 @@ textarea.form-input {
 
 @media (min-width: 1250px) {
   main { max-width: 1200px; }
-  .project-grid { grid-template-columns: 1fr 1fr; } /* Stays 2-col */
+  .project-grid { grid-template-columns: 1fr 1fr; } 
 }
 
-
-/*-----------------------------------*\
- * #ADDED FEATURES STYLES (Restyled)
-\*-----------------------------------*/
-
-/* CHAT ASSISTANT */
 .chat-toggle-btn {
   position: fixed;
   bottom: 30px;
@@ -1042,7 +947,6 @@ textarea.form-input {
   .chat-toggle-btn { right: 15px; bottom: 15px; }
 }
 
-/* LOADING SPINNER */
 .loading-spinner {
   position: fixed;
   top: 0;
@@ -1068,7 +972,6 @@ textarea.form-input {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* CUSTOM CURSOR */
 @media (pointer: coarse) { .custom-cursor { display: none; } }
 @media (pointer: fine) {
   html { cursor: none; }
@@ -1089,7 +992,6 @@ textarea.form-input {
   .custom-cursor.interact .cursor-dot { transform: translate(-50%, -50%) scale(1.5); opacity: 0.5; } 
 }
 
-/* SIDEBAR EXTRAS */
 .copyright {
   text-align: center;
   font-size: var(--fs-6);
@@ -1114,10 +1016,7 @@ textarea.form-input {
   transition: all 0.3s ease;
 }
 
-/* --- NEW: Case Study Accordion Styles --- */
-
 .project-case-study-content {
-  /* Use max-height for slide-down animation */
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.4s ease-out, margin-top 0.4s ease-out;
@@ -1125,12 +1024,10 @@ textarea.form-input {
   clear: both; 
 }
 
-/* This class is toggled by JS to add margin when open */
 .project-case-study-content.active {
-    margin-top: 25px; /* Adds space between button and content */
+    margin-top: 25px; 
 }
 
-/* Style the content inside (repurposed from modal styles) */
 .project-case-study-content h4 {
   color: var(--color-accent);
   font-size: var(--fs-4);
@@ -1148,7 +1045,6 @@ textarea.form-input {
   margin-top: 0;
 }
 
-/* Animate the button icon to rotate */
 .case-study-btn ion-icon {
   transition: transform 0.3s ease;
 }

@@ -1,25 +1,18 @@
 'use strict';
 
-// --- Master Function to Initialize Everything ---
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- Initialize all features ---
     initPageNavigation();
-    initCaseStudyAccordion(); // <-- MODIFIED: Was initCaseStudyModal()
+    initCaseStudyAccordion(); 
     initProjectFilter(); 
-    
     initLoadingSpinner();
     initCustomCursor(); 
     initTypingEffect();
     initCurrentYear();
     initThemeSwitcher(); 
-    
     fetchGitHubStats();
     initChatAssistant();
 });
 
-
-// --- Feature 1: Loading Spinner ---
 function initLoadingSpinner() {
     const spinner = document.getElementById('loadingSpinner');
     if (spinner) {
@@ -29,83 +22,62 @@ function initLoadingSpinner() {
     }
 }
 
-// --- Feature 2: Custom Cursor ---
 function initCustomCursor() {
     if (window.matchMedia("(pointer: coarse)").matches) return; 
-
     const cursorContainer = document.querySelector('.custom-cursor');
     const dot = document.querySelector('.cursor-dot');
-
     if (!cursorContainer || !dot) return;
-
     let mouseX = -100, mouseY = -100;
     let dotX = -100, dotY = -100;
-
     window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-
     function animateCursor() {
         dotX += (mouseX - dotX) * 0.9; dotY += (mouseY - dotY) * 0.9;
-
         if (dot) {
           dot.style.transform = `translate(${dotX}px, ${dotY}px)`;
         }
-        
         requestAnimationFrame(animateCursor);
     }
     animateCursor();
-
     document.querySelectorAll('a, button, [data-nav-link], .project-item-no-img, .social-link, .chat-toggle-btn, .suggested-question').forEach(el => {
         el.addEventListener('mouseenter', () => cursorContainer.classList.add('interact'));
         el.addEventListener('mouseleave', () => cursorContainer.classList.remove('interact'));
     });
 }
 
-// --- Feature 3: Typing Effect ---
 function initTypingEffect() {
     const target = document.querySelector('.typing-effect');
     if (!target) return;
-    
     const words = ["Developer", "Engineer", "Enthusiast", "Student"];
     let wordIndex = 0, charIndex = 0, isDeleting = false;
-
     function type() {
         if (!target) return;
         const currentWord = words[wordIndex];
         target.textContent = currentWord.substring(0, charIndex);
-        
         if (isDeleting) charIndex--; else charIndex++;
-
         if (!isDeleting && charIndex === currentWord.length) { 
             setTimeout(() => isDeleting = true, 2000); 
         } else if (isDeleting && charIndex === 0) { 
             isDeleting = false; 
             wordIndex = (wordIndex + 1) % words.length; 
         }
-        
         setTimeout(type, isDeleting ? 75 : 150);
     }
     type();
 }
 
-// --- Feature 4: Current Year ---
 function initCurrentYear() {
     const yearSpan = document.getElementById('current-year');
     if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 }
 
-// --- Feature 5: Theme Switcher (2-state) ---
 function initThemeSwitcher() {
     const themeBtn = document.getElementById('theme-toggle-btn');
     if (!themeBtn) return;
-
     const sunIcon = document.querySelector('.theme-icon-sun');
     const moonIcon = document.querySelector('.theme-icon-moon');
     const avatarImg = document.getElementById('avatar-img');
-    
     if (!sunIcon || !moonIcon) return;
-
-    let currentTheme = localStorage.getItem('theme') || 'dark'; // Default to dark
-    
+    let currentTheme = localStorage.getItem('theme') || 'dark'; 
     function applyTheme(theme) {
         if (theme === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
@@ -120,36 +92,27 @@ function initThemeSwitcher() {
         }
         localStorage.setItem('theme', theme);
     }
-
     themeBtn.addEventListener('click', () => {
         const newTheme = (currentTheme === 'dark') ? 'light' : 'dark';
         currentTheme = newTheme;
         applyTheme(newTheme);
     });
-
     applyTheme(currentTheme);
 }
 
-
-// --- Feature 6: GitHub Stats ---
 async function fetchGitHubStats() {
   const reposEl = document.getElementById('github-repos');
   const starsEl = document.getElementById('github-stars');
-  const activityList = document.getElementById('github-activity');
-  
+  const activityList = document.getElementById('github-activity');  
   const starsItemEl = starsEl ? starsEl.closest('.service-item') : null;
-
   try {
     const userResponse = await fetch(`https://api.github.com/users/ashvinmanojk289`);
     if (!userResponse.ok) throw new Error('GitHub user API request failed');
     const userData = await userResponse.json();
-    
     if (reposEl) reposEl.textContent = userData.public_repos || 0;
-
     const reposResponse = await fetch(`https://api.github.com/users/ashvinmanojk289/repos?sort=pushed&per_page=3`);
     if (!reposResponse.ok) throw new Error('GitHub repos API request failed');
     const repos = await reposResponse.json();
-
     if (activityList) {
         if (repos.length > 0) {
             activityList.innerHTML = repos.slice(0, 3).map(repo => `<li>Pushed to <strong>${repo.name}</strong></li>`).join('');
@@ -157,11 +120,9 @@ async function fetchGitHubStats() {
             activityList.innerHTML = '<li>No recent activity.</li>';
         }
     }
-
     if (starsItemEl) {
         starsItemEl.style.display = 'none';
     }
-
   } catch (error) {
     console.error('Failed to fetch GitHub stats:', error);
     if(activityList) {
@@ -174,18 +135,15 @@ async function fetchGitHubStats() {
   }
 }
 
-// --- Feature 7: Chat Assistant ---
 function initChatAssistant() {
     const toggleBtn = document.querySelector('.chat-toggle-btn');
     const chatWindow = document.querySelector('.chat-window');
     const chatBody = document.querySelector('.chat-body');
     const aiStatus = document.getElementById('ai-status');
-
     if (!toggleBtn || !chatWindow || !chatBody || !aiStatus) {
         console.error("Chat assistant elements not found. Skipping init.");
         return;
     }
-
     const conversationTree = {
         'root': {
             'isAnswer': false,
@@ -310,14 +268,12 @@ function initChatAssistant() {
     function renderNode(nodeId) {
         const node = conversationTree[nodeId];
         if (!node) { console.error(`No node found for ID: ${nodeId}`); return; }
-
         if (node.isAnswer) {
             const thinkingDiv = document.createElement('div');
             thinkingDiv.className = 'chat-message bot';
             thinkingDiv.innerHTML = '<span class="thinking-indicator"></span>';
             chatBody.appendChild(thinkingDiv);
             chatBody.scrollTop = chatBody.scrollHeight;
-
             setTimeout(() => {
                 thinkingDiv.innerHTML = node.answer;
                 chatBody.scrollTop = chatBody.scrollHeight;
@@ -331,10 +287,8 @@ function initChatAssistant() {
     function showQuestions(questions) {
         const oldQuestions = chatBody.querySelector('.suggested-questions');
         if(oldQuestions) oldQuestions.remove();
-
         const questionsDiv = document.createElement('div');
         questionsDiv.className = 'suggested-questions';
-
         questions.forEach(q => {
             const qButton = document.createElement('button');
             qButton.className = 'suggested-question';
@@ -342,7 +296,6 @@ function initChatAssistant() {
             qButton.dataset.next = q.next;
             questionsDiv.appendChild(qButton);
         });
-        
         chatBody.appendChild(questionsDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
     }
@@ -366,8 +319,7 @@ function initChatAssistant() {
     });
 
     toggleBtn.addEventListener('click', () => {
-        chatWindow.classList.toggle('active');
-        
+        chatWindow.classList.toggle('active');    
         if (chatWindow.classList.contains('active')) {
             chatBody.innerHTML = `
               <div class="chat-message bot">
@@ -379,19 +331,13 @@ function initChatAssistant() {
     });
 }
 
-// --- Feature 8: Page Navigation (Blog removed) ---
 function initPageNavigation() {
     const navigationLinks = document.querySelectorAll("[data-nav-link]");
     const pages = document.querySelectorAll("[data-page]");
-
     if (!navigationLinks.length || !pages.length) return;
-
     for (let i = 0; i < navigationLinks.length; i++) {
       navigationLinks[i].addEventListener("click", function () {
-        
         let clickedPage = this.innerHTML.toLowerCase();
-        
-        // Update pages
         for (let j = 0; j < pages.length; j++) {
           if (clickedPage === pages[j].dataset.page) {
             pages[j].classList.add("active");
@@ -399,81 +345,52 @@ function initPageNavigation() {
             pages[j].classList.remove("active");
           }
         }
-        
-        // Update nav links
         navigationLinks.forEach(link => link.classList.remove('active'));
         this.classList.add('active');
         window.scrollTo(0, 0);
-
       });
     }
 }
 
-// --- Feature 9: Case Study Accordion (REPLACED MODAL) ---
 function initCaseStudyAccordion() {
   const caseStudyBtns = document.querySelectorAll(".case-study-btn");
-
   if (!caseStudyBtns.length) {
     console.log("No case study buttons found; skipping accordion init.");
     return;
   }
-
   caseStudyBtns.forEach(btn => {
-    // Find the content panel
     const projectItem = btn.closest('.project-item-no-img');
     if (!projectItem) return;
-    
     const caseStudyContent = projectItem.querySelector(".project-case-study-content");
     if (!caseStudyContent) return;
-
     btn.addEventListener("click", function (e) {
       e.preventDefault();
       e.stopPropagation();
-
-      // Toggle active class on button
       this.classList.toggle('active');
-      
-      // Toggle active class on content (for margin)
       caseStudyContent.classList.toggle('active');
-
-      // Get the button text span
       const btnText = this.querySelector('span');
-
-      // Check if active
       if (this.classList.contains('active')) {
-        // Set text to 'Hide Details'
         if (btnText) btnText.textContent = 'Hide Details';
-        // Set max-height to its scrollHeight for a smooth slide-open
         caseStudyContent.style.maxHeight = caseStudyContent.scrollHeight + "px";
       } else {
-        // Set text back to 'Case Study'
         if (btnText) btnText.textContent = 'Case Study';
-        // Set max-height to 0 for a smooth slide-close
         caseStudyContent.style.maxHeight = '0px';
       }
     });
   });
 }
 
-// --- Feature 10: Project Filtering ---
 function initProjectFilter() {
   const filterBtns = document.querySelectorAll(".filter-list .filter-btn");
   const projectItems = document.querySelectorAll(".project-grid .project-item-no-img");
-
   if (!filterBtns.length || !projectItems.length) return;
-
   filterBtns.forEach(btn => {
     btn.addEventListener("click", function() {
-      // Deactivate all buttons
       filterBtns.forEach(b => b.classList.remove("active"));
-      // Activate clicked button
       this.classList.add("active");
-
       const filterValue = this.dataset.filter;
-
       projectItems.forEach(item => {
         const itemCategories = item.dataset.category.split(' ');
-        
         if (filterValue === "all" || itemCategories.includes(filterValue)) {
           item.style.display = 'block';
           setTimeout(() => {
@@ -483,7 +400,7 @@ function initProjectFilter() {
           item.classList.add("hidden");
           setTimeout(() => {
             item.style.display = 'none';
-          }, 300); // Match this to animation duration in CSS
+          }, 300); 
         }
       });
     });
