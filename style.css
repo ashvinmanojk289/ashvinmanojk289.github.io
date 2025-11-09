@@ -820,6 +820,7 @@ textarea.form-input {
   height: 140px;
   max-height: 200px;
   resize: vertical;
+  margin-bottom: 25px;
 }
 
 .form-btn {
