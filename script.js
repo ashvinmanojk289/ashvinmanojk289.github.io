@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Initialize all features ---
     initPageNavigation();
-    initCaseStudyModal(); // RE-ADDED
+    initCaseStudyModal(); // This now finds and uses the new content
     initProjectFilter(); 
     
     initLoadingSpinner();
@@ -409,14 +409,17 @@ function initPageNavigation() {
     }
 }
 
-// --- Feature 9: Case Study Modal (RE-ADDED) ---
+// --- Feature 9: Case Study Modal (MODIFIED) ---
 function initCaseStudyModal() {
     const caseStudyBtns = document.querySelectorAll(".case-study-btn");
     const modalContainer = document.querySelector("[data-modal-container]");
     const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
     const overlay = document.querySelector("[data-overlay]");
 
-    if (!modalContainer || !modalCloseBtn || !overlay || !caseStudyBtns.length) return;
+    if (!modalContainer || !modalCloseBtn || !overlay || !caseStudyBtns.length) {
+      console.log("Modal elements not found, skipping init.");
+      return;
+    }
 
     const modalTitle = modalContainer.querySelector(".modal-title");
     const modalCategory = modalContainer.querySelector(".modal-category");
@@ -431,18 +434,26 @@ function initCaseStudyModal() {
       btn.addEventListener("click", function (e) {
         e.preventDefault(); 
         
-        // Find the parent project item
         const projectItem = this.closest('.project-item-no-img');
         
-        // Get content from the project item
+        // Get primary content
         const title = projectItem.querySelector(".project-title").innerText;
         const category = projectItem.querySelector(".project-category").innerText;
-        const description = projectItem.querySelector(".project-description").innerHTML;
         
-        // Populate the modal
+        // Get the NEW case study content
+        const caseStudyContent = projectItem.querySelector(".project-case-study-content");
+        
         if (modalTitle) modalTitle.innerText = title;
         if (modalCategory) modalCategory.innerText = category;
-        if (modalText) modalText.innerHTML = description;
+        
+        // Check if the new content exists
+        if (caseStudyContent && modalText) {
+          modalText.innerHTML = caseStudyContent.innerHTML;
+        } else if (modalText) {
+          // Fallback to the description if no case study content is found
+          const description = projectItem.querySelector(".project-description").innerHTML;
+          modalText.innerHTML = `<p>${description}</p>`;
+        }
 
         toggleModal();
       });

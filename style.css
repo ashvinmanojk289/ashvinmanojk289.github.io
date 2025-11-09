@@ -114,7 +114,7 @@ body {
   line-height: 1.6;
   font-weight: var(--fw-300);
   transition: background 0.3s, color 0.3s;
-
+  
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Standard */
@@ -313,6 +313,17 @@ body {
   font-weight: var(--fw-300);
   line-height: 1.6;
 }
+.modal-text-content h4 {
+  color: var(--color-accent);
+  font-size: var(--fs-4);
+  font-weight: var(--fw-500);
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+.modal-text-content p:first-of-type {
+  margin-top: 0;
+}
+
 
 /*-----------------------------------*\
  * #MAIN LAYOUT
@@ -594,7 +605,7 @@ main {
 }
 
 .github-stats {
-  margin-top: 30px; /* <<< THIS IS THE FIX >>> */
+  margin-top: 30px; 
 }
 .github-stats .service-list {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1055,7 +1066,7 @@ textarea.form-input {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* CUSTOM CURSOR (MODIFIED) */
+/* CUSTOM CURSOR */
 @media (pointer: coarse) { .custom-cursor { display: none; } }
 @media (pointer: fine) {
   html { cursor: none; }
@@ -1072,8 +1083,8 @@ textarea.form-input {
     height: 8px; 
     background-color: var(--color-accent);
   }
-  .cursor-ring { display: none; } /* REMOVED */
-  .custom-cursor.interact .cursor-dot { transform: translate(-50%, -50%) scale(1.5); opacity: 0.5; } /* MODIFIED */
+  .cursor-ring { display: none; } 
+  .custom-cursor.interact .cursor-dot { transform: translate(-50%, -50%) scale(1.5); opacity: 0.5; } 
 }
 
 /* SIDEBAR EXTRAS */
