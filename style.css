@@ -1058,3 +1058,35 @@ textarea.form-input {
 .case-study-btn.active ion-icon {
   transform: rotate(180deg);
 }
+/* --- Add this at the end of your style.css --- */
+
+.project-progress {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: var(--fs-6);
+  color: var(--text-secondary);
+  font-family: var(--ff-poppins);
+  font-weight: var(--fw-400);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
