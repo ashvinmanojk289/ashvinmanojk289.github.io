@@ -1077,6 +1077,7 @@ textarea.form-input {
 .case-study-btn.active ion-icon {
   transform: rotate(180deg);
 }
+/* --- Add this at the end of your style.css --- */
 
 .project-progress {
   margin-top: 20px;
@@ -1106,8 +1107,7 @@ textarea.form-input {
   height: 100%;
   background: var(--color-accent);
   border-radius: 4px;
-  width: 0; 
-  transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: width 0.5s ease;
 }
 
 .animate-item {
