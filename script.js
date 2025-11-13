@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initTiltEffect();
     initProgressBars();
     initParticleNetwork();
+    initAIBg();
 });
 
 function initLoadingSpinner() {
@@ -173,6 +174,116 @@ async function fetchGitHubStats() {
         starsItemEl.style.display = 'none';
     }
   }
+}
+
+function initAIBg() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const canvas = document.getElementById('ai-bg');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width = 0, height = 0, rafId = null;
+
+    function resize() {
+        const dpr = window.devicePixelRatio || 1;
+        width = canvas.clientWidth || window.innerWidth;
+        height = canvas.clientHeight || window.innerHeight;
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    const NODE_COUNT = Math.max(12, Math.round((window.innerWidth * window.innerHeight) / 80000));
+    const nodes = [];
+    for (let i = 0; i < NODE_COUNT; i++) {
+        nodes.push({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            baseSize: 1 + Math.random() * 2,
+            phase: Math.random() * Math.PI * 2
+        });
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+
+        const g = ctx.createLinearGradient(0, 0, width, height);
+        g.addColorStop(0, 'rgba(20,30,60,0.02)');
+        g.addColorStop(1, 'rgba(10,10,20,0.02)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, width, height);
+
+        const maxDist = Math.min(width, height) * 0.18;
+        for (let i = 0; i < nodes.length; i++) {
+            const a = nodes[i];
+            for (let j = i + 1; j < nodes.length; j++) {
+                const b = nodes[j];
+                const dx = a.x - b.x;
+                const dy = a.y - b.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist < maxDist) {
+                    const alpha = 0.18 * (1 - dist / maxDist);
+                    ctx.strokeStyle = `rgba(120,200,255,${alpha})`;
+                    ctx.lineWidth = 1 * (1 - dist / maxDist);
+                    ctx.beginPath();
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(b.x, b.y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        const time = Date.now() * 0.002;
+        for (let i = 0; i < nodes.length; i++) {
+            const n = nodes[i];
+            n.phase += 0.002 + (i % 5) * 0.0002;
+            const pulse = n.baseSize + Math.sin(time + n.phase) * 0.8;
+            ctx.beginPath();
+            const gradient = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, Math.max(8, pulse * 6));
+            gradient.addColorStop(0, 'rgba(120,200,255,0.95)');
+            gradient.addColorStop(0.4, 'rgba(120,200,255,0.25)');
+            gradient.addColorStop(1, 'rgba(120,200,255,0)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(n.x - 20, n.y - 20, 40, 40);
+
+            ctx.beginPath();
+            ctx.fillStyle = 'rgba(200,240,255,0.95)';
+            ctx.arc(n.x, n.y, Math.max(1, pulse), 0, Math.PI * 2);
+            ctx.fill();
+
+            n.x += n.vx;
+            n.y += n.vy;
+            if (n.x < 0 || n.x > width) n.vx *= -1;
+            if (n.y < 0 || n.y > height) n.vy *= -1;
+        }
+
+        rafId = requestAnimationFrame(draw);
+    }
+
+    function start() {
+        resize();
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', () => {
+        clearTimeout(window._aiBgResizeTimer);
+        window._aiBgResizeTimer = setTimeout(() => resize(), 120);
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        const mx = e.clientX, my = e.clientY;
+        for (let i = 0; i < Math.min(3, nodes.length); i++) {
+            const n = nodes[(i * 7) % nodes.length];
+            n.vx += (mx - n.x) * 0.00002;
+            n.vy += (my - n.y) * 0.00002;
+        }
+    });
+
+    start();
 }
 
 function initChatAssistant() {
@@ -365,24 +476,33 @@ function initChatAssistant() {
 }
 
 function initPageNavigation() {
-    const navigationLinks = document.querySelectorAll("[data-nav-link]");
-    const pages = document.querySelectorAll("[data-page]");
-    if (!navigationLinks.length || !pages.length) return;
-    for (let i = 0; i < navigationLinks.length; i++) {
-      navigationLinks[i].addEventListener("click", function () {
-        let clickedPage = this.innerHTML.toLowerCase();
-        for (let j = 0; j < pages.length; j++) {
-          if (clickedPage === pages[j].dataset.page) {
-            pages[j].classList.add("active");
-          } else {
-            pages[j].classList.remove("active");
-          }
-        }
-        navigationLinks.forEach(link => link.classList.remove('active'));
-        this.classList.add('active');
-        window.scrollTo(0, 0);
-      });
-    }
+        const navigationLinks = document.querySelectorAll("[data-nav-link]");
+        const pages = document.querySelectorAll("[data-page]");
+        if (!navigationLinks.length || !pages.length) return;
+
+        navigationLinks.forEach(link => {
+                link.addEventListener('click', function () {
+                        const clickedPage = this.innerHTML.toLowerCase().trim();
+
+                        pages.forEach(page => {
+                                if (clickedPage === page.dataset.page) {
+                                        page.classList.add('active');
+                                        const heading = page.querySelector('.article-title');
+                                        if (heading) {
+                                                heading.classList.remove('heading-animate');
+                                                void heading.offsetWidth;
+                                                heading.classList.add('heading-animate');
+                                        }
+                                } else {
+                                        page.classList.remove('active');
+                                }
+                        });
+
+                        navigationLinks.forEach(l => l.classList.remove('active'));
+                        this.classList.add('active');
+                        window.scrollTo(0, 0);
+                });
+        });
 }
 
 function initCaseStudyAccordion() {
