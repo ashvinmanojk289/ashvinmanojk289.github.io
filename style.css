@@ -1058,7 +1058,6 @@ textarea.form-input {
 .case-study-btn.active ion-icon {
   transform: rotate(180deg);
 }
-/* --- Add this at the end of your style.css --- */
 
 .project-progress {
   margin-top: 20px;
@@ -1088,5 +1087,119 @@ textarea.form-input {
   height: 100%;
   background: var(--color-accent);
   border-radius: 4px;
-  transition: width 0.5s ease;
+  width: 0; 
+  transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.animate-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.animate-item.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
+.delay-400 { transition-delay: 0.4s; }
+.delay-500 { transition-delay: 0.5s; }
+
+.service-item, 
+.project-item-no-img,
+.timeline-item {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.service-item:hover, 
+.project-item-no-img:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-2);
+  border-color: var(--color-accent);
+}
+
+.sidebar {
+  animation: slideInLeft 0.8s ease-out forwards;
+  opacity: 0; 
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.form-btn:hover, .download-btn:hover {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 hsla(45, 100%, 72%, 0.4); }
+  70% { box-shadow: 0 0 0 10px hsla(45, 100%, 72%, 0); }
+  100% { box-shadow: 0 0 0 0 hsla(45, 100%, 72%, 0); }
+}
+
+.tilt-card {
+  transition: transform 0.1s ease; 
+  will-change: transform;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.tilt-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.tilt-card:hover::after {
+  opacity: 1;
+}
+
+.resume-download-inner .download-btn {
+  transform: translateZ(20px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.resume-download-inner .resume-preview-img {
+  transform: translateZ(0px);
+}
+
+.typing-effect.code-mode {
+  font-family: "Courier New", Courier, monospace;
+  color: #ff79c6; 
+  font-weight: bold;
+}
+
+#sidebar-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; 
+  border-radius: 20px; 
+  overflow: hidden;
+}
+
+.sidebar > .sidebar-info,
+.sidebar > .sidebar-content,
+.sidebar > .theme-switcher {
+  position: relative;
+  z-index: 1;
 }
