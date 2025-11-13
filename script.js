@@ -6,16 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initProjectFilter(); 
     initLoadingSpinner();
     initCustomCursor(); 
-    initTypingEffect(); 
+    initTypingEffect();
     initCurrentYear();
     initThemeSwitcher(); 
     fetchGitHubStats();
     initChatAssistant();
-
-    initScrollAnimations();
-    initTiltEffect();
-    initProgressBars();
-    initParticleNetwork();
 });
 
 function initLoadingSpinner() {
@@ -52,56 +47,21 @@ function initCustomCursor() {
 function initTypingEffect() {
     const target = document.querySelector('.typing-effect');
     if (!target) return;
-
-    const data = [
-        { text: "Engineer", isCode: false },
-        { text: "import tensorflow as tf", isCode: true },
-        { text: "Developer", isCode: false },
-        { text: "print('Hello World!')", isCode: true },
-        { text: "Robotics Enthusiast", isCode: false },
-        { text: "<Coder />", isCode: true }
-    ];
-
+    const words = ["Developer", "Engineer", "Enthusiast", "Student"];
     let wordIndex = 0, charIndex = 0, isDeleting = false;
-    let currentIsCode = false;
-
     function type() {
-        const currentItem = data[wordIndex];
-        const fullText = currentItem.text;
-
-        if (currentItem.isCode !== currentIsCode) {
-            currentIsCode = currentItem.isCode;
-            if (currentIsCode) {
-                target.classList.add('code-mode');
-            } else {
-                target.classList.remove('code-mode');
-            }
+        if (!target) return;
+        const currentWord = words[wordIndex];
+        target.textContent = currentWord.substring(0, charIndex);
+        if (isDeleting) charIndex--; else charIndex++;
+        if (!isDeleting && charIndex === currentWord.length) { 
+            setTimeout(() => isDeleting = true, 2000); 
+        } else if (isDeleting && charIndex === 0) { 
+            isDeleting = false; 
+            wordIndex = (wordIndex + 1) % words.length; 
         }
-
-        if (isDeleting) {
-            target.textContent = fullText.substring(0, charIndex - 1);
-            charIndex--;
-        } else {
-            target.textContent = fullText.substring(0, charIndex + 1);
-            charIndex++;
-        }
-
-        let typeSpeed = 100; 
-        if (isDeleting) typeSpeed /= 2; 
-        if (currentIsCode) typeSpeed = 80; 
-
-        if (!isDeleting && charIndex === fullText.length) {
-            typeSpeed = 2000; 
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            wordIndex = (wordIndex + 1) % data.length;
-            typeSpeed = 500; 
-        }
-
-        setTimeout(type, typeSpeed);
+        setTimeout(type, isDeleting ? 75 : 150);
     }
-
     type();
 }
 
@@ -204,7 +164,7 @@ function initChatAssistant() {
         },
         'projects_1': {
             'isAnswer': true,
-            'answer': "He has built a Multilingual News Audio Translator (92% accuracy), a GenAI-powered PDF Query app (89% time reduction), and an autonomous Weed Detection Robot (97% accuracy).", // <-- UPDATED with citations
+            'answer': "He has built a Multilingual News Audio Translator (92% accuracy) [cite: 497], a GenAI-powered PDF Query app (89% time reduction) [cite: 499], and an autonomous Weed Detection Robot (97% accuracy)[cite: 501].", // <-- UPDATED with citations
             'questions': [
                 { 'text': "How does the Weed Robot work?", 'next': 'projects_2_robot' },
                 { 'text': "Tell me about the PDF Query app.", 'next': 'projects_2_pdf' },
@@ -213,7 +173,7 @@ function initChatAssistant() {
         },
         'experience_1': {
             'isAnswer': true,
-            'answer': "He's a Data Science Intern at Mastermine (Aug 2025-Present) and was a Hardware Systems Intern at Sunlux (Feb-Apr 2024).", // <-- UPDATED with citations
+            'answer': "He's a Data Science Intern at Mastermine (Aug 2025-Present) [cite: 487, 488] and was a Hardware Systems Intern at Sunlux (Feb-Apr 2024)[cite: 491, 492].", // <-- UPDATED with citations
             'questions': [
                 { 'text': "What does he do at Mastermine?", 'next': 'experience_2_mastermine' },
                 { 'text': "What did he do at Sunlux?", 'next': 'experience_2_sunlux' },
@@ -222,7 +182,7 @@ function initChatAssistant() {
         },
         'skills_2_ml': {
             'isAnswer': true,
-            'answer': "He's proficient with AI frameworks like PyTorch, TensorFlow, Scikit-learn, Pandas, and NumPy, as well as the Transformers library for NLP.", // <-- UPDATED (added Pandas, NumPy)
+            'answer': "He's proficient with AI frameworks like PyTorch, TensorFlow, Scikit-learn, Pandas, and NumPy, as well as the Transformers library for NLP[cite: 480].", // <-- UPDATED (added Pandas, NumPy)
             'questions': [
                 { 'text': "See other skills", 'next': 'skills_1' },
                 { 'text': "View all projects", 'next': 'projects_1' },
@@ -231,7 +191,7 @@ function initChatAssistant() {
         },
         'skills_2_lang': {
             'isAnswer': true,
-            'answer': "His main languages are Python, C++, C, SQL, and R.", 
+            'answer': "His main languages are Python, C++, C, SQL, and R[cite: 479].", // <-- UPDATED with citation
             'questions': [
                 { 'text': "See other skills", 'next': 'skills_1' },
                 { 'text': "View all projects", 'next': 'projects_1' },
@@ -240,7 +200,7 @@ function initChatAssistant() {
         },
         'achievements_1': {
             'isAnswer': true,
-            'answer': "He co-authored 'A Hybrid Transformer Model Approach for Precision Weed Detection' (2025 ACCESS conference) and has certifications from NPTEL, Infosys, and Coursera (including Google Data Analytics).", // <-- UPDATED (added Coursera/Google)
+            'answer': "He co-authored 'A Hybrid Transformer Model Approach for Precision Weed Detection' (2025 ACCESS conference) [cite: 503] and has certifications from NPTEL, Infosys, and Coursera (including Google Data Analytics)[cite: 505].", // <-- UPDATED (added Coursera/Google)
             'questions': [
                 { 'text': "What are his skills?", 'next': 'skills_1' },
                 { 'text': "View all projects", 'next': 'projects_1' },
@@ -249,7 +209,7 @@ function initChatAssistant() {
         },
         'projects_2_robot': {
             'isAnswer': true,
-            'answer': "It's an AI-powered robot using ROS and a custom EfficientNetV2-Transformer hybrid model (97% accuracy) for eco-friendly herbicide application.", // <-- UPDATED with citation
+            'answer': "It's an AI-powered robot using ROS and a custom EfficientNetV2-Transformer hybrid model (97% accuracy) for eco-friendly herbicide application[cite: 501].", // <-- UPDATED with citation
             'questions': [
                 { 'text': "See other projects", 'next': 'projects_1' },
                 { 'text': "What's his experience?", 'next': 'experience_1' },
@@ -258,7 +218,7 @@ function initChatAssistant() {
         },
         'projects_2_pdf': {
             'isAnswer': true,
-            'answer': "It's a scalable, voice-enabled PDF query system using NLP and Streamlit, which reduced information retrieval time by over 89%.", // <-- UPDATED with citation
+            'answer': "It's a scalable, voice-enabled PDF query system using NLP and Streamlit, which reduced information retrieval time by over 89%[cite: 499].", // <-- UPDATED with citation
             'questions': [
                 { 'text': "See other projects", 'next': 'projects_1' },
                 { 'text': "What's his experience?", 'next': 'experience_1' },
@@ -267,7 +227,7 @@ function initChatAssistant() {
         },
         'projects_2_audio': {
             'isAnswer': true,
-            'answer': "A full-stack app using Wav2Vec 2.0 (92% accuracy) for speech recognition and a fine-tuned mBART model for fluent translation.", // <-- UPDATED with citation
+            'answer': "A full-stack app using Wav2Vec 2.0 (92% accuracy) for speech recognition and a fine-tuned mBART model for fluent translation[cite: 497].", // <-- UPDATED with citation
             'questions': [
                 { 'text': "See other projects", 'next': 'projects_1' },
                 { 'text': "What's his experience?", 'next': 'experience_1' },
@@ -276,7 +236,7 @@ function initChatAssistant() {
         },
         'experience_2_mastermine': {
             'isAnswer': true,
-            'answer': "At Mastermine, he's engineering a full-stack desktop app for photographers (Java, React, Electron.js) and designing a multi-agent LLM framework for data analysis.", // <-- UPDATED with citations
+            'answer': "At Mastermine, he's engineering a full-stack desktop app for photographers (Java, React, Electron.js) [cite: 489] and designing a multi-agent LLM framework for data analysis[cite: 490].", // <-- UPDATED with citations
             'questions': [
                 { 'text': "See other experience", 'next': 'experience_1' },
                 { 'text': "What are his skills?", 'next': 'skills_1' },
@@ -285,7 +245,7 @@ function initChatAssistant() {
         },
         'experience_2_sunlux': {
             'isAnswer': true,
-            'answer': "At Sunlux, he developed and debugged microprocessor programs in Assembly for industrial automation, improving process efficiency by 15%.", // <-- UPDATED with citation
+            'answer': "At Sunlux, he developed and debugged microprocessor programs in Assembly for industrial automation, improving process efficiency by 15%[cite: 493].", // <-- UPDATED with citation
             'questions': [
                 { 'text': "See other experience", 'next': 'experience_1' },
                 { 'text': "What are his skills?", 'next': 'skills_1' },
@@ -294,7 +254,7 @@ function initChatAssistant() {
         },
         'education_1': {
             'isAnswer': true,
-            'answer': "He's pursuing an M.Tech in AI/ML from Rajagiri (CGPA 9.49) and holds a B.Tech in Robotics from Adi Shankara (CGPA 9.54).", // <-- UPDATED with citations
+            'answer': "He's pursuing an M.Tech in AI/ML from Rajagiri (CGPA 9.49) [cite: 482, 483] and holds a B.Tech in Robotics from Adi Shankara (CGPA 9.54)[cite: 484, 485].", // <-- UPDATED with citations
             'questions': [
                 { 'text': "What's his experience?", 'next': 'experience_1' },
                 { 'text': "What are his skills?", 'next': 'skills_1' },
@@ -314,7 +274,7 @@ function initChatAssistant() {
             chatBody.scrollTop = chatBody.scrollHeight;
             setTimeout(() => {
                 thinkingDiv.innerHTML = node.answer;
-                thinkingDiv.innerHTML = thinkingDiv.innerHTML.replace(/\[(\d+)\]/g, '<sup class="chat-citation">$1</sup>');
+                thinkingDiv.innerHTML = thinkingDiv.innerHTML.replace(/\[cite:\s*([^\]]+)\]/g, '<sup class="chat-citation">[cite: $1]</sup>');
                 chatBody.scrollTop = chatBody.scrollHeight;
                 showQuestions(node.questions);
             }, 1000); 
@@ -438,191 +398,4 @@ function initProjectFilter() {
       });
     });
   });
-}
-
-function initScrollAnimations() {
-    const elementsToAnimate = document.querySelectorAll(
-        '.service-item, .project-item-no-img, .timeline-item, .h2, .h3, .about-text p, .resume-download-inner'
-    );
-
-    elementsToAnimate.forEach((el, index) => {
-        el.classList.add('animate-item');
-    });
-
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px 0px -10% 0px', 
-        threshold: 0.0 
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    elementsToAnimate.forEach((el, index) => {
-        const delay = Math.min(index * 40, 400);
-        el.style.transitionDelay = `${delay}ms`;
-        observer.observe(el);
-    });
-
-    elementsToAnimate.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        const inViewport = rect.top < window.innerHeight && rect.bottom > 0;
-        if (inViewport) {
-            el.classList.add('active');
-            observer.unobserve(el);
-        }
-    });
-
-    const navigationLinks = document.querySelectorAll("[data-nav-link]");
-    navigationLinks.forEach(link => {
-        link.addEventListener("click", () => {
-            setTimeout(() => {
-                const activePage = document.querySelector("article.active");
-                if(activePage) {
-                    const newElements = activePage.querySelectorAll('.animate-item');
-                    newElements.forEach(el => {
-                        el.classList.remove('active'); 
-                        observer.observe(el); 
-                    });
-                }
-            }, 100);
-        });
-    });
-}
-
-function initTiltEffect() {
-    const cards = document.querySelectorAll('.resume-download-inner');
-
-    cards.forEach(card => {
-        card.classList.add('tilt-card'); 
-
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left; 
-            const y = e.clientY - rect.top;  
-
-            const xPct = x / rect.width;
-            const yPct = y / rect.height;
-            
-            const xRotation = (0.5 - yPct) * 30; 
-            const yRotation = (xPct - 0.5) * 30; 
-
-            card.style.transform = `
-                perspective(1000px)
-                scale3d(1.05, 1.05, 1.05)
-                rotateX(${xRotation}deg)
-                rotateY(${yRotation}deg)
-            `;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = `
-                perspective(1000px)
-                scale3d(1, 1, 1)
-                rotateX(0)
-                rotateY(0)
-            `;
-        });
-    });
-}
-
-function initProgressBars() {
-    const progressBars = document.querySelectorAll('.project-progress');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const fill = entry.target.querySelector('.progress-fill');
-                const label = entry.target.querySelector('.progress-label span:last-child');
-                
-                if (label && fill) {
-                    const targetWidth = label.textContent.trim();
-                    setTimeout(() => {
-                        fill.style.width = targetWidth;
-                    }, 200);
-                }
-                observer.unobserve(entry.target); 
-            }
-        });
-    }, { threshold: 0.5 }); 
-
-    progressBars.forEach(bar => observer.observe(bar));
-}
-
-function initParticleNetwork() {
-  if (document.getElementById('sidebar-particles')) {
-    particlesJS('sidebar-particles',
-      {
-        "particles": {
-          "number": {
-            "value": 60,
-            "density": {
-              "enable": true,
-              "value_area": 800
-            }
-          },
-          "color": {
-            "value": "#999999" 
-          },
-          "shape": {
-            "type": "circle",
-          },
-          "opacity": {
-            "value": 0.4,
-            "random": true,
-          },
-          "size": {
-            "value": 3,
-            "random": true,
-          },
-          "line_linked": {
-            "enable": true,
-            "distance": 150,
-            "color": "#999999", 
-            "opacity": 0.2,
-            "width": 1
-          },
-          "move": {
-            "enable": true,
-            "speed": 1.5,
-            "direction": "none",
-            "random": true,
-            "straight": false,
-            "out_mode": "out",
-            "bounce": false,
-          }
-        },
-        "interactivity": {
-          "detect_on": "canvas",
-          "events": {
-            "onhover": {
-              "enable": true,
-              "mode": "repulse"
-            },
-            "onclick": {
-              "enable": true,
-              "mode": "push"
-            },
-            "resize": true
-          },
-          "modes": {
-            "repulse": {
-              "distance": 80,
-              "duration": 0.4
-            },
-            "push": {
-              "particles_nb": 4
-            },
-          }
-        },
-        "retina_detect": true
-      }
-    );
-  }
 }
