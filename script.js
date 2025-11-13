@@ -451,19 +451,33 @@ function initScrollAnimations() {
 
     const observerOptions = {
         root: null,
-        rootMargin: '0px',
-        threshold: 0.1 
+        rootMargin: '0px 0px -10% 0px', 
+        threshold: 0.0 
     };
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    elementsToAnimate.forEach(el => observer.observe(el));
+    elementsToAnimate.forEach((el, index) => {
+        const delay = Math.min(index * 40, 400);
+        el.style.transitionDelay = `${delay}ms`;
+        observer.observe(el);
+    });
+
+    elementsToAnimate.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const inViewport = rect.top < window.innerHeight && rect.bottom > 0;
+        if (inViewport) {
+            el.classList.add('active');
+            observer.unobserve(el);
+        }
+    });
 
     const navigationLinks = document.querySelectorAll("[data-nav-link]");
     navigationLinks.forEach(link => {
