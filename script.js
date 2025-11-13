@@ -314,7 +314,7 @@ function initChatAssistant() {
             chatBody.scrollTop = chatBody.scrollHeight;
             setTimeout(() => {
                 thinkingDiv.innerHTML = node.answer;
-                thinkingDiv.innerHTML = thinkingDiv.innerHTML.replace(/\]+)\]/g, '<sup class="chat-citation"></sup>');
+                thinkingDiv.innerHTML = thinkingDiv.innerHTML.replace(/\[(\d+)\]/g, '<sup class="chat-citation">$1</sup>');
                 chatBody.scrollTop = chatBody.scrollHeight;
                 showQuestions(node.questions);
             }, 1000); 
