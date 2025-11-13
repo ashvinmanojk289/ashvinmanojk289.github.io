@@ -1,18 +1,15 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Essential initializers for first-interaction
     initPageNavigation();
-    initCaseStudyAccordion(); 
-    initProjectFilter(); 
     initLoadingSpinner();
-    initCustomCursor(); 
-    initTypingEffect();
     initCurrentYear();
-    initThemeSwitcher(); 
-    fetchGitHubStats();
-    initChatAssistant();
-        initAIBg();
-        initSwipeNavigation();
+    initThemeSwitcher();
+    initSwipeNavigation();
+
+    // Defer heavier, non-critical initializers to idle time
+    scheduleNonCriticalInits();
 });
 
 function initLoadingSpinner() {
@@ -634,4 +631,54 @@ function initSwipeNavigation() {
         }
     });
 
+}
+
+/* Utilities to defer heavy work when appropriate */
+function isSlowNetworkOrSaveData() {
+    try {
+        const nav = navigator;
+        if (nav && nav.connection) {
+            const c = nav.connection;
+            if (c.saveData) return true;
+            if (c.effectiveType && (c.effectiveType.includes('2g') || c.effectiveType.includes('slow-2g'))) return true;
+        }
+    } catch (e) {
+        // ignore
+    }
+    return false;
+}
+
+function scheduleNonCriticalInits() {
+    const onIdle = () => {
+        const slow = isSlowNetworkOrSaveData();
+        // lightweight UI features
+        initCaseStudyAccordion();
+        initProjectFilter();
+        initTypingEffect();
+        initCustomCursor();
+
+        // features that may be heavy: skip or delay on slow/data-saver
+        if (!slow) {
+            initParticleNetwork();
+            initAIBg();
+            initTiltEffect();
+            initProgressBars();
+            fetchGitHubStats();
+        } else {
+            // fetch minimal data later to avoid blocking
+            setTimeout(() => { fetchGitHubStats().catch(()=>{}); }, 3000);
+        }
+
+        // load chat and scroll animations slightly later
+        setTimeout(() => {
+            initChatAssistant();
+            initScrollAnimations();
+        }, 600);
+    };
+
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(onIdle, { timeout: 1500 });
+    } else {
+        setTimeout(onIdle, 700);
+    }
 }
