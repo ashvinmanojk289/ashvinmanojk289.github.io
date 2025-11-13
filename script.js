@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initProjectFilter(); 
     initLoadingSpinner();
     initCustomCursor(); 
-    initTypingEffect();
+    initTypingEffect(); 
     initCurrentYear();
     initThemeSwitcher(); 
     fetchGitHubStats();
@@ -63,24 +63,34 @@ function initCustomCursor() {
 function initTypingEffect() {
     const target = document.querySelector('.typing-effect');
     if (!target) return;
+    
     const words = ["Engineer", "Developer", "Researcher", "Student"];
-    let wordIndex = 0, charIndex = 0, isDeleting = false;
-    function type() {
-        if (!target) return;
-        const currentWord = words[wordIndex];
-        target.textContent = currentWord.substring(0, charIndex);
-        if (isDeleting) charIndex--; else charIndex++;
-        
-        let typeSpeed = isDeleting ? 50 : 100;
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
 
-        if (!isDeleting && charIndex === currentWord.length) { 
+    function type() {
+        const currentWord = words[wordIndex];
+        
+        target.textContent = currentWord.substring(0, charIndex);
+
+        let typeSpeed = 100;
+
+        if (!isDeleting && charIndex < currentWord.length) {
+            charIndex++;
+            typeSpeed = 100; 
+        } else if (!isDeleting && charIndex === currentWord.length) {
+            isDeleting = true;
             typeSpeed = 2000; 
-            isDeleting = true; 
-        } else if (isDeleting && charIndex === 0) { 
-            isDeleting = false; 
-            wordIndex = (wordIndex + 1) % words.length; 
-            typeSpeed = 500;
+        } else if (isDeleting && charIndex > 0) {
+            charIndex--;
+            typeSpeed = 50; 
+        } else {
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+            typeSpeed = 500; 
         }
+
         setTimeout(type, typeSpeed);
     }
     type();
@@ -101,7 +111,6 @@ function initThemeSwitcher() {
     if (!sunIcon || !moonIcon) return;
     
     let currentTheme = localStorage.getItem('theme') || 'dark'; 
-    
     applyTheme(currentTheme);
 
     function applyTheme(theme) {
@@ -145,11 +154,10 @@ function fetchGitHubStats() {
         .then(res => res.json())
         .then(repos => {
             if (!Array.isArray(repos)) return;
-            
             const stars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
             if (starsCountEl) starsCountEl.textContent = stars;
 
-                if (activityListEl) {
+            if (activityListEl) {
                 activityListEl.innerHTML = '';
                 repos.slice(0, 3).forEach(repo => {
                     const li = document.createElement('li');
@@ -199,14 +207,11 @@ function initAIBg() {
 
     function draw() {
         ctx.clearRect(0, 0, width, height);
-        
         const maxDist = Math.min(width, height) * 0.2;
-        
         ctx.lineWidth = 1;
 
         for (let i = 0; i < nodes.length; i++) {
             const a = nodes[i];
-            
             a.x += a.vx;
             a.y += a.vy;
             
@@ -272,9 +277,8 @@ function initChatAssistant() {
     const chatWindow = document.querySelector('.chat-window');
     const chatBody = document.querySelector('.chat-body');
     const aiStatus = document.getElementById('ai-status');
-    if (!toggleBtn || !chatWindow || !chatBody || !aiStatus) {
-        return;
-    }
+    if (!toggleBtn || !chatWindow || !chatBody || !aiStatus) return;
+
     const conversationTree = {
         'root': {
             'isAnswer': false,
