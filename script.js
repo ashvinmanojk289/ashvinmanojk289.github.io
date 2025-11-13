@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initThemeSwitcher(); 
     fetchGitHubStats();
     initChatAssistant();
-    initAIBg();
+        initAIBg();
+        initSwipeNavigation();
 });
 
 function initLoadingSpinner() {
@@ -96,66 +97,95 @@ function initThemeSwitcher() {
     themeBtn.addEventListener('click', () => {
         const newTheme = (currentTheme === 'dark') ? 'light' : 'dark';
         currentTheme = newTheme;
-        applyTheme(newTheme);
-    });
-    applyTheme(currentTheme);
-}
+            ctx.clearRect(0, 0, width, height);
 
-async function fetchGitHubStats() {
-  const reposEl = document.getElementById('github-repos');
-  const starsEl = document.getElementById('github-stars');
-  const activityList = document.getElementById('github-activity');  
-  const starsItemEl = starsEl ? starsEl.closest('.service-item') : null;
-  try {
-    const userResponse = await fetch(`https://api.github.com/users/ashvinmanojk289`);
-    if (!userResponse.ok) throw new Error('GitHub user API request failed');
-    const userData = await userResponse.json();
-    if (reposEl) reposEl.textContent = userData.public_repos || 0;
-    const reposResponse = await fetch(`https://api.github.com/users/ashvinmanojk289/repos?sort=pushed&per_page=3`);
-    if (!reposResponse.ok) throw new Error('GitHub repos API request failed');
-    const repos = await reposResponse.json();
-    if (activityList) {
-        if (repos.length > 0) {
-            activityList.innerHTML = repos.slice(0, 3).map(repo => `<li>Pushed to <strong>${repo.name}</strong></li>`).join('');
-        } else {
-            activityList.innerHTML = '<li>No recent activity.</li>';
-        }
-    }
-    if (starsItemEl) {
-        starsItemEl.style.display = 'none';
-    }
-  } catch (error) {
-    console.error('Failed to fetch GitHub stats:', error);
-    if(activityList) {
-        activityList.innerHTML = '<li>Could not fetch data.</li>';
-    }
-    if (reposEl) reposEl.textContent = 'N/A';
-    if (starsItemEl) {
-        starsItemEl.style.display = 'none';
-    }
-  }
-}
+            const cs = getComputedStyle(document.documentElement);
+            const nodeColor = (cs.getPropertyValue('--ai-node-color') || 'rgba(120,200,255,0.95)').trim();
+            const lineColor = (cs.getPropertyValue('--ai-line-color') || 'rgba(120,200,255,0.18)').trim();
 
-function initAIBg() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const canvas = document.getElementById('ai-bg');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let width = 0, height = 0, rafId = null;
+            // background soft gradient overlay (subtle, using node color at very low alpha)
+            const g = ctx.createLinearGradient(0, 0, width, height);
+            g.addColorStop(0, hexOrColorWithAlpha(nodeColor, 0.03));
+            g.addColorStop(1, hexOrColorWithAlpha(nodeColor, 0.02));
+            ctx.fillStyle = g;
+            ctx.fillRect(0, 0, width, height);
 
-    function resize() {
-        const dpr = window.devicePixelRatio || 1;
-        width = canvas.clientWidth || window.innerWidth;
-        height = canvas.clientHeight || window.innerHeight;
-        canvas.width = Math.round(width * dpr);
-        canvas.height = Math.round(height * dpr);
-        canvas.style.width = width + 'px';
-        canvas.style.height = height + 'px';
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
+            // draw connections
+            const maxDist = Math.min(width, height) * 0.18;
+            for (let i = 0; i < nodes.length; i++) {
+                const a = nodes[i];
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const b = nodes[j];
+                    const dx = a.x - b.x;
+                    const dy = a.y - b.y;
+                    const dist = Math.hypot(dx, dy);
+                    if (dist < maxDist) {
+                        const alpha = (1 - dist / maxDist);
+                        ctx.strokeStyle = mixAlpha(lineColor, alpha);
+                        ctx.lineWidth = Math.max(0.3, 1 * (1 - dist / maxDist));
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.stroke();
+                    }
+                }
+            }
 
-    const NODE_COUNT = Math.max(12, Math.round((window.innerWidth * window.innerHeight) / 80000));
+            // draw nodes (pulsing)
+            const time = Date.now() * 0.002;
+            for (let i = 0; i < nodes.length; i++) {
+                const n = nodes[i];
+                n.phase += 0.002 + (i % 5) * 0.0002;
+                const pulse = n.baseSize + Math.sin(time + n.phase) * 0.8;
+                // glow
+                ctx.beginPath();
+                const rg = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, Math.max(8, pulse * 6));
+                rg.addColorStop(0, mixAlpha(nodeColor, 1));
+                rg.addColorStop(0.4, mixAlpha(nodeColor, 0.25));
+                rg.addColorStop(1, mixAlpha(nodeColor, 0));
+                ctx.fillStyle = rg;
+                ctx.fillRect(n.x - 20, n.y - 20, 40, 40);
+
+                // small center dot
+                ctx.beginPath();
+                ctx.fillStyle = mixAlpha(nodeColor, 1);
+                ctx.arc(n.x, n.y, Math.max(1, pulse), 0, Math.PI * 2);
+                ctx.fill();
+
+                // update positions
+                n.x += n.vx;
+                n.y += n.vy;
+                if (n.x < 0 || n.x > width) n.vx *= -1;
+                if (n.y < 0 || n.y > height) n.vy *= -1;
+            }
+
+            rafId = requestAnimationFrame(draw);
     const nodes = [];
+
+        // helper: try to mix alpha into color string. If color is rgba(...) replace alpha, if hex/hsl just return as-is with a wrapper using globalAlpha fallback.
+        function mixAlpha(colorStr, alpha) {
+            colorStr = (colorStr || '').trim();
+            if (!colorStr) return `rgba(120,200,255,${alpha})`;
+            if (colorStr.startsWith('rgba')) {
+                // replace last value
+                return colorStr.replace(/rgba\(([^,]+),([^,]+),([^,]+),([^)]+)\)/, `rgba($1,$2,$3,${alpha.toFixed(3)})`);
+            }
+            if (colorStr.startsWith('rgb(')) {
+                return colorStr.replace('rgb(', 'rgba(').replace(')', `,${alpha.toFixed(3)})`);
+            }
+            // fallback: return color string (canvas will use it) but we can't change alpha reliably
+            return colorStr;
+        }
+
+        function hexOrColorWithAlpha(colorStr, alpha) {
+            // if color is rgba or rgb, convert accordingly
+            colorStr = (colorStr || '').trim();
+            if (!colorStr) return `rgba(120,200,255,${alpha})`;
+            if (colorStr.startsWith('rgba')) return colorStr.replace(/rgba\(([^)]+)\)/, `rgba($1)`).replace(/,\s*[^,^)]+\)$/, `, ${alpha})`);
+            if (colorStr.startsWith('rgb(')) return colorStr.replace('rgb(', 'rgba(').replace(')', `, ${alpha})`);
+            // else return color with alpha applied in a simple way (may not always be valid for hex)
+            return colorStr;
+        }
     for (let i = 0; i < NODE_COUNT; i++) {
         nodes.push({
             x: Math.random() * window.innerWidth,
@@ -422,15 +452,39 @@ function initChatAssistant() {
             renderNode(nextNodeId);
         }
     });
-    toggleBtn.addEventListener('click', () => {
-        chatWindow.classList.toggle('active'); 
-        if (chatWindow.classList.contains('active')) {
+    function openChat() {
+        // ensure any pending closing state removed
+        chatWindow.classList.remove('closing');
+        if (!chatWindow.classList.contains('active')) {
+            chatWindow.classList.add('active');
             chatBody.innerHTML = `
               <div class="chat-message bot">
                 Hi there! I'm Ashvin's AI assistant. Please select a topic to learn more.
               </div>
             `;
-            renderNode('root');
+            // small timeout to allow active class to apply before rendering conversation
+            requestAnimationFrame(() => renderNode('root'));
+        }
+    }
+
+    function closeChat() {
+        // add closing state to animate out
+        if (!chatWindow.classList.contains('active')) return;
+        chatWindow.classList.add('closing');
+        chatWindow.classList.remove('active');
+        function onTransitionEnd(e) {
+            if (e.target !== chatWindow) return;
+            chatWindow.classList.remove('closing');
+            chatWindow.removeEventListener('transitionend', onTransitionEnd);
+        }
+        chatWindow.addEventListener('transitionend', onTransitionEnd);
+    }
+
+    toggleBtn.addEventListener('click', () => {
+        if (chatWindow.classList.contains('active')) {
+            closeChat();
+        } else {
+            openChat();
         }
     });
 }
@@ -518,4 +572,66 @@ function initProjectFilter() {
       });
     });
   });
+}
+
+/* Swipe left/right to navigate between sections (touch and pointer) */
+function initSwipeNavigation() {
+    const navLinks = Array.from(document.querySelectorAll('[data-nav-link]'));
+    if (!navLinks.length) return;
+
+    const threshold = 60; // minimum px for a swipe
+    const restraint = 80; // maximum vertical deviation allowed
+    const allowedTime = 600; // max time allowed to consider it a swipe
+
+    let startX = 0, startY = 0, startTime = 0;
+
+    function handleSwipe(direction) {
+        // find current active index
+        let activeIndex = navLinks.findIndex(n => n.classList.contains('active'));
+        if (activeIndex === -1) activeIndex = 0;
+        let targetIndex = activeIndex;
+        if (direction === 'left') targetIndex = Math.min(navLinks.length - 1, activeIndex + 1);
+        if (direction === 'right') targetIndex = Math.max(0, activeIndex - 1);
+        if (targetIndex !== activeIndex) {
+            // simulate click to reuse existing navigation logic
+            navLinks[targetIndex].click();
+        }
+    }
+
+    // Touch events
+    window.addEventListener('touchstart', function(e) {
+        const t = e.changedTouches[0];
+        startX = t.pageX;
+        startY = t.pageY;
+        startTime = new Date().getTime();
+    }, { passive: true });
+
+    window.addEventListener('touchend', function(e) {
+        const t = e.changedTouches[0];
+        const distX = t.pageX - startX;
+        const distY = t.pageY - startY;
+        const elapsed = new Date().getTime() - startTime;
+        if (elapsed <= allowedTime && Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
+            if (distX < 0) handleSwipe('left'); else handleSwipe('right');
+        }
+    }, { passive: true });
+
+    // Pointer events fallback (for some devices/browsers)
+    let pDown = false;
+    window.addEventListener('pointerdown', function(e) {
+        if (e.pointerType !== 'touch') return;
+        pDown = true;
+        startX = e.pageX; startY = e.pageY; startTime = new Date().getTime();
+    });
+    window.addEventListener('pointerup', function(e) {
+        if (!pDown) return; pDown = false;
+        if (e.pointerType !== 'touch') return;
+        const distX = e.pageX - startX;
+        const distY = e.pageY - startY;
+        const elapsed = new Date().getTime() - startTime;
+        if (elapsed <= allowedTime && Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
+            if (distX < 0) handleSwipe('left'); else handleSwipe('right');
+        }
+    });
+
 }
