@@ -291,8 +291,8 @@ body {
   margin: 8px 0 0 0;
   line-height: 1.6;
 }
-.cert-content .timeline-item-list p { margin: 10px 0 0 0; color: var(--text-tertiary); font-size: 1.2rem; }
-.cert-content .timeline-item-list p strong { color: var(--text-secondary); }
+.cert-content .timeline-item-list p { margin: 12px 0 12px 0; color: var(--text-tertiary); font-size: 1.2rem; }
+.cert-content .timeline-item-list p strong { color: var(--color-accent); font-weight: 600; }
 
 /* Group icon + title for better alignment */
 .cert-header .cert-left .cert-icon { margin-top: 2px; }
