@@ -18,20 +18,25 @@
 
 html[data-theme="dark"] {
   /* Black + Orange theme for dark mode */
-  --bg-main: #070707; /* near-black background */
-  --bg-sidebar: #0d0d0d;
+  --bg-main: #121212; /* very dark gray background */
+  --bg-sidebar: #111111;
   --bg-content: #0f0f0f;
   --bg-content-light: #151515;
   --bg-content-hover: #1a1a1a;
-  --text-primary: #ffffff;
+  --text-primary: #E0E0E0;
   --text-secondary: #d6d6d6;
   --text-tertiary: #9a9a9a;
-  --color-accent: #ff7a00; /* vivid orange accent */
-  /* AI background colors use orange tones */
-  --ai-node-color: rgba(255, 138, 51, 0.98);
-  --ai-line-color: rgba(255, 138, 51, 0.12);
+  --color-accent: #B59410; /* dark gold accent */
+  --color-accent-rgb: 181,148,16;
+  --on-accent: #ffffff;
+  --color-accent-contrast: #D7B84A;
+  --color-accent-dark: #4A4000; /* complementary dark accent */
+  --color-accent-dark-rgb: 74,64,0;
+  /* AI background colors use gold tones */
+  --ai-node-color: rgba(181,148,16,0.95);
+  --ai-line-color: rgba(181,148,16,0.10);
   --border-color: rgba(255,255,255,0.04);
-  --border-gradient: linear-gradient(90deg, var(--color-accent) 0%, rgba(255,122,0,0) 100%);
+  --border-gradient: linear-gradient(90deg, var(--color-accent) 0%, rgba(181,148,16,0) 100%);
   --shadow-1: 0 6px 14px rgba(0,0,0,0.5);
   --shadow-2: 0 10px 30px rgba(0,0,0,0.6);
   --avatar-border-color: rgba(255,255,255,0.04);
@@ -40,20 +45,25 @@ html[data-theme="dark"] {
 
 html[data-theme="light"] {
   /* Off-white + Red theme for light mode */
-  --bg-main: #fbf8f6; /* warm off-white */
+  --bg-main: #F5F5F5; /* very light gray */
   --bg-sidebar: #ffffff;
   --bg-content: #ffffff;
-  --bg-content-light: #fbf6f5;
-  --bg-content-hover: #f4efee;
-  --text-primary: #111111;
-  --text-secondary: #333333;
-  --text-tertiary: #6b6b6b;
-  --color-accent: #d73b2f; /* warm red accent */
+  --bg-content-light: #fbfbfb;
+  --bg-content-hover: #f4f4f4;
+  --text-primary: #333333;
+  --text-secondary: #555555;
+  --text-tertiary: #7a7a7a;
+  --color-accent: #FF7F7F; /* light red accent */
+  --color-accent-rgb: 255,127,127;
+  --on-accent: #ffffff;
+  --color-accent-contrast: #FF9A9A;
+  --color-accent-dark: #B34747; /* complementary darker red */
+  --color-accent-dark-rgb: 179,71,71;
   /* AI background colors for light theme (red tones, soft) */
-  --ai-node-color: rgba(215, 59, 47, 0.9);
-  --ai-line-color: rgba(215, 59, 47, 0.10);
+  --ai-node-color: rgba(255,127,127,0.9);
+  --ai-line-color: rgba(255,127,127,0.10);
   --border-color: rgba(0,0,0,0.06);
-  --border-gradient: linear-gradient(90deg, var(--color-accent) 0%, rgba(215,59,47,0) 100%);
+  --border-gradient: linear-gradient(90deg, var(--color-accent) 0%, rgba(255,127,127,0) 100%);
   --shadow-1: 0 4px 10px rgba(0,0,0,0.06);
   --shadow-2: 0 8px 20px rgba(0,0,0,0.08);
   --avatar-border-color: rgba(0,0,0,0.06);
@@ -518,7 +528,7 @@ main {
 }
 .social-link:hover {
   background: var(--color-accent);
-  color: var(--bg-main);
+  color: var(--on-accent);
 }
 
 .theme-switcher {
@@ -695,7 +705,7 @@ main {
   padding: 15px 20px;
   border-radius: 12px;
   background: var(--color-accent);
-  color: var(--bg-main);
+  color: var(--on-accent);
   font-weight: var(--fw-500);
   font-size: var(--fs-4);
   box-shadow: var(--shadow-1);
@@ -742,7 +752,7 @@ main {
 }
 .filter-btn.active {
   background: var(--color-accent);
-  color: var(--bg-main);
+  color: var(--on-accent);
   font-weight: var(--fw-500);
 }
 
@@ -831,7 +841,7 @@ main {
 }
 .project-link-btn:hover {
   background: var(--color-accent);
-  color: var(--bg-main);
+  color: var(--on-accent);
 }
 .project-link-btn ion-icon {
   font-size: 14px;
@@ -864,7 +874,7 @@ main {
 .form-input::placeholder { color: var(--text-tertiary); }
 .form-input:focus { 
   border-color: var(--color-accent); 
-  box-shadow: 0 0 0 2px hsla(var(--color-accent), 0.2);
+  box-shadow: 0 0 0 2px rgba(var(--color-accent-rgb), 0.12);
 }
 textarea.form-input {
   min-height: 140px;
@@ -884,12 +894,44 @@ textarea.form-input {
   border-radius: 12px;
 
   background: var(--color-accent);
-  color: var(--bg-main);
+  color: var(--on-accent);
   font-weight: var(--fw-500);
   font-size: var(--fs-5);
   
   transition: var(--transition-2);
   box-shadow: var(--shadow-1);
+}
+
+/* Accent button utility - use this class for any accent-styled button */
+.btn-accent {
+  background: var(--color-accent);
+  color: var(--on-accent);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: var(--fw-500);
+  font-size: var(--fs-5);
+  box-shadow: var(--shadow-1);
+  transition: var(--transition-2);
+  cursor: pointer;
+}
+.btn-accent:hover,
+.btn-accent:focus {
+  opacity: 0.95;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-2);
+}
+.btn-accent:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-1);
+}
+.btn-accent:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(var(--color-accent-rgb), 0.12), var(--shadow-1);
 }
 .form-btn:hover {
   background: var(--color-accent);
@@ -994,7 +1036,7 @@ textarea.form-input {
   height: 60px;
   border-radius: 50%;
   background-color: var(--color-accent);
-  color: var(--bg-main);
+  color: var(--on-accent);
   border: none;
   font-size: 28px;
   display: flex;
@@ -1064,7 +1106,7 @@ textarea.form-input {
 }
 .chat-message.user {
   background-color: var(--color-accent);
-  color: var(--bg-main);
+  color: var(--on-accent);
   align-self: flex-end;
 }
 .suggested-questions { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; margin-top: 10px; }
@@ -1360,11 +1402,11 @@ textarea.form-input {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  .chat-window, #ai-bg, .project-case-study-content, .cert-content {
+  /* Keep interactive elements visible but do NOT force accordion panels open. */
+  .chat-window, #ai-bg, .project-case-study-content {
     display: block !important;
     opacity: 1 !important;
     transform: none !important;
-    max-height: none !important;
   }
 }
 

@@ -168,6 +168,11 @@ function initAIBg() {
     }
 
     function mixAlpha(colorStr, alpha) {
+        const css = getComputedStyle(document.documentElement);
+        const accentRgb = css.getPropertyValue('--color-accent-rgb').trim();
+        if (accentRgb) {
+            return `rgba(${accentRgb}, ${alpha})`;
+        }
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         const r = isDark ? 255 : 215;
         const g = isDark ? 122 : 59;
