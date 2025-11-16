@@ -567,6 +567,12 @@ function initCertAccordion() {
             } else {
                 content.style.maxHeight = '0px';
             }
+                if (isActive) {
+                    // ensure expanded cert is visible to the user
+                    setTimeout(() => {
+                        certItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 120);
+                }
         });
     });
 }

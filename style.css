@@ -247,7 +247,6 @@ body {
 }
 .cert-content.active {
   padding-top: 12px;
-  max-height: 500px;
 }
 .cert-content .timeline-item-list { margin: 0; padding-left: 12px; }
 .cert-icon {
@@ -556,7 +555,7 @@ main {
   z-index: 0;
   transition: background 0.3s;
   border: 1px solid var(--border-color);
-  overflow: hidden; 
+  overflow: visible;
 }
 
 .navbar {
