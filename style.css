@@ -212,6 +212,7 @@ body {
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-1);
   transition: transform 0.18s var(--transition-1), box-shadow 0.18s var(--transition-1);
+  overflow: visible;
 }
 .cert-item::before { display: none; }
 .cert-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); }

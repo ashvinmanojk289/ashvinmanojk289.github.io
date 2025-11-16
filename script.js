@@ -45,16 +45,23 @@ function initCustomCursor() {
     if (!cursorContainer || !dot) return;
     let mouseX = -100, mouseY = -100;
     let dotX = -100, dotY = -100;
-    window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-    function animateCursor() {
-        dotX += (mouseX - dotX) * 0.5; 
-        dotY += (mouseY - dotY) * 0.5;
-        if (dot) {
-          dot.style.transform = `translate(${dotX}px, ${dotY}px)`;
+    // store mouse position; throttle visual updates to ~30fps to reduce main-thread work
+    window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; }, { passive: true });
+    let lastCursor = 0;
+    const CURSOR_FRAME_INTERVAL = 1000 / 30; // ~30 FPS for the decorative cursor
+    function animateCursor(timestamp) {
+        if (!lastCursor) lastCursor = timestamp;
+        const elapsed = timestamp - lastCursor;
+        if (elapsed >= CURSOR_FRAME_INTERVAL) {
+            dotX += (mouseX - dotX) * 0.5;
+            dotY += (mouseY - dotY) * 0.5;
+            // use translate3d to keep it on the compositor layer
+            dot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0)`;
+            lastCursor = timestamp;
         }
         requestAnimationFrame(animateCursor);
     }
-    animateCursor();
+    requestAnimationFrame(animateCursor);
     document.querySelectorAll('a, button, [data-nav-link], .project-item-no-img, .social-link, .chat-toggle-btn, .suggested-question').forEach(el => {
         el.addEventListener('mouseenter', () => cursorContainer.classList.add('interact'));
         el.addEventListener('mouseleave', () => cursorContainer.classList.remove('interact'));
@@ -178,11 +185,12 @@ function initAIBg() {
     let width, height;
     let rafId;
     // Lower node count to reduce CPU/GPU work
-    const NODE_COUNT = window.innerWidth < 768 ? 12 : 28;
+    const NODE_COUNT = window.innerWidth < 768 ? 8 : 24;
     const nodes = [];
     let lastDraw = 0;
     const FRAME_INTERVAL = 1000 / 60; // cap to ~60 FPS
     let mousePos = { x: -9999, y: -9999 };
+    const MAX_CONN_PER_NODE = 4; // limit connections per node to reduce O(n^2) cost
 
     function resize() {
         width = window.innerWidth;
@@ -252,18 +260,22 @@ function initAIBg() {
                 }
             }
 
+            // limit number of connections per node to keep complexity near O(n * K)
+            let connections = 0;
             for (let j = i + 1; j < nodes.length; j++) {
+                if (connections >= MAX_CONN_PER_NODE) break;
                 const b = nodes[j];
                 const dx = a.x - b.x;
                 const dy = a.y - b.y;
                 const dist = Math.hypot(dx, dy);
-                
+
                 if (dist < maxDist) {
                     ctx.strokeStyle = mixAlpha(null, 0.15 * (1 - dist / maxDist));
                     ctx.beginPath();
                     ctx.moveTo(a.x, a.y);
                     ctx.lineTo(b.x, b.y);
                     ctx.stroke();
+                    connections++;
                 }
             }
         }
@@ -275,6 +287,18 @@ function initAIBg() {
         if (rafId) cancelAnimationFrame(rafId);
         rafId = requestAnimationFrame(draw);
     }
+
+    // Pause the canvas animation when the page is hidden to save CPU
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            if (rafId) {
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            }
+        } else {
+            if (!rafId) rafId = requestAnimationFrame(draw);
+        }
+    });
 
     window.addEventListener('resize', () => {
         resize();
@@ -568,10 +592,16 @@ function initCertAccordion() {
                 content.style.maxHeight = '0px';
             }
                 if (isActive) {
-                    // ensure expanded cert is visible to the user
+                    // allow the max-height transition to run, then remove overflow to avoid clipping long content
+                    content.style.overflow = 'hidden';
                     setTimeout(() => {
-                        certItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }, 120);
+                        content.style.overflow = 'visible';
+                        // ensure expanded cert is visible to the user (center if possible)
+                        certItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 360); // slightly longer than CSS transition
+                } else {
+                    // on collapse, make sure overflow is hidden so transition clips cleanly
+                    content.style.overflow = 'hidden';
                 }
         });
     });
