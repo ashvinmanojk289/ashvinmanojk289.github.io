@@ -17,57 +17,57 @@
 }
 
 html[data-theme="dark"] {
-  /* Black + Orange theme for dark mode */
-  --bg-main: #121212; /* very dark gray background */
-  --bg-sidebar: #111111;
-  --bg-content: #0f0f0f;
-  --bg-content-light: #151515;
-  --bg-content-hover: #1a1a1a;
-  --text-primary: #E0E0E0;
-  --text-secondary: #d6d6d6;
-  --text-tertiary: #9a9a9a;
-  --color-accent: #B59410; /* dark gold accent */
-  --color-accent-rgb: 181,148,16;
-  --on-accent: #ffffff;
-  --color-accent-contrast: #D7B84A;
-  --color-accent-dark: #4A4000; /* complementary dark accent */
-  --color-accent-dark-rgb: 74,64,0;
+  /* Dark theme — refined slate + gold accent */
+  --bg-main: #0B0F12; /* deep slate */
+  --bg-sidebar: #0F1417;
+  --bg-content: #0F1416;
+  --bg-content-light: #13181A;
+  --bg-content-hover: #192023;
+  --text-primary: #E6E6E6;
+  --text-secondary: #CFCFCF;
+  --text-tertiary: #98A0A4;
+  --color-accent: #B88E1B; /* warm gold */
+  --color-accent-rgb: 184,142,27;
+  --on-accent: #0B0F12; /* dark text on very bright accents if needed */
+  --color-accent-contrast: #D8B85A;
+  --color-accent-dark: #6A5500;
+  --color-accent-dark-rgb: 106,85,0;
   /* AI background colors use gold tones */
-  --ai-node-color: rgba(181,148,16,0.95);
-  --ai-line-color: rgba(181,148,16,0.10);
-  --border-color: rgba(255,255,255,0.04);
-  --border-gradient: linear-gradient(90deg, var(--color-accent) 0%, rgba(181,148,16,0) 100%);
-  --shadow-1: 0 6px 14px rgba(0,0,0,0.5);
-  --shadow-2: 0 10px 30px rgba(0,0,0,0.6);
-  --avatar-border-color: rgba(255,255,255,0.04);
-  --avatar-bg-color: #111111;
+  --ai-node-color: rgba(184,142,27,0.92);
+  --ai-line-color: rgba(184,142,27,0.10);
+  --border-color: rgba(255,255,255,0.03);
+  --border-gradient: linear-gradient(90deg, var(--color-accent) 0%, rgba(184,142,27,0) 100%);
+  --shadow-1: 0 6px 18px rgba(0,0,0,0.55);
+  --shadow-2: 0 12px 34px rgba(0,0,0,0.6);
+  --avatar-border-color: rgba(255,255,255,0.03);
+  --avatar-bg-color: #0F1417;
 }
 
 html[data-theme="light"] {
-  /* Off-white + Red theme for light mode */
-  --bg-main: #F5F5F5; /* very light gray */
-  --bg-sidebar: #ffffff;
-  --bg-content: #ffffff;
-  --bg-content-light: #fbfbfb;
-  --bg-content-hover: #f4f4f4;
-  --text-primary: #333333;
-  --text-secondary: #555555;
-  --text-tertiary: #7a7a7a;
-  --color-accent: #FF7F7F; /* light red accent */
-  --color-accent-rgb: 255,127,127;
-  --on-accent: #ffffff;
-  --color-accent-contrast: #FF9A9A;
-  --color-accent-dark: #B34747; /* complementary darker red */
+  /* Light theme — soft neutrals + coral accent */
+  --bg-main: #F7F7F7; /* soft off-white */
+  --bg-sidebar: #FFFFFF;
+  --bg-content: #FFFFFF;
+  --bg-content-light: #FAFAFA;
+  --bg-content-hover: #F2F2F2;
+  --text-primary: #222222;
+  --text-secondary: #444444;
+  --text-tertiary: #6B6B6B;
+  --color-accent: #FF6B6B; /* coral/red accent */
+  --color-accent-rgb: 255,107,107;
+  --on-accent: #FFFFFF;
+  --color-accent-contrast: #FF8A8A;
+  --color-accent-dark: #B34747;
   --color-accent-dark-rgb: 179,71,71;
-  /* AI background colors for light theme (red tones, soft) */
-  --ai-node-color: rgba(255,127,127,0.9);
-  --ai-line-color: rgba(255,127,127,0.10);
+  /* AI background colors for light theme */
+  --ai-node-color: rgba(255,107,107,0.9);
+  --ai-line-color: rgba(255,107,107,0.10);
   --border-color: rgba(0,0,0,0.06);
-  --border-gradient: linear-gradient(90deg, var(--color-accent) 0%, rgba(255,127,127,0) 100%);
-  --shadow-1: 0 4px 10px rgba(0,0,0,0.06);
-  --shadow-2: 0 8px 20px rgba(0,0,0,0.08);
+  --border-gradient: linear-gradient(90deg, var(--color-accent) 0%, rgba(255,107,107,0) 100%);
+  --shadow-1: 0 6px 14px rgba(0,0,0,0.06);
+  --shadow-2: 0 10px 24px rgba(0,0,0,0.08);
   --avatar-border-color: rgba(0,0,0,0.06);
-  --avatar-bg-color: #ffffff;
+  --avatar-bg-color: #FFFFFF;
 }
 
 *,
