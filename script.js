@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPageNavigation();
     initCaseStudyAccordion(); 
     initProjectFilter(); 
+    initCertAccordion();
     initLoadingSpinner();
     initCustomCursor(); 
     initTypingEffect(); 
@@ -530,6 +531,28 @@ function initCaseStudyAccordion() {
       }
     });
   });
+}
+
+function initCertAccordion() {
+    const certBtns = document.querySelectorAll('.cert-toggle-btn');
+    if (!certBtns.length) return;
+    certBtns.forEach(btn => {
+        const certItem = btn.closest('.cert-item');
+        if (!certItem) return;
+        const content = certItem.querySelector('.cert-content');
+        if (!content) return;
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            const isActive = content.classList.toggle('active');
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+            if (isActive) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+            } else {
+                content.style.maxHeight = '0px';
+            }
+        });
+    });
 }
 
 function initProjectFilter() {
