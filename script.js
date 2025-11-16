@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initProjectFilter(); 
     initCertAccordion();
     initLoadingSpinner();
-    initCustomCursor(); 
     initTypingEffect(); 
     initCurrentYear();
     initThemeSwitcher(); 
@@ -36,29 +35,6 @@ function initLoadingSpinner() {
             setTimeout(() => doHide(), 3000);
         }
     }
-}
-
-function initCustomCursor() {
-    if (window.matchMedia("(pointer: coarse)").matches) return; 
-    const cursorContainer = document.querySelector('.custom-cursor');
-    const dot = document.querySelector('.cursor-dot');
-    if (!cursorContainer || !dot) return;
-    let mouseX = -100, mouseY = -100;
-    let dotX = -100, dotY = -100;
-    window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-    function animateCursor() {
-        dotX += (mouseX - dotX) * 0.5; 
-        dotY += (mouseY - dotY) * 0.5;
-        if (dot) {
-          dot.style.transform = `translate(${dotX}px, ${dotY}px)`;
-        }
-        requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-    document.querySelectorAll('a, button, [data-nav-link], .project-item-no-img, .social-link, .chat-toggle-btn, .suggested-question').forEach(el => {
-        el.addEventListener('mouseenter', () => cursorContainer.classList.add('interact'));
-        el.addEventListener('mouseleave', () => cursorContainer.classList.remove('interact'));
-    });
 }
 
 function initTypingEffect() {
@@ -132,7 +108,7 @@ function initThemeSwitcher() {
     themeBtn.addEventListener('click', () => {
         const newTheme = (currentTheme === 'dark') ? 'light' : 'dark';
         currentTheme = newTheme;
-        applyTheme(currentTheme);
+        applyTheme(newTheme);
     });
 }
 
@@ -506,12 +482,6 @@ function initPageNavigation() {
                         pages.forEach(page => {
                                 if (clickedPage === page.dataset.page) {
                                         page.classList.add('active');
-                                        const heading = page.querySelector('.article-title');
-                                        if (heading) {
-                                                heading.classList.remove('heading-animate');
-                                                void heading.offsetWidth;
-                                                heading.classList.add('heading-animate');
-                                        }
                                 } else {
                                         page.classList.remove('active');
                                 }

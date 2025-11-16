@@ -1131,26 +1131,6 @@ textarea.form-input {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-@media (pointer: coarse) { .custom-cursor { display: none; } }
-@media (pointer: fine) {
-  html { cursor: none; }
-  .custom-cursor { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99999; }
-  .cursor-dot {
-    position: fixed;
-    top: 0;
-    left: 0;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    pointer-events: none;
-    transition: transform 0.2s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.3s;
-    width: 8px; 
-    height: 8px; 
-    background-color: var(--color-accent);
-  }
-  .cursor-ring { display: none; } 
-  .custom-cursor.interact .cursor-dot { transform: translate(-50%, -50%) scale(1.5); opacity: 0.5; } 
-}
-
 .copyright {
   text-align: center;
   font-size: var(--fs-6);
@@ -1380,7 +1360,7 @@ textarea.form-input {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  .chat-window, .custom-cursor, #ai-bg, .project-case-study-content, .cert-content {
+  .chat-window, #ai-bg, .project-case-study-content, .cert-content {
     display: block !important;
     opacity: 1 !important;
     transform: none !important;
