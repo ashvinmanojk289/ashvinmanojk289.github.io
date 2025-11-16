@@ -17,57 +17,47 @@
 }
 
 html[data-theme="dark"] {
-  /* Dark theme — refined slate + gold accent */
-  --bg-main: #0B0F12; /* deep slate */
-  --bg-sidebar: #0F1417;
-  --bg-content: #0F1416;
-  --bg-content-light: #13181A;
-  --bg-content-hover: #192023;
-  --text-primary: #E6E6E6;
-  --text-secondary: #CFCFCF;
-  --text-tertiary: #98A0A4;
-  --color-accent: #B88E1B; /* warm gold */
-  --color-accent-rgb: 184,142,27;
-  --on-accent: #0B0F12; /* dark text on very bright accents if needed */
-  --color-accent-contrast: #D8B85A;
-  --color-accent-dark: #6A5500;
-  --color-accent-dark-rgb: 106,85,0;
-  /* AI background colors use gold tones */
-  --ai-node-color: rgba(184,142,27,0.92);
-  --ai-line-color: rgba(184,142,27,0.10);
-  --border-color: rgba(255,255,255,0.03);
-  --border-gradient: linear-gradient(90deg, var(--color-accent) 0%, rgba(184,142,27,0) 100%);
-  --shadow-1: 0 6px 18px rgba(0,0,0,0.55);
-  --shadow-2: 0 12px 34px rgba(0,0,0,0.6);
-  --avatar-border-color: rgba(255,255,255,0.03);
-  --avatar-bg-color: #0F1417;
+  /* Black + Orange theme for dark mode */
+  --bg-main: #070707; /* near-black background */
+  --bg-sidebar: #0d0d0d;
+  --bg-content: #0f0f0f;
+  --bg-content-light: #151515;
+  --bg-content-hover: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #d6d6d6;
+  --text-tertiary: #9a9a9a;
+  --color-accent: #ff7a00; /* vivid orange accent */
+  /* AI background colors use orange tones */
+  --ai-node-color: rgba(255, 138, 51, 0.98);
+  --ai-line-color: rgba(255, 138, 51, 0.12);
+  --border-color: rgba(255,255,255,0.04);
+  --border-gradient: linear-gradient(90deg, var(--color-accent) 0%, rgba(255,122,0,0) 100%);
+  --shadow-1: 0 6px 14px rgba(0,0,0,0.5);
+  --shadow-2: 0 10px 30px rgba(0,0,0,0.6);
+  --avatar-border-color: rgba(255,255,255,0.04);
+  --avatar-bg-color: #111111;
 }
 
 html[data-theme="light"] {
-  /* Light theme — soft neutrals + coral accent */
-  --bg-main: #F7F7F7; /* soft off-white */
-  --bg-sidebar: #FFFFFF;
-  --bg-content: #FFFFFF;
-  --bg-content-light: #FAFAFA;
-  --bg-content-hover: #F2F2F2;
-  --text-primary: #222222;
-  --text-secondary: #444444;
-  --text-tertiary: #6B6B6B;
-  --color-accent: #FF6B6B; /* coral/red accent */
-  --color-accent-rgb: 255,107,107;
-  --on-accent: #FFFFFF;
-  --color-accent-contrast: #FF8A8A;
-  --color-accent-dark: #B34747;
-  --color-accent-dark-rgb: 179,71,71;
-  /* AI background colors for light theme */
-  --ai-node-color: rgba(255,107,107,0.9);
-  --ai-line-color: rgba(255,107,107,0.10);
+  /* Off-white + Red theme for light mode */
+  --bg-main: #fbf8f6; /* warm off-white */
+  --bg-sidebar: #ffffff;
+  --bg-content: #ffffff;
+  --bg-content-light: #fbf6f5;
+  --bg-content-hover: #f4efee;
+  --text-primary: #111111;
+  --text-secondary: #333333;
+  --text-tertiary: #6b6b6b;
+  --color-accent: #d73b2f; /* warm red accent */
+  /* AI background colors for light theme (red tones, soft) */
+  --ai-node-color: rgba(215, 59, 47, 0.9);
+  --ai-line-color: rgba(215, 59, 47, 0.10);
   --border-color: rgba(0,0,0,0.06);
-  --border-gradient: linear-gradient(90deg, var(--color-accent) 0%, rgba(255,107,107,0) 100%);
-  --shadow-1: 0 6px 14px rgba(0,0,0,0.06);
-  --shadow-2: 0 10px 24px rgba(0,0,0,0.08);
+  --border-gradient: linear-gradient(90deg, var(--color-accent) 0%, rgba(215,59,47,0) 100%);
+  --shadow-1: 0 4px 10px rgba(0,0,0,0.06);
+  --shadow-2: 0 8px 20px rgba(0,0,0,0.08);
   --avatar-border-color: rgba(0,0,0,0.06);
-  --avatar-bg-color: #FFFFFF;
+  --avatar-bg-color: #ffffff;
 }
 
 *,
@@ -227,11 +217,9 @@ body {
 .cert-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); }
 .cert-header {
   display: flex;
-  align-items: center; /* center icon + title vertically */
-  justify-content: flex-start;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 12px;
-  position: relative; /* container for absolute toggle */
-  padding-right: 64px; /* make room for the toggle button */
 }
 .cert-info { flex: 1; }
 .cert-info .timeline-item-title { margin-bottom: 6px; }
@@ -248,9 +236,7 @@ body {
   align-items: center;
   justify-content: center;
   transition: transform 0.2s ease, background 0.2s ease;
-  position: absolute;
-  top: 18px;
-  right: 18px;
+  align-self: flex-start;
 }
 .cert-toggle-btn[aria-expanded="true"] { transform: rotate(180deg); background: var(--bg-content-hover); color: var(--color-accent); }
 .cert-content {
@@ -528,7 +514,7 @@ main {
 }
 .social-link:hover {
   background: var(--color-accent);
-  color: var(--on-accent);
+  color: var(--bg-main);
 }
 
 .theme-switcher {
@@ -705,7 +691,7 @@ main {
   padding: 15px 20px;
   border-radius: 12px;
   background: var(--color-accent);
-  color: var(--on-accent);
+  color: var(--bg-main);
   font-weight: var(--fw-500);
   font-size: var(--fs-4);
   box-shadow: var(--shadow-1);
@@ -752,7 +738,7 @@ main {
 }
 .filter-btn.active {
   background: var(--color-accent);
-  color: var(--on-accent);
+  color: var(--bg-main);
   font-weight: var(--fw-500);
 }
 
@@ -841,7 +827,7 @@ main {
 }
 .project-link-btn:hover {
   background: var(--color-accent);
-  color: var(--on-accent);
+  color: var(--bg-main);
 }
 .project-link-btn ion-icon {
   font-size: 14px;
@@ -874,7 +860,7 @@ main {
 .form-input::placeholder { color: var(--text-tertiary); }
 .form-input:focus { 
   border-color: var(--color-accent); 
-  box-shadow: 0 0 0 2px rgba(var(--color-accent-rgb), 0.12);
+  box-shadow: 0 0 0 2px hsla(var(--color-accent), 0.2);
 }
 textarea.form-input {
   min-height: 140px;
@@ -894,44 +880,12 @@ textarea.form-input {
   border-radius: 12px;
 
   background: var(--color-accent);
-  color: var(--on-accent);
+  color: var(--bg-main);
   font-weight: var(--fw-500);
   font-size: var(--fs-5);
   
   transition: var(--transition-2);
   box-shadow: var(--shadow-1);
-}
-
-/* Accent button utility - use this class for any accent-styled button */
-.btn-accent {
-  background: var(--color-accent);
-  color: var(--on-accent);
-  border: none;
-  padding: 10px 16px;
-  border-radius: 12px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-weight: var(--fw-500);
-  font-size: var(--fs-5);
-  box-shadow: var(--shadow-1);
-  transition: var(--transition-2);
-  cursor: pointer;
-}
-.btn-accent:hover,
-.btn-accent:focus {
-  opacity: 0.95;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-2);
-}
-.btn-accent:active {
-  transform: translateY(0);
-  box-shadow: var(--shadow-1);
-}
-.btn-accent:focus {
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(var(--color-accent-rgb), 0.12), var(--shadow-1);
 }
 .form-btn:hover {
   background: var(--color-accent);
@@ -1036,7 +990,7 @@ textarea.form-input {
   height: 60px;
   border-radius: 50%;
   background-color: var(--color-accent);
-  color: var(--on-accent);
+  color: var(--bg-main);
   border: none;
   font-size: 28px;
   display: flex;
@@ -1106,7 +1060,7 @@ textarea.form-input {
 }
 .chat-message.user {
   background-color: var(--color-accent);
-  color: var(--on-accent);
+  color: var(--bg-main);
   align-self: flex-end;
 }
 .suggested-questions { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; margin-top: 10px; }
@@ -1172,6 +1126,26 @@ textarea.form-input {
   animation: spin 1s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+@media (pointer: coarse) { .custom-cursor { display: none; } }
+@media (pointer: fine) {
+  html { cursor: none; }
+  .custom-cursor { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99999; }
+  .cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    pointer-events: none;
+    transition: transform 0.2s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.3s;
+    width: 8px; 
+    height: 8px; 
+    background-color: var(--color-accent);
+  }
+  .cursor-ring { display: none; } 
+  .custom-cursor.interact .cursor-dot { transform: translate(-50%, -50%) scale(1.5); opacity: 0.5; } 
+}
 
 .copyright {
   text-align: center;
@@ -1402,11 +1376,11 @@ textarea.form-input {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  /* Keep interactive elements visible but do NOT force accordion panels open. */
-  .chat-window, #ai-bg, .project-case-study-content {
+  .chat-window, .custom-cursor, #ai-bg, .project-case-study-content, .cert-content {
     display: block !important;
     opacity: 1 !important;
     transform: none !important;
+    max-height: none !important;
   }
 }
 

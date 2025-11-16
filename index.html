@@ -29,6 +29,10 @@
 
   <canvas id="ai-bg" aria-hidden="true"></canvas>
 
+  <div class="custom-cursor">
+    <div class="cursor-dot"></div>
+  </div>
+
   <main>
 
     <aside class="sidebar">
@@ -94,7 +98,7 @@
       </div>
 
       <div class="theme-switcher">
-        <button class="theme-btn btn-accent" id="theme-toggle-btn" aria-label="Toggle Theme">
+        <button class="theme-btn" id="theme-toggle-btn" aria-label="Toggle Theme">
           <ion-icon name="sunny-outline" class="theme-icon theme-icon-sun hidden"></ion-icon>
           <ion-icon name="moon-outline" class="theme-icon theme-icon-moon"></ion-icon>
         </button>
@@ -108,20 +112,20 @@
       <nav class="navbar">
         <ul class="navbar-list">
           <li class="navbar-item">
-            <button class="navbar-link active btn-accent" data-nav-link>About</button>
+            <button class="navbar-link active" data-nav-link>About</button>
           </li>
           <li class="navbar-item">
-            <button class="navbar-link btn-accent" data-nav-link>Resume</button>
+            <button class="navbar-link" data-nav-link>Resume</button>
           </li>
           <li class="navbar-item">
-            <button class="navbar-link btn-accent" data-nav-link>Projects</button>
+            <button class="navbar-link" data-nav-link>Projects</button>
           </li>
 
           <li class="navbar-item">
-            <button class="navbar-link btn-accent" data-nav-link>Certifications</button>
+            <button class="navbar-link" data-nav-link>Certifications</button>
           </li>
           <li class="navbar-item">
-            <button class="navbar-link btn-accent" data-nav-link>Contact</button>
+            <button class="navbar-link" data-nav-link>Contact</button>
           </li>
         </ul>
       </nav>
@@ -314,19 +318,19 @@
         <section class="projects">
           <ul class="filter-list">
             <li class="filter-item">
-              <button class="filter-btn active btn-accent" data-filter="all">All</button>
+              <button class="filter-btn active" data-filter="all">All</button>
             </li>
             <li class="filter-item">
-              <button class="filter-btn btn-accent" data-filter="ai/ml">AI/ML</button>
+              <button class="filter-btn" data-filter="ai/ml">AI/ML</button>
             </li>
             <li class="filter-item">
-              <button class="filter-btn btn-accent" data-filter="app-dev">App Dev</button>
+              <button class="filter-btn" data-filter="app-dev">App Dev</button>
             </li>
             <li class="filter-item">
-              <button class="filter-btn btn-accent" data-filter="data-science">Data Science</button>
+              <button class="filter-btn" data-filter="data-science">Data Science</button>
             </li>
             <li class="filter-item">
-              <button class="filter-btn btn-accent" data-filter="robotics">Robotics</button>
+              <button class="filter-btn" data-filter="robotics">Robotics</button>
             </li>
           </ul>
 
@@ -353,7 +357,7 @@
                 </div>
               </div>
               <div class="project-links">
-                <button class="project-link-btn case-study-btn btn-accent">
+                <button class="project-link-btn case-study-btn">
                   <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
                 </button>
               </div>
@@ -378,7 +382,7 @@
               </p>
               <div class="project-links">
                 <a href="https://github.com/ashvinmanojk289/portfolio-ai-assistant" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
-                <button class="project-link-btn case-study-btn btn-accent">
+                <button class="project-link-btn case-study-btn">
                   <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
                 </button>
               </div>
@@ -403,7 +407,7 @@
               </p>
               <div class="project-links">
                 <a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
-                <button class="project-link-btn case-study-btn btn-accent">
+                <button class="project-link-btn case-study-btn">
                   <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
                 </button>
               </div>
@@ -428,7 +432,7 @@
               </p>
               <div class="project-links">
                 <a href="https://github.com/ashvinmanojk289/Multilingual-Audio-Translator" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
-                <button class="project-link-btn case-study-btn btn-accent">
+                <button class="project-link-btn case-study-btn">
                   <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
                 </button>
               </div>
@@ -453,7 +457,7 @@
               </p>
               <div class="project-links">
                 <a href="https://github.com/ashvinmanojk289/Hybrid-EfficientNetV2-Transformer-Model-and-Other-Model-Comparison-for-Weed-Detection" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
-                <button class="project-link-btn case-study-btn btn-accent">
+                <button class="project-link-btn case-study-btn">
                   <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
                 </button>
               </div>
@@ -478,7 +482,7 @@
               </p>
               <div class="project-links">
                 <a href="https://github.com/ashvinmanojk289/PDF-Query-Application" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
-                <button class="project-link-btn case-study-btn btn-accent">
+                <button class="project-link-btn case-study-btn">
                   <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
                 </button>
               </div>
@@ -503,7 +507,7 @@
               </p>
               <div class="project-links">
                 <a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
-                <button class="project-link-btn case-study-btn btn-accent">
+                <button class="project-link-btn case-study-btn">
                   <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
                 </button>
               </div>
@@ -528,7 +532,7 @@
               </p>
               <div class="project-links">
                 <a href="https://github.com/ashvinmanojk289/Quadrobot" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
-                <button class="project-link-btn case-study-btn btn-accent">
+                <button class="project-link-btn case-study-btn">
                   <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
                 </button>
               </div>
@@ -553,7 +557,7 @@
               </p>
               <div class="project-links">
                 <a href="https://github.com/ashvinmanojk289/Simple-Google-PageRank-Algorithm" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
-                <button class="project-link-btn case-study-btn btn-accent">
+                <button class="project-link-btn case-study-btn">
                   <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
                 </button>
               </div>
@@ -578,7 +582,7 @@
               </p>
               <div class="project-links">
                 <a href="https://github.com/ashvinmanojk289/Language-Translator" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
-                <button class="project-link-btn case-study-btn btn-accent">
+                <button class="project-link-btn case-study-btn">
                   <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
                 </button>
               </div>
@@ -615,7 +619,7 @@
                   <span>COURSERA (IBM)</span>
                   <p class="timeline-text">October 2025</p>
                 </div>
-                <button class="cert-toggle-btn btn-accent" aria-expanded="false" aria-label="Toggle details">
+                <button class="cert-toggle-btn" aria-expanded="false" aria-label="Toggle details">
                   <ion-icon name="chevron-down-outline"></ion-icon>
                 </button>
               </div>
@@ -635,7 +639,7 @@
                   <span>COURSERA (Google Career Certificates)</span>
                   <p class="timeline-text">July 2025</p>
                 </div>
-                <button class="cert-toggle-btn btn-accent" aria-expanded="false" aria-label="Toggle details">
+                <button class="cert-toggle-btn" aria-expanded="false" aria-label="Toggle details">
                   <ion-icon name="chevron-down-outline"></ion-icon>
                 </button>
               </div>
@@ -655,7 +659,7 @@
                   <span>COURSERA</span>
                   <p class="timeline-text">April 2025</p>
                 </div>
-                <button class="cert-toggle-btn btn-accent" aria-expanded="false" aria-label="Toggle details">
+                <button class="cert-toggle-btn" aria-expanded="false" aria-label="Toggle details">
                   <ion-icon name="chevron-down-outline"></ion-icon>
                 </button>
               </div>
@@ -675,7 +679,7 @@
                   <span>COURSERA (Google Cloud Training Online)</span>
                   <p class="timeline-text">April 2025</p>
                 </div>
-                <button class="cert-toggle-btn btn-accent" aria-expanded="false" aria-label="Toggle details">
+                <button class="cert-toggle-btn" aria-expanded="false" aria-label="Toggle details">
                   <ion-icon name="chevron-down-outline"></ion-icon>
                 </button>
               </div>
@@ -695,7 +699,7 @@
                   <span>COURSERA (Infosys Springboard)</span>
                   <p class="timeline-text">April 2025</p>
                 </div>
-                <button class="cert-toggle-btn btn-accent" aria-expanded="false" aria-label="Toggle details">
+                <button class="cert-toggle-btn" aria-expanded="false" aria-label="Toggle details">
                   <ion-icon name="chevron-down-outline"></ion-icon>
                 </button>
               </div>
@@ -715,7 +719,7 @@
                   <span>NPTEL (IIT Madras)</span>
                   <p class="timeline-text">March 2024</p>
                 </div>
-                <button class="cert-toggle-btn btn-accent" aria-expanded="false" aria-label="Toggle details">
+                <button class="cert-toggle-btn" aria-expanded="false" aria-label="Toggle details">
                   <ion-icon name="chevron-down-outline"></ion-icon>
                 </button>
               </div>
@@ -735,7 +739,7 @@
                   <span>NPTEL (IIT Kharagpur)</span>
                   <p class="timeline-text">October 2023</p>
                 </div>
-                <button class="cert-toggle-btn btn-accent" aria-expanded="false" aria-label="Toggle details">
+                <button class="cert-toggle-btn" aria-expanded="false" aria-label="Toggle details">
                   <ion-icon name="chevron-down-outline"></ion-icon>
                 </button>
               </div>
@@ -801,7 +805,7 @@
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">A Hybrid Transformer Model Approach for Precision Weed Detection</h4>
               <p class="timeline-text">
-                S. Krishnan, M. Karuppasamypandiyan, and <strong>A. Manoj</strong>, in <em>2025 4th International Conference on Advances in Computing, Communication, Embedded and Secure Systems (ACCESS)</em>, Ernakulam, India, 2025, pp. 1-7.
+                S. Krishnan, M. Karuppasamypandiyan, and DDI error.                <strong>A. Manoj</strong>, in <em>2025 4th International Conference on Advances in Computing, Communication, Embedded and Secure Systems (ACCESS)</em>, Ernakulam, India, 2025, pp. 1-7.
               </p>
               <p class="timeline-text" style="margin-top: 5px;">
                 DOI: 10.1109/ACCESS65134.2025.11135583
