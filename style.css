@@ -199,7 +199,12 @@ body {
 .timeline-item:last-child::before { display: none; }
 
 /* Certifications card styles (curved boxes similar to project cards) */
-.certifications-list { margin-left: 0; }
+.certifications-list {
+  margin-left: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
 .cert-item {
   background: var(--bg-content-light);
   border-radius: 16px;
@@ -208,6 +213,7 @@ body {
   box-shadow: var(--shadow-1);
   transition: transform 0.18s var(--transition-1), box-shadow 0.18s var(--transition-1);
 }
+.cert-item::before { display: none; }
 .cert-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); }
 .cert-header {
   display: flex;
@@ -242,6 +248,33 @@ body {
   max-height: 500px;
 }
 .cert-content .timeline-item-list { margin: 0; padding-left: 12px; }
+.cert-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: var(--bg-content);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--color-accent);
+  border: 1px solid var(--border-color);
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.cert-desc {
+  color: var(--text-secondary);
+  font-size: var(--fs-5);
+  margin: 8px 0 0 0;
+}
+
+@media (min-width: 768px) {
+  .certifications-list { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 1250px) {
+  .certifications-list { grid-template-columns: 1fr 1fr; }
+}
 
 .timeline-text { color: var(--text-secondary); }
 
@@ -1246,13 +1279,8 @@ textarea.form-input {
 }
 
 .form-btn:hover, .download-btn:hover {
-  animation: pulse 1s infinite;
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 hsla(45, 100%, 72%, 0.4); }
-  70% { box-shadow: 0 0 0 10px hsla(45, 100%, 72%, 0); }
-  100% { box-shadow: 0 0 0 0 hsla(45, 100%, 72%, 0); }
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-2);
 }
 
 .tilt-card {
@@ -1336,6 +1364,22 @@ textarea.form-input {
 
 @media (prefers-reduced-motion: reduce) {
   #ai-bg { opacity: 0.0; }
+}
+
+/* Respect users who prefer reduced motion: disable non-essential animations/transitions */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .chat-window, .custom-cursor, #ai-bg, .project-case-study-content, .cert-content {
+    display: block !important;
+    opacity: 1 !important;
+    transform: none !important;
+    max-height: none !important;
+  }
 }
 
 /* Theme-specific adjustments for ai background visuals */

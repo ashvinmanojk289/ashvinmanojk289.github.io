@@ -177,8 +177,12 @@ function initAIBg() {
     const ctx = canvas.getContext('2d');
     let width, height;
     let rafId;
-    const NODE_COUNT = window.innerWidth < 768 ? 20 : 45;
+    // Lower node count to reduce CPU/GPU work
+    const NODE_COUNT = window.innerWidth < 768 ? 12 : 28;
     const nodes = [];
+    let lastDraw = 0;
+    const FRAME_INTERVAL = 1000 / 60; // cap to ~60 FPS
+    let mousePos = { x: -9999, y: -9999 };
 
     function resize() {
         width = window.innerWidth;
@@ -207,6 +211,13 @@ function initAIBg() {
     }
 
     function draw() {
+        const now = Date.now();
+        if (now - lastDraw < FRAME_INTERVAL) {
+            rafId = requestAnimationFrame(draw);
+            return;
+        }
+        lastDraw = now;
+
         ctx.clearRect(0, 0, width, height);
         const maxDist = Math.min(width, height) * 0.2;
         ctx.lineWidth = 1;
@@ -226,6 +237,20 @@ function initAIBg() {
             ctx.beginPath();
             ctx.arc(a.x, a.y, Math.max(0, pulse), 0, Math.PI * 2);
             ctx.fill();
+
+            // apply mouse interaction inside the animation loop (throttled by FPS)
+            const mx = mousePos.x;
+            const my = mousePos.y;
+            if (mx > -9000) {
+                const dxm = a.x - mx;
+                const dym = a.y - my;
+                const distm = Math.hypot(dxm, dym);
+                if (distm < 150 && distm > 0.1) {
+                    const force = (150 - distm) / 150;
+                    a.vx += (dxm / distm) * force * 0.03;
+                    a.vy += (dym / distm) * force * 0.03;
+                }
+            }
 
             for (let j = i + 1; j < nodes.length; j++) {
                 const b = nodes[j];
@@ -255,20 +280,11 @@ function initAIBg() {
         resize();
     });
 
+    // store mouse position; heavy per-node work moved into draw()
     window.addEventListener('mousemove', (e) => {
-        const mx = e.clientX;
-        const my = e.clientY;
-        nodes.forEach(n => {
-            const dx = n.x - mx;
-            const dy = n.y - my;
-            const dist = Math.hypot(dx, dy);
-            if (dist < 150) {
-                const force = (150 - dist) / 150;
-                n.vx += (dx / dist) * force * 0.05;
-                n.vy += (dy / dist) * force * 0.05;
-            }
-        });
-    });
+        mousePos.x = e.clientX;
+        mousePos.y = e.clientY;
+    }, { passive: true });
 
     start();
 }
