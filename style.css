@@ -217,10 +217,11 @@ body {
 .cert-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); }
 .cert-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
 }
+.cert-info { flex: 1; }
 .cert-info .timeline-item-title { margin-bottom: 6px; }
 .cert-info span { display: block; color: var(--text-secondary); margin-bottom: 4px; }
 .cert-info .timeline-text { color: var(--text-tertiary); margin: 0; }
@@ -235,6 +236,7 @@ body {
   align-items: center;
   justify-content: center;
   transition: transform 0.2s ease, background 0.2s ease;
+  align-self: flex-start;
 }
 .cert-toggle-btn[aria-expanded="true"] { transform: rotate(180deg); background: var(--bg-content-hover); color: var(--color-accent); }
 .cert-content {
