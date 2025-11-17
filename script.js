@@ -572,8 +572,14 @@ function initCaseStudyAccordion() {
                 if (otherBtn === btn) return; // skip current
                 otherBtn.classList.remove('active');
                 otherBtn.setAttribute('aria-expanded', 'false');
-                otherContent.classList.remove('active');
+                // If the other panel had released its maxHeight to 'none', restore measured height so collapse animates
+                if (otherContent.style.maxHeight === 'none' || getComputedStyle(otherContent).maxHeight === 'none') {
+                    otherContent.style.maxHeight = otherContent.scrollHeight + 'px';
+                    /* force reflow */ otherContent.offsetHeight;
+                }
+                otherContent.style.overflow = 'hidden';
                 otherContent.style.maxHeight = '0px';
+                otherContent.classList.remove('active');
                 const otherText = otherBtn.querySelector('span');
                 if (otherText) otherText.textContent = 'Case Study';
             });
@@ -636,9 +642,14 @@ function initCertAccordion() {
                 if (!otherContent) return;
                 otherBtn.classList.remove('active');
                 otherBtn.setAttribute('aria-expanded', 'false');
-                otherContent.classList.remove('active');
-                otherContent.style.maxHeight = '0px';
+                // If the other cert had maxHeight released, measure then animate collapse
+                if (otherContent.style.maxHeight === 'none' || getComputedStyle(otherContent).maxHeight === 'none') {
+                    otherContent.style.maxHeight = otherContent.scrollHeight + 'px';
+                    /* force reflow */ otherContent.offsetHeight;
+                }
                 otherContent.style.overflow = 'hidden';
+                otherContent.style.maxHeight = '0px';
+                otherContent.classList.remove('active');
             });
 
             // Toggle this one
