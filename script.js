@@ -556,20 +556,53 @@ function initCaseStudyAccordion() {
     if (!projectItem) return;
     const caseStudyContent = projectItem.querySelector(".project-case-study-content");
     if (!caseStudyContent) return;
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      this.classList.toggle('active');
-      caseStudyContent.classList.toggle('active');
-      const btnText = this.querySelector('span');
-      if (this.classList.contains('active')) {
-        if (btnText) btnText.textContent = 'Hide Details';
-        caseStudyContent.style.maxHeight = caseStudyContent.scrollHeight + "px";
-      } else {
-        if (btnText) btnText.textContent = 'Case Study';
-        caseStudyContent.style.maxHeight = '0px';
-      }
-    });
+        btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Determine if this one will be opened
+            const isOpening = !caseStudyContent.classList.contains('active');
+
+            // Close all other case study panels first
+            caseStudyBtns.forEach(otherBtn => {
+                const otherProject = otherBtn.closest('.project-item-no-img');
+                if (!otherProject) return;
+                const otherContent = otherProject.querySelector('.project-case-study-content');
+                if (!otherContent) return;
+                if (otherBtn === btn) return; // skip current
+                otherBtn.classList.remove('active');
+                otherBtn.setAttribute('aria-expanded', 'false');
+                otherContent.classList.remove('active');
+                otherContent.style.maxHeight = '0px';
+                const otherText = otherBtn.querySelector('span');
+                if (otherText) otherText.textContent = 'Case Study';
+            });
+
+            // Toggle the clicked one
+            const btnText = this.querySelector('span');
+            if (isOpening) {
+                this.classList.add('active');
+                this.setAttribute('aria-expanded', 'true');
+                caseStudyContent.classList.add('active');
+                caseStudyContent.style.maxHeight = caseStudyContent.scrollHeight + "px";
+                // after transition completes, remove the max-height constraint so content can grow/shrink naturally
+                const csHandler = function (ev) {
+                    if (ev.target !== caseStudyContent) return;
+                    // watch for the max-height transition end
+                    if (ev.propertyName && ev.propertyName.indexOf('max-height') === -1) return;
+                    caseStudyContent.style.maxHeight = 'none';
+                    caseStudyContent.removeEventListener('transitionend', csHandler);
+                };
+                caseStudyContent.addEventListener('transitionend', csHandler);
+                if (btnText) btnText.textContent = 'Hide Details';
+            } else {
+                this.classList.remove('active');
+                this.setAttribute('aria-expanded', 'false');
+                caseStudyContent.classList.remove('active');
+                caseStudyContent.style.maxHeight = '0px';
+                if (btnText) btnText.textContent = 'Case Study';
+            }
+        });
   });
 }
 
@@ -583,26 +616,47 @@ function initCertAccordion() {
         if (!content) return;
         btn.addEventListener('click', function (e) {
             e.preventDefault();
-            const isActive = content.classList.toggle('active');
-            btn.classList.toggle('active', isActive);
-            btn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
-            if (isActive) {
+
+            const isOpening = !content.classList.contains('active');
+
+            // Close all other certifications first (mutual exclusion)
+            certBtns.forEach(otherBtn => {
+                if (otherBtn === btn) return;
+                const otherItem = otherBtn.closest('.cert-item');
+                if (!otherItem) return;
+                const otherContent = otherItem.querySelector('.cert-content');
+                if (!otherContent) return;
+                otherBtn.classList.remove('active');
+                otherBtn.setAttribute('aria-expanded', 'false');
+                otherContent.classList.remove('active');
+                otherContent.style.maxHeight = '0px';
+                otherContent.style.overflow = 'hidden';
+            });
+
+            // Toggle this one
+            btn.classList.toggle('active', isOpening);
+            btn.setAttribute('aria-expanded', isOpening ? 'true' : 'false');
+            if (isOpening) {
+                content.classList.add('active');
+                // set maxHeight to trigger transition
                 content.style.maxHeight = content.scrollHeight + 'px';
+                // keep overflow hidden during transition then reveal when transition finishes
+                content.style.overflow = 'hidden';
+                const certHandler = function (ev) {
+                    if (ev.target !== content) return;
+                    if (ev.propertyName && ev.propertyName.indexOf('max-height') === -1) return;
+                    // release the height constraint so content can size naturally
+                    content.style.maxHeight = 'none';
+                    content.style.overflow = 'visible';
+                    certItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    content.removeEventListener('transitionend', certHandler);
+                };
+                content.addEventListener('transitionend', certHandler);
             } else {
+                content.classList.remove('active');
                 content.style.maxHeight = '0px';
+                content.style.overflow = 'hidden';
             }
-                if (isActive) {
-                    // allow the max-height transition to run, then remove overflow to avoid clipping long content
-                    content.style.overflow = 'hidden';
-                    setTimeout(() => {
-                        content.style.overflow = 'visible';
-                        // ensure expanded cert is visible to the user (center if possible)
-                        certItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 360); // slightly longer than CSS transition
-                } else {
-                    // on collapse, make sure overflow is hidden so transition clips cleanly
-                    content.style.overflow = 'hidden';
-                }
         });
     });
 }
