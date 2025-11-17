@@ -599,6 +599,14 @@ function initCaseStudyAccordion() {
                 this.classList.remove('active');
                 this.setAttribute('aria-expanded', 'false');
                 caseStudyContent.classList.remove('active');
+                // If maxHeight was released to 'none', set it to current height first so transition can run
+                if (caseStudyContent.style.maxHeight === 'none' || getComputedStyle(caseStudyContent).maxHeight === 'none') {
+                    caseStudyContent.style.maxHeight = caseStudyContent.scrollHeight + 'px';
+                    // force reflow
+                    // eslint-disable-next-line no-unused-expressions
+                    caseStudyContent.offsetHeight;
+                }
+                caseStudyContent.style.overflow = 'hidden';
                 caseStudyContent.style.maxHeight = '0px';
                 if (btnText) btnText.textContent = 'Case Study';
             }
@@ -654,8 +662,15 @@ function initCertAccordion() {
                 content.addEventListener('transitionend', certHandler);
             } else {
                 content.classList.remove('active');
-                content.style.maxHeight = '0px';
+                // If maxHeight was released to 'none', restore measured height so collapse animates
+                if (content.style.maxHeight === 'none' || getComputedStyle(content).maxHeight === 'none') {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    // force reflow to ensure the browser registers the height
+                    // eslint-disable-next-line no-unused-expressions
+                    content.offsetHeight;
+                }
                 content.style.overflow = 'hidden';
+                content.style.maxHeight = '0px';
             }
         });
     });
