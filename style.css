@@ -17,8 +17,7 @@
 }
 
 html[data-theme="dark"] {
-  /* Black + Orange theme for dark mode */
-  --bg-main: #070707; /* near-black background */
+  --bg-main: #070707; 
   --bg-sidebar: #0d0d0d;
   --bg-content: #0f0f0f;
   --bg-content-light: #151515;
@@ -26,8 +25,7 @@ html[data-theme="dark"] {
   --text-primary: #ffffff;
   --text-secondary: #d6d6d6;
   --text-tertiary: #9a9a9a;
-  --color-accent: #ff7a00; /* vivid orange accent */
-  /* AI background colors use orange tones */
+  --color-accent: #ff7a00; 
   --ai-node-color: rgba(255, 138, 51, 0.98);
   --ai-line-color: rgba(255, 138, 51, 0.12);
   --border-color: rgba(255,255,255,0.04);
@@ -39,8 +37,7 @@ html[data-theme="dark"] {
 }
 
 html[data-theme="light"] {
-  /* Off-white + Red theme for light mode */
-  --bg-main: #fbf8f6; /* warm off-white */
+  --bg-main: #fbf8f6; 
   --bg-sidebar: #ffffff;
   --bg-content: #ffffff;
   --bg-content-light: #fbf6f5;
@@ -48,8 +45,7 @@ html[data-theme="light"] {
   --text-primary: #111111;
   --text-secondary: #333333;
   --text-tertiary: #6b6b6b;
-  --color-accent: #d73b2f; /* warm red accent */
-  /* AI background colors for light theme (red tones, soft) */
+  --color-accent: #d73b2f; 
   --ai-node-color: rgba(215, 59, 47, 0.9);
   --ai-line-color: rgba(215, 59, 47, 0.10);
   --border-color: rgba(0,0,0,0.06);
@@ -198,7 +194,6 @@ body {
 }
 .timeline-item:last-child::before { display: none; }
 
-/* Certifications card styles (curved boxes similar to project cards) */
 .certifications-list {
   margin-left: 0;
   display: grid;
@@ -297,11 +292,9 @@ body {
 .cert-content .timeline-item-list p { margin: 12px 0 12px 0; color: var(--text-tertiary); font-size: 1.2rem; }
 .cert-content .timeline-item-list p strong { color: var(--color-accent); font-weight: 600; }
 
-/* Group icon + title for better alignment */
 .cert-header .cert-left .cert-icon { margin-top: 2px; }
 
 @media (min-width: 768px) {
-  /* Certifications remain stacked (one column) for a vertical stack layout */
 }
 
 @media (min-width: 1250px) {
@@ -990,7 +983,6 @@ textarea.form-input {
   .timeline-list { margin-left: 35px; }
   .skills-list { margin-bottom: -25px; }
   .skills-item:not(:last-child) { margin-bottom: 25px; }
-  /* Keep project grid stacked as a single column for a stacked layout */
 }
 
 @media (min-width: 1024px) {
@@ -1009,7 +1001,6 @@ textarea.form-input {
 
 @media (min-width: 1250px) {
   main { max-width: 1200px; }
-  /* Projects remain stacked vertically */
 }
 
 .chat-toggle-btn {
@@ -1060,7 +1051,6 @@ textarea.form-input {
   opacity: 1;
 }
 
-/* When closing we keep visibility true until animation finishes */
 .chat-window.closing {
   visibility: visible;
   pointer-events: none;
@@ -1239,7 +1229,6 @@ textarea.form-input {
 .case-study-btn.active ion-icon {
   transform: rotate(180deg);
 }
-/* Certifications dropdown animation to match project case study */
 .cert-content {
   max-height: 0;
   overflow: hidden;
@@ -1259,7 +1248,6 @@ textarea.form-input {
 .cert-toggle-btn.active ion-icon {
   transform: rotate(180deg);
 }
-/* --- Add this at the end of your style.css --- */
 
 .project-progress {
   margin-top: 20px;
@@ -1421,7 +1409,6 @@ textarea.form-input {
   #ai-bg { opacity: 0.0; }
 }
 
-/* Respect users who prefer reduced motion: disable non-essential animations/transitions */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;
@@ -1437,11 +1424,11 @@ textarea.form-input {
   }
 }
 
-/* Theme-specific adjustments for ai background visuals */
 html[data-theme="dark"] #ai-bg {
   mix-blend-mode: normal;
   opacity: 0.95;
 }
+
 html[data-theme="light"] #ai-bg {
   mix-blend-mode: screen;
   opacity: 0.55;
