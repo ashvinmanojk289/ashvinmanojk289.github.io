@@ -190,9 +190,6 @@ function initAIBg() {
     let lastDraw = 0;
     const FRAME_INTERVAL = 1000 / 60; // cap to ~60 FPS
     let mousePos = { x: -9999, y: -9999 };
-    // Add a smooth background offset so the whole pattern gently follows the cursor
-    let bgTarget = { x: 0, y: 0 };
-    let bgOffset = { x: 0, y: 0 };
     const MAX_CONN_PER_NODE = 4; // limit connections per node to reduce O(n^2) cost
 
     function resize() {
@@ -230,12 +227,6 @@ function initAIBg() {
         lastDraw = now;
 
         ctx.clearRect(0, 0, width, height);
-        // smooth the background offset towards target
-        bgOffset.x += (bgTarget.x - bgOffset.x) * 0.08;
-        bgOffset.y += (bgTarget.y - bgOffset.y) * 0.08;
-        // apply a small translate so the whole pattern appears to follow the mouse
-        ctx.save();
-        ctx.translate(-bgOffset.x, -bgOffset.y);
         const maxDist = Math.min(width, height) * 0.2;
         ctx.lineWidth = 1;
 
@@ -288,7 +279,6 @@ function initAIBg() {
                 }
             }
         }
-        ctx.restore();
         rafId = requestAnimationFrame(draw);
     }
 
@@ -318,18 +308,6 @@ function initAIBg() {
     window.addEventListener('mousemove', (e) => {
         mousePos.x = e.clientX;
         mousePos.y = e.clientY;
-        // compute a gentle target offset based on cursor position relative to center
-        // scale down the effect so it's subtle and performant
-        bgTarget.x = (mousePos.x - width / 2) * 0.03;
-        bgTarget.y = (mousePos.y - height / 2) * 0.03;
-    }, { passive: true });
-
-    // reset offset when the pointer leaves the window
-    window.addEventListener('mouseout', () => {
-        mousePos.x = -9999;
-        mousePos.y = -9999;
-        bgTarget.x = 0;
-        bgTarget.y = 0;
     }, { passive: true });
 
     start();
