@@ -288,22 +288,25 @@ function initChatAssistant() {
             'questions': [
                 { 'text': "What are his top skills?", 'next': 'skills_1' },
                 { 'text': "Tell me about his projects.", 'next': 'projects_1' },
-                { 'text': "What's his professional experience?", 'next': 'experience_1' }
+                { 'text': "What's his professional experience?", 'next': 'experience_1' },
+                { 'text': "What are his achievements?", 'next': 'achievements_1' }
             ]
         },
         'skills_1': {
             'isAnswer': true,
-            'answer': "Ashvin's technical skills include Python, C++, SQL, TensorFlow, PyTorch, Transformers, ROS, Git, and Flask.",
+            'answer': "Ashvin specializes in AI/ML, Deep Learning, NLP, Computer Vision, and Robotics. His tech stack includes PyTorch, TensorFlow, ROS, Python, C++, Java, JavaScript, and cloud platforms.",
             'questions': [
                 { 'text': "More on AI/ML skills", 'next': 'skills_2_ml' },
                 { 'text': "What programming languages?", 'next': 'skills_2_lang' },
-                { 'text': "What about his publications?", 'next': 'achievements_1' }
+                { 'text': "Robotics & platforms?", 'next': 'skills_2_robotics' },
+                { 'text': "Back to start", 'next': 'root' }
             ]
         },
         'projects_1': {
             'isAnswer': true,
-            'answer': "He has built a Multilingual News Audio Translator (92% accuracy), a GenAI-powered PDF Query app (89% time reduction), and an autonomous Weed Detection Robot (97% accuracy).",
+            'answer': "His key projects include: Alzheimer's Disease Classification (Multimodal Graph Learning), Weed Detection Robot (97% accuracy), Multilingual Audio Translator (92% accuracy), and PDF Query Application.",
             'questions': [
+                { 'text': "Alzheimer's Disease project?", 'next': 'projects_2_alzheimers' },
                 { 'text': "How does the Weed Robot work?", 'next': 'projects_2_robot' },
                 { 'text': "Tell me about the PDF Query app.", 'next': 'projects_2_pdf' },
                 { 'text': "More on the Audio Translator.", 'next': 'projects_2_audio' }
@@ -311,90 +314,140 @@ function initChatAssistant() {
         },
         'experience_1': {
             'isAnswer': true,
-            'answer': "He's a Data Science Intern at Mastermine (Aug 2025-Present) and was a Hardware Systems Intern at Sunlux (Feb-Apr 2024).",
+            'answer': "Currently a Data Science Intern at Mastermine Technologies (Aug 2025-Present). Previously worked at Sunlux Technovations (Feb-Apr 2024), SMEC Automation, and Sinro Robotics.",
             'questions': [
                 { 'text': "What does he do at Mastermine?", 'next': 'experience_2_mastermine' },
                 { 'text': "What did he do at Sunlux?", 'next': 'experience_2_sunlux' },
-                { 'text': "What's his education?", 'next': 'education_1' }
+                { 'text': "What's his education?", 'next': 'education_1' },
+                { 'text': "Back to start", 'next': 'root' }
             ]
         },
         'skills_2_ml': {
             'isAnswer': true,
-            'answer': "He's proficient with AI frameworks like PyTorch, TensorFlow, Scikit-learn, Pandas, and NumPy, as well as the Transformers library for NLP.",
+            'answer': "He's proficient in Generative AI, LLMs, Computer Vision, NLP, and Prompt Engineering. Frameworks include PyTorch, TensorFlow, Scikit-learn, Transformers, Pandas, NumPy, and Facenet.",
             'questions': [
-                { 'text': "See other skills", 'next': 'skills_1' },
+                { 'text': "What programming languages?", 'next': 'skills_2_lang' },
+                { 'text': "Robotics & platforms?", 'next': 'skills_2_robotics' },
                 { 'text': "View all projects", 'next': 'projects_1' },
                 { 'text': "Back to start", 'next': 'root' }
             ]
         },
         'skills_2_lang': {
             'isAnswer': true,
-            'answer': "His main languages are Python, C++, C, SQL, and R.",
+            'answer': "Primary languages: Python, C++, C, Java, JavaScript, SQL, R. Also proficient in HTML, CSS, and Assembly language for embedded systems.",
             'questions': [
-                { 'text': "See other skills", 'next': 'skills_1' },
+                { 'text': "More on AI/ML skills", 'next': 'skills_2_ml' },
+                { 'text': "Robotics & platforms?", 'next': 'skills_2_robotics' },
                 { 'text': "View all projects", 'next': 'projects_1' },
+                { 'text': "Back to start", 'next': 'root' }
+            ]
+        },
+        'skills_2_robotics': {
+            'isAnswer': true,
+            'answer': "Experienced with ROS (Robot Operating System), Arduino, industrial automation (PLCs, SCADA, HMI), and KUKA robot control. Also skilled in Git, Linux, Streamlit, Flask, and Electron.js.",
+            'questions': [
+                { 'text': "More on AI/ML skills", 'next': 'skills_2_ml' },
+                { 'text': "What programming languages?", 'next': 'skills_2_lang' },
+                { 'text': "View robotics projects", 'next': 'projects_2_robot' },
                 { 'text': "Back to start", 'next': 'root' }
             ]
         },
         'achievements_1': {
             'isAnswer': true,
-            'answer': "He co-authored 'A Hybrid Transformer Model Approach for Precision Weed Detection' (2025 ACCESS conference) and has certifications from NPTEL, Infosys, and Coursera.",
+            'answer': "Published 'A Hybrid Transformer Model Approach for Precision Weed Detection' at IEEE ACCESS 2025. Completed certifications in LLMs (NPTEL IIT Madras), Google Data Analytics, GenAI (Google Cloud), and more.",
             'questions': [
+                { 'text': "Tell me about the publication", 'next': 'achievements_2_publication' },
+                { 'text': "What certifications does he have?", 'next': 'achievements_2_certs' },
+                { 'text': "What are his skills?", 'next': 'skills_1' },
+                { 'text': "Back to start", 'next': 'root' }
+            ]
+        },
+        'achievements_2_publication': {
+            'isAnswer': true,
+            'answer': "Co-authored with S. Krishnan and M. Karuppasamypandiyan, published in 2025 4th International Conference on ACCESS (DOI: 10.1109/ACCESS65134.2025.11135583). The paper presents a hybrid transformer model for precision weed detection.",
+            'questions': [
+                { 'text': "What certifications does he have?", 'next': 'achievements_2_certs' },
+                { 'text': "See related project", 'next': 'projects_2_robot' },
+                { 'text': "What's his experience?", 'next': 'experience_1' },
+                { 'text': "Back to start", 'next': 'root' }
+            ]
+        },
+        'achievements_2_certs': {
+            'isAnswer': true,
+            'answer': "Recent certifications: Introduction to LLMs (NPTEL IIT Madras), Software Engineering (IBM), Google Data Analytics, GenAI for UX, GenAI Learning Path (Google Cloud), Prompt Engineering (Infosys), and more from NPTEL and Siemens.",
+            'questions': [
+                { 'text': "Tell me about the publication", 'next': 'achievements_2_publication' },
                 { 'text': "What are his skills?", 'next': 'skills_1' },
                 { 'text': "View all projects", 'next': 'projects_1' },
                 { 'text': "Back to start", 'next': 'root' }
             ]
         },
-        'projects_2_robot': {
+        'projects_2_alzheimers': {
             'isAnswer': true,
-            'answer': "It's an AI-powered robot using ROS and a custom EfficientNetV2-Transformer hybrid model (97% accuracy) for eco-friendly herbicide application.",
+            'answer': "An ongoing deep learning project (85% complete) using multimodal graph learning to classify Cognitively Normal (CN), Mild Cognitive Impairment (MCI), and Alzheimer's Disease subjects for early diagnosis.",
             'questions': [
                 { 'text': "See other projects", 'next': 'projects_1' },
-                { 'text': "What's his experience?", 'next': 'experience_1' },
+                { 'text': "What's his AI/ML expertise?", 'next': 'skills_2_ml' },
+                { 'text': "What's his education?", 'next': 'education_1' },
+                { 'text': "Back to start", 'next': 'root' }
+            ]
+        },
+        'projects_2_robot': {
+            'isAnswer': true,
+            'answer': "An autonomous robot using ROS and a custom EfficientNetV2-Transformer hybrid model achieving 97% accuracy for weed detection. Enables precision agriculture and eco-friendly herbicide application.",
+            'questions': [
+                { 'text': "See other projects", 'next': 'projects_1' },
+                { 'text': "View the publication", 'next': 'achievements_2_publication' },
+                { 'text': "What's his robotics experience?", 'next': 'skills_2_robotics' },
                 { 'text': "Back to start", 'next': 'root' }
             ]
         },
         'projects_2_pdf': {
             'isAnswer': true,
-            'answer': "It's a scalable, voice-enabled PDF query system using NLP and Streamlit, which reduced information retrieval time by over 89%.",
+            'answer': "A scalable, voice-enabled PDF query system using NLP and Streamlit that reduced information retrieval time by over 89%. Users can ask natural language questions about PDF documents.",
             'questions': [
                 { 'text': "See other projects", 'next': 'projects_1' },
+                { 'text': "What's his NLP expertise?", 'next': 'skills_2_ml' },
                 { 'text': "What's his experience?", 'next': 'experience_1' },
                 { 'text': "Back to start", 'next': 'root' }
             ]
         },
         'projects_2_audio': {
             'isAnswer': true,
-            'answer': "A full-stack app using Wav2Vec 2.0 (92% accuracy) for speech recognition and a fine-tuned mBART model for fluent translation.",
+            'answer': "A full-stack multilingual audio translator using Wav2Vec 2.0 (92% speech recognition accuracy) and fine-tuned mBART for translation. Includes Flask UI and supports multiple languages.",
             'questions': [
                 { 'text': "See other projects", 'next': 'projects_1' },
+                { 'text': "What's his NLP expertise?", 'next': 'skills_2_ml' },
                 { 'text': "What's his experience?", 'next': 'experience_1' },
                 { 'text': "Back to start", 'next': 'root' }
             ]
         },
         'experience_2_mastermine': {
             'isAnswer': true,
-            'answer': "At Mastermine, he's engineering a full-stack desktop app for photographers (Java, React, Electron.js) and designing a multi-agent LLM framework for data analysis.",
+            'answer': "At Mastermine Technologies, he's building a cross-platform desktop app for photographers using Java Spring, React.js, and Electron.js. Also developed an async photo-matching system with RabbitMQ and a multi-agent LLM framework for data insights.",
             'questions': [
                 { 'text': "See other experience", 'next': 'experience_1' },
-                { 'text': "What are his skills?", 'next': 'skills_1' },
+                { 'text': "What are his AI/ML skills?", 'next': 'skills_2_ml' },
+                { 'text': "View his projects", 'next': 'projects_1' },
                 { 'text': "Back to start", 'next': 'root' }
             ]
         },
         'experience_2_sunlux': {
             'isAnswer': true,
-            'answer': "At Sunlux, he developed and debugged microprocessor programs in Assembly for industrial automation, improving process efficiency by 15%.",
+            'answer': "At Sunlux Technovations, he developed and debugged microprocessor programs in Assembly language for industrial automation, gaining hands-on experience with hardware-level logic and embedded solutions.",
             'questions': [
                 { 'text': "See other experience", 'next': 'experience_1' },
-                { 'text': "What are his skills?", 'next': 'skills_1' },
+                { 'text': "What programming languages?", 'next': 'skills_2_lang' },
+                { 'text': "What's his education?", 'next': 'education_1' },
                 { 'text': "Back to start", 'next': 'root' }
             ]
         },
         'education_1': {
             'isAnswer': true,
-            'answer': "He's pursuing an M.Tech in AI/ML from Rajagiri (CGPA 9.49) and holds a B.Tech in Robotics from Adi Shankara (CGPA 9.54).",
+            'answer': "Currently pursuing M.Tech in Computer Science & Engineering (AI/ML) at Rajagiri School of Engineering (CGPA: 9.49). Holds B.Tech (Honours) in Robotics & Automation from Adi Shankara Institute (CGPA: 9.54).",
             'questions': [
                 { 'text': "What's his experience?", 'next': 'experience_1' },
+                { 'text': "What are his achievements?", 'next': 'achievements_1' },
                 { 'text': "What are his skills?", 'next': 'skills_1' },
                 { 'text': "Back to start", 'next': 'root' }
             ]
