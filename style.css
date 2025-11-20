@@ -199,6 +199,7 @@ body {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
+  align-items: stretch;
 }
 .cert-item {
   background: linear-gradient(180deg, var(--bg-content) 0%, var(--bg-content-light) 100%);
@@ -208,6 +209,7 @@ body {
   box-shadow: 0 8px 22px rgba(0,0,0,0.25);
   transition: transform 220ms var(--transition-1), box-shadow 220ms var(--transition-1);
   overflow: visible;
+  height: 100%;
 }
 .cert-item::before { display: none; }
 .cert-item:hover { transform: translateY(-6px); box-shadow: var(--shadow-2); }
