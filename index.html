@@ -342,30 +342,6 @@
                   <p>This ongoing project focuses on developing a novel deep learning architecture. By integrating multimodal data (e.g., MRI scans, cognitive test scores) and using graph learning techniques, the model aims to learn complex relationships in the data to classify subjects accurately and aid in early diagnosis.</p>
                 </div>
               </li>
-              <li class="project-item-no-img" data-category="app-dev ai/ml">
-                <div class="project-header">
-                  <div class="project-icon"><ion-icon name="chatbubble-ellipses-outline"></ion-icon></div>
-                  <div class="project-header-content">
-                    <h3 class="h3 project-title">Portfolio AI Assistant</h3>
-                    <p class="project-category">JavaScript / AI/ML</p>
-                  </div>
-                </div>
-                <p class="project-description">
-                  A custom-built, rule-based AI chatbot integrated into this portfolio site to answer common questions about my skills, experience, and projects.
-                </p>
-                <div class="project-links">
-                  <a href="https://github.com/ashvinmanojk289/portfolio-ai-assistant" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
-                  <button class="project-link-btn case-study-btn">
-                    <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
-                  </button>
-                </div>
-                <div class="project-case-study-content">
-                  <h4>Problem</h4>
-                  <p>Portfolio visitors often have similar questions. I wanted to provide immediate, 24/7 answers in an engaging way without relying on an external (and expensive) LLM service.</p>
-                  <h4>Solution</h4>
-                  <p>I built this AI assistant in pure JavaScript. It operates on a predefined conversation tree (a JavaScript object) that maps user questions to specific answers. This rule-based approach is fast, reliable, and free to host. The chat interface is built with simple HTML and CSS, matching the site's theme.</p>
-                </div>
-              </li>
               <li class="project-item-no-img" data-category="ai/ml app-dev">
                 <div class="project-header">
                   <div class="project-icon"><ion-icon name="mic-outline"></ion-icon></div>
@@ -394,12 +370,12 @@
                 <div class="project-header">
                   <div class="project-icon"><ion-icon name="headset-outline"></ion-icon></div>
                   <div class="project-header-content">
-                    <h3 class="h3 project-title">Multilingual Audio Translator</h3>
-                    <p class="project-category">AI/ML / App Dev / Full-stack</p>
+                    <h3 class="h3 project-title">Multilingual Audio Translator (Training & Deployment)</h3>
+                    <p class="project-category">AI/ML / Deep Learning</p>
                   </div>
                 </div>
                 <p class="project-description">
-                  A full-stack application that translates audio content from one language to another using advanced speech recognition and machine translation models.
+                  End-to-end ML pipeline: trains custom Wav2Vec 2.0 and mBART models, exports weights as JSON, and deploys in Jupyter for audio translation inference.
                 </p>
                 <div class="project-links">
                   <a href="https://github.com/ashvinmanojk289/Multilingual-Audio-Translator" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
@@ -411,7 +387,7 @@
                   <h4>Problem</h4>
                   <p>Access to audio-based information (like news or lectures) is often blocked by language barriers. Translating spoken content in real-time is a complex task that requires multiple AI models to work together seamlessly.</p>
                   <h4>Solution</h4>
-                  <p>This app solves the problem by creating an AI pipeline. It uses Wav2Vec 2.0 for accurate speech recognition (92% accuracy) and a fine-tuned mBART model for fluent, high-quality translation, making audio content accessible to a global audience.</p>
+                  <p>This project implements a complete ML pipeline: first training custom speech recognition and translation models, then deploying them in a Jupyter environment for inference. Uses Wav2Vec 2.0 for speech recognition (92% accuracy) and fine-tuned mBART for translation. The trained model weights are exported as JSON for reproducible deployment on sample audio inputs.</p>
                 </div>
               </li>
               <li class="project-item-no-img" data-category="ai/ml data-science">
@@ -464,7 +440,6 @@
               </li>
             </ul>
             <button class="more-projects-btn" id="more-projects-btn" type="button">Show Additional Projects</button>
-            <!-- Additional Projects (Minimal - GitHub only) -->
             <ul class="project-grid hidden" id="additional-projects" aria-hidden="true">
               <li class="project-item-no-img" data-category="app-dev ai/ml">
                 <div class="project-header">
@@ -474,6 +449,9 @@
                     <p class="project-category">JavaScript / AI/ML</p>
                   </div>
                 </div>
+                <p class="project-description">
+                  Rule-based conversational chatbot integrated into this portfolio, built in pure JavaScript using a predefined conversation tree structure. Provides instant answers to visitor questions about skills, projects, and experience without external API dependencies. Features a theme-matched chat interface with expandable question flow for 24/7 automated interaction.
+                </p>
                 <div class="project-links">
                   <a href="https://github.com/ashvinmanojk289/portfolio-ai-assistant" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
                 </div>
@@ -486,6 +464,9 @@
                     <p class="project-category">AI/ML / App Dev</p>
                   </div>
                 </div>
+                <p class="project-description">
+                  Complete ML pipeline covering model training through deployment: fine-tunes Wav2Vec 2.0 for speech recognition (92% accuracy) and mBART for neural machine translation, exports trained weights as JSON, then implements inference in Jupyter notebooks for reproducible audio translation on sample inputs. Enables cross-language accessibility for spoken content.
+                </p>
                 <div class="project-links">
                   <a href="https://github.com/ashvinmanojk289/Multilingual-Audio-Translator" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
                 </div>
@@ -498,6 +479,9 @@
                     <p class="project-category">Robotics / Computer Vision</p>
                   </div>
                 </div>
+                <p class="project-description">
+                  Fully autonomous robotic system integrating ROS for navigation/control with a custom-trained computer vision pipeline for real-time weed detection and classification. Combines image processing with ML inference to distinguish crops from weeds in unstructured field environments, enabling targeted precision agriculture and reducing manual labor and herbicide waste.
+                </p>
                 <div class="project-links">
                   <a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
                 </div>
@@ -510,6 +494,9 @@
                     <p class="project-category">Robotics / App Dev</p>
                   </div>
                 </div>
+                <p class="project-description">
+                  DIY 4-legged robot built with Arduino Nano featuring an OLED display that shows random emojis for interactive personality feedback. Wireless control via HC-05 Bluetooth module connects to a custom mobile app for directional movement commands (forward, backward, left, right), combining functional robotics with engaging user experience design.
+                </p>
                 <div class="project-links">
                   <a href="https://github.com/ashvinmanojk289/Quadrobot" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
                 </div>
@@ -522,6 +509,9 @@
                     <p class="project-category">Algorithm / Data Science</p>
                   </div>
                 </div>
+                <p class="project-description">
+                  From-scratch Python implementation of Google's PageRank algorithm demonstrating graph theory, linear algebra, and iterative convergence. Models web page importance by representing link structure as a graph and computing eigenvalue-based ranks through power iteration, simulating how search engines mathematically assess authority and relevance.
+                </p>
                 <div class="project-links">
                   <a href="https://github.com/ashvinmanojk289/Simple-Google-PageRank-Algorithm" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
                 </div>
@@ -534,6 +524,9 @@
                     <p class="project-category">App Dev / NLP</p>
                   </div>
                 </div>
+                <p class="project-description">
+                  Python-based multi-language translator with GUI (Tkinter/web form) demonstrating clean API integration patterns for AI services. Calls translation APIs (Google Translate) for language conversion, handles JSON response parsing, and provides a practical user-friendly interface showcasing frontend-backend communication fundamentals for real-world AI applications.
+                </p>
                 <div class="project-links">
                   <a href="https://github.com/ashvinmanojk289/Language-Translator" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
                 </div>
