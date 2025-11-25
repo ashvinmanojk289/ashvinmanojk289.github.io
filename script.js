@@ -172,8 +172,9 @@ function initAIBg() {
     const NODE_COUNT = window.innerWidth < 768 ? 8 : 24;
     const nodes = [];
     let lastDraw = 0;
-    const FRAME_INTERVAL = 1000 / 60; 
+    const FRAME_INTERVAL = 1000 / 30; 
     let mousePos = { x: -9999, y: -9999 };
+    let mouseMoveTimeout;
     const MAX_CONN_PER_NODE = 4; 
     function resize() {
         width = window.innerWidth;
@@ -271,8 +272,12 @@ function initAIBg() {
         resize();
     });
     window.addEventListener('mousemove', (e) => {
-        mousePos.x = e.clientX;
-        mousePos.y = e.clientY;
+        if (mouseMoveTimeout) return;
+        mouseMoveTimeout = setTimeout(() => {
+            mousePos.x = e.clientX;
+            mousePos.y = e.clientY;
+            mouseMoveTimeout = null;
+        }, 16);
     }, { passive: true });
     start();
 }

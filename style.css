@@ -1470,26 +1470,6 @@ textarea.form-input {
 .case-study-btn.active ion-icon {
   transform: rotate(180deg);
 }
-.cert-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.38s ease-out, margin-top 0.38s ease-out, opacity 260ms ease-out;
-  margin-top: 0;
-  opacity: 0;
-  will-change: max-height, opacity;
-}
-.cert-content.active {
-  margin-top: 16px;
-  opacity: 1;
-}
-
-.cert-toggle-btn ion-icon {
-  transition: transform 0.28s ease;
-}
-.cert-toggle-btn.active ion-icon {
-  transform: rotate(180deg);
-}
-
 .project-progress {
   margin-top: 20px;
   margin-bottom: 20px;
