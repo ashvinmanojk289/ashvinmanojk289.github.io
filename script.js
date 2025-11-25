@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initProjectFilter(); 
     initCertAccordion();
     initMoreCertsToggle();
+    initMoreProjectsToggle();
     initLoadingSpinner();
     initCustomCursor(); 
     initTypingEffect(); 
@@ -743,6 +744,17 @@ function initMoreCertsToggle() {
     btn.addEventListener('click', () => {
         const nowHidden = list.classList.toggle('hidden');
         btn.textContent = nowHidden ? 'Show Additional MOOCs' : 'Hide Additional MOOCs';
+        list.setAttribute('aria-hidden', nowHidden ? 'true' : 'false');
+    });
+}
+
+function initMoreProjectsToggle() {
+    const btn = document.getElementById('more-projects-btn');
+    const list = document.getElementById('additional-projects');
+    if (!btn || !list) return;
+    btn.addEventListener('click', () => {
+        const nowHidden = list.classList.toggle('hidden');
+        btn.textContent = nowHidden ? 'Show Additional Projects' : 'Hide Additional Projects';
         list.setAttribute('aria-hidden', nowHidden ? 'true' : 'false');
     });
 }

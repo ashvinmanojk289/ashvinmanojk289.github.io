@@ -308,7 +308,8 @@
                 <button class="filter-btn" data-filter="robotics">Robotics</button>
               </li>
             </ul>
-            <ul class="project-grid">
+            <!-- Major Projects (Featured) -->
+            <ul class="project-grid" id="major-projects">
               <li class="project-item-no-img" data-category="ai/ml data-science">
                 <div class="project-header">
                   <div class="project-icon"><ion-icon name="analytics-outline"></ion-icon></div>
@@ -461,6 +462,34 @@
                   <p>I built a Python tool that leverages NLP to parse and understand PDF content. It creates a searchable index, allowing users to ask questions in plain English (e.g., "What was the total revenue in 2024?") and receive precise answers. This automates information extraction and streamlines document-based workflows.</p>
                 </div>
               </li>
+            </ul>
+            <button class="more-projects-btn" id="more-projects-btn" type="button">Show Additional Projects</button>
+            <!-- Additional Projects (Minimal - GitHub only) -->
+            <ul class="project-grid hidden" id="additional-projects" aria-hidden="true">
+              <li class="project-item-no-img" data-category="app-dev ai/ml">
+                <div class="project-header">
+                  <div class="project-icon"><ion-icon name="chatbubble-ellipses-outline"></ion-icon></div>
+                  <div class="project-header-content">
+                    <h3 class="h3 project-title">Portfolio AI Assistant</h3>
+                    <p class="project-category">JavaScript / AI/ML</p>
+                  </div>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/ashvinmanojk289/portfolio-ai-assistant" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
+                </div>
+              </li>
+              <li class="project-item-no-img" data-category="ai/ml app-dev">
+                <div class="project-header">
+                  <div class="project-icon"><ion-icon name="headset-outline"></ion-icon></div>
+                  <div class="project-header-content">
+                    <h3 class="h3 project-title">Multilingual Audio Translator</h3>
+                    <p class="project-category">AI/ML / App Dev</p>
+                  </div>
+                </div>
+                <div class="project-links">
+                  <a href="https://github.com/ashvinmanojk289/Multilingual-Audio-Translator" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
+                </div>
+              </li>
               <li class="project-item-no-img" data-category="ai/ml robotics">
                 <div class="project-header">
                   <div class="project-icon"><ion-icon name="hardware-chip-outline"></ion-icon></div>
@@ -469,20 +498,8 @@
                     <p class="project-category">Robotics / Computer Vision</p>
                   </div>
                 </div>
-                <p class="project-description">
-                  An autonomous robotic system using computer vision for real-time weed detection and classification.
-                </p>
                 <div class="project-links">
                   <a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
-                  <button class="project-link-btn case-study-btn">
-                    <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
-                  </button>
-                </div>
-                <div class="project-case-study-content">
-                  <h4>Problem</h4>
-                  <p>Manual weeding is labor-intensive, and non-selective spraying is inefficient. An autonomous solution needs to reliably distinguish between crops and weeds in real-time within a complex, unstructured field environment.</p>
-                  <h4>Solution</h4>
-                  <p>I engineered a complete robotic system integrating ROS (Robot Operating System) for navigation and control, with a computer vision module for perception. By applying image processing and a custom-trained ML model, the robot can identify and classify weeds in real-time, enabling future integration with precision spraying mechanisms.</p>
                 </div>
               </li>
               <li class="project-item-no-img" data-category="robotics app-dev">
@@ -493,20 +510,8 @@
                     <p class="project-category">Robotics / App Dev</p>
                   </div>
                 </div>
-                <p class="project-description">
-                  A fun and interactive project for building a 4-legged robot that displays random emojis on an OLED screen. The robot can be controlled via a mobile app using Bluetooth and Arduino Nano.
-                </p>
                 <div class="project-links">
                   <a href="https://github.com/ashvinmanojk289/Quadrobot" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
-                  <button class="project-link-btn case-study-btn">
-                    <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
-                  </button>
-                </div>
-                <div class="project-case-study-content">
-                  <h4>Problem</h4>
-                  <p>Many simple DIY robots lack engaging feedback or intuitive controls. This project aimed to create a robot that is not only functional but also interactive and fun to use.</p>
-                  <h4>Solution</h4>
-                  <p>I developed a 4-legged robot using an Arduino Nano as the core. It features an OLED screen to display random emojis, adding an interactive personality. Control is handled wirelessly via an HC-05 Bluetooth module, allowing a custom mobile app to manage the robot's movements (forward, backward, left, right).</p>
                 </div>
               </li>
               <li class="project-item-no-img" data-category="data-science">
@@ -517,20 +522,8 @@
                     <p class="project-category">Algorithm / Data Science</p>
                   </div>
                 </div>
-                <p class="project-description">
-                  An implementation of the PageRank algorithm in Python to simulate web link analysis and page ranking.
-                </p>
                 <div class="project-links">
                   <a href="https://github.com/ashvinmanojk289/Simple-Google-PageRank-Algorithm" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
-                  <button class="project-link-btn case-study-btn">
-                    <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
-                  </button>
-                </div>
-                <div class="project-case-study-content">
-                  <h4>Problem</h4>
-                  <p>Understanding how search engines rank web pages is a fundamental concept in data science and web technology. The challenge is to mathematically model "importance" based on the web's link structure.</p>
-                  <h4>Solution</h4>
-                  <p>I implemented the Google PageRank algorithm from scratch in Python. This involves representing the web as a graph and iteratively calculating the "rank" of each page based on the quantity and quality of its inbound links. This project demonstrates a strong understanding of graph theory, linear algebra, and iterative algorithms.</p>
                 </div>
               </li>
               <li class="project-item-no-img" data-category="app-dev ai/ml">
@@ -541,20 +534,8 @@
                     <p class="project-category">App Dev / NLP</p>
                   </div>
                 </div>
-                <p class="project-description">
-                  A Python-based multi-language translator leveraging NLP models and translation APIs with a user-friendly interface.
-                </p>
                 <div class="project-links">
                   <a href="https://github.com/ashvinmanojk289/Language-Translator" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
-                  <button class="project-link-btn case-study-btn">
-                    <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
-                  </button>
-                </div>
-                <div class="project-case-study-content">
-                  <h4>Problem</h4>
-                  <p>While many translation services exist, building a simple, custom translator provides insight into API integration and frontend-backend communication for AI applications.</p>
-                  <h4>Solution</h4>
-                  <p>I created a Python application with a simple GUI (like Tkinter or a basic web-form) that calls translation APIs (like Google Translate API) to perform language conversion. The project focuses on clean API integration, handling JSON responses, and creating a practical, user-friendly tool, demonstrating skills in building real-world AI-powered applications.</p>
                 </div>
               </li>
             </ul>
@@ -657,14 +638,14 @@
               </li>
               <li class="cert-item-no-img">
                 <div class="cert-header">
-                  <div class="cert-icon"><ion-icon name="logo-python"></ion-icon></div>
+                  <div class="cert-icon"><ion-icon name="bar-chart-outline"></ion-icon></div>
                   <div class="cert-header-content">
-                    <h3 class="h3 cert-title">Programming, Data Structures & Algorithms Using Python</h3>
-                    <p class="cert-category">NPTEL (IIT Madras) / Sept 2021</p>
+                    <h3 class="h3 cert-title">Google Data Analytics</h3>
+                    <p class="cert-category">Coursera (Google Career Cert) / July 2025</p>
                   </div>
                 </div>
-                <p class="cert-description">Core algorithmic thinking, complexity, and problem-solving foundations underpinning scalable AI systems.</p>
-                <p class="cert-skills"><strong>Skills:</strong> Python, Algorithms, Data Structures</p>
+                <p class="cert-description">Cleaning, visualization & descriptive analysis workflows using SQL and R tooling.</p>
+                <p class="cert-skills"><strong>Skills:</strong> SQL, R, Data Analysis</p>
               </li>
             </ul>
             <button class="more-certs-btn" id="more-certs-btn" type="button">Show Additional MOOCs</button>
@@ -672,13 +653,13 @@
             <ul class="certifications-grid hidden" id="additional-moocs" aria-hidden="true">
               <li class="cert-item-no-img">
                 <div class="cert-header">
-                  <div class="cert-icon"><ion-icon name="bar-chart-outline"></ion-icon></div>
+                  <div class="cert-icon"><ion-icon name="logo-python"></ion-icon></div>
                   <div class="cert-header-content">
-                    <h3 class="h3 cert-title">Google Data Analytics</h3>
-                    <p class="cert-category">Coursera (Google Career Cert) / July 2025</p>
+                    <h3 class="h3 cert-title">Programming, Data Structures & Algorithms Using Python</h3>
+                    <p class="cert-category">NPTEL (IIT Madras) / Sept 2021</p>
                   </div>
                 </div>
-                <p class="cert-skills"><strong>Skills:</strong> SQL, R, Data Analysis</p>
+                <p class="cert-skills"><strong>Skills:</strong> Python, Algorithms, Data Structures</p>
               </li>
               <li class="cert-item-no-img">
                 <div class="cert-header">
