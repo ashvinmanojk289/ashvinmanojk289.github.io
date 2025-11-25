@@ -742,9 +742,21 @@ function initMoreCertsToggle() {
     const list = document.getElementById('additional-moocs');
     if (!btn || !list) return;
     btn.addEventListener('click', () => {
-        const nowHidden = list.classList.toggle('hidden');
-        btn.textContent = nowHidden ? 'Show Additional MOOCs' : 'Hide Additional MOOCs';
-        list.setAttribute('aria-hidden', nowHidden ? 'true' : 'false');
+        const isHidden = list.classList.contains('hidden');
+        if (isHidden) {
+            list.classList.remove('hidden');
+            btn.textContent = 'Hide Additional MOOCs';
+            list.setAttribute('aria-hidden', 'false');
+            requestAnimationFrame(() => {
+                list.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        } else {
+            list.classList.add('hidden');
+            btn.textContent = 'Show Additional MOOCs';
+            setTimeout(() => {
+                list.setAttribute('aria-hidden', 'true');
+            }, 400);
+        }
     });
 }
 
@@ -753,8 +765,20 @@ function initMoreProjectsToggle() {
     const list = document.getElementById('additional-projects');
     if (!btn || !list) return;
     btn.addEventListener('click', () => {
-        const nowHidden = list.classList.toggle('hidden');
-        btn.textContent = nowHidden ? 'Show Additional Projects' : 'Hide Additional Projects';
-        list.setAttribute('aria-hidden', nowHidden ? 'true' : 'false');
+        const isHidden = list.classList.contains('hidden');
+        if (isHidden) {
+            list.classList.remove('hidden');
+            btn.textContent = 'Hide Additional Projects';
+            list.setAttribute('aria-hidden', 'false');
+            requestAnimationFrame(() => {
+                list.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        } else {
+            list.classList.add('hidden');
+            btn.textContent = 'Show Additional Projects';
+            setTimeout(() => {
+                list.setAttribute('aria-hidden', 'true');
+            }, 400);
+        }
     });
 }
