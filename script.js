@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCaseStudyAccordion(); 
     initProjectFilter(); 
     initCertAccordion();
+    initMoreCertsToggle();
     initLoadingSpinner();
     initCustomCursor(); 
     initTypingEffect(); 
@@ -733,4 +734,15 @@ function initSwipeNavigation() {
             if (distX < 0) handleSwipe('left'); else handleSwipe('right');
         }
     }, { passive: true });
+}
+
+function initMoreCertsToggle() {
+    const btn = document.getElementById('more-certs-btn');
+    const list = document.getElementById('additional-moocs');
+    if (!btn || !list) return;
+    btn.addEventListener('click', () => {
+        const nowHidden = list.classList.toggle('hidden');
+        btn.textContent = nowHidden ? 'Show Additional MOOCs' : 'Hide Additional MOOCs';
+        list.setAttribute('aria-hidden', nowHidden ? 'true' : 'false');
+    });
 }

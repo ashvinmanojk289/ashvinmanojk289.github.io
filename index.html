@@ -598,7 +598,8 @@
               </div>
               <h3 class="h3">MOOC Courses</h3>
             </div>
-            <ul class="certifications-grid">
+            <!-- Major MOOCs (AI/ML + Software Engineering) -->
+            <ul class="certifications-grid" id="major-moocs">
               <li class="cert-item-no-img">
                 <div class="cert-header">
                   <div class="cert-icon"><ion-icon name="chatbubble-ellipses-outline"></ion-icon></div>
@@ -607,127 +608,107 @@
                     <p class="cert-category">NPTEL (IIT Madras) / October 2025</p>
                   </div>
                 </div>
-                <p class="cert-description">
-                  Covers the foundational principles of Large Language Models, including Transformer architectures, attention mechanisms, pre-training pipelines, and fine-tuning strategies for generative AI applications.
-                </p>
-                <p class="cert-skills"><strong>Skills:</strong> Large Language Models (LLMs), Deep Learning, Generative AI</p>
+                <p class="cert-description">Foundations of Transformer architectures, attention, pre-training, and fine-tuning pipelines for production-grade LLMs.</p>
+                <p class="cert-skills"><strong>Skills:</strong> LLMs, Deep Learning, Generative AI</p>
               </li>
               <li class="cert-item-no-img">
                 <div class="cert-header">
                   <div class="cert-icon"><ion-icon name="school-outline"></ion-icon></div>
                   <div class="cert-header-content">
                     <h3 class="h3 cert-title">Introduction to Software Engineering</h3>
-                    <p class="cert-category">COURSERA (IBM) / October 2025</p>
+                    <p class="cert-category">Coursera (IBM) / October 2025</p>
                   </div>
                 </div>
-                <p class="cert-description">
-                  A hands-on introduction to software development practices, version control, and engineering workflows.
-                </p>
-                <p class="cert-skills"><strong>Skills:</strong> Software Development</p>
-              </li>
-              <li class="cert-item-no-img">
-                <div class="cert-header">
-                  <div class="cert-icon"><ion-icon name="bar-chart-outline"></ion-icon></div>
-                  <div class="cert-header-content">
-                    <h3 class="h3 cert-title">Google Data Analytics</h3>
-                    <p class="cert-category">COURSERA (Google Career Certificates) / July 2025</p>
-                  </div>
-                </div>
-                <p class="cert-description">
-                  Core data analysis concepts including cleaning, visualization, and interpreting datasets using SQL and R.
-                </p>
-                <p class="cert-skills"><strong>Skills:</strong> SQL, R, Data Analysis</p>
+                <p class="cert-description">Practical overview of SDLC, version control, modular design, and collaborative engineering workflows.</p>
+                <p class="cert-skills"><strong>Skills:</strong> Software Engineering Fundamentals</p>
               </li>
               <li class="cert-item-no-img">
                 <div class="cert-header">
                   <div class="cert-icon"><ion-icon name="color-palette-outline"></ion-icon></div>
                   <div class="cert-header-content">
                     <h3 class="h3 cert-title">GenAI for UX Designers</h3>
-                    <p class="cert-category">COURSERA / April 2025</p>
+                    <p class="cert-category">Coursera / April 2025</p>
                   </div>
                 </div>
-                <p class="cert-description">
-                  Design-focused approaches to applying generative models for user interfaces and UX workflows.
-                </p>
-                <p class="cert-skills"><strong>Skills:</strong> Gen AI</p>
+                <p class="cert-description">Applying generative AI concepts to user flows, ideation, prototyping and UX augmentation.</p>
+                <p class="cert-skills"><strong>Skills:</strong> Generative AI, UX Augmentation</p>
               </li>
               <li class="cert-item-no-img">
                 <div class="cert-header">
                   <div class="cert-icon"><ion-icon name="cloud-outline"></ion-icon></div>
                   <div class="cert-header-content">
-                    <h3 class="h3 cert-title">Introduction to Generative AI Learning Path Specialization</h3>
-                    <p class="cert-category">COURSERA (Google Cloud Training Online) / April 2025</p>
+                    <h3 class="h3 cert-title">Generative AI Learning Path Specialization</h3>
+                    <p class="cert-category">Coursera (Google Cloud) / April 2025</p>
                   </div>
                 </div>
-                <p class="cert-description">
-                  A practical learning path covering LLMs, Responsible AI, and deploying GenAI on cloud platforms.
-                </p>
-                <p class="cert-skills"><strong>Skills:</strong> Gen AI, Responsible AI, LLM, Google Cloud</p>
+                <p class="cert-description">End-to-end GenAI: model lifecycle, responsible AI, prompt patterns, and deployment on cloud infra.</p>
+                <p class="cert-skills"><strong>Skills:</strong> GenAI, Responsible AI, Cloud Deployment</p>
               </li>
               <li class="cert-item-no-img">
                 <div class="cert-header">
                   <div class="cert-icon"><ion-icon name="flash-outline"></ion-icon></div>
                   <div class="cert-header-content">
                     <h3 class="h3 cert-title">Prompt Engineering</h3>
-                    <p class="cert-category">COURSERA (Infosys Springboard) / April 2025</p>
+                    <p class="cert-category">Coursera (Infosys Springboard) / April 2025</p>
                   </div>
                 </div>
-                <p class="cert-description">
-                  Best practices and patterns for crafting prompts to guide LLMs and improve output quality.
-                </p>
-                <p class="cert-skills"><strong>Skills:</strong> Prompt Engineering</p>
+                <p class="cert-description">System, user, and chain prompts; evaluation strategies to improve reliability and output quality.</p>
+                <p class="cert-skills"><strong>Skills:</strong> Prompt Design, LLM Interaction</p>
+              </li>
+              <li class="cert-item-no-img">
+                <div class="cert-header">
+                  <div class="cert-icon"><ion-icon name="logo-python"></ion-icon></div>
+                  <div class="cert-header-content">
+                    <h3 class="h3 cert-title">Programming, Data Structures & Algorithms Using Python</h3>
+                    <p class="cert-category">NPTEL (IIT Madras) / Sept 2021</p>
+                  </div>
+                </div>
+                <p class="cert-description">Core algorithmic thinking, complexity, and problem-solving foundations underpinning scalable AI systems.</p>
+                <p class="cert-skills"><strong>Skills:</strong> Python, Algorithms, Data Structures</p>
+              </li>
+            </ul>
+            <button class="more-certs-btn" id="more-certs-btn" type="button">Show Additional MOOCs</button>
+            <!-- Minor / Additional MOOCs (non AI/ML or peripheral domains) -->
+            <ul class="certifications-grid hidden" id="additional-moocs" aria-hidden="true">
+              <li class="cert-item-no-img">
+                <div class="cert-header">
+                  <div class="cert-icon"><ion-icon name="bar-chart-outline"></ion-icon></div>
+                  <div class="cert-header-content">
+                    <h3 class="h3 cert-title">Google Data Analytics</h3>
+                    <p class="cert-category">Coursera (Google Career Cert) / July 2025</p>
+                  </div>
+                </div>
+                <p class="cert-skills"><strong>Skills:</strong> SQL, R, Data Analysis</p>
               </li>
               <li class="cert-item-no-img">
                 <div class="cert-header">
                   <div class="cert-icon"><ion-icon name="navigate-outline"></ion-icon></div>
                   <div class="cert-header-content">
                     <h3 class="h3 cert-title">Wheeled Mobile Robots</h3>
-                    <p class="cert-category">NPTEL (IIT Madras) / March 2024</p>
+                    <p class="cert-category">NPTEL (IIT Madras) / Mar 2024</p>
                   </div>
                 </div>
-                <p class="cert-description">
-                  Fundamentals of mobile robot kinematics, control, and navigation for wheeled platforms.
-                </p>
                 <p class="cert-skills"><strong>Skills:</strong> Mobile Robotics</p>
               </li>
               <li class="cert-item-no-img">
                 <div class="cert-header">
                   <div class="cert-icon"><ion-icon name="construct-outline"></ion-icon></div>
                   <div class="cert-header-content">
-                    <h3 class="h3 cert-title">Automation in Production Systems and Management</h3>
-                    <p class="cert-category">NPTEL (IIT Kharagpur) / October 2023</p>
+                    <h3 class="h3 cert-title">Automation in Production Systems & Management</h3>
+                    <p class="cert-category">NPTEL (IIT Kharagpur) / Oct 2023</p>
                   </div>
                 </div>
-                <p class="cert-description">
-                  Covers PLCs, SCADA, and system design principles for automated production environments.
-                </p>
                 <p class="cert-skills"><strong>Skills:</strong> Industrial Automation</p>
               </li>
               <li class="cert-item-no-img">
                 <div class="cert-header">
                   <div class="cert-icon"><ion-icon name="hardware-chip-outline"></ion-icon></div>
                   <div class="cert-header-content">
-                    <h3 class="h3 cert-title">A Skill Development Program on "Industrial Robots"</h3>
-                    <p class="cert-category">Siemens Centre of Excellence (NIT Trichy) / May 2023</p>
+                    <h3 class="h3 cert-title">Industrial Robots Skill Development Program</h3>
+                    <p class="cert-category">Siemens CoE (NIT Trichy) / May 2023</p>
                   </div>
                 </div>
-                <p class="cert-description">
-                  Practical training on industrial robot programming, KUKA control systems, and automation workflows.
-                </p>
-                <p class="cert-skills"><strong>Skills:</strong> Robot Process Automation, KUKA Robot Control and Manipulation</p>
-              </li>
-              <li class="cert-item-no-img">
-                <div class="cert-header">
-                  <div class="cert-icon"><ion-icon name="logo-python"></ion-icon></div>
-                  <div class="cert-header-content">
-                    <h3 class="h3 cert-title">Programming, Data Structures and Algorithms Using Python</h3>
-                    <p class="cert-category">NPTEL (IIT Madras) / September 2021</p>
-                  </div>
-                </div>
-                <p class="cert-description">
-                  Foundational course covering Python programming, data structures, and algorithmic problem solving.
-                </p>
-                <p class="cert-skills"><strong>Skills:</strong> Python</p>
+                <p class="cert-skills"><strong>Skills:</strong> Robot Manipulation, RPA</p>
               </li>
             </ul>
           </section>

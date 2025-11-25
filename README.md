@@ -138,6 +138,27 @@ Replace the `action` attribute of the form with your Getform (or alternate) endp
 ### vCard
 Replace fields inside `assets/ashvinmanoj.vcf` with your details (FN, EMAIL, TEL, etc.).
 
+### MOOC Certificates Grouping
+The Certifications section separates high-signal courses (AI/ML + core Software Engineering) from supplementary ones:
+- Major MOOCs: Advanced AI/ML, Generative AI, Prompt Engineering, LLM foundations, fundamental software engineering & algorithms.
+- Additional MOOCs: Data analytics, robotics domain courses, industrial automation, or peripheral skill programs.
+
+Structure in `index.html`:
+```html
+<ul id="major-moocs"> <!-- always visible --> ... </ul>
+<button id="more-certs-btn">Show Additional MOOCs</button>
+<ul id="additional-moocs" class="hidden"> <!-- toggled --> ... </ul>
+```
+Toggle logic lives in `initMoreCertsToggle()` inside `script.js`.
+
+To reclassify:
+1. Move `<li>` nodes between `#major-moocs` and `#additional-moocs`.
+2. Keep 5–7 items in major for brevity.
+3. Ensure `#additional-moocs` keeps the `hidden` class initially.
+4. Avoid duplicating a course across both lists.
+
+Add new items by copying the card HTML pattern used in existing `<li>` blocks. Maintain concise descriptions (≤ 2 sentences) and consistent skill labels.
+
 ## Running Locally
 No build step required.
 Option 1: Open `index.html` directly in a browser.
