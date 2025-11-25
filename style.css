@@ -1040,7 +1040,7 @@ main {
   border-radius: 16px;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   opacity: 1;
   transform: translateY(0);
   position: relative;
@@ -1052,8 +1052,6 @@ main {
 
 .project-item-no-img:hover {
   border-color: var(--color-accent);
-  box-shadow: var(--shadow-2);
-  transform: translateY(-3px);
 }
 
 .project-title {
