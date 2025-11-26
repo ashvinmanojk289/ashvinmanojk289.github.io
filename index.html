@@ -38,7 +38,6 @@
             <p class="title">AI/ML <span class="typing-effect"></span></p>
           </div>
         </div>
-
         <div class="sidebar-content">
           <div class="quick-contacts">
             <div class="contact-inline">
@@ -64,15 +63,13 @@
             </div>
             <div class="contact-inline">
               <ion-icon name="document-text-outline"></ion-icon>
-              <div class="contact-data">
+                <div class="contact-data">
                 <span>vCard</span>
                 <a href="assets/ashvinmanoj.vcf" class="contact-link" download="Ashvin_Manoj.vcf">Download Contact</a>
               </div>
             </div>
           </div>
-
           <div class="separator"></div>
-
           <ul class="social-list">
             <li class="social-item">
               <a href="https://www.linkedin.com/in/ashvinmanojk289" target="_blank" class="social-link" aria-label="LinkedIn">
@@ -86,7 +83,6 @@
             </li>
           </ul>
         </div>
-
         <div class="theme-switcher">
           <button class="theme-btn" id="theme-toggle-btn" aria-label="Toggle Theme">
             <ion-icon name="sunny-outline" class="theme-icon theme-icon-sun hidden"></ion-icon>
@@ -107,6 +103,7 @@
             <li class="navbar-item">
               <button class="navbar-link" data-nav-link>Projects</button>
             </li>
+
             <li class="navbar-item">
               <button class="navbar-link" data-nav-link>Certifications</button>
             </li>
@@ -120,43 +117,87 @@
           <header>
             <h2 class="h2 article-title">About Me</h2>
           </header>
-
-          <section class="about-text" id="about-text"></section>
-
-          <section class="service">
-            <h3 class="h3 service-title">What I Do</h3>
-            <ul class="service-list" id="skills-list"></ul>
+          <section class="about-text">
+            <p>
+              A results-oriented AI/ML Engineer with a strong foundation in deep learning, NLP, and computer vision.
+            </p>
+            <p>
+              Eager to leverage hands-on experience in developing and deploying scalable machine learning solutions
+              to solve complex business problems and drive innovation.
+            </p>
+            <p>
+              My passion lies at the intersection of robotics and natural language processing, where I leverage hands-on skills in ROS, PyTorch, and deep learning to create machines that can perceive, understand, and interact with their environment.
+            </p>
           </section>
-
-          <section class="github-stats">
-            <h3 class="h3 service-title">GitHub Stats</h3>
+          <section class="service">
+            <h3 class="h3 title-box-text">My Skills</h3>
             <ul class="service-list">
+              <li class="service-item">
+                <div class="service-icon-box">
+                  <ion-icon name="analytics-outline"></ion-icon>
+                </div>
+                <div class="service-content-box">
+                  <h4 class="h4 service-item-title">AI & ML</h4>
+                  <p class="service-item-text">
+                    Generative AI, LLMs, Computer Vision, NLP, Prompt Engineering, and Deep Learning.
+                  </p>
+                </div>
+              </li>
+              <li class="service-item">
+                <div class="service-icon-box">
+                  <ion-icon name="color-palette-outline"></ion-icon>
+                </div>
+                <div class="service-content-box">
+                  <h4 class="h4 service-item-title">DL Frameworks</h4>
+                  <p class="service-item-text">
+                    PyTorch, Facenet, TensorFlow, Scikit-learn, Transformers, Pandas & NumPy.
+                  </p>
+                </div>
+              </li>
+              <li class="service-item">
+                <div class="service-icon-box">
+                  <ion-icon name="hammer-outline"></ion-icon>
+                </div>
+                <div class="service-content-box">
+                  <h4 class="h4 service-item-title">Platforms & Tools</h4>
+                  <p class="service-item-text">
+                    Git, Docker, IntelliJ IDEA, ROS (Robot Operating System), Git, Linux, Streamlit, Flask, and Arduino.
+                  </p>
+                </div>
+              </li>
               <li class="service-item">
                 <div class="service-icon-box">
                   <ion-icon name="code-slash-outline"></ion-icon>
                 </div>
                 <div class="service-content-box">
-                  <h4 class="h4 service-item-title">Public Repos</h4>
-                  <p class="service-item-text" id="github-repos">Loading...</p>
+                  <h4 class="h4 service-item-title">Languages & Databases</h4>
+                  <p class="service-item-text">
+                    C, C++, Python, Java, JavaScript, HTML, CSS, SQL, R
+                  </p>
                 </div>
               </li>
+            </ul>
+          </section>
+          <section class="github-stats">
+            <h3 class="h3 title-box-text">GitHub Info</h3>
+            <ul class="service-list">
               <li class="service-item">
                 <div class="service-icon-box">
-                  <ion-icon name="star-outline"></ion-icon>
+                  <ion-icon name="git-branch-outline"></ion-icon>
                 </div>
                 <div class="service-content-box">
-                  <h4 class="h4 service-item-title">Total Stars</h4>
-                  <p class="service-item-text" id="github-stars">Loading...</p>
+                  <h4 class="h4 service-item-title" id="github-repos">0</h4>
+                  <p class="service-item-text">Public Repos</p>
                 </div>
               </li>
               <li class="service-item github-activity-item">
                 <div class="service-icon-box">
-                  <ion-icon name="pulse-outline"></ion-icon>
+                  <ion-icon name="git-commit-outline"></ion-icon>
                 </div>
                 <div class="service-content-box">
                   <h4 class="h4 service-item-title">Recent Activity</h4>
-                  <ul class="github-activity-list" id="github-activity">
-                    <li>Loading...</li>
+                  <ul id="github-activity" class="github-activity-list">
+                    <li>Fetching latest commits...</li>
                   </ul>
                 </div>
               </li>
@@ -168,73 +209,496 @@
           <header>
             <h2 class="h2 article-title">Resume</h2>
           </header>
-
-          <section class="timeline">
-            <div class="title-wrapper">
-              <div class="icon-box"><ion-icon name="book-outline"></ion-icon></div>
-              <h3 class="h3">Education</h3>
-            </div>
-            <ol class="timeline-list" id="education-list"></ol>
-          </section>
-
-          <section class="timeline">
-            <div class="title-wrapper">
-              <div class="icon-box"><ion-icon name="briefcase-outline"></ion-icon></div>
-              <h3 class="h3">Experience</h3>
-            </div>
-            <ol class="timeline-list" id="experience-list"></ol>
-          </section>
-
-          <section class="resume-download">
-            <div class="title-wrapper">
-              <div class="icon-box"><ion-icon name="cloud-download-outline"></ion-icon></div>
-              <h3 class="h3">Download Resume</h3>
-            </div>
+          <section class="resume-download content-card">
             <div class="resume-download-inner">
-              <div class="tilt-card">
-                <img src="assets/resume.jpg" alt="Resume Preview" class="resume-preview-img">
-              </div>
-              <a href="assets/resume.pdf" class="download-btn" download="Ashvin_Manoj_Resume.pdf">
+              <img src="assets/resume.jpg" alt="Resume preview" class="resume-preview-img" loading="lazy">
+              <a href="assets/resume.pdf" class="form-btn download-btn" download aria-label="Download Resume PDF">
                 <ion-icon name="download-outline"></ion-icon>
-                <span>Download PDF</span>
+                <span>Download Resume</span>
               </a>
             </div>
           </section>
+          <section class="timeline">
+            <div class="title-wrapper">
+              <div class="icon-box">
+                <ion-icon name="book-outline"></ion-icon>
+              </div>
+              <h3 class="h3">Education</h3>
+            </div>
+            <ol class="timeline-list">
+              <li class="timeline-item">
+                <h4 class="h4 timeline-item-title">Rajagiri School of Engineering and Technology</h4>
+                <span>MTech in Computer Science and Engineering (AI/ML)</span>
+                <p class="timeline-text">Aug 2024 - Present | CGPA: 9.49</p>
+              </li>
+              <li class="timeline-item">
+                <h4 class="h4 timeline-item-title">Adi Shankara Institute of Engineering and Technology</h4>
+                <span>BTech (Honours) in Robotics and Automation</span>
+                <p class="timeline-text">Oct 2020 - Jun 2024 | CGPA: 9.54</p>
+              </li>
+              <li class="timeline-item">
+                <h4 class="h4 timeline-item-title">St. Mary's Public School, Thamarachal</h4>
+                <span>Higher Secondary (12th) - Computer/Maths</span>
+                <p class="timeline-text">2020 | Percentage: 92.6%</p>
+              </li>
+              <li class="timeline-item">
+                <h4 class="h4 timeline-item-title">St. Mary's Public School, Thamarachal</h4>
+                <span>High School (10th)</span>
+                <p class="timeline-text">2020 | Percentage: 90.6%</p>
+              </li>
+            </ol>
+          </section>
+          <section class="timeline">
+            <div class="title-wrapper">
+              <div class="icon-box">
+                <ion-icon name="briefcase-outline"></ion-icon>
+              </div>
+              <h3 class="h3">Experience</h3>
+            </div>
+            <ol class="timeline-list">
+              <li class="timeline-item">
+                <h4 class="h4 timeline-item-title">Intern, Mastermine Technologies</h4>
+                <span>Aug 2025 - Present</span>
+                <ul class="timeline-item-list">
+                  <P>As a Data Science Intern at Mastermine Technologies , I engaged in a hybrid role that combined full-stack development with advanced data science. My primary project involved contributing to a cross-platform desktop application for photographers, where I implemented backend services in Java (Spring) , developed the user interface with React.js , and packaged the application using Electron.js.</P>
+                  <P>A key feature was an asynchronous photo-matching system I developed using Spring Schedulers and RabbitMQ to communicate with Python-based processing workers. Additionally, I architected a multi-agent data insight framework using Python and Large Language Models (LLMs) to automate analytical queries.</P>
+                </ul>
+              </li>
+              <li class="timeline-item">
+                <h4 class="h4 timeline-item-title">Hardware Systems Intern, Sunlux Technovations</h4>
+                <span>Feb 2024 - April 2024</span>
+                <ul class="timeline-item-list">
+                  <P>As a Hardware Systems Intern at Sunlux Technovations, I dove into low-level system development and embedded solutions. My primary responsibility was to develop and debug microprocessor programs directly in Assembly language, gaining hands-on experience with hardware-level logic and optimization.</P>
+                  <P>I also actively collaborated with the engineering team to contribute to the design and implementation of embedded solutions, which provided me with practical insight into hardware-software co-design.</P>
+                </ul>
+              </li>
+                <li class="timeline-item">
+                <h4 class="h4 timeline-item-title">Automation Intern, SMEC Automation Pvt. Ltd.</h4>
+                <span>May 2023 (5 days)</span>
+                <ul class="timeline-item-list">
+                  <P>Participated in a comprehensive Internship Program at SMEC Automation, focusing on the core components of "Industrial Automation." This role provided practical exposure to designing and implementing control systems.</P>
+                  <P>Gained hands-on experience with Programmable Logic Controllers (PLCs), configuring Human-Machine Interfaces (HMIs), and understanding SCADA systems for process visualization and control. The internship covered the lifecycle of automation projects, from instrumentation to troubleshooting automated processes in real-world industrial applications.</P>
+                </ul>
+              </li>
+                <li class="timeline-item">
+                <h4 class="h4 timeline-item-title">Robotics Intern, Sinro Robotics Pvt. Ltd.</h4>
+                <span>November 2022 (5 days)</span>
+                <ul class="timeline-item-list">
+                  <P>Engaged in an foundational Internship Program at Sinro Robotics, covering the "Introduction to Robotics." The program provided a strong understanding of the fundamental principles and components of robotic systems, including sensors, actuators, and microcontrollers.</P> 
+                  <P>Acquired practical skills in basic robot assembly, programming (using platforms like Arduino or similar), and sensor integration for tasks like line-following and obstacle avoidance. This experience built a solid groundwork in robot kinematics, control logic, and system design.</P>
+                </ul>
+              </li>
+            </ol>
+          </section>
         </article>
 
-        <article class="portfolio" data-page="projects">
-          <header>
-            <h2 class="h2 article-title">Projects</h2>
-          </header>
-
+        <article class="projects" data-page="projects">
           <section class="projects">
             <ul class="filter-list">
-              <li class="filter-item"><button class="filter-btn active" data-filter="all">All</button></li>
-              <li class="filter-item"><button class="filter-btn" data-filter="ai/ml">AI/ML</button></li>
-              <li class="filter-item"><button class="filter-btn" data-filter="robotics">Robotics</button></li>
-              <li class="filter-item"><button class="filter-btn" data-filter="web">Web Dev</button></li>
+              <li class="filter-item">
+                <button class="filter-btn active" data-filter="all">All</button>
+              </li>
+              <li class="filter-item">
+                <button class="filter-btn" data-filter="ai/ml">AI/ML</button>
+              </li>
+              <li class="filter-item">
+                <button class="filter-btn" data-filter="app-dev">App Dev</button>
+              </li>
+              <li class="filter-item">
+                <button class="filter-btn" data-filter="data-science">Data Science</button>
+              </li>
+              <li class="filter-item">
+                <button class="filter-btn" data-filter="robotics">Robotics</button>
+              </li>
             </ul>
-            <ul class="project-grid" id="major-projects"></ul>
-            <button class="form-btn" id="more-projects-btn" style="margin-top: 30px;">Show Additional Projects</button>
-            <ul class="project-grid hidden" id="additional-projects" style="margin-top: 30px;"></ul>
+            <!-- Major Projects (Featured) -->
+            <ul class="project-grid" id="major-projects">
+              <li class="project-item-no-img" data-category="ai/ml data-science">
+                <div class="project-header">
+                  <div class="project-icon"><ion-icon name="analytics-outline"></ion-icon></div>
+                  <div class="project-header-content">
+                    <h3 class="h3 project-title">Multimodal Graph Learning for Early Classification of Alzheimer's Disease</h3>
+                    <p class="project-category">Deep Learning / AI/ML (Ongoing)</p>
+                  </div>
+                </div>
+                <p class="project-description">
+                  Engineered a novel deep learning architecture for early Alzheimer's diagnosis, integrating multimodal data and graph learning techniques to accurately classify Cognitively Normal (CN), Mild Cognitive Impairment (MCI), and AD subjects.
+                </p>
+                <div class="project-progress">
+                  <div class="progress-label">
+                    <span>Project Progress</span>
+                    <span>85%</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 85%;"></div>
+                  </div>
+                </div>
+                <div class="project-links">
+                  <button class="project-link-btn case-study-btn">
+                    <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
+                  </button>
+                </div>
+                <div class="project-case-study-content">
+                  <h4>Problem</h4>
+                  <p>Early and accurate diagnosis of Alzheimer's Disease (AD) is critical but challenging. The disease progresses from Cognitively Normal (CN) to Mild Cognitive Impairment (MCI) and then to AD.</p>
+                  <h4>Solution</h4>
+                  <p>This ongoing project focuses on developing a novel deep learning architecture. By integrating multimodal data (e.g., MRI scans, cognitive test scores) and using graph learning techniques, the model aims to learn complex relationships in the data to classify subjects accurately and aid in early diagnosis.</p>
+                </div>
+              </li>
+              <li class="project-item-no-img" data-category="ai/ml app-dev">
+                <div class="project-header">
+                  <div class="project-icon"><ion-icon name="mic-outline"></ion-icon></div>
+                  <div class="project-header-content">
+                    <h3 class="h3 project-title">Multilingual News Audio Translator (Flask UI)</h3>
+                    <p class="project-category">Full-stack / AI/ML</p>
+                  </div>
+                </div>
+                <p class="project-description">
+                  A web app for translating news audio into multiple languages using speech-to-text and machine translation.
+                </p>
+                <div class="project-links">
+                  <a href="https://github.com/ashvinmanojk289/FLASK_UI_FOR_MULTILINGUAL_NEWS_AUDIO_TRANSLATOR" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
+                  <button class="project-link-btn case-study-btn">
+                    <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
+                  </button>
+                </div>
+                <div class="project-case-study-content">
+                  <h4>Problem</h4>
+                  <p>Access to news and information is often limited by language barriers. Audio content, like podcasts and news broadcasts, is particularly difficult to translate and consume in real-time.</p>
+                  <h4>Solution</h4>
+                  <p>I developed a Flask web application that integrates multiple AI models. It uses Wav2Vec 2.0 for speech recognition, an mBART model for machine translation, and a TTS engine to speak the translated text. This creates a seamless pipeline for users to consume audio news in various languages, improving accessibility.</p>
+                </div>
+              </li>
+              <li class="project-item-no-img" data-category="ai/ml app-dev">
+                <div class="project-header">
+                  <div class="project-icon"><ion-icon name="headset-outline"></ion-icon></div>
+                  <div class="project-header-content">
+                    <h3 class="h3 project-title">Multilingual Audio Translator (Training & Deployment)</h3>
+                    <p class="project-category">AI/ML / Deep Learning</p>
+                  </div>
+                </div>
+                <p class="project-description">
+                  End-to-end ML pipeline: trains custom Wav2Vec 2.0 and mBART models, exports weights as JSON, and deploys in Jupyter for audio translation inference.
+                </p>
+                <div class="project-links">
+                  <a href="https://github.com/ashvinmanojk289/Multilingual-Audio-Translator" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
+                  <button class="project-link-btn case-study-btn">
+                    <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
+                  </button>
+                </div>
+                <div class="project-case-study-content">
+                  <h4>Problem</h4>
+                  <p>Access to audio-based information (like news or lectures) is often blocked by language barriers. Translating spoken content in real-time is a complex task that requires multiple AI models to work together seamlessly.</p>
+                  <h4>Solution</h4>
+                  <p>This project implements a complete ML pipeline: first training custom speech recognition and translation models, then deploying them in a Jupyter environment for inference. Uses Wav2Vec 2.0 for speech recognition (92% accuracy) and fine-tuned mBART for translation. The trained model weights are exported as JSON for reproducible deployment on sample audio inputs.</p>
+                </div>
+              </li>
+              <li class="project-item-no-img" data-category="ai/ml data-science">
+                <div class="project-header">
+                  <div class="project-icon"><ion-icon name="leaf-outline"></ion-icon></div>
+                  <div class="project-header-content">
+                    <h3 class="h3 project-title">Hybrid EfficientNetV2-Transformer Model for Weed Detection</h3>
+                    <p class="project-category">Deep Learning / Computer Vision</p>
+                  </div>
+                </div>
+                <p class="project-description">
+                  A research project comparing deep learning architectures for weed detection in agriculture.
+                </p>
+                <div class="project-links">
+                  <a href="https://github.com/ashvinmanojk289/Hybrid-EfficientNetV2-Transformer-Model-and-Other-Model-Comparison-for-Weed-Detection" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
+                  <button class="project-link-btn case-study-btn">
+                    <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
+                  </button>
+                </div>
+                <div class="project-case-study-content">
+                  <h4>Problem</h4>
+                  <p>Traditional agricultural methods often involve broad-spectrum herbicide application, which is costly and environmentally harmful. Identifying weeds accurately, especially those that closely resemble crops, is a significant computer vision challenge.</p>
+                  <h4>Solution</h4>
+                  <p>I researched, built, and benchmarked several deep learning models, including a novel hybrid architecture combining EfficientNetV2 (for strong feature extraction) and a Transformer (for contextual relationships). This hybrid model achieved 97% accuracy on large datasets, demonstrating a robust and efficient solution for precision agriculture.</p>
+                </div>
+              </li>
+              <li class="project-item-no-img" data-category="ai/ml">
+                <div class="project-header">
+                  <div class="project-icon"><ion-icon name="document-text-outline"></ion-icon></div>
+                  <div class="project-header-content">
+                    <h3 class="h3 project-title">PDF Query Application</h3>
+                    <p class="project-category">GenAI / NLP</p>
+                  </div>
+                </div>
+                <p class="project-description">
+                  Created a Python tool for querying and extracting information from PDF documents using natural language.
+                </p>
+                <div class="project-links">
+                  <a href="https://github.com/ashvinmanojk289/PDF-Query-Application" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
+                  <button class="project-link-btn case-study-btn">
+                    <span>Case Study</span> <ion-icon name="document-text-outline"></ion-icon>
+                  </button>
+                </div>
+                <div class="project-case-study-content">
+                  <h4>Problem</h4>
+                  <p>Manually searching large PDF documents for specific information is time-consuming and inefficient. Standard search (Ctrl+F) lacks contextual understanding and cannot answer natural language questions.</p>
+                  <h4>Solution</h4>
+                  <p>I built a Python tool that leverages NLP to parse and understand PDF content. It creates a searchable index, allowing users to ask questions in plain English (e.g., "What was the total revenue in 2024?") and receive precise answers. This automates information extraction and streamlines document-based workflows.</p>
+                </div>
+              </li>
+            </ul>
+            <button class="more-projects-btn" id="more-projects-btn" type="button">Show Additional Projects</button>
+            <ul class="project-grid hidden" id="additional-projects" aria-hidden="true">
+              <li class="project-item-no-img" data-category="app-dev ai/ml">
+                <div class="project-header">
+                  <div class="project-icon"><ion-icon name="chatbubble-ellipses-outline"></ion-icon></div>
+                  <div class="project-header-content">
+                    <h3 class="h3 project-title">Portfolio AI Assistant</h3>
+                    <p class="project-category">JavaScript / AI/ML</p>
+                  </div>
+                </div>
+                <p class="project-description">
+                  Rule-based conversational chatbot integrated into this portfolio, built in pure JavaScript using a predefined conversation tree structure. Provides instant answers to visitor questions about skills, projects, and experience without external API dependencies. Features a theme-matched chat interface with expandable question flow for 24/7 automated interaction.
+                </p>
+                <div class="project-links">
+                  <a href="https://github.com/ashvinmanojk289/portfolio-ai-assistant" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
+                </div>
+              </li>
+              <li class="project-item-no-img" data-category="ai/ml app-dev">
+                <div class="project-header">
+                  <div class="project-icon"><ion-icon name="headset-outline"></ion-icon></div>
+                  <div class="project-header-content">
+                    <h3 class="h3 project-title">Multilingual Audio Translator</h3>
+                    <p class="project-category">AI/ML / App Dev</p>
+                  </div>
+                </div>
+                <p class="project-description">
+                  Complete ML pipeline covering model training through deployment: fine-tunes Wav2Vec 2.0 for speech recognition (92% accuracy) and mBART for neural machine translation, exports trained weights as JSON, then implements inference in Jupyter notebooks for reproducible audio translation on sample inputs. Enables cross-language accessibility for spoken content.
+                </p>
+                <div class="project-links">
+                  <a href="https://github.com/ashvinmanojk289/Multilingual-Audio-Translator" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
+                </div>
+              </li>
+              <li class="project-item-no-img" data-category="ai/ml robotics">
+                <div class="project-header">
+                  <div class="project-icon"><ion-icon name="hardware-chip-outline"></ion-icon></div>
+                  <div class="project-header-content">
+                    <h3 class="h3 project-title">Weed Detection Robot</h3>
+                    <p class="project-category">Robotics / Computer Vision</p>
+                  </div>
+                </div>
+                <p class="project-description">
+                  Fully autonomous robotic system integrating ROS for navigation/control with a custom-trained computer vision pipeline for real-time weed detection and classification. Combines image processing with ML inference to distinguish crops from weeds in unstructured field environments, enabling targeted precision agriculture and reducing manual labor and herbicide waste.
+                </p>
+                <div class="project-links">
+                  <a href="https://github.com/ashvinmanojk289/Weed-Detection-Robot" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
+                </div>
+              </li>
+              <li class="project-item-no-img" data-category="robotics app-dev">
+                <div class="project-header">
+                  <div class="project-icon"><ion-icon name="paw-outline"></ion-icon></div>
+                  <div class="project-header-content">
+                    <h3 class="h3 project-title">4-Legged Emoji Bot (Quadrobot)</h3>
+                    <p class="project-category">Robotics / App Dev</p>
+                  </div>
+                </div>
+                <p class="project-description">
+                  DIY 4-legged robot built with Arduino Nano featuring an OLED display that shows random emojis for interactive personality feedback. Wireless control via HC-05 Bluetooth module connects to a custom mobile app for directional movement commands (forward, backward, left, right), combining functional robotics with engaging user experience design.
+                </p>
+                <div class="project-links">
+                  <a href="https://github.com/ashvinmanojk289/Quadrobot" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
+                </div>
+              </li>
+              <li class="project-item-no-img" data-category="data-science">
+                <div class="project-header">
+                  <div class="project-icon"><ion-icon name="code-slash-outline"></ion-icon></div>
+                  <div class="project-header-content">
+                    <h3 class="h3 project-title">Simple Google PageRank Algorithm</h3>
+                    <p class="project-category">Algorithm / Data Science</p>
+                  </div>
+                </div>
+                <p class="project-description">
+                  From-scratch Python implementation of Google's PageRank algorithm demonstrating graph theory, linear algebra, and iterative convergence. Models web page importance by representing link structure as a graph and computing eigenvalue-based ranks through power iteration, simulating how search engines mathematically assess authority and relevance.
+                </p>
+                <div class="project-links">
+                  <a href="https://github.com/ashvinmanojk289/Simple-Google-PageRank-Algorithm" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
+                </div>
+              </li>
+              <li class="project-item-no-img" data-category="app-dev ai/ml">
+                <div class="project-header">
+                  <div class="project-icon"><ion-icon name="language-outline"></ion-icon></div>
+                  <div class="project-header-content">
+                    <h3 class="h3 project-title">Language Translator</h3>
+                    <p class="project-category">App Dev / NLP</p>
+                  </div>
+                </div>
+                <p class="project-description">
+                  Python-based multi-language translator with GUI (Tkinter/web form) demonstrating clean API integration patterns for AI services. Calls translation APIs (Google Translate) for language conversion, handles JSON response parsing, and provides a practical user-friendly interface showcasing frontend-backend communication fundamentals for real-world AI applications.
+                </p>
+                <div class="project-links">
+                  <a href="https://github.com/ashvinmanojk289/Language-Translator" class="project-link-btn" target="_blank"><span>GitHub</span> <ion-icon name="logo-github"></ion-icon></a>
+                </div>
+              </li>
+            </ul>
           </section>
         </article>
 
         <article class="certifications" data-page="certifications">
-          <header>
-            <h2 class="h2 article-title">Certifications & Publications</h2>
-          </header>
-
-          <section class="publications">
-            <h3 class="h3 title-box-text">Publications</h3>
-            <ul class="project-grid" id="publications-list"></ul>
+          <section class="publications-section">
+            <div class="title-wrapper">
+              <div class="icon-box">
+                <ion-icon name="newspaper-outline"></ion-icon>
+              </div>
+              <h3 class="h3">Publications</h3>
+            </div>
+            <ul class="publications-grid">
+              <li class="pub-item-card">
+                <div class="pub-header">
+                  <div class="pub-icon"><ion-icon name="document-text-outline"></ion-icon></div>
+                  <div class="pub-header-content">
+                    <h3 class="h3 pub-title">A Hybrid Transformer Model Approach for Precision Weed Detection</h3>
+                    <p class="pub-authors">S. Krishnan, M. Karuppasamypandiyan, and A. Manoj</p>
+                  </div>
+                </div>
+                <p class="pub-venue">
+                  <em>2025 4th International Conference on Advances in Computing, Communication, Embedded and Secure Systems (ACCESS)</em>, Ernakulam, India, 2025, pp. 1-7.
+                </p>
+                <p class="pub-doi">DOI: 10.1109/ACCESS65134.2025.11135583</p>
+                <div class="pub-links">
+                  <a href="https://doi.org/10.1109/ACCESS65134.2025.11135583" target="_blank" class="pub-link-btn">
+                    <span>View Publication</span>
+                    <ion-icon name="open-outline"></ion-icon>
+                  </a>
+                </div>
+              </li>
+            </ul>
           </section>
+          <section class="certifications">
+            <div class="title-wrapper">
+              <div class="icon-box">
+                <ion-icon name="ribbon-outline"></ion-icon>
+              </div>
+              <h3 class="h3">MOOC Courses</h3>
+            </div>
+            <!-- Major MOOCs (AI/ML + Software Engineering) -->
+            <ul class="certifications-grid" id="major-moocs">
+              <li class="cert-item-no-img">
+                <div class="cert-header">
+                  <div class="cert-icon"><ion-icon name="chatbubble-ellipses-outline"></ion-icon></div>
+                  <div class="cert-header-content">
+                    <h3 class="h3 cert-title">Introduction to Large Language Models (LLMs)</h3>
+                    <p class="cert-category">NPTEL (IIT Madras) / October 2025</p>
+                  </div>
+                </div>
+                <p class="cert-description">Foundations of Transformer architectures, attention, pre-training, and fine-tuning pipelines for production-grade LLMs.</p>
+                <p class="cert-skills"><strong>Skills:</strong> LLMs, Deep Learning, Generative AI</p>
+              </li>
+              <li class="cert-item-no-img">
+                <div class="cert-header">
+                  <div class="cert-icon"><ion-icon name="school-outline"></ion-icon></div>
+                  <div class="cert-header-content">
+                    <h3 class="h3 cert-title">Introduction to Software Engineering</h3>
+                    <p class="cert-category">Coursera (IBM) / October 2025</p>
+                  </div>
+                </div>
+                <p class="cert-description">Practical overview of SDLC, version control, modular design, and collaborative engineering workflows.</p>
+                <p class="cert-skills"><strong>Skills:</strong> Software Engineering Fundamentals</p>
+              </li>
+              <li class="cert-item-no-img">
+                <div class="cert-header">
+                  <div class="cert-icon"><ion-icon name="color-palette-outline"></ion-icon></div>
+                  <div class="cert-header-content">
+                    <h3 class="h3 cert-title">GenAI for UX Designers</h3>
+                    <p class="cert-category">Coursera / April 2025</p>
+                  </div>
+                </div>
+                <p class="cert-description">Applying generative AI concepts to user flows, ideation, prototyping and UX augmentation.</p>
+                <p class="cert-skills"><strong>Skills:</strong> Generative AI, UX Augmentation</p>
+              </li>
+              <li class="cert-item-no-img">
+                <div class="cert-header">
+                  <div class="cert-icon"><ion-icon name="cloud-outline"></ion-icon></div>
+                  <div class="cert-header-content">
+                    <h3 class="h3 cert-title">Generative AI Learning Path Specialization</h3>
+                    <p class="cert-category">Coursera (Google Cloud) / April 2025</p>
+                  </div>
+                </div>
+                <p class="cert-description">End-to-end GenAI: model lifecycle, responsible AI, prompt patterns, and deployment on cloud infra.</p>
+                <p class="cert-skills"><strong>Skills:</strong> GenAI, Responsible AI, Cloud Deployment</p>
+              </li>
+              <li class="cert-item-no-img">
+                <div class="cert-header">
+                  <div class="cert-icon"><ion-icon name="flash-outline"></ion-icon></div>
+                  <div class="cert-header-content">
+                    <h3 class="h3 cert-title">Prompt Engineering</h3>
+                    <p class="cert-category">Coursera (Infosys Springboard) / April 2025</p>
+                  </div>
+                </div>
+                <p class="cert-description">System, user, and chain prompts; evaluation strategies to improve reliability and output quality.</p>
+                <p class="cert-skills"><strong>Skills:</strong> Prompt Design, LLM Interaction</p>
+              </li>
+              <li class="cert-item-no-img">
+                <div class="cert-header">
+                  <div class="cert-icon"><ion-icon name="bar-chart-outline"></ion-icon></div>
+                  <div class="cert-header-content">
+                    <h3 class="h3 cert-title">Google Data Analytics</h3>
+                    <p class="cert-category">Coursera (Google Career Cert) / July 2025</p>
+                  </div>
+                </div>
+                <p class="cert-description">Cleaning, visualization & descriptive analysis workflows using SQL and R tooling.</p>
+                <p class="cert-skills"><strong>Skills:</strong> SQL, R, Data Analysis</p>
+              </li>
+            </ul>
+            <button class="more-certs-btn" id="more-certs-btn" type="button">Show Additional MOOCs</button>
+            <!-- Minor / Additional MOOCs (non AI/ML or peripheral domains) -->
+            <ul class="certifications-grid hidden" id="additional-moocs" aria-hidden="true">
+              <li class="cert-item-no-img">
+                <div class="cert-header">
+                  <div class="cert-icon"><ion-icon name="logo-python"></ion-icon></div>
+                  <div class="cert-header-content">
+                    <h3 class="h3 cert-title">Programming, Data Structures & Algorithms Using Python</h3>
+                    <p class="cert-category">NPTEL (IIT Madras) / Sept 2021</p>
+                  </div>
+                </div>
+                <p class="cert-skills"><strong>Skills:</strong> Python, Algorithms, Data Structures</p>
+              </li>
+              <li class="cert-item-no-img">
+                <div class="cert-header">
+                  <div class="cert-icon"><ion-icon name="navigate-outline"></ion-icon></div>
+                  <div class="cert-header-content">
+                    <h3 class="h3 cert-title">Wheeled Mobile Robots</h3>
+                    <p class="cert-category">NPTEL (IIT Madras) / Mar 2024</p>
+                  </div>
+                </div>
+                <p class="cert-skills"><strong>Skills:</strong> Mobile Robotics</p>
+              </li>
+              <li class="cert-item-no-img">
+                <div class="cert-header">
+                  <div class="cert-icon"><ion-icon name="construct-outline"></ion-icon></div>
+                  <div class="cert-header-content">
+                    <h3 class="h3 cert-title">Automation in Production Systems & Management</h3>
+                    <p class="cert-category">NPTEL (IIT Kharagpur) / Oct 2023</p>
+                  </div>
+                </div>
+                <p class="cert-skills"><strong>Skills:</strong> Industrial Automation</p>
+              </li>
+              <li class="cert-item-no-img">
+                <div class="cert-header">
+                  <div class="cert-icon"><ion-icon name="hardware-chip-outline"></ion-icon></div>
+                  <div class="cert-header-content">
+                    <h3 class="h3 cert-title">Industrial Robots Skill Development Program</h3>
+                    <p class="cert-category">Siemens CoE (NIT Trichy) / May 2023</p>
+                  </div>
+                </div>
+                <p class="cert-skills"><strong>Skills:</strong> Robot Manipulation, RPA</p>
+              </li>
+            </ul>
+          </section>
+        </article>
 
-          <section class="certifications-list">
-            <h3 class="h3 title-box-text">MOOC Courses</h3>
-            <ul class="project-grid" id="major-moocs"></ul>
-            <button class="form-btn" id="more-certs-btn" style="margin-top: 30px;">Show Additional MOOCs</button>
-            <ul class="project-grid hidden" id="additional-moocs" style="margin-top: 30px;"></ul>
+        <article class="blog" data-page="blog" style="display: none;">
+          <header>
+            <h2 class="h2 article-title">Blog</h2>
+          </header>
+          <section class="blog-posts">
+            <p class="placeholder-text">
+              No blog posts yet. Check back soon!
+            </p>
           </section>
         </article>
 
@@ -242,7 +706,6 @@
           <header>
             <h2 class="h2 article-title">Get In Touch</h2>
           </header>
-
           <section class="contact-form-box">
             <form action="https://getform.io/f/adrddnka" method="POST" class="form" data-form>
               <div class="input-wrapper">
@@ -273,7 +736,8 @@
           <div class="chat-message bot">
             Hi there! I'm Ashvin's AI assistant. Please select a topic to learn more.
           </div>
-          <div class="suggested-questions"></div>
+          <div class="suggested-questions">
+            </div>
         </div>
       </div>
     </div>
@@ -286,13 +750,15 @@
         <div class="modal-body">
           <h3 class="h3 modal-title">Project Title</h3>
           <p class="modal-category">Category</p>
-          <div class="modal-text-content"></div>
+          <div class="modal-text-content">
+            </div>
         </div>
       </div>
     </div>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js" defer></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js" defer></script>
-    <script type="module" src="script.js"></script>
+    <script src="script.js" defer></script>
+
   </body>
 </html>
