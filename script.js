@@ -687,8 +687,9 @@ function initProjectFilter() {
   if (!filterBtns.length || !projectItems.length) return;
   filterBtns.forEach(btn => {
     btn.addEventListener("click", function() {
-      filterBtns.forEach(b => b.classList.remove("active"));
-      this.classList.add("active");
+          filterBtns.forEach(b => b.classList.remove("active"));
+          this.classList.add("active");
+          filterBtns.forEach(b => b.setAttribute('aria-pressed', b.classList.contains('active') ? 'true' : 'false'));
       const filterValue = this.dataset.filter;
             projectItems.forEach(item => {
                 const itemCategories = (item.dataset.category || '').split(/\s+/);
@@ -774,7 +775,8 @@ function initMoreProjectsToggle() {
         if (isHidden) {
             list.classList.remove('hidden');
             btn.textContent = 'Hide Additional Projects';
-            list.setAttribute('aria-hidden', 'false');
+                        list.setAttribute('aria-hidden', 'false');
+                        btn.setAttribute('aria-expanded', 'true');
             requestAnimationFrame(() => {
                 list.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             });
@@ -783,6 +785,7 @@ function initMoreProjectsToggle() {
             btn.textContent = 'Show Additional Projects';
             setTimeout(() => {
                 list.setAttribute('aria-hidden', 'true');
+                btn.setAttribute('aria-expanded', 'false');
             }, 400);
         }
     });

@@ -41,8 +41,8 @@ https://ashvinmanojk289.github.io
 ├── assets/             # Images, favicon, resume, vCard
 │   ├── profile-dark.jpg
 │   ├── profile-light.jpg (referenced conditionally by theme)
-│   ├── resume.jpg
-│   ├── resume.pdf
+│   ├── Ashvin Manoj Resume.jpg
+│   ├── Ashvin Manoj Resume.pdf
 │   ├── ashvinmanoj.vcf
 │   └── favicon.png
 └── README.md           # Project documentation
