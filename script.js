@@ -292,15 +292,15 @@ function initChatAssistant() {
         'root': {
             'isAnswer': false,
             'questions': [
-                { 'text': "What are his top skills?", 'next': 'skills_1' },
-                { 'text': "Tell me about his projects.", 'next': 'projects_1' },
-                { 'text': "What's his professional experience?", 'next': 'experience_1' },
-                { 'text': "What are his achievements?", 'next': 'achievements_1' }
+                { 'text': "What does he specialize in?", 'next': 'skills_1' },
+                { 'text': "Show featured projects", 'next': 'projects_1' },
+                { 'text': "Tell me about his current roles", 'next': 'experience_1' },
+                { 'text': "Publications & certifications", 'next': 'achievements_1' }
             ]
         },
         'skills_1': {
             'isAnswer': true,
-            'answer': "Ashvin specializes in AI/ML, Deep Learning, NLP, Computer Vision, and Robotics. His tech stack includes PyTorch, TensorFlow, ROS, Python, C++, Java, JavaScript, and cloud platforms.",
+            'answer': "Ashvin specializes in AI/ML, deep learning, NLP, computer vision, and robotics. His core stack includes PyTorch, TensorFlow, Transformers, ROS, Python, C++, Java, JavaScript, SQL, and practical deployment tools like Flask, Streamlit, Docker, and Git.",
             'questions': [
                 { 'text': "More on AI/ML skills", 'next': 'skills_2_ml' },
                 { 'text': "What programming languages?", 'next': 'skills_2_lang' },
@@ -310,19 +310,20 @@ function initChatAssistant() {
         },
         'projects_1': {
             'isAnswer': true,
-            'answer': "His key projects include: Alzheimer's Disease Classification (Multimodal Graph Learning), Weed Detection Robot (97% accuracy), Multilingual Audio Translator (92% accuracy), and PDF Query Application.",
+            'answer': "Featured projects include Health Mind AI (privacy-first clinical AI platform), Multimodal Graph Learning for early Alzheimer's classification, a Weed Detection Robot with ROS + deep learning, the Multilingual News Audio Translator, and a PDF Query Application for natural-language document search.",
             'questions': [
                 { 'text': "Alzheimer's Disease project?", 'next': 'projects_2_alzheimers' },
                 { 'text': "How does the Weed Robot work?", 'next': 'projects_2_robot' },
-                { 'text': "Tell me about the PDF Query app.", 'next': 'projects_2_pdf' },
-                { 'text': "More on the Audio Translator.", 'next': 'projects_2_audio' }
+                { 'text': "Tell me about the PDF Query app", 'next': 'projects_2_pdf' },
+                { 'text': "More on the Audio Translator", 'next': 'projects_2_audio' }
             ]
         },
         'experience_1': {
             'isAnswer': true,
-            'answer': "Currently a Data Science Intern at Mastermine Technologies (Aug 2025-Present). Previously worked at Sunlux Technovations (Feb-Apr 2024), SMEC Automation, and Sinro Robotics.",
+            'answer': "Current roles: Teaching Assistant (Part-time) at Rajagiri School of Engineering and Technology (Dec 2025-Present) and Software Engineer Intern at Mastermine Technologies (Aug 2025-Present). Previous internships include Sunlux Technovations, SMEC Automation, and Sinro Robotics.",
             'questions': [
                 { 'text': "What does he do at Mastermine?", 'next': 'experience_2_mastermine' },
+                { 'text': "What does he do as a Teaching Assistant?", 'next': 'experience_2_ta' },
                 { 'text': "What did he do at Sunlux?", 'next': 'experience_2_sunlux' },
                 { 'text': "What's his education?", 'next': 'education_1' },
                 { 'text': "Back to start", 'next': 'root' }
@@ -360,7 +361,7 @@ function initChatAssistant() {
         },
         'achievements_1': {
             'isAnswer': true,
-            'answer': "Published 'A Hybrid Transformer Model Approach for Precision Weed Detection' at IEEE ACCESS 2025. Completed certifications in LLMs (NPTEL IIT Madras), Google Data Analytics, GenAI (Google Cloud), and more.",
+            'answer': "Highlights include an IEEE ACCESS 2025 publication on hybrid transformer-based precision weed detection, plus certifications in LLMs, software engineering, data analytics, prompt engineering, and industrial automation from NPTEL, IBM, Google, Infosys, and Siemens programs.",
             'questions': [
                 { 'text': "Tell me about the publication", 'next': 'achievements_2_publication' },
                 { 'text': "What certifications does he have?", 'next': 'achievements_2_certs' },
@@ -380,7 +381,7 @@ function initChatAssistant() {
         },
         'achievements_2_certs': {
             'isAnswer': true,
-            'answer': "Recent certifications: Introduction to LLMs (NPTEL IIT Madras), Software Engineering (IBM), Google Data Analytics, GenAI for UX, GenAI Learning Path (Google Cloud), Prompt Engineering (Infosys), and more from NPTEL and Siemens.",
+            'answer': "Recent certifications include Introduction to LLMs (NPTEL IIT Madras), Software Engineering (IBM), Google Data Analytics, GenAI for UX, Google Cloud GenAI Learning Path, Prompt Engineering (Infosys), and additional NPTEL/Siemens credentials.",
             'questions': [
                 { 'text': "Tell me about the publication", 'next': 'achievements_2_publication' },
                 { 'text': "What are his skills?", 'next': 'skills_1' },
@@ -390,7 +391,7 @@ function initChatAssistant() {
         },
         'projects_2_alzheimers': {
             'isAnswer': true,
-            'answer': "An ongoing deep learning project (85% complete) using multimodal graph learning to classify Cognitively Normal (CN), Mild Cognitive Impairment (MCI), and Alzheimer's Disease subjects for early diagnosis.",
+            'answer': "This ongoing deep learning project uses multimodal graph learning to classify Cognitively Normal (CN), Mild Cognitive Impairment (MCI), and Alzheimer's Disease subjects for earlier and more reliable diagnosis support.",
             'questions': [
                 { 'text': "See other projects", 'next': 'projects_1' },
                 { 'text': "What's his AI/ML expertise?", 'next': 'skills_2_ml' },
@@ -420,7 +421,7 @@ function initChatAssistant() {
         },
         'projects_2_audio': {
             'isAnswer': true,
-            'answer': "A full-stack multilingual audio translator using Wav2Vec 2.0 (92% speech recognition accuracy) and fine-tuned mBART for translation. Includes Flask UI and supports multiple languages.",
+            'answer': "A full-stack multilingual audio translator built with Wav2Vec 2.0 for speech recognition and fine-tuned mBART for translation, delivered with a Flask interface for practical multi-language audio workflows.",
             'questions': [
                 { 'text': "See other projects", 'next': 'projects_1' },
                 { 'text': "What's his NLP expertise?", 'next': 'skills_2_ml' },
@@ -428,9 +429,19 @@ function initChatAssistant() {
                 { 'text': "Back to start", 'next': 'root' }
             ]
         },
+        'experience_2_ta': {
+            'isAnswer': true,
+            'answer': "As a Teaching Assistant, he conducts lab sessions for 3rd-year, 6th-semester students, including record evaluation, viva facilitation, experiment output verification, and exam support.",
+            'questions': [
+                { 'text': "What does he do at Mastermine?", 'next': 'experience_2_mastermine' },
+                { 'text': "What did he do at Sunlux?", 'next': 'experience_2_sunlux' },
+                { 'text': "What's his education?", 'next': 'education_1' },
+                { 'text': "Back to start", 'next': 'root' }
+            ]
+        },
         'experience_2_mastermine': {
             'isAnswer': true,
-            'answer': "At Mastermine Technologies, he's building a cross-platform desktop app for photographers using Java Spring, React.js, and Electron.js. Also developed an async photo-matching system with RabbitMQ and a multi-agent LLM framework for data insights.",
+            'answer': "At Mastermine Technologies, he contributes to a cross-platform desktop app for photographers using Java Spring, React.js, and Electron.js. He also built an asynchronous photo-matching pipeline with Spring Scheduler + RabbitMQ and developed a multi-agent LLM-based data insight framework.",
             'questions': [
                 { 'text': "See other experience", 'next': 'experience_1' },
                 { 'text': "What are his AI/ML skills?", 'next': 'skills_2_ml' },
@@ -450,7 +461,7 @@ function initChatAssistant() {
         },
         'education_1': {
             'isAnswer': true,
-            'answer': "Currently pursuing M.Tech in Computer Science & Engineering (AI/ML) at Rajagiri School of Engineering (CGPA: 9.49). Holds B.Tech (Honours) in Robotics & Automation from Adi Shankara Institute (CGPA: 9.54).",
+            'answer': "He is currently pursuing an M.Tech in Computer Science & Engineering (AI/ML) at Rajagiri School of Engineering and Technology (CGPA: 9.64) and holds a B.Tech (Honours) in Robotics & Automation from Adi Shankara Institute of Engineering and Technology (CGPA: 9.54).",
             'questions': [
                 { 'text': "What's his experience?", 'next': 'experience_1' },
                 { 'text': "What are his achievements?", 'next': 'achievements_1' },
@@ -513,7 +524,7 @@ function initChatAssistant() {
             chatWindow.classList.add('active');
             chatBody.innerHTML = `
               <div class="chat-message bot">
-                Hi there! I'm Ashvin's AI assistant. Please select a topic to learn more.
+                                Hi! I’m Ashvin’s portfolio assistant. Choose a topic below to explore skills, projects, experience, and achievements.
               </div>
             `;
             requestAnimationFrame(() => renderNode('root'));
