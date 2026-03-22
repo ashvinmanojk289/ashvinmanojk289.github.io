@@ -13,7 +13,6 @@ https://ashvinmanojk289.github.io
 - Dark / Light theme toggle with persistent preference (localStorage)
 - Dynamic typing effect ("Engineer", "Developer", etc.)
 - Animated AI background (network-style canvas nodes with adaptive theme coloring)
-- Custom cursor (desktop only; falls back gracefully on touch devices)
 - Smooth page navigation with animated section transitions & heading animation
 - Swipe navigation for mobile (left/right to change sections)
 - Project filtering (category buttons) + expandable case study accordions
@@ -21,14 +20,13 @@ https://ashvinmanojk289.github.io
 - GitHub stats panel (public repositories + recent activity via GitHub REST API)
 - Resume preview with direct PDF download
 - Contact form (integrated with Getform.io endpoint)
-- Rule-based AI Assistant (in-page chatbot using a conversation tree)
 - Accessibility-friendly semantics (ARIA labels, alt text, focusable controls) and progressive enhancements
 - Downloadable vCard (`assets/ashvinmanoj.vcf`)
 
 ## Technology Stack
 - Core: HTML5, CSS3 (custom variables & theming), Vanilla JavaScript (ES6+)
 - Icons: [Ionicons 5.5.2 CDN]
-- Fonts: Google Fonts (Poppins, Roboto)
+- Fonts: Google Fonts (Plus Jakarta Sans, IBM Plex Sans)
 - Hosting: GitHub Pages
 - External API: GitHub REST API (public stats)
 - Form backend: Getform.io
@@ -53,28 +51,16 @@ Initialization sequence (DOMContentLoaded):
 1. `initPageNavigation()` – Activates SPA-like navigation via data attributes.
 2. `initCaseStudyAccordion()` – Expand/collapse project case study details.
 3. `initProjectFilter()` – Category-based project grid filtering.
-4. `initCertAccordion()` – (Prepared for accordion behavior in certifications; currently static cards.)
-5. `initLoadingSpinner()` – Graceful page load spinner removal (timeout fallback).
-6. `initCustomCursor()` – Inertial cursor animation (desktop only).
+4. `initMoreCertsToggle()` – Shows/hides additional certification cards.
+5. `initMoreProjectsToggle()` – Shows/hides additional project cards.
+6. `initLoadingSpinner()` – Graceful page load spinner removal (timeout fallback).
 7. `initTypingEffect()` – Cycles through descriptor words in the hero subtitle.
 8. `initCurrentYear()` – Utility hook (placeholder for footer/year usage).
 9. `initThemeSwitcher()` – Applies and persists theme; swaps avatar image.
 10. `fetchGitHubStats()` – Fetches user stats + recent repos.
-11. `initChatAssistant()` – Conversation tree–driven rule-based chatbot.
-12. `initAIBg()` – Animated canvas node network with theme-aware coloring & light motion physics.
-13. `initSwipeNavigation()` – Mobile touch gestures for horizontal navigation between sections.
-
-Conversation logic: The AI Assistant uses a nested `conversationTree` object. Each node has:
-```js
-{
-  isAnswer: true|false,
-  answer: "...",       // present when isAnswer = true
-  questions: [          // array of follow-up options
-    { text: "Display label", next: "node_id" }
-  ]
-}
-```
-Rendering includes a brief artificial "thinking" spinner before answers for UX polish.
+11. `initAIBg()` – Animated canvas node network with theme-aware coloring & light motion physics.
+12. `initSwipeNavigation()` – Mobile touch gestures for horizontal navigation between sections.
+13. `initContactFormEnhancements()` – Handles anti-spam honeypot and async submission UX.
 
 ## Theming
 - Implemented via `data-theme` attribute on `<html>` with two palettes (`dark`, `light`).
@@ -105,12 +91,6 @@ Toggle logic expects a sibling `.project-case-study-content` div. Keep structure
 <button class="project-link-btn case-study-btn"> <span>Case Study</span> <ion-icon ...></ion-icon></button>
 <div class="project-case-study-content"> ... </div>
 ```
-
-### Chat Assistant Conversation Tree
-Modify `conversationTree` in `script.js`:
-- Add a new node: provide unique key, `isAnswer`, optional `answer`, and `questions`.
-- Ensure all `next` values reference existing keys.
-- Keep replies concise; avoid excessive nesting for usability.
 
 ### Theme Colors
 Adjust variable sets in `style.css` under `html[data-theme="dark"]` or `html[data-theme="light"]`. Example:
@@ -183,7 +163,6 @@ Navigate to `http://localhost:8000` (Python) or printed URL for `serve`.
 ## Performance & UX Notes
 - Canvas animation throttles via basic frame interval & visibility API.
 - Case study accordions limit open panels to reduce layout shifts.
-- Custom cursor disabled on coarse pointers (mobile/tablet) for performance & usability.
 - Minimal blocking scripts: Ionicons loaded via CDN modules; main script at bottom of body.
 
 ## Accessibility Considerations
@@ -191,7 +170,7 @@ Navigate to `http://localhost:8000` (Python) or printed URL for `serve`.
 - `aria-label` usage on icon links.
 - High-contrast accent colors per theme.
 - Focus targets are standard interactive elements (no intrusive outline removal).
-Future Improvement: Add skip link, refine focus ring styling, ensure keyboard toggling for chat assistant button states.
+Future Improvement: Add skip link and conduct a full keyboard-flow audit across section toggles.
 
 ## Security & Privacy
 - Contact form posts directly to Getform: review Getform's retention policy if handling sensitive data.
@@ -203,7 +182,6 @@ Future Improvement: Add skip link, refine focus ring styling, ensure keyboard to
 - Accessibility audit (WCAG contrast & keyboard navigation refinements)
 - Minify CSS/JS for faster PageSpeed scores
 - Add service worker for offline caching (static assets)
-- Integrate Open Source LLM (browser-run) for richer assistant beyond rule tree
 - Lazy-load heavy sections when scrolled into view
 
 ## Contributing
