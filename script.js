@@ -86,6 +86,14 @@ function initPremiumExperience() {
     const navbar = document.querySelector('.navbar');
     const revealTargets = document.querySelectorAll('.content-card, .service-item, .project-item-no-img, .timeline-item-body, .cert-item-no-img, .pub-item-card, .recognition-item-body');
 
+    const updateScrollState = () => {
+        const currentScrollY = window.scrollY;
+        if (navbar) {
+            navbar.classList.toggle('scrolled', currentScrollY > 12);
+        }
+        document.body.classList.toggle('is-scrolled', currentScrollY > 12);
+    };
+
     if (typeof IntersectionObserver !== 'function') {
         revealTargets.forEach(item => item.classList.add('is-visible'));
         enhanceSkillPills();
@@ -126,26 +134,27 @@ function initPremiumExperience() {
         });
     };
 
+    let scrollFrameId = 0;
     const onScroll = () => {
-        updateScrollState();
-        const scrollRatio = Math.min(window.scrollY / Math.max(document.body.scrollHeight - window.innerHeight, 1), 1);
-        root.style.setProperty('--scroll-progress', scrollRatio.toFixed(4));
+        if (scrollFrameId) return;
+        scrollFrameId = window.requestAnimationFrame(() => {
+            const currentScrollY = window.scrollY;
+            if (navbar) {
+                navbar.classList.toggle('scrolled', currentScrollY > 12);
+            }
+            document.body.classList.toggle('is-scrolled', currentScrollY > 12);
+
+            const scrollRatio = Math.min(currentScrollY / Math.max(document.body.scrollHeight - window.innerHeight, 1), 1);
+            root.style.setProperty('--scroll-progress', scrollRatio.toFixed(4));
+            scrollFrameId = 0;
+        });
     };
 
     window.addEventListener('pointermove', onPointerMove, { passive: true });
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', updateScrollState, { passive: true });
 
-    if (navbar) {
-        navbar.classList.toggle('scrolled', window.scrollY > 12);
-    }
-
-    function updateScrollState() {
-        if (navbar) {
-            navbar.classList.toggle('scrolled', window.scrollY > 12);
-        }
-        document.body.classList.toggle('is-scrolled', window.scrollY > 12);
-    }
+    updateScrollState();
 }
 
 function enhanceSkillPills() {
@@ -255,7 +264,7 @@ function initThemeSwitcher() {
             // Remove after transition duration to avoid hover collision
             setTimeout(() => {
                 root.classList.remove('theme-transition-active');
-            }, 500);
+            }, 300);
         });
     }
 }
@@ -325,19 +334,26 @@ function initAIBg() {
     let mousePos = { x: -9999, y: -9999 };
     let mouseMoveTimeout;
 
+    // Cache theme state to avoid querying the DOM inside the animation loop
+    let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    let r = isDark ? 255 : 200;
+    let g = isDark ? 122 : 155;
+    let b = isDark ? 0 : 44;
+
+    // Use a MutationObserver to listen for changes on data-theme attribute on <html>
+    const themeObserver = new MutationObserver(() => {
+        isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        r = isDark ? 255 : 200;
+        g = isDark ? 122 : 155;
+        b = isDark ? 0 : 44;
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
     function resize() {
         width = window.innerWidth;
         height = window.innerHeight;
         canvas.width = width;
         canvas.height = height;
-    }
-
-    function themeColor(alpha) {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        const r = isDark ? 212 : 200;
-        const g = isDark ? 175 : 155;
-        const b = isDark ? 55 : 44;
-        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     }
 
     for (let i = 0; i < nodeCount; i++) {
@@ -364,6 +380,8 @@ function initAIBg() {
         ctx.lineWidth = 1;
         ctx.globalCompositeOperation = 'source-over';
 
+        const solidStyle = `rgba(${r}, ${g}, ${b}, 0.72)`;
+
         for (let i = 0; i < nodes.length; i++) {
             const a = nodes[i];
             a.x += a.vx;
@@ -374,10 +392,9 @@ function initAIBg() {
             if (a.x < 0 || a.x > width) a.vx *= -1;
             if (a.y < 0 || a.y > height) a.vy *= -1;
 
-            const time = Date.now() * 0.002;
-            const pulse = a.baseSize + Math.sin(time + a.phase) * 0.5;
+            const pulse = a.baseSize + Math.sin(now * 0.002 + a.phase) * 0.5;
 
-            ctx.fillStyle = themeColor(0.72);
+            ctx.fillStyle = solidStyle;
             ctx.beginPath();
             ctx.arc(a.x, a.y, Math.max(0, pulse), 0, Math.PI * 2);
             ctx.fill();
@@ -402,7 +419,8 @@ function initAIBg() {
                 const dist = Math.hypot(dx, dy);
 
                 if (dist < maxDist) {
-                    ctx.strokeStyle = themeColor(0.13 * (1 - dist / maxDist));
+                    const alpha = 0.13 * (1 - dist / maxDist);
+                    ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
                     ctx.beginPath();
                     ctx.moveTo(a.x, a.y);
                     ctx.lineTo(b.x, b.y);
