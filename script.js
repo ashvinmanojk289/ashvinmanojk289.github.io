@@ -43,7 +43,7 @@ function initTypingEffect() {
     const target = document.querySelector('.typing-effect');
     if (!target) return;
 
-    const words = ['Researcher', 'Intelligent Systems Developer', 'Multimodal AI Engineer', 'Builder'];
+    const words = ['AI Researcher', 'Multimodal AI & ML Engineer', 'Full Stack Developer', 'Robotics Engineer', 'ROS Developer'];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -325,24 +325,33 @@ function initAIBg() {
     let rafId;
     let lastDraw = 0;
     const FRAME_INTERVAL = 1000 / 60;
-    const nodeCount = window.innerWidth < 768 ? 18 : 48;
+    const nodeCount = window.innerWidth < 768 ? 24 : 64;
     const nodes = [];
     const maxConnPerNode = 3;
     let mousePos = { x: -9999, y: -9999 };
     let mouseMoveTimeout;
 
-    // Cache theme state to avoid querying the DOM inside the animation loop
+    // Cache theme state and colors dynamically
     let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    let r = isDark ? 255 : 200;
-    let g = isDark ? 122 : 155;
-    let b = isDark ? 0 : 44;
+    
+    // Theme-specific colors: Deep gold/purple in dark mode, rich high-contrast bronze/dark violet in light mode
+    let r1 = isDark ? 255 : 180;
+    let g1 = isDark ? 122 : 110;
+    let b1 = isDark ? 0 : 5;
+    
+    let r2 = isDark ? 139 : 100;
+    let g2 = isDark ? 92 : 45;
+    let b2 = isDark ? 246 : 210;
 
     // Use a MutationObserver to listen for changes on data-theme attribute on <html>
     const themeObserver = new MutationObserver(() => {
         isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        r = isDark ? 255 : 200;
-        g = isDark ? 122 : 155;
-        b = isDark ? 0 : 44;
+        r1 = isDark ? 255 : 180;
+        g1 = isDark ? 122 : 110;
+        b1 = isDark ? 0 : 5;
+        r2 = isDark ? 139 : 100;
+        g2 = isDark ? 92 : 45;
+        b2 = isDark ? 246 : 210;
     });
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
@@ -353,14 +362,26 @@ function initAIBg() {
         canvas.height = height;
     }
 
+    function getParticleColor(blend, alpha) {
+        const r = Math.round(r1 + (r2 - r1) * blend);
+        const g = Math.round(g1 + (g2 - g1) * blend);
+        const b = Math.round(b1 + (b2 - b1) * blend);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+
+    resize();
+
+    // Populate particles with physics, organic phases, and trail history arrays
     for (let i = 0; i < nodeCount; i++) {
         nodes.push({
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            vx: (Math.random() - 0.5) * 0.5,
-            vy: (Math.random() - 0.5) * 0.5,
-            baseSize: 1 + Math.random() * 2,
-            phase: Math.random() * Math.PI * 2
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            size: isDark ? (1.2 + Math.random() * 2.2) : (1.8 + Math.random() * 2.8), // Slightly larger in light mode for contrast
+            phase: Math.random() * Math.PI * 2,
+            colorBlend: Math.random(), // Dynamic gradient blend factor
+            history: [] // Motion trail cache
         });
     }
 
@@ -373,63 +394,103 @@ function initAIBg() {
         lastDraw = now;
 
         ctx.clearRect(0, 0, width, height);
-        const maxDist = Math.min(width, height) * 0.18;
-        ctx.lineWidth = 1;
-        ctx.globalCompositeOperation = 'source-over';
 
-        const solidStyle = `rgba(${r}, ${g}, ${b}, 0.72)`;
+        // Slowly shifting flow field values using trigonometric wave layers
+        const flowTime = now * 0.0002;
+        const maxDist = Math.min(width, height) * 0.16;
+        const maxDistSq = maxDist * maxDist;
 
         for (let i = 0; i < nodes.length; i++) {
             const a = nodes[i];
+
+            // 1. Organic Vector Flow Field
+            const flowAngle = Math.sin(a.x * 0.003 + flowTime) * Math.cos(a.y * 0.003 - flowTime) * Math.PI * 2;
+            const targetVx = Math.cos(flowAngle) * 0.32;
+            const targetVy = Math.sin(flowAngle) * 0.32;
+
+            // Smoothly drift towards current vectors
+            a.vx += (targetVx - a.vx) * 0.04;
+            a.vy += (targetVy - a.vy) * 0.04;
+
+            // 2. Cursor Swirling Attraction Vortex
+            if (mousePos.x > -9000) {
+                const dx = mousePos.x - a.x;
+                const dy = mousePos.y - a.y;
+                const dist = Math.hypot(dx, dy);
+
+                if (dist < 220) {
+                    const force = (220 - dist) / 220; // 0 (far) to 1 (near)
+                    
+                    // Gravitational attraction
+                    const pullX = (dx / dist) * force * 0.08;
+                    const pullY = (dy / dist) * force * 0.08;
+
+                    // Swirling vortex (perpendicular force)
+                    const vortexX = (-dy / dist) * force * 0.72;
+                    const vortexY = (dx / dist) * force * 0.72;
+
+                    a.vx += pullX + vortexX;
+                    a.vy += pullY + vortexY;
+                }
+            }
+
+            // Cap velocity to maintain smooth animation flow
+            const speed = Math.hypot(a.vx, a.vy);
+            if (speed > 2.0) {
+                a.vx = (a.vx / speed) * 2.0;
+                a.vy = (a.vy / speed) * 2.0;
+            }
+
+            // Update particle position
             a.x += a.vx;
             a.y += a.vy;
 
-            // Slow deceleration for mouse-induced high velocities, but maintain a base drift speed
-            const speed = Math.hypot(a.vx, a.vy);
-            if (speed > 0.4) {
-                a.vx *= 0.98;
-                a.vy *= 0.98;
-            } else if (speed < 0.15) {
-                const angle = Math.atan2(a.vy, a.vx) || Math.random() * Math.PI * 2;
-                a.vx = Math.cos(angle) * 0.15;
-                a.vy = Math.sin(angle) * 0.15;
+            // Boundary wrapping with clean borders
+            if (a.x < -30) a.x = width + 20;
+            if (a.x > width + 30) a.x = -20;
+            if (a.y < -30) a.y = height + 20;
+            if (a.y > height + 30) a.y = -20;
+
+            // Update motion history
+            a.history.push({ x: a.x, y: a.y });
+            if (a.history.length > 5) {
+                a.history.shift();
             }
 
-            if (a.x < 0 || a.x > width) a.vx *= -1;
-            if (a.y < 0 || a.y > height) a.vy *= -1;
+            // Draw motion trails with higher opacity in light mode
+            if (a.history.length > 1) {
+                ctx.beginPath();
+                ctx.moveTo(a.history[0].x, a.history[0].y);
+                for (let h = 1; h < a.history.length; h++) {
+                    ctx.lineTo(a.history[h].x, a.history[h].y);
+                }
+                ctx.lineWidth = a.size * 0.7;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.strokeStyle = getParticleColor(a.colorBlend, isDark ? 0.12 : 0.28);
+                ctx.stroke();
+            }
 
-            const pulse = a.baseSize + Math.sin(now * 0.002 + a.phase) * 0.5;
+            // Pulse particle core size dynamically
+            const pulse = a.size + Math.sin(now * 0.003 + a.phase) * 0.25;
 
-            // Concentric glowing layers for a premium neural starfield effect
+            // Dynamic concentric glowing core - higher opacity and visibility in light mode
             ctx.beginPath();
             ctx.arc(a.x, a.y, Math.max(0, pulse * 3.5), 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.05)`; // Broad ambient halo glow
-            ctx.fill();
-
-            ctx.beginPath();
-            ctx.arc(a.x, a.y, Math.max(0, pulse * 1.8), 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.22)`; // Inner soft glowing boundary
+            ctx.fillStyle = getParticleColor(a.colorBlend, isDark ? 0.04 : 0.10); // Broad glowing halo
             ctx.fill();
 
             ctx.beginPath();
             ctx.arc(a.x, a.y, Math.max(0, pulse), 0, Math.PI * 2);
-            ctx.fillStyle = solidStyle; // Crisp glowing core
+            ctx.fillStyle = getParticleColor(a.colorBlend, isDark ? 0.65 : 0.90); // Crisp core
             ctx.fill();
+        }
 
-            if (mousePos.x > -9000) {
-                const dxm = a.x - mousePos.x;
-                const dym = a.y - mousePos.y;
-                const distmSq = dxm * dxm + dym * dym;
-                if (distmSq < 22500 && distmSq > 0.01) { // 150^2 = 22500
-                    const distm = Math.sqrt(distmSq);
-                    const force = (150 - distm) / 150;
-                    a.vx += (dxm / distm) * force * 0.03;
-                    a.vy += (dym / distm) * force * 0.03;
-                }
-            }
-
+        // 3. Synaptic Neural Connections
+        for (let i = 0; i < nodes.length; i++) {
+            const a = nodes[i];
             let connections = 0;
-            const maxDistSq = maxDist * maxDist;
+
             for (let j = i + 1; j < nodes.length; j++) {
                 if (connections >= maxConnPerNode) break;
                 const b = nodes[j];
@@ -439,12 +500,34 @@ function initAIBg() {
 
                 if (distSq < maxDistSq) {
                     const dist = Math.sqrt(distSq);
-                    const alpha = 0.13 * (1 - dist / maxDist);
-                    ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+                    
+                    // High-contrast opacity calculation for light mode vs dark mode
+                    const baseAlpha = isDark ? 0.12 : 0.26;
+                    let alpha = baseAlpha * (1 - dist / maxDist);
+
+                    // Proximity check to cursor for the connection link
+                    const midX = (a.x + b.x) * 0.5;
+                    const midY = (a.y + b.y) * 0.5;
+                    let isLit = false;
+
+                    if (mousePos.x > -9000) {
+                        const distToCursor = Math.hypot(mousePos.x - midX, mousePos.y - midY);
+                        if (distToCursor < 180) {
+                            const litFactor = (180 - distToCursor) / 180;
+                            alpha += (isDark ? 0.24 : 0.38) * litFactor; // Dynamically light up connection
+                            isLit = true;
+                        }
+                    }
+
+                    const avgBlend = (a.colorBlend + b.colorBlend) * 0.5;
+                    ctx.strokeStyle = getParticleColor(avgBlend, alpha);
+                    ctx.lineWidth = isLit ? (isDark ? 1.2 : 1.6) : (isDark ? 0.6 : 0.95);
+
                     ctx.beginPath();
                     ctx.moveTo(a.x, a.y);
                     ctx.lineTo(b.x, b.y);
                     ctx.stroke();
+                    
                     connections++;
                 }
             }

@@ -931,6 +931,7 @@ main {
   transition: var(--transition-2);
   position: relative;
   z-index: 1;
+  overflow: hidden;
 }
 
 .sidebar-info {
@@ -1115,6 +1116,29 @@ main {
 
 .assistant-toggle-btn:hover::after {
   opacity: 1;
+}
+
+/* Premium breathing glow and pulse highlight for AI Chatbot Button */
+.assistant-toggle-btn.pulse-highlight {
+  animation: assistantBtnPulse 2.8s infinite cubic-bezier(0.25, 0, 0.3, 1);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent) !important;
+}
+
+@keyframes assistantBtnPulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 55%, transparent);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 10px color-mix(in srgb, var(--color-accent) 0%, transparent);
+    transform: scale(1.08);
+    background: color-mix(in srgb, var(--color-accent) 18%, var(--bg-content-hover));
+    color: var(--color-accent);
+  }
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 0%, transparent);
+    transform: scale(1);
+  }
 }
 
 .profile-cta {
@@ -1840,7 +1864,7 @@ main {
   pointer-events: none;
   opacity: 0.9;
   transition: opacity 0.4s ease;
-  mix-blend-mode: screen;
+  mix-blend-mode: normal;
 }
 
 .main-content {
@@ -1873,8 +1897,8 @@ main {
 }
 
 :root[data-theme="light"] #ai-bg {
-  mix-blend-mode: screen;
-  opacity: 0.55;
+  mix-blend-mode: normal;
+  opacity: 0.9;
 }
 
 /* ===== UI Refinement Layer ===== */
@@ -2208,7 +2232,7 @@ body::after {
 
 #ai-bg {
   opacity: 0.32;
-  mix-blend-mode: screen;
+  mix-blend-mode: normal;
 }
 
 .scene-orbs {
@@ -2293,6 +2317,7 @@ main,
   content: "";
   position: absolute;
   inset: 0;
+  border-radius: inherit;
   background: radial-gradient(circle at top, rgba(255, 122, 0, 0.05), transparent 40%), radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.04), transparent 35%);
   pointer-events: none;
 }
@@ -2751,6 +2776,7 @@ main,
 }
 
 .assistant-panel::before {
+  border-radius: inherit;
   background: var(--assistant-panel-reflection);
   opacity: 0.55;
 }
