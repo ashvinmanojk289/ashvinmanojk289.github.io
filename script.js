@@ -143,9 +143,6 @@ function initPremiumExperience() {
                 navbar.classList.toggle('scrolled', currentScrollY > 12);
             }
             document.body.classList.toggle('is-scrolled', currentScrollY > 12);
-
-            const scrollRatio = Math.min(currentScrollY / Math.max(document.body.scrollHeight - window.innerHeight, 1), 1);
-            root.style.setProperty('--scroll-progress', scrollRatio.toFixed(4));
             scrollFrameId = 0;
         });
     };
@@ -328,7 +325,7 @@ function initAIBg() {
     let rafId;
     let lastDraw = 0;
     const FRAME_INTERVAL = 1000 / 60;
-    const nodeCount = window.innerWidth < 768 ? 3 : 12;
+    const nodeCount = window.innerWidth < 768 ? 18 : 48;
     const nodes = [];
     const maxConnPerNode = 3;
     let mousePos = { x: -9999, y: -9999 };
@@ -386,24 +383,45 @@ function initAIBg() {
             const a = nodes[i];
             a.x += a.vx;
             a.y += a.vy;
-            a.vx *= 0.995;
-            a.vy *= 0.995;
+
+            // Slow deceleration for mouse-induced high velocities, but maintain a base drift speed
+            const speed = Math.hypot(a.vx, a.vy);
+            if (speed > 0.4) {
+                a.vx *= 0.98;
+                a.vy *= 0.98;
+            } else if (speed < 0.15) {
+                const angle = Math.atan2(a.vy, a.vx) || Math.random() * Math.PI * 2;
+                a.vx = Math.cos(angle) * 0.15;
+                a.vy = Math.sin(angle) * 0.15;
+            }
 
             if (a.x < 0 || a.x > width) a.vx *= -1;
             if (a.y < 0 || a.y > height) a.vy *= -1;
 
             const pulse = a.baseSize + Math.sin(now * 0.002 + a.phase) * 0.5;
 
-            ctx.fillStyle = solidStyle;
+            // Concentric glowing layers for a premium neural starfield effect
+            ctx.beginPath();
+            ctx.arc(a.x, a.y, Math.max(0, pulse * 3.5), 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.05)`; // Broad ambient halo glow
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(a.x, a.y, Math.max(0, pulse * 1.8), 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.22)`; // Inner soft glowing boundary
+            ctx.fill();
+
             ctx.beginPath();
             ctx.arc(a.x, a.y, Math.max(0, pulse), 0, Math.PI * 2);
+            ctx.fillStyle = solidStyle; // Crisp glowing core
             ctx.fill();
 
             if (mousePos.x > -9000) {
                 const dxm = a.x - mousePos.x;
                 const dym = a.y - mousePos.y;
-                const distm = Math.hypot(dxm, dym);
-                if (distm < 150 && distm > 0.1) {
+                const distmSq = dxm * dxm + dym * dym;
+                if (distmSq < 22500 && distmSq > 0.01) { // 150^2 = 22500
+                    const distm = Math.sqrt(distmSq);
                     const force = (150 - distm) / 150;
                     a.vx += (dxm / distm) * force * 0.03;
                     a.vy += (dym / distm) * force * 0.03;
@@ -411,14 +429,16 @@ function initAIBg() {
             }
 
             let connections = 0;
+            const maxDistSq = maxDist * maxDist;
             for (let j = i + 1; j < nodes.length; j++) {
                 if (connections >= maxConnPerNode) break;
                 const b = nodes[j];
                 const dx = a.x - b.x;
                 const dy = a.y - b.y;
-                const dist = Math.hypot(dx, dy);
+                const distSq = dx * dx + dy * dy;
 
-                if (dist < maxDist) {
+                if (distSq < maxDistSq) {
+                    const dist = Math.sqrt(distSq);
                     const alpha = 0.13 * (1 - dist / maxDist);
                     ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
                     ctx.beginPath();

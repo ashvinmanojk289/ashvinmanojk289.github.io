@@ -332,7 +332,7 @@ body.assistant-active {
   flex-wrap: wrap;
 }
 .timeline-item-body {
-  background: var(--bg-content-light);
+  background: var(--bg-content);
   border: 1px solid var(--border-color);
   border-radius: 14px;
   padding: 14px 16px;
@@ -433,17 +433,16 @@ body.assistant-active {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 0;
-  height: 0;
+  width: 120%;
+  padding-bottom: 120%;
   border-radius: 50%;
   background: var(--color-accent);
-  transform: translate(-50%, -50%);
-  transition: width 0.4s ease, height 0.4s ease;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: -1;
 }
 .more-certs-btn:hover::before {
-  width: 300px;
-  height: 300px;
+  transform: translate(-50%, -50%) scale(2.2);
 }
 .more-certs-btn:hover {
   color: var(--bg-main);
@@ -477,17 +476,16 @@ body.assistant-active {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 0;
-  height: 0;
+  width: 120%;
+  padding-bottom: 120%;
   border-radius: 50%;
   background: var(--color-accent);
-  transform: translate(-50%, -50%);
-  transition: width 0.4s ease, height 0.4s ease;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: -1;
 }
 .more-projects-btn:hover::before {
-  width: 300px;
-  height: 300px;
+  transform: translate(-50%, -50%) scale(2.2);
 }
 .more-projects-btn:hover {
   color: var(--bg-main);
@@ -501,7 +499,7 @@ body.assistant-active {
 
 .cert-item-no-img {
   padding: 25px;
-  background: var(--bg-content-light);
+  background: var(--bg-content);
   border-radius: 16px;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-1);
@@ -602,7 +600,7 @@ body.assistant-active {
 
 .pub-item-card {
   padding: 25px;
-  background: var(--bg-content-light);
+  background: var(--bg-content);
   border-radius: 16px;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-1);
@@ -778,8 +776,7 @@ body.assistant-active {
 
 .experience .timeline.timeline-themed .timeline-item-body {
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 10%, var(--bg-content-light) 90%) 0%, var(--bg-content-light) 60%),
-    var(--bg-content-light);
+    linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 8%, var(--bg-content) 92%) 0%, var(--bg-content) 100%);
   border-color: color-mix(in srgb, var(--color-accent) 25%, var(--border-color) 75%);
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
@@ -1148,18 +1145,16 @@ main {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 0;
-  height: 0;
+  width: 120%;
+  padding-bottom: 120%;
   border-radius: 50%;
   background: var(--color-accent);
-  transform: translate(-50%, -50%);
-  transition: width 0.4s ease, height 0.4s ease;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: -1;
 }
-
 .profile-cta-btn:hover::before {
-  width: 300px;
-  height: 300px;
+  transform: translate(-50%, -50%) scale(2.2);
 }
 
 .profile-cta-btn:hover {
@@ -1215,19 +1210,6 @@ main {
   overflow: visible;
 }
 
-.main-content::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 2px;
-  width: 100%;
-  background: linear-gradient(90deg, var(--color-accent), var(--accent-secondary));
-  transform: scaleX(var(--scroll-progress, 0));
-  transform-origin: left center;
-  opacity: 0.85;
-  pointer-events: none;
-}
 
 .navbar {
   position: static;
@@ -1293,7 +1275,7 @@ main {
 }
 .service-item {
   position: relative;
-  background: var(--bg-content-light);
+  background: var(--bg-content);
   padding: 25px;
   border-radius: 16px;
   border: 1px solid var(--border-color);
@@ -1326,7 +1308,7 @@ main {
 }
 
 .current-focus .service-item {
-  background: linear-gradient(180deg, color-mix(in srgb, var(--bg-content-light) 94%, white 6%) 0%, var(--bg-content-light) 100%);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 6%, var(--bg-content) 94%) 0%, var(--bg-content) 100%);
 }
 
 .github-stats {
@@ -1375,7 +1357,7 @@ main {
 
 .skills-list {
   padding: 30px;
-  background: var(--bg-content-light);
+  background: var(--bg-content);
   border-radius: 16px;
   border: 1px solid var(--border-color);
   margin-bottom: 0;
@@ -1454,7 +1436,7 @@ main {
 
 .project-item-no-img {
   padding: 25px;
-  background: var(--bg-content-light);
+  background: var(--bg-content);
   border-radius: 16px;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-1);
@@ -1556,16 +1538,6 @@ main {
 @media (min-width: 580px) {
   :root { --fs-1: 36px; --fs-2: 28px; --fs-3: 22px; --fs-4: 18px; }
   main { margin: 30px; }
-  .sidebar { 
-    width: 300px; 
-    margin-bottom: 0; 
-    flex-shrink: 0; 
-    align-self: flex-start;
-    position: sticky;
-    top: 30px;
-  }
-  main { display: flex; gap: 30px; }
-  .main-content { width: 100%; min-width: 0; }
   
   .navbar { 
     position: absolute;
@@ -1617,14 +1589,23 @@ main {
 
 @media (min-width: 1024px) {
   :root { --fs-1: 42px; --fs-2: 30px; --fs-3: 24px; --fs-4: 18px; }
-  main { margin: 60px 30px; max-width: 1200px; margin-inline: auto; gap: 40px; }
+  main { 
+    display: flex; 
+    gap: 40px; 
+    margin: 60px auto; 
+    max-width: 1200px; 
+  }
   .sidebar { 
     width: 350px; 
+    margin-bottom: 0;
+    flex-shrink: 0;
+    align-self: flex-start;
+    position: sticky;
+    top: 60px;
     padding: 40px; 
-    top: 60px; 
   }
   .avatar-box { width: 150px; height: 150px; }
-  .main-content { padding: 40px; }
+  .main-content { padding: 40px; width: 100%; min-width: 0; }
   .service-list { grid-template-columns: 1fr 1fr; }
   .github-activity-item { grid-column: 1 / -1; }
 }
@@ -2241,35 +2222,53 @@ body::after {
 .scene-orb {
   position: absolute;
   border-radius: 999px;
-  filter: blur(40px);
-  opacity: 0.24;
+  filter: blur(120px);
+  opacity: 0.32;
+  mix-blend-mode: screen;
+}
+
+:root[data-theme="light"] .scene-orb {
+  mix-blend-mode: multiply;
+  opacity: 0.22;
 }
 
 .scene-orb-a {
-  width: 34rem;
-  height: 34rem;
-  top: -8rem;
-  left: -6rem;
-  background: radial-gradient(circle, rgba(184,192,204,0.16), transparent 68%);
-  animation: driftA 18s ease-in-out infinite alternate;
+  width: 55rem;
+  height: 55rem;
+  top: -12rem;
+  left: -10rem;
+  background: radial-gradient(circle, rgba(255, 122, 0, 0.12), transparent 70%);
+  animation: driftA 22s ease-in-out infinite alternate;
+}
+
+:root[data-theme="light"] .scene-orb-a {
+  background: radial-gradient(circle, rgba(200, 155, 44, 0.14), transparent 70%);
 }
 
 .scene-orb-b {
-  width: 28rem;
-  height: 28rem;
+  width: 45rem;
+  height: 45rem;
   top: 14rem;
-  right: -8rem;
-  background: radial-gradient(circle, rgba(150,160,174,0.12), transparent 70%);
-  animation: driftB 22s ease-in-out infinite alternate;
+  right: -12rem;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.10), transparent 70%);
+  animation: driftB 26s ease-in-out infinite alternate;
+}
+
+:root[data-theme="light"] .scene-orb-b {
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.12), transparent 70%);
 }
 
 .scene-orb-c {
-  width: 24rem;
-  height: 24rem;
-  bottom: -6rem;
-  left: 30%;
-  background: radial-gradient(circle, rgba(184,192,204,0.1), transparent 72%);
-  animation: driftC 24s ease-in-out infinite alternate;
+  width: 40rem;
+  height: 40rem;
+  bottom: -10rem;
+  left: 20%;
+  background: radial-gradient(circle, rgba(255, 81, 0, 0.08), transparent 70%);
+  animation: driftC 28s ease-in-out infinite alternate;
+}
+
+:root[data-theme="light"] .scene-orb-c {
+  background: radial-gradient(circle, rgba(200, 155, 44, 0.08), transparent 70%);
 }
 
 main,
@@ -2294,8 +2293,12 @@ main,
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top, rgba(184,192,204,0.09), transparent 40%), radial-gradient(circle at bottom right, rgba(150,160,174,0.06), transparent 35%);
+  background: radial-gradient(circle at top, rgba(255, 122, 0, 0.05), transparent 40%), radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.04), transparent 35%);
   pointer-events: none;
+}
+
+:root[data-theme="light"] .sidebar::before {
+  background: radial-gradient(circle at top, rgba(200, 155, 44, 0.06), transparent 40%), radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.05), transparent 35%);
 }
 
 .avatar-box {
@@ -2329,7 +2332,7 @@ main,
 .pub-item-card {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--bg-content-light) 90%, white 10%) 0%, var(--bg-content-light) 100%);
+  background: var(--bg-content);
   box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, var(--shadow-1);
 }
 
@@ -3389,14 +3392,16 @@ main,
 }
 
 /* Highlighted featured card */
-.recognition-item-body.featured-achievement {
+.recognition-item-body.featured-achievement,
+.featured-card {
   border-color: color-mix(in srgb, var(--color-accent) 35%, var(--border-color) 65%);
   background: linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 6%, var(--bg-content) 94%) 0%, var(--bg-content) 100%);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15), 
               inset 0 0 12px color-mix(in srgb, var(--accent-secondary) 4%, transparent);
 }
 
-.recognition-item-body.featured-achievement::before {
+.recognition-item-body.featured-achievement::before,
+.featured-card::before {
   content: "";
   position: absolute;
   top: 0;
@@ -3407,7 +3412,8 @@ main,
   pointer-events: none;
 }
 
-.recognition-item-body.featured-achievement:hover {
+.recognition-item-body.featured-achievement:hover,
+.featured-card:hover {
   border-color: var(--color-accent);
   box-shadow: 0 20px 45px color-mix(in srgb, var(--color-accent) 16%, transparent),
               0 0 24px color-mix(in srgb, var(--accent-secondary) 12%, transparent),
@@ -3425,9 +3431,11 @@ main,
   filter: blur(10px);
   pointer-events: none;
   transition: opacity 0.3s ease;
+  z-index: 0;
 }
 
-.recognition-item-body:hover .recognition-glow-indicator {
+.recognition-item-body:hover .recognition-glow-indicator,
+.featured-card:hover .recognition-glow-indicator {
   opacity: 1;
 }
 
