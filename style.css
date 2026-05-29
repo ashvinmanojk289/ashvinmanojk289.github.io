@@ -3193,27 +3193,6 @@ main,
   letter-spacing: 0.02em;
 }
 
-.assistant-project-card {
-  margin-top: 6px;
-  padding: 14px;
-  background: color-mix(in srgb, var(--bg-content-light) 90%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-accent) 14%, var(--border-color) 86%);
-  border-radius: 18px;
-  box-shadow: var(--assistant-chip-shadow);
-  position: relative;
-  overflow: hidden;
-  backdrop-filter: blur(8px);
-}
-
-.assistant-project-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: var(--border-gradient);
-}
 
 
 @keyframes assistant-pulse {

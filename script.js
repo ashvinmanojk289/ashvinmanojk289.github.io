@@ -1303,11 +1303,8 @@ function initPortfolioAssistant() {
             ? `<div class="assistant-tech-pills">${chunk.techStack.map(tech => `<span class="assistant-tech-pill">${escapeHtml(tech)}</span>`).join('')}</div>`
             : '';
 
-        const isProjectCard = ['magmf_net', 'ai_projects'].includes(chunk.id);
-        const cardClass = isProjectCard ? ' assistant-project-card' : '';
-
         return `
-            <div class="${cardClass}">
+            <div>
                 ${chunk.title ? `<p class="assistant-response-title">${escapeHtml(chunk.title)}</p>` : ''}
                 ${compiledSummary}
                 ${techPills}
